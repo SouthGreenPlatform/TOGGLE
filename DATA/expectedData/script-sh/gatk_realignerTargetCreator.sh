@@ -1,0 +1,2 @@
+/usr/java/jre1.7.0_51/bin/java -Xmx12g -jar /usr/local/GenomeAnalysisTK-3.3/GenomeAnalysisTK.jar -T RealignerTargetCreator -nt 4  -R ../Reference.fasta -I ../RC3.SAMTOOLSVIEW.bam -o ../RC3.GATKREALIGNERTARGETCREATOR.intervals
+/usr/java/jre1.7.0_51/bin/java -Xmx12g -jar /usr/local/GenomeAnalysisTK-3.3/GenomeAnalysisTK.jar -T RealignerTargetCreator -nt 4  -R ../Reference.fasta -I ../RC3Single.SAMTOOLSVIEW.bam -o ../RC3Single.GATKREALIGNERTARGETCREATOR.intervals

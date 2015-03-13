@@ -1,0 +1,1 @@
+samtools faidx ../Reference.fasta
