@@ -1,0 +1,91 @@
+#Config file
+# True comments with "#"
+#Program name code by $NAME
+#under the program name (empty lines do not count), the option are symbolized by key=value (ex -n=5) or key alone (ex m)
+
+#first program config
+$cutadapt
+-e=0.1
+-O=10
+-m=35
+-q=20
+--overlap=7
+
+#2nd program config
+$samtools view single
+-h
+-b
+-F=0x04
+
+$samtools view pair
+-h
+-b
+-F=0x02
+
+#3nd program config
+$BWA aln
+-n=5
+-o=1
+-e=-1
+
+$BWA index
+-a=is
+
+#4th program
+$GATK UnifiedGenotyper
+-T=UnifiedGenotyper
+-glm=BOTH
+-stand_call_conf=50
+-stand_emit_conf=10
+-dcov=200
+--output_mode=EMIT_ALL_CONFIDENT_SITES
+
+$GATK VariantFiltration
+-T=VariantFiltration
+
+$GATK selectVariants
+-T=SelectVariants
+#-selectType=SNP
+
+$GATK ReadBackedPhasing
+-T=ReadBackedPhasing
+ 
+$GATK gatkBaseRecalibrator
+-T=BaseRecalibrator
+
+$GATK gatkRealignerTargetCreator
+-T=RealignerTargetCreator
+-nt=4
+
+$GATK gatkIndelRealigner
+-T=IndelRealigner
+
+$GATK gatkHaplotypeCaller
+-T=HaplotypeCaller
+
+
+$picardTools sortsam pair
+SORT_ORDER=coordinate
+VALIDATION_STRINGENCY=SILENT
+
+$picardTools sortsam single
+-SORT_ORDER=coordinate
+
+$picardTools MarkDuplicates
+VALIDATION_STRINGENCY=SILENT
+
+$tophat tophatRun
+-i=30
+-I=20000
+-a=8
+-m=1
+--no-coverage-search
+-g=10
+--bowtie-n
+--library-type
+fr-unstranded
+--microexon-search
+
+$picardTools createSequenceDictionary
+no_option
+

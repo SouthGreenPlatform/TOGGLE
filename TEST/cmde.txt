@@ -1,0 +1,2 @@
+perl NGS.pl -d /scratch/tranchant/TEST/ -c /scratch/tranchant/TEST/software.config.txt -a /scratch/tranchant/TEST/adaptator.txt
+
