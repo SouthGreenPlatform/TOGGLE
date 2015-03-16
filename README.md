@@ -37,6 +37,7 @@ Written by Cecile Monat, Christine Tranchant, Ayite Kougbeadjo, Cedric Farcy, Ma
 
 #### TOGGLE DIRECTORY
 
+````
 TOGGLE
 |
 |_ DATA-TEST
@@ -60,7 +61,7 @@ TOGGLE
 |_ singleAnalysis.pl
 |_ software.config.txt
 |_ software.config.txt.test
-
+````
 
 #### INSTALL 
 
