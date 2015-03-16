@@ -109,7 +109,9 @@ TOGGLE
 
 * Get the TOGGLE code Clone the git
 
-```` $git clone https://github.com/SouthGreenPlatform/TOGGLE.git ````
+````
+$git clone https://github.com/SouthGreenPlatform/TOGGLE.git
+````
 
 * Run the test script
 
