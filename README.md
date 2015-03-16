@@ -13,12 +13,12 @@ having to change the code itself.
 We present also the implementation of TOGGLE in a complete analysis pipeline designed for SNP discovery for large sets of NGS data, ready to use
 in different environments (single machine to HPC clusters).
 
-
 -------
-## REQUIREMENTS
-===========
 
-#####Perl
+### REQUIREMENTS
+-------
+
+#### Perl
 
 * Data::Translate
 * Data::Dumper
@@ -26,8 +26,8 @@ in different environments (single machine to HPC clusters).
 * Test::Deep
 * Capture::Tiny
 
-Bioinformatics software
-===========
+#### Bioinformatics software
+
 java 1.7
 fastQC v0.10.1
 cutadapt 1.2.1 
@@ -36,7 +36,7 @@ gatk 3.3
 picardTools 1.63
 SAMtools 0.1.18
 
--------
+
 Versions Notes
 ===========
 
