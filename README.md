@@ -18,13 +18,13 @@ in different environments (single machine to HPC clusters).
 ## REQUIREMENTS
 ===========
 
-###### Perl
-===========
-Data::Translate
-Data::Dumper
-Test::More
-Test::Deep
-Capture::Tiny
+#####Perl
+
+* Data::Translate
+* Data::Dumper
+* Test::More
+* Test::Deep
+* Capture::Tiny
 
 Bioinformatics software
 ===========
