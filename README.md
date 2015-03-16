@@ -41,17 +41,57 @@ Written by Cecile Monat, Christine Tranchant, Ayite Kougbeadjo, Cedric Farcy, Ma
 TOGGLE
 |
 |_ DATA-TEST
+|
 |_ DATA
-    |–––– arcadTest
-    |———— expectedData
+    |———— arcadTest
+            |———— arcad1_1.fastq
+            |———— arcad1_2.fastq
+            |———— arcad2_1.fastq
+            |———— arcad3_1.fastq
+            |———— arcad3_2.fastq
+    |———— expectedData    
     |———— iriginTest
+            |———— irigin1_1.fastq
+            |———— irigin1_2.fastq
+            |———— irigin2_1.fastq
+            |———— irigin3_1.fastq
+            |———— irigin3_2.fastq  
     |____ referenceArcad.fasta
     |____ referenceIrigin.fasta
 |
 |_ Modules
 |
-|_ TEST
+            |———— bwa.pm
+            |———— cufflinks.pm
+            |———— cutadapt.pm
+            |———— fastqUtils.pm
+            |———— fastqc.pm
+            |———— gatk.pm
+            |———— localConfig.pm
+            |———— pairing.pm
+            |———— picardTools.pm
+            |———— samTools.pm
+            |____ toolbox.pm
+            |____ tophat.pm
 |
+|_ TEST
+            |———— adaptator.txt
+            |————  adaptator.txt
+            |———— all_tests.sh
+            |———— bwa_test.t
+            |———— cufflinks_test.t
+            |———— cutadapt_test.t
+            |———— fastqUtils_test.t
+            |———— fastqc_test.t
+            |———— gatk_test.t	
+            |———— localConfig_test.t	
+            |———— pairing_test.t	
+            |———— picardTools_test.t	
+            |———— pipelineTryExample.p
+            |———— samTools_test.t
+            |———— software.config.txt
+            |———— toolbox_test.t
+            |———— tophat_test.t
 |_ LICENSE
 |_ README.md
 |_ adaptator.txt
