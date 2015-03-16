@@ -35,12 +35,42 @@ Written by Cecile Monat, Christine Tranchant, Ayite Kougbeadjo, Cedric Farcy, Ma
 * picardTools 1.63
 * SAMtools 0.1.18
 
-## INSTALL 
+#### TOGGLE DIRECTORY
 
-* Creating the directory TOGGLE
+TOGGLE
+|
+|_ DATA-TEST
+|_ DATA
+    |–––– arcadTest
+    |———— expectedData
+    |———— iriginTest
+    |____ referenceArcad.fasta
+    |____ referenceIrigin.fasta
+|
+|_ Modules
+|
+|_ TEST
+|
+|_ LICENSE
+|_ README.md
+|_ adaptator.txt
+|_ globalAnalysis.pl
+|_ mergeAnaysis.pl
+|_ pairAnalysis.pl
+|_ singleAnalysis.pl
+|_ software.config.txt
+|_ software.config.txt.test
 
-````mkdir $path_install/TOGGLE ````
 
+#### INSTALL 
+
+* Create the directory TOGGLE where you want to install TOGGLE and go into this directory
+
+* Get the TOGGLE code Clone the git
+
+````` $git clone https://github.com/SouthGreenPlatform/TOGGLE.git ````
+
+* 
 
 ##  Versions Notes
 
