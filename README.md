@@ -109,9 +109,20 @@ TOGGLE
 
 * Get the TOGGLE code Clone the git
 
-````` $git clone https://github.com/SouthGreenPlatform/TOGGLE.git ````
+```` $git clone https://github.com/SouthGreenPlatform/TOGGLE.git ````
 
-* 
+* Run the test script
+
+````
+cd TEST
+sh all_tests.sh
+````
+
+* Test the pipiline with the test data
+
+````
+perl $PATH_INSTALL/globalAnalysis.pl $PATH_INSTALL/DATA/arcardTest/ $PATH_INSTALL/software.config.txt $PATH_INSTALL/DATA/referenceArcad.fasta
+````
 
 ##  Versions Notes
 
