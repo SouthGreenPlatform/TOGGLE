@@ -12,7 +12,6 @@ in different environments (single machine to HPC clusters).
 -------
 
 ## REQUIREMENTS
--------
 
 #### Perl
 
@@ -34,14 +33,14 @@ SAMtools 0.1.18
 
 
 ## Versions Notes
-===========
+
 
 Release 0.2, 14st of March, 2015
 
 Second version release
 
 ## Contributing
-===========
+
 Licencied under CeCill-C (http://www.cecill.info/licences/Licence_CeCILL-C_V1-en.html) and GPLv3 
 Intellectual property belongs to IRD, CIRAD and SouthGreen developpement plateform 
 Written by Cecile Monat, Christine Tranchant, Ayite Kougbeadjo, Cedric Farcy, Mawusse Agbessi, Marilyne Summo, and Francois Sabot
