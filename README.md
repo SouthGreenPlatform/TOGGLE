@@ -15,9 +15,30 @@ in different environments (single machine to HPC clusters).
 
 
 -------
+REQUIREMENTS
+===========
 
+Perl
+===========
+Data::Translate
+Data::Dumper
+Test::More
+Test::Deep
+Capture::Tiny
+
+Bioinformatics software
+===========
+java 1.7
+fastQC v0.10.1
+cutadapt 1.2.1 
+BWA 0.7.2 
+gatk 3.3 
+picardTools 1.63
+SAMtools 0.1.18
+
+-------
 Versions Notes
-
+===========
 
 Release 0.2, 14st of March, 2015
 
