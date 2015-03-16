@@ -15,7 +15,7 @@ in different environments (single machine to HPC clusters).
 
 
 -------
-REQUIREMENTS
+# REQUIREMENTS
 ===========
 
 Perl
