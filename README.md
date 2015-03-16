@@ -1,10 +1,6 @@
 TOGGLE : Toolbox for generic NGS analyses
 ===========
 
-Licencied under CeCill-C (http://www.cecill.info/licences/Licence_CeCILL-C_V1-en.html) and GPLv3 
-Intellectual property belongs to IRD, CIRAD and SouthGreen developpement plateform 
-Written by Cecile Monat, Christine Tranchant, Ayite Kougbeadjo, Cedric Farcy, Mawusse Agbessi, Marilyne Summo, and Francois Sabot
-
 TOGGLE (TOolbox for Generic nGs anaLysEs) is a suite of 10 packages and more than 110 modules able to manage a large set of NGS softwares
 and utilities to easily design pipelines able to handle hundreds of samples. Moreover, TOGGLE offers an easy way to manipulate the various
 options of the different softwares through the pipelines in using a single basic configuration file, that can be changed for each assay without
@@ -15,7 +11,7 @@ in different environments (single machine to HPC clusters).
 
 -------
 
-### REQUIREMENTS
+## REQUIREMENTS
 -------
 
 #### Perl
@@ -37,9 +33,15 @@ picardTools 1.63
 SAMtools 0.1.18
 
 
-Versions Notes
+## Versions Notes
 ===========
 
 Release 0.2, 14st of March, 2015
 
 Second version release
+
+## Contributing
+===========
+Licencied under CeCill-C (http://www.cecill.info/licences/Licence_CeCILL-C_V1-en.html) and GPLv3 
+Intellectual property belongs to IRD, CIRAD and SouthGreen developpement plateform 
+Written by Cecile Monat, Christine Tranchant, Ayite Kougbeadjo, Cedric Farcy, Mawusse Agbessi, Marilyne Summo, and Francois Sabot
