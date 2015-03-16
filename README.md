@@ -22,23 +22,23 @@ in different environments (single machine to HPC clusters).
 
 #### Bioinformatics software
 
-java 1.7
-fastQC v0.10.1
-cutadapt 1.2.1 
-BWA 0.7.2 
-gatk 3.3 
-picardTools 1.63
-SAMtools 0.1.18
+* java 1.7
+* fastQC v0.10.1
+* cutadapt 1.2.1 
+* BWA 0.7.2 
+* gatk 3.3 
+* picardTools 1.63
+* SAMtools 0.1.18
 
 
-####  Contributing
+##  Contributing
 
 Licencied under CeCill-C (http://www.cecill.info/licences/Licence_CeCILL-C_V1-en.html) and GPLv3 
 Intellectual property belongs to IRD, CIRAD and SouthGreen developpement plateform 
 Written by Cecile Monat, Christine Tranchant, Ayite Kougbeadjo, Cedric Farcy, Mawusse Agbessi, Marilyne Summo, and Francois Sabot
 
 
-####  Versions Notes
+##  Versions Notes
 
 Release 0.2, 14st of March, 2015
 
