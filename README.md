@@ -125,9 +125,9 @@ $perl $PATH_INSTALL/globalAnalysis.pl $PATH_INSTALL/DATA/arcardTest/ $PATH_INSTA
 ````
 
 * Check the good running 
-> * No error message
-> * BamDirectory has been well created into $PATH_INSTALL/DATA
-> * the data generated are good
+ * No error message
+ * BamDirectory has been well created into $PATH_INSTALL/DATA
+ * the data generated are good
 
 ````
 tail $PATH_INSTALL/DATA/BamDirectory/GATKVARIANTFILTRATION.vcf
