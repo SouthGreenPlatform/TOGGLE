@@ -112,6 +112,19 @@ TOGGLE
 ````
 $git clone https://github.com/SouthGreenPlatform/TOGGLE.git
 ````
+* Add the Module path to the PERL5LIB environment variable
+
+````
+export PERL5LIB=$PERL5LIB:/path_to_toggle/Modules
+````
+* In the same way add the TOGGLE directory to the PATH environment variable
+
+````
+export PERL5LIB=$PERL5LIB:/pathToToggle/Modules
+export PATH=$PATH:/pathToToggle
+````
+
+Rq : you can add this to the ~/.bashrc to make it always available when you log-in.
 
 * Run the test script
 
@@ -123,7 +136,7 @@ $sh all_tests.sh
 * Test the pipiline with the test data
 
 ````
-$perl $PATH_INSTALL/globalAnalysis.pl $PATH_INSTALL/DATA/arcardTest/ $PATH_INSTALL/software.config.txt $PATH_INSTALL/DATA/referenceArcad.fasta
+$globalAnalysis.pl $PATH_INSTALL/DATA/arcardTest/ $PATH_INSTALL/software.config.txt $PATH_INSTALL/DATA/referenceArcad.fasta
 ````
 
 * Check the good running 
