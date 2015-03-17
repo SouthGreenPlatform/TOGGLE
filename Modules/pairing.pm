@@ -94,12 +94,12 @@ sub pairRecognition
 	#Picking up the name of the pair and its coding convention 
 	my $sequenceName=$firstLineComplete; 
 	$sequenceName =~ s/\/.$// and $namingConvention = 1; # old agreement /1 /2
-	$sequenceName =~ s/\s\d:\w:\d:\w{1,10}$// and $namingConvention = 2; # new agreement 1:N:[A-Z]1 to 10
+	$sequenceName =~ s/\s\d:\w:\d:\w+$// and $namingConvention = 2; # new agreement 1:N:[A-Z]1 to 10
 	
 	#Picking up the strand of the current mate of the pair 
 	my $typeOfStrand=$firstLineComplete;
 	$typeOfStrand =~ s/.+\/(.)$/$1/ if $namingConvention == 1;
-	$typeOfStrand =~ s/.+\s(\d:\w:\d:\w{1,10})$/$1/ if $namingConvention == 2;
+	$typeOfStrand =~ s/.+\s(\d:\w:\d:\w+)$/$1/ if $namingConvention == 2;
 	
 	#Converting the end of Line in forward and reverse
 	my $nameOfStrand = "unknown"; # May correspond to the single sequence
@@ -211,7 +211,7 @@ sub repairing
         next if ($line =~ m/^$/);		# next line if the line is empty
         my $next = $line."\n";
 	$line =~ s/\/\d$//;		# Removing the ending /1 or /2 if the file is encoded in Illumina 1.3-1.8
-        $line =~ s/\s\d:\w:\d:\w{1,10}$//;		#Removing the ending 1:N:1234 or analog if the file is encoded in Illumina 1.9+
+        $line =~ s/\s\d:\w:\d:\w+$//;		#Removing the ending 1:N:1234 or analog if the file is encoded in Illumina 1.9+
 	$next .= <FOR>;		# add the sequence line to the "next" variable
 	$next .= <FOR>;		# add the informations line to the "next" variable
 	$next .= <FOR>;		# add the quality line to the "next" variable
@@ -226,7 +226,7 @@ sub repairing
 	next if ($line =~ m/^$/);		# next line if the line is empty
 	my $next = $line."\n";
 	$line =~ s/\/\d$//;		# Removing the ending /1 or /2 if the file is encoded in Illumina 1.3-1.8
-	$line =~ s/\s\d:\w:\d:\w{1,10}$//;		#Removing the ending 1:N:1234 or analog if the file is encoded in Illumina 1.9+
+	$line =~ s/\s\d:\w:\d:\w+$//;		#Removing the ending 1:N:1234 or analog if the file is encoded in Illumina 1.9+
 	$next .= <REV>;		# add the sequence line to the "next" variable
 	$next .= <REV>;		# add the informations line to the "next" variable
 	$next .= <REV>;		# add the quality line to the "next" variable
