@@ -130,7 +130,9 @@ for (my $i=0; $i<=$#listOfFiles; $i++)                                          
         if ($#listOfFastq == 0)                                                                             # if 1 file --> single analysis to do
         {
             toolbox::exportLog("INFOS: $0 : Run singleAnalysis.pl on $firstDir\n",1);
-            my $singleCom = 'qsub -N singleAnalysis -V -b Y "singleAnalysis.pl $firstDir $fileConf $refFastaFile"';
+            my $singleCom = 'qsub -N singleAnalysis -V -b Y "singleAnalysis.pl '.$firstDir.' '.$fileConf.' '.$refFastaFile.'"';
+            ##DEBUG
+            toolbox::exportLog("DEBUG: $0 : qsub singleAnalysis command : $singleCom\n",1);
             my $job_id = `$singleCom`;
             
             toolbox::run("sleep 50");
@@ -138,14 +140,17 @@ for (my $i=0; $i<=$#listOfFiles; $i++)                                          
             if ($job_id =~ /^[^\d]+(\d+)\s/)
             {
                 $jobList.=$1."|";
-                ##DEBUG toolbox::exportLog("DEBUGGGG: $0 : $jobList\n",1);
+                ##DEBUG
+                toolbox::exportLog("DEBUG: $0 : $jobList\n",1);
             }
             else { toolbox::exportLog("ERROR: $0 : Problem with list of job id : $job_id.\n",0); }
         }
         elsif ($#listOfFastq == 1)                                                                          # if 2 files --> pair analysis to do
         {
             toolbox::exportLog("INFOS: $0 : Run pairAnalysis.pl on $firstDir\n",1);
-            my $pairCom = 'qsub -N pairAnalysis -V -b Y "pairAnalysis.pl $firstDir $fileConf $refFastaFile"';
+            my $pairCom = 'qsub -N pairAnalysis -V -b Y "pairAnalysis.pl '.$firstDir.' '.$fileConf.' '.$refFastaFile.'"';
+            ##DEBUG
+            toolbox::exportLog("DEBUG: $0 : qsub pairAnalysis command : $pairCom\n",1);
             my $job_id = `$pairCom`;
             
             toolbox::run("sleep 50");
@@ -153,7 +158,8 @@ for (my $i=0; $i<=$#listOfFiles; $i++)                                          
             if ($job_id =~ /^[^\d]+(\d+)\s/)
             {
                 $jobList.=$1."|";
-                ##DEBUG toolbox::exportLog("DEBUGGGG: $0 : $jobList\n",1);
+                ##DEBUG
+                toolbox::exportLog("DEBUG: $0 : $jobList\n",1);
             }
             else { toolbox::exportLog("ERROR: $0 : Problem with list of job id : $job_id.\n",0); }
         
@@ -173,11 +179,11 @@ for (my $i=0; $i<=$#listOfFiles; $i++)                                          
 chop $jobList if ($jobList =~/\|$/);
 my $jobRunning=`qstat | egrep -c '$jobList'`; #count row with right job id
 chomp $jobRunning;
-toolbox::exportLog("INFOSSS: $0 : There are $jobRunning sub jobs running with job id $jobList\n",1);
+toolbox::exportLog("INFOS: $0 : There are $jobRunning sub jobs running with job id $jobList\n",1);
 
 while ( $jobRunning > 0 ) 	# when no more matching row, job is over
 {
-	toolbox::exportLog("INFOSSS: $0 : There are $jobRunning sub jobs running with job id $jobList\n",1);
+	toolbox::exportLog("INFOS: $0 : There are $jobRunning sub jobs running with job id $jobList\n",1);
         toolbox::run("sleep 3");			#go to bed for 3 seconds
 	$jobRunning=`qstat | egrep -c '$jobList'`;
         chomp $jobRunning;
