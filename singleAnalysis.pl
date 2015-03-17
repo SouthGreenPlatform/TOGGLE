@@ -189,7 +189,7 @@ bwa::bwaIndex($refFastaFile,$softParameters);                                   
 $softParameters = toolbox::extractHashSoft($optionref,"BWA aln");                                           # recovery of specific parameters of bwa aln
 $fileWithoutExtention = toolbox::extractName($listOfFiles[0]);                                              # extract name of file without the extention
 my $saiFileOut = "$newDir"."/"."$fileWithoutExtention".".BWAALN.sai";                                       # name for the output file of bwa aln
-bwa::bwaAln($refFastaFile,$listOfFiles[0],$saiFileOut,$softParameters);                                     # find the SA coordinates of the current file
+bwa::bwaAln($refFastaFile,$fileOut,$saiFileOut,$softParameters);                                     # find the SA coordinates of the current file
 my $samFileOut = "$newDir"."/"."$fileWithoutExtention".".BWASAMSE.sam";                                     # name for the output file of bwa samse
 $softParameters = toolbox::extractHashSoft($optionref,"BWA samse");                                         # recovery of specific parameters of bwa samse
 
