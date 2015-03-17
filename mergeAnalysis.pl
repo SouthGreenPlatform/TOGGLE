@@ -1,4 +1,4 @@
-# script to merge BAM and analyse them
+#!/opt/perl-5.16.2/bin/perl
 
 
 
