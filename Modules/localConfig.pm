@@ -38,9 +38,8 @@ use warnings;
 use Exporter;
 
 our @ISA=qw(Exporter);
-our @EXPORT=qw($bwa $picard $samtools $GATK $cufflinks $pacBioToCA $cutadapt $fastqc $java $snpEff $toggle);
+our @EXPORT=qw($bwa $picard $samtools $GATK $cufflinks $pacBioToCA $cutadapt $fastqc $java $snpEff);
 
-our $toggle="/home/tranchant/TOGGLE-IRD";  # PATH for TOGGLE 
 
 #PATH for Mapping on cluster
 our $java = "/usr/local/java/latest/bin/java -Xmx12g -jar";
