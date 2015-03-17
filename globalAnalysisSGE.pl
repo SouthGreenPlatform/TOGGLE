@@ -45,6 +45,7 @@ my $fileConf = $ARGV[1];                                                        
 my $refFastaFile = $ARGV[2];                                                                                # recovery of the reference file
 my $cmd_line=$0." @ARGV";
 
+my $jobList;
 
 my $infosFile = "individuSoft.txt";
 
@@ -129,14 +130,33 @@ for (my $i=0; $i<=$#listOfFiles; $i++)                                          
         if ($#listOfFastq == 0)                                                                             # if 1 file --> single analysis to do
         {
             toolbox::exportLog("INFOS: $0 : Run singleAnalysis.pl on $firstDir\n",1);
-            my $singleCom = "singleAnalysis.pl $firstDir $fileConf $refFastaFile";
-            toolbox::run($singleCom);
+            my $singleCom = 'qsub -N singleAnalysis -V -b Y "singleAnalysis.pl $firstDir $fileConf $refFastaFile"';
+            my $job_id = `$singleCom`;
+            
+            toolbox::run("sleep 50");
+            
+            if ($job_id =~ /^[^\d]+(\d+)\s/)
+            {
+                $jobList.=$1."|";
+                ##DEBUG toolbox::exportLog("DEBUGGGG: $0 : $jobList\n",1);
+            }
+            else { toolbox::exportLog("ERROR: $0 : Problem with list of job id : $job_id.\n",0); }
         }
         elsif ($#listOfFastq == 1)                                                                          # if 2 files --> pair analysis to do
         {
             toolbox::exportLog("INFOS: $0 : Run pairAnalysis.pl on $firstDir\n",1);
-            my $pairCom = "pairAnalysis.pl $firstDir $fileConf $refFastaFile";
-            toolbox::run($pairCom);
+            my $pairCom = 'qsub -N pairAnalysis -V -b Y "pairAnalysis.pl $firstDir $fileConf $refFastaFile"';
+            my $job_id = `$pairCom`;
+            
+            toolbox::run("sleep 50");
+            
+            if ($job_id =~ /^[^\d]+(\d+)\s/)
+            {
+                $jobList.=$1."|";
+                ##DEBUG toolbox::exportLog("DEBUGGGG: $0 : $jobList\n",1);
+            }
+            else { toolbox::exportLog("ERROR: $0 : Problem with list of job id : $job_id.\n",0); }
+        
         }
         else                                                                                                # if more than 2 files, there is a problem
         {
@@ -148,6 +168,19 @@ for (my $i=0; $i<=$#listOfFiles; $i++)                                          
     {
         next;
     }
+}
+
+chop $jobList if ($jobList =~/\|$/);
+my $jobRunning=`qstat | egrep -c '$jobList'`; #count row with right job id
+chomp $jobRunning;
+toolbox::exportLog("INFOSSS: $0 : There are $jobRunning sub jobs running with job id $jobList\n",1);
+
+while ( $jobRunning > 0 ) 	# when no more matching row, job is over
+{
+	toolbox::exportLog("INFOSSS: $0 : There are $jobRunning sub jobs running with job id $jobList\n",1);
+        toolbox::run("sleep 3");			#go to bed for 3 seconds
+	$jobRunning=`qstat | egrep -c '$jobList'`;
+        chomp $jobRunning;
 }
 
 if ($loop == 1)
