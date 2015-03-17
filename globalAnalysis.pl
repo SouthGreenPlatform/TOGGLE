@@ -130,13 +130,13 @@ for (my $i=0; $i<=$#listOfFiles; $i++)                                          
         if ($#listOfFastq == 0)                                                                             # if 1 file --> single analysis to do
         {
             toolbox::exportLog("INFOS: $0 : Run singleAnalysis.pl on $firstDir\n",1);
-            my $singleCom = "perl singleAnalysis.pl $firstDir $fileConf $refFastaFile";
+            my $singleCom = "singleAnalysis.pl $firstDir $fileConf $refFastaFile";
             toolbox::run($singleCom);
         }
         elsif ($#listOfFastq == 1)                                                                          # if 2 files --> pair analysis to do
         {
             toolbox::exportLog("INFOS: $0 : Run pairAnalysis.pl on $firstDir\n",1);
-            my $pairCom = "perl pairAnalysis.pl $firstDir $fileConf $refFastaFile";
+            my $pairCom = "pairAnalysis.pl $firstDir $fileConf $refFastaFile";
             toolbox::run($pairCom);
         }
         else                                                                                                # if more than 2 files, there is a problem
@@ -222,7 +222,7 @@ if ($okFinal == 1)
 
 
 toolbox::exportLog("INFOS: $0 : Run mergeAnalysis.pl on $bamDirPath\n",1);
-my $mergeCom = "perl mergeAnalysis.pl $bamDirPath $fileConf $refFastaFile";
+my $mergeCom = "mergeAnalysis.pl $bamDirPath $fileConf $refFastaFile";
 toolbox::run($mergeCom);
 
 toolbox::exportLog("#########################################\nCONGRATS: SNP calling done correctly !\n#########################################\n",1);
