@@ -138,7 +138,7 @@ for (my $i=0; $i<=$#listOfFiles; $i++)                                          
         elsif ($#listOfFastq == 1)                                                                          # if 2 files --> pair analysis to do
         {
             toolbox::exportLog("INFOS: $0 : Run pairAnalysis.pl on $firstDir\n",1);
-            my $pairCom = "perl pairAnalysisV2.pl $firstDir $fileConf $refFastaFile";
+            my $pairCom = "perl pairAnalysis.pl $firstDir $fileConf $refFastaFile";
             toolbox::run($pairCom);
         }
         else                                                                                                # if more than 2 files, there is a problem
