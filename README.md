@@ -115,12 +115,11 @@ $git clone https://github.com/SouthGreenPlatform/TOGGLE.git
 * Add the Module path to the PERL5LIB environment variable
 
 ````
-export PERL5LIB=$PERL5LIB:/path_to_toggle/Modules
+export PERL5LIB=$PERL5LIB:/pathToToggle/Modules
 ````
 * In the same way add the TOGGLE directory to the PATH environment variable
 
 ````
-export PERL5LIB=$PERL5LIB:/pathToToggle/Modules
 export PATH=$PATH:/pathToToggle
 ````
 
