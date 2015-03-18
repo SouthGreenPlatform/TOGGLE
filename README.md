@@ -9,7 +9,7 @@ having to change the code itself.
 We present also the implementation of TOGGLE in a complete analysis pipeline designed for SNP discovery for large sets of NGS data, ready to use
 in different environments (single machine to HPC clusters).
 
-##  Contributing
+##  Contributing sebastien
 
 * Licencied under CeCill-C (http://www.cecill.info/licences/Licence_CeCILL-C_V1-en.html) and GPLv3 
 * Intellectual property belongs to IRD, CIRAD and SouthGreen developpement plateform 
