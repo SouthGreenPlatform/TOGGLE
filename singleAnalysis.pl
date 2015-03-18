@@ -163,7 +163,7 @@ print LOG "INFOS: $0 : Start cutadapt create configuration file\n";
 print F1 "cutadapt\n";
 $newDir = toolbox::changeDirectoryArbo($initialDir,2);                                                   # change for the cutadapt directory
 ##DEBUG print LOG "CHANGE DIRECTORY TO $newDir\n";
-my $fileAdaptator = "/teams/ggr/pipelineNGS/adaptator.txt";     # /!\ ARGV[3] et si non reseigné ce fichier là, mais on le place où ?
+my $fileAdaptator = "$toggle/adaptator.txt";     # /!\ ARGV[3] et si non reseigné ce fichier là, mais on le place où ?
 toolbox::checkFile($fileAdaptator);
 my $cutadaptSpecificFileConf = "$newDir"."/cutadapt.conf";                                                  # name for the cutadapt specific configuration file
 my $optionref = toolbox::readFileConf($fileConf);                                                           # recovery of option for cutadapt
