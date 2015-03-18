@@ -17,7 +17,7 @@ in different environments (single machine to HPC clusters).
 
 ## REQUIREMENTS - Enrique
 
-#### Perl - Julie^^
+#### Perl - Julie
 
 * Data::Translate
 * Data::Dumper
