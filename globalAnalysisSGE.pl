@@ -260,7 +260,9 @@ if ($okFinal == 1)
 
 
 toolbox::exportLog("INFOS: $0 : Run mergeAnalysis.pl on $bamDirPath\n",1);
-my $mergeCom = "mergeAnalysis.pl $bamDirPath $fileConf $refFastaFile";
+my $mergeCom = 'qsub -N mergeAnalysis -V -b Y "mergeAnalysis.pl '.$bamDirPath.' '.$fileConf.' '.$refFastaFile.'"';
+##DEBUG
+toolbox::exportLog("DEBUG: $0 : qsub pairAnalysis command : $mergeCom\n",1);
 toolbox::run($mergeCom);
 
 toolbox::exportLog("#########################################\nCONGRATS: SNP calling done correctly !\n#########################################\n",1);
