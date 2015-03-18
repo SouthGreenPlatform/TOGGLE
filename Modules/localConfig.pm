@@ -38,8 +38,10 @@ use warnings;
 use Exporter;
 
 our @ISA=qw(Exporter);
-our @EXPORT=qw($bwa $picard $samtools $GATK $cufflinks $pacBioToCA $cutadapt $fastqc $java $snpEff);
+our @EXPORT=qw($bwa $picard $samtools $GATK $cufflinks $pacBioToCA $cutadapt $fastqc $java $snpEff $toggle);
 
+#toggle path
+our $toggle="/path/to/toggle";
 
 #PATH for Mapping on cluster
 our $java = "/usr/local/java/latest/bin/java -Xmx12g -jar";
