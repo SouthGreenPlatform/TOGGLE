@@ -15,7 +15,7 @@ in different environments (single machine to HPC clusters).
 * Intellectual property belongs to IRD, CIRAD and SouthGreen developpement plateform 
 * Written by Cecile Monat, Christine Tranchant, Ayite Kougbeadjo, Cedric Farcy, Mawusse Agbessi, Marilyne Summo, and Francois Sabot
 
-## REQUIREMENTS -
+## REQUIREMENTS
 
 #### Perl
 
