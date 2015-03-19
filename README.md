@@ -133,6 +133,9 @@ $cd /pathToToggle
 $chmod 755 *pl
 ```
 
+* Modify the file /pathToToggle/Modules/localConfig.pm
+
+
 * Run the test script
 
 ````
