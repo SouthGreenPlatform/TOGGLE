@@ -126,7 +126,7 @@ export PATH=$PATH:/pathToToggle
 Rq : you can add this to the ~/.bashrc to make it always available when you log-in.
 
 
-* Change the permission of the perl file in the directory TOGGLE
+* Change the permission of the perl files in the directory TOGGLE
 
 ```
 $cd /pathToToggle
