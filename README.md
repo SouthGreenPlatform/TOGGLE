@@ -26,7 +26,7 @@ in different environments (single machine to HPC clusters).
 * Capture::Tiny
 
 
-#### Bioinformatics software amanzougarene sur la branche test-souhila
+#### Bioinformatics software amanzougarene sur la branche 
 
 * java 1.7
 * fastQC v0.10.1
