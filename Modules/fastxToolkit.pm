@@ -36,6 +36,12 @@ use localConfig;
 use toolbox;
 use Data::Dumper;
 
+
+################################
+# Different softwares of fastxToolkit
+################################
+#
+# sub fastxTrimmer : to remove the n first pb of sequences in  fatsq file
 sub fastxTrimmer
 {
     my($fastqFileIn,$fastqFileOut,$optionsHachees)=@_;
