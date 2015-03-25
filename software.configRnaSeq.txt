@@ -29,7 +29,7 @@ $BWA aln
 -e=-1
 
 $BWA index
--a=is
+
 
 $BWA sampe
 
