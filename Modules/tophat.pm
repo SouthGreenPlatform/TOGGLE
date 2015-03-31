@@ -36,11 +36,11 @@ use localConfig;
 use toolbox;
 use Data::Dumper;
 
-##tophat2 INDEX-BOWTIE-BUILD
+#tophat2 INDEX-BOWTIE-BUILD
 sub bowtieBuild
 {
     my($refFastaFileIn,$optionsHachees)=@_;
-    $refFastaFileIn =~ /^([^\.]+)\./;  # catch o,ly the file name without the file extension and store it into $prefixRef variable
+    $refFastaFileIn =~ /^([^\.]+)\./;   # catch o,ly the file name without the file extension and store it into $prefixRef variable
     my $prefixRef = $1;
     ##DEBUG
     toolbox::exportLog("INFOS: tophat::bowtieBuild : $prefixRef\n",1);
@@ -75,7 +75,8 @@ sub bowtie2Build
     my($refFastaFileIn,$optionsHachees)=@_;
     $refFastaFileIn =~ /^([^\.]+)\./;  # catch o,ly the file name without the file extension and store it into $prefixRef variable
     my $prefixRef = $1;
-    ##DEBUG toolbox::exportLog("INFOS: tophat::bowtie2Build : $prefixRef\n",1);
+    ##DEBUG
+    toolbox::exportLog("INFOS: tophat::bowtie2Build : $prefixRef\n",1);
     
     if (toolbox::sizeFile($refFastaFileIn)==1)		##Check if the reference file exist and is not empty
     {
