@@ -39,13 +39,14 @@ use localConfig;
 use Data::Dumper;
 
 
-use bwa;
+
 use cutadapt;
 use fastqc;
 use fastqUtils;
 use pairing;
 use toolbox;
 use fastxToolkit;
+use tophat;
 
 ##########################################
 # recovery of initial informations/files
@@ -53,8 +54,12 @@ use fastxToolkit;
 my $initialDir = $ARGV[0];                                                                                  # recovery of the name of the directory to analyse
 my $fileConf = $ARGV[1];                                                                                    # recovery of the name of the software.configuration.txt file
 my $refFastaFile = $ARGV[2];                                                                                # recovery of the reference file
-toolbox::existsDir($initialDir);                                                                            # check if this directory exists
+my $gffFile = $ARGV[3];
 
+$refFastaFile =~ /^([^\.]+)\./;                                                                    # catch o,ly the file name without the file extension and store it into $prefixRef variable
+my $prefixRef = $1;
+
+toolbox::existsDir($initialDir);                                                                            # check if this directory exists
 
 
 
@@ -91,7 +96,7 @@ toolbox::makeDir("$initialDir/1_FASTQC/");
 toolbox::makeDir("$initialDir/11_FASTX/");
 toolbox::makeDir("$initialDir/2_CUTADAPT/");
 toolbox::makeDir("$initialDir/3_PAIRING_SEQUENCES/");
-toolbox::makeDir("$initialDir/4_BWA/");
+toolbox::makeDir("$initialDir/4_MAPPER/");
 toolbox::makeDir("$initialDir/5_PICARDTOOLS/");
 toolbox::makeDir("$initialDir/6_SAMTOOLS/");
 toolbox::makeDir("$initialDir/7_GATK/");
@@ -205,7 +210,7 @@ my $softParameters = toolbox::extractHashSoft($optionref, "cutadapt");          
 ##DEBUG print LOG Dumper ($optionref);
 cutadapt::createConfFile($fileAdaptator, $cutadaptSpecificFileConf, $softParameters);                            # create the configuration file specific to cutadapt software
 
-my $trimmedFiles=toolbox::readDir($initialDir."/11_TRIMMER/");
+my $trimmedFiles=toolbox::readDir($initialDir."/11_FASTX/");
 my @trimmedFiles=@$trimmedFiles;
 ##DEBUG print LOG Dumper(@trimmedFiles);
 
@@ -253,45 +258,57 @@ for (my $i=0; $i<=$#cutadaptList; $i++)
 pairing::repairing($finalCutadaptList[0],$finalCutadaptList[1],$newDir);                                                    # from two de-paired files, forward + reverse, will create three files, forward, reverse and singl
 
 ##########################################
-# bwa::bwaIndex
+# tophat::bowtieBuild
 ##########################################
 print LOG "----------------------------------------\n";
-print LOG "INFOS: $0 : Start BWA index and aln\n";
-print F1 "BWA\n";
-$newDir = toolbox::changeDirectoryArbo($initialDir,4);                                                  # change for the bwa direcotry
-my $bwaDir = $newDir;                                                                                   # to keep the information of bwa folder for the following analysis
-##DEBUG print LOG "CHANGE DIRECTORY TO $newDir\n";
-$softParameters = toolbox::extractHashSoft($optionref,"BWA index");                                  # recovery of specific parameters of bwa index
-bwa::bwaIndex($refFastaFile,$softParameters);                                                           # indexation of Reference sequences file
+print LOG "INFOS: $0 : Start BOWTIEBUILD\n";
+print F1 "BOWTIEBUILD\n";
+$newDir = toolbox::changeDirectoryArbo($initialDir,4);                                                  # change for the Mapper direcotry
+my $tophatDir = $newDir;                                                                                # to keep the information of tophat folder for the following analysis
+##DEBUG
+print LOG "CHANGE DIRECTORY TO $newDir\n";
+$softParameters = toolbox::extractHashSoft($optionref,"bowtieBuild");                              # recovery of specific parameters of bowtiebuild index
 
-# A FAIRE SUR TOUT LES FICHIERS
+tophat::bowtieBuild($refFastaFile,$prefixRef,$softParameters);                                           # indexation of Reference sequences file
+
+
+##########################################
+# tophat::bowtie2Build
+##########################################
+print LOG "----------------------------------------\n";
+print LOG "INFOS: $0 : Start BOWTIE2-BUILD\n";
+print F1 "BOWTIE2BUILD\n";
+$newDir = toolbox::changeDirectoryArbo($initialDir,4);                                                  # change for the Mapper direcotry
+$tophatDir = $newDir;                                                                                # to keep the information of tophat folder for the following analysis
+##DEBUG
+print LOG "CHANGE DIRECTORY TO $newDir\n";
+$softParameters = toolbox::extractHashSoft($optionref,"bowtie2-build");                              # recovery of specific parameters of bowtie2build index
+tophat::bowtie2Build($refFastaFile,$prefixRef,$softParameters);                                           # indexation of Reference sequences file
+
+exit;
+
+##########################################
+# tophat::tophat2
+##########################################
+
+print LOG "INFOS: $0 : start tophat2\n";
+$newDir = toolbox::changeDirectoryArbo($initialDir,4);
+##DEBUG print LOG "CHANGE DIRECTORY TO $newDir\n";
+
 my $repairingList = toolbox::readDir($repairingDir);
 ##DEBUG print LOG "INFOS toolbox ReadDir: @$repairingList\n";
 my @repairingList = @$repairingList;
-for (my $i=0; $i<=$#repairingList; $i++)
-{
-    ##########################################
-    # bwa::bwaAln
-    ##########################################
-    $softParameters = toolbox::extractHashSoft($optionref,"BWA aln");                                       # recovery of specific parameters of bwa aln
-    my $fileWithoutExtention = toolbox::extractName($repairingList[$i]);                                         # extract name of file without the extention
-    my $saiFileOut = "$newDir"."/"."$fileWithoutExtention".".BWAALN.sai";                                   # name for the output file of bwa aln
-    bwa::bwaAln($refFastaFile,$repairingList[$i],$saiFileOut,$softParameters);                                # find the SA coordinates of the current file
-}
+
+$softParameters = toolbox::extractHashSoft($optionref,"tophat2");                                       # recovery of specific parameters of tophat2 aln
+$tophatDir = $newDir;
+
+$repairingList[0] =~ /^(.+)\/.+\./; #$forwardFile =~ /^.+\/(.+)\./; 
+my $tophatdirOut = $1."/tophat";   #créer le répertoire des résultats de topaht
 
 
-##########################################
-# bwa::bwaSampe
-##########################################
-print LOG "INFOS: $0 : Start BWA sampe\n";
-$newDir = toolbox::changeDirectoryArbo($initialDir,4);                                                      # change for the bwa direcotry
-##DEBUG print LOG "CHANGE DIRECTORY TO $newDir\n";
-my $listOfSai = toolbox::readDir($bwaDir);                                                                  # read it to recover files in it
-my @listOfSai = @$listOfSai;
-my $fileWithoutExtention = pairing::extractName($listOfSai[0]);                                             # extract name of file without the extention
-my $samFileOut = "$newDir"."/"."$fileWithoutExtention".".BWASAMPE.sam";                                     # name for the output file of bwa sampe
-$softParameters = toolbox::extractHashSoft($optionref,"BWA sampe");                                      # recovery of specific parameters of bwa sampe
-bwa::bwaSampe($samFileOut,$refFastaFile,$listOfSai[0],$listOfSai[1],$repairingList[0],$repairingList[1],$fileWithoutExtention,$softParameters); # generate alignement in SAM format
+tophat::tophat2($tophatdirOut,$repairingList[0],$repairingList[1],$gffFile,$prefixRef,$softParameters);
+
+
 
 
 print LOG "#########################################\nINFOS: Paired sequences analysis done correctly\n#########################################\n";
