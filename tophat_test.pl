@@ -62,14 +62,14 @@ system($cleaningCommand) and die ("ERROR: $0: Cannot clean the previous log file
 #Chargement des options de chaque logiciel d<8e>finies dans le fichier softwareConfig dans une table de hachage
 my $optionref = toolbox::readFileConf($fileConf);
 
-#Recuperer les options propres <88> bowtie-build
-my $softParameters = toolbox::extractHashSoft($optionref,"bowtie-build");   # get the bowtie-index option defined in software file and stored it into the variable $softParameters
-tophat::bowtieBuild($refFile);
-
 #Recuperer les options propres <88> bowtie2-build
-$softParameters = toolbox::extractHashSoft($optionref,"bowtie2-build");   # get the bowtie2-index option defined in software file and stored it into the variable $softParameters
+my $softParameters = toolbox::extractHashSoft($optionref,"bowtie2-build");   # get the bowtie2-index option defined in software file and stored it into the variable $softParameters
 my $refIndex=tophat::bowtie2Build($refFile);
 
+#Recuperer les options propres <88> bowtie-build
+$softParameters = toolbox::extractHashSoft($optionref,"bowtie-build");   # get the bowtie-index option defined in software file and stored it into the variable $softParameters
+tophat::bowtieBuild($refFile);
+
+#tophat2
 $softParameters = toolbox::extractHashSoft($optionref,"tophat2");
-#tophat::tophat2($dirOut, $refFile, $forwardFile, $reverseFile, $gffFile, $softParameters);    # get the tophat option defined in software file and stored it into the variable $softParameters
 tophat::tophat2($dirOut, $refIndex, $forwardFile, $reverseFile, $gffFile,$softParameters);# get the tophat option defined in software file and stored it into the variable $softParameters
