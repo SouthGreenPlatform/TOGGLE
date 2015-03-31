@@ -79,9 +79,9 @@ VALIDATION_STRINGENCY=SILENT
 $fastx_trimmer
 -f 8
 
-$bowtie-build
-
 $bowtie2-build
+
+$bowtieBuild
 
 $tophat2
 -i=30
@@ -91,6 +91,5 @@ $tophat2
 --no-coverage-search
 -g=10
 --bowtie-n
---library-type
-fr-unstranded
+--library-type=fr-unstranded
 --microexon-search
