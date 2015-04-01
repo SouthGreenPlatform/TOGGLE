@@ -68,6 +68,7 @@ system ($makeDirCom) and die ("ERROR: $0 : Cannot create the new directory with 
 ########################################
 #use of bwa module ok
 ########################################
-use_ok('fastxToolkit.pm') or exit;
+use_ok('fastxToolkit') or exit;
 can_ok( 'fastxToolkit','fastxTrimmer');
 
+use fastxToolkit;
