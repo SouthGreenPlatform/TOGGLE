@@ -80,8 +80,8 @@ my $fileConf = $param{'-c'};                                                    
 my $refFastaFile = $param{'-r'};                                                                            # recovery of the reference file
 toolbox::existsDir($initialDir);                                                                            # check if this directory exists
 
-
-
+my $fileAdaptator = defined($param{'-a'})? $param{'-a'} : "$toggle/adaptator.txt";                          # recovery of the adaptator file
+toolbox::checkFile($fileAdaptator);
 
 
 ##########################################
@@ -203,8 +203,7 @@ print F1 "cutadapt\n";
 my $newDir = toolbox::changeDirectoryArbo($initialDir,2);                                                   # change for the cutadapt directory
 my $cutadaptDir = $newDir;                                                                                  # to keep the information of cutadapt folder for the following analysis
 ##DEBUG print LOG "CHANGE DIRECTORY TO $newDir\n";
-my $fileAdaptator = "$toggle/adaptator.txt";     # /!\ ARGV[3] et si non reseignÃ© ce fichier lÃ , mais on le place oÃ¹ ?
-toolbox::checkFile($fileAdaptator);
+
 my $cutadaptSpecificFileConf = "$newDir"."/cutadapt.conf";                                                  # name for the cutadapt specific configuration file
 my $optionref = toolbox::readFileConf($fileConf);                                                           # recovery of option for cutadapt
 my $softParameters = toolbox::extractHashSoft($optionref, "cutadapt");                                         # recovery of specific informations for cutadapt
