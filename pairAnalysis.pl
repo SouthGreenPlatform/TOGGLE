@@ -49,6 +49,24 @@ use picardTools;
 use samTools;
 use toolbox;
 
+#
+my $cmd_line=$0." @ARGV";
+
+unless ($#ARGV>=0)
+{
+  my ($nomprog)=$0=~/([^\/]+)$/;
+  print <<"Mesg";
+
+  perldoc $nomprog display the help
+
+
+Mesg
+
+
+  exit;
+}
+
+
 
 ##########################################
 # recovery of initial informations/files
