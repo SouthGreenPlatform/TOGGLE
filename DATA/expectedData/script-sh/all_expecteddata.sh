@@ -17,7 +17,7 @@ rm RC3.GATKINDELREALIGNER.bam RC3.GATKINDELREALIGNER.bai RC3Single.GATKINDELREAL
 rm RC3.PICARDTOOLSMARKDUPLICATES.bam RC3.PICARDTOOLSMARKDUPLICATES.bamDuplicates RC3Single.PICARDTOOLSMARKDUPLICATES.bam RC3Single.PICARDTOOLSMARKDUPLICATES.bamDuplicates
 rm GATKHAPLOTYPECALLER.vcf  GATKSELECTVARIANTS.vcf  GATKVARIANTFILTRATION.vcf
 rm GATKHAPLOTYPECALLER.vcf.idx  GATKSELECTVARIANTS.vcf.idx  GATKVARIANTFILTRATION.vcf.idx
-
+rm RC3_1.FASTXTRIMMER.fastq RC3_2.FASTXTRIMMER.fastq 
 cd script-sh
 
 echo "
@@ -104,5 +104,11 @@ echo "
 sh gatk_haplotypeCaller.sh;
 sh gatk_variantFiltration.sh;
 sh gatk_selectVariants.sh
+
+echo "
+################ fastxTrimmer
+";
+sh fastxTrimmer.sh;
+
 
 exit;
