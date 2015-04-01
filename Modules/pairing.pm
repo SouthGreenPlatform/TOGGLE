@@ -288,11 +288,16 @@ sub extractName
 
     my @listName=split /\./, $name; #Separate in a list the filename and its format (ex file1.fastq is separated in file1 and fastq)
 
-
-    $listName[0] =~ /^([^_]+)_?/;#Check if the file is named on the type readGroup_1 or even only readGroup
-    my $readGroup=$1; #Picking up the readGroup name as the returning of the previous line
+    pop @listName if (scalar @listName > 1); #Will remove the last value of the list ONLY if there are more than one. ex: "file.fasta" will pop, but not "file"
     
-    my $shortName=$listName[0];#allows removing of format (fastq) and of all "." remaining in the name.
+    my $fileWithoutFormat = join ('.',@listName); #Will reconstitute the original name without the format. Ex, the file.one.fasta will be recovered as file.one
+
+    
+    my $shortName=$fileWithoutFormat;#allows removing of format (fastq) and of all "." remaining in the name.
+
+    $fileWithoutFormat =~ s/(^.*)_\d$/$1/;#Check if the file is named on the type readGroup_1 or even only readGroup
+    my $readGroup=$fileWithoutFormat; #Picking up the readGroup name as the returning of the previous line
+    
    
     #cleaning name
     $shortName=~ s/ /_/g;#removing spaces
