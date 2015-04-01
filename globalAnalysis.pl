@@ -41,10 +41,42 @@ use Data::Dumper;
 use pairing;
 use toolbox;
 
-my $initialDir = $ARGV[0];                                                                                  # recovery of the name of the directory to analyse
-my $fileConf = $ARGV[1];                                                                                    # recovery of the name of the software.configuration.txt file
-my $refFastaFile = $ARGV[2];                                                                                # recovery of the reference file
+
+
+
+
+##########################################
+# recovery of parameters/arguments given when the program is executed
+##########################################
 my $cmd_line=$0." @ARGV";
+unless ($#ARGV>=0)                                                                                          # if no argument given
+{
+  my ($nomprog)=$0=~/([^\/]+)$/;
+  print <<"Mesg";
+
+  perldoc $nomprog display the help
+
+Mesg
+
+  exit;
+}
+
+my %param = @ARGV;                                                                                          # get the parameters 
+@param{ map { lc $_ } keys %param } = values %param;
+
+my $SEQ_file=$param{'-i'};
+
+##########################################
+# recovery of initial informations/files
+##########################################
+my $initialDir = $param{'-d'};                                                                              # recovery of the name of the directory to analyse
+my $fileConf = $param{'-c'};                                                                                # recovery of the name of the software.configuration.txt file
+my $refFastaFile = $param{'-r'};                                                                            # recovery of the reference file
+toolbox::existsDir($initialDir);                                                                            # check if this directory exists
+
+my $fileAdaptator = defined($param{'-a'})? $param{'-a'} : "$toggle/adaptator.txt";                          # recovery of the adaptator file
+toolbox::checkFile($fileAdaptator);
+
 
 
 my $infosFile = "individuSoft.txt";
@@ -137,13 +169,13 @@ for (my $i=0; $i<=$#listOfFiles; $i++)                                          
         if ($#listOfFastq == 0)                                                                             # if 1 file --> single analysis to do
         {
             toolbox::exportLog("INFOS: $0 : Run singleAnalysis.pl on $firstDir\n",1);
-            my $singleCom = "singleAnalysis.pl $firstDir $fileConf $refFastaFile";
+            my $singleCom = "singleAnalysis.pl -d $firstDir -c $fileConf -r $refFastaFile -a $fileAdaptator";
             toolbox::run($singleCom);
         }
         elsif ($#listOfFastq == 1)                                                                          # if 2 files --> pair analysis to do
         {
             toolbox::exportLog("INFOS: $0 : Run pairAnalysis.pl on $firstDir\n",1);
-            my $pairCom = "pairAnalysis.pl $firstDir $fileConf $refFastaFile";
+            my $pairCom = "pairAnalysis.pl -d $firstDir -c $fileConf -r $refFastaFile -a $fileAdaptator";
             toolbox::run($pairCom);
         }
         else                                                                                                # if more than 2 files, there is a problem
