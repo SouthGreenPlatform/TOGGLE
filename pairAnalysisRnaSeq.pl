@@ -306,7 +306,7 @@ my @repairingList = @$repairingList;
 $softParameters = toolbox::extractHashSoft($optionref,"tophat2");                                       # recovery of specific parameters of tophat2 aln
 my $tophatdirOut = $newDir."/tophat";   #créer le répertoire des résultats de topaht
 
-print LOG "INFOS tophats argument: $tophatdirOut,$repairingList[0],$repairingList[1],$gffFile";
+print LOG "INFOS tophats argument: $tophatdirOut,$refIndex,$repairingList[0],$repairingList[1],$gffFile";
 tophat::tophat2($tophatdirOut,$refIndex,$repairingList[0],$repairingList[1],$gffFile,$softParameters);
 
 
