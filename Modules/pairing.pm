@@ -297,7 +297,7 @@ sub extractName
 
     my $readGroup=$fileWithoutFormat; #Picking up the readGroup name as the returning of the previous line
 
-    $readGroup =~ s/\.[A-Z]//; # Removing infos from names such as .CUTADAPT. Eg file_3.CUTADAPT.fastq is now file_3 
+    $readGroup =~ s/\.[A-Z]+//; # Removing infos from names such as .CUTADAPT. Eg file_3.CUTADAPT.fastq is now file_3 
     $readGroup =~ s/(^.*)_\d$/$1/;#Check if the file is named on the type readGroup_1 or even only readGroup
     
    
