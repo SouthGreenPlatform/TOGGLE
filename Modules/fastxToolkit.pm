@@ -1,6 +1,4 @@
-package localConfig;
-
-
+package fastxToolkit;
 
 ###################################################################################################################################
 #
@@ -30,39 +28,51 @@ package localConfig;
 #
 ###################################################################################################################################
 
-
-
-
 use strict;
 use warnings;
-use Exporter;
 
-our @ISA=qw(Exporter);
-our @EXPORT=qw($bwa $picard $samtools $GATK $cufflinks $pacBioToCA $cutadapt $fastqc $java $snpEff $toggle $fastxTrimmer);
+use lib qw(.);
+use localConfig;
+use toolbox;
+use Data::Dumper;
 
-#toggle path
-our $toggle="/path/to/toggle";
 
-#PATH for Mapping on cluster
-our $java = "/usr/local/java/latest/bin/java -Xmx12g -jar";
+################################
+# Different softwares of fastxToolkit
+################################
+#
+# sub fastxTrimmer : to remove the n first pb of sequences in  fatsq file
+sub fastxTrimmer
+{
+    my($fastqFileIn,$fastqFileOut,$optionsHachees)=@_;
+    if (toolbox::sizeFile($fastqFileIn)==1)             ##Check if the fastqfile exist and is not empty
+    {
+        my $options=toolbox::extractOptions($optionsHachees, " ");  ##Get given options by software.config
+        ## DEBUGG
+        toolbox::exportLog("DEBUG: fastxToolkit::fastxTrimmer : fastxTrimmer option equals to $options",1);
+        my $command=$fastxTrimmer." ".$options." -i ".$fastqFileIn." -o ".$fastqFileOut; ## Command initialization
+        
+        # Command is executed with the run function (package toolbox)
+        if (toolbox::run($command)==1)
+        {
+            toolbox::exportLog("INFOS: fastxToolkit : correctly done\n",1);
+            return 1;
+        }
+        else
+        {
+            toolbox::exportLog("ERROR: fastxToolkit : ABBORTED\n",0);
+            return 0;
+        }
+        
+    }
+    else
+    {
+        toolbox::exportLog("ERROR: fastxToolkit::fastxTrimmer : Problem with the file $fastqFileIn\n",0);
+        return 0;
+    }
+    
+    
+}
 
-our $bwa = "/usr/local/bin/bwa";
-our $picard = "$java /home/sabotf/sources/picard-tools";
-
-our $samtools = "/usr/local/bin/samtools";
-our $GATK = "/usr/java/jre1.7.0_51/bin/java -Xmx12g -jar /usr/local/GenomeAnalysisTK-3.3/GenomeAnalysisTK.jar";
-our $fastqc = "/usr/local/FastQC/fastqc";
-
-#PATH for Cufflinks bin on cluster
-our $cufflinks = "/usr/local/cufflinks-2.1.1.Linux_x86_64";
-
-#Path for pacBioToCa
-our $pacBioToCA = "/home/sabotf/sources/wgs/Linux-amd64/bin/pacBioToCA";
-
-#Path for CutAdapt
-our $cutadapt = "/usr/local/cutadapt-1.2.1/bin/cutadapt";
-
-#Path for SNPeff
-our $snpEff="$java /home/sabotf/sources/snpEff/snpEff.jar";
 
 1;
