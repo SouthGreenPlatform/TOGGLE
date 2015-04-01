@@ -33,7 +33,7 @@ can_ok( 'samTools','samToolsView');
 #can_ok( 'samTools','mergeHeader');
 #can_ok( 'samTools','samToolsIdxstats');
 #can_ok( 'samTools','samToolsDepth');
-##can_ok( 'samTools','samToolsFlagstat');
+can_ok( 'samTools','samToolsFlagstat');
 
 use toolbox;
 use samTools;
@@ -115,7 +115,6 @@ $observedMD5sum=`md5sum $bamFileOut`;# structure of the test file
 $observedMD5sum = $withoutName[0];       # just to have the md5sum result
 is($observedMD5sum,$expectedMD5sum,'Ok for the content of the samtools view output structure');
 
-exit;
 
 ################################################################################################
 ##Samtools sort
@@ -201,15 +200,15 @@ exit;
 ################################################################################################
 ##Samtools Flagstat
 ################################################################################################
-#is(samTools::samToolsFlagstat($bamFile,"$testingDir/flagstats.txt"),1,'Ok for samtools Flagstats running');
+is(samTools::samToolsFlagstat($bamFile,"$testingDir/RC3.SAMTOOLSFLAGSTAT.txt"),1,'Ok for samtools Flagstats running');
 ###Verifying if the output files are existing for sort
-#my $expectedOutputFlag="$testingDir/flagstats.txt";
-#is(toolbox::existsFile($expectedOutputFlag),1,'Ok for samtools Flagstats produced files');
+my $expectedOutputFlag="$testingDir/RC3.SAMTOOLSFLAGSTAT.txt";
+is(toolbox::existsFile($expectedOutputFlag),1,'Ok for samtools Flagstats produced files');
 ####Checking the correct structure for the output file using md5sum
-#$expectedMD5sum = "cb54a20b65967bbd0c2a15dbcfb4a122";
-#$observedMD5sum=`md5sum ../DATA-TEST/samtoolsTestDir/flagstats.txt`;# structure of the test file
-#@withoutName = split (" ", $observedMD5sum);     # to separate the structure and the name of the test file
-#$observedMD5sum = $withoutName[0];       # just to have the md5sum result
-#is($observedMD5sum,$expectedMD5sum,'Ok for the content of the samtools Flagstats output structure');
+$expectedMD5sum = "de3b20969a5e852c9b3627890e3f86f8";
+$observedMD5sum=`md5sum ../DATA-TEST/samtoolsTestDir/RC3.SAMTOOLSFLAGSTAT.txt`;# structure of the test file
+@withoutName = split (" ", $observedMD5sum);     # to separate the structure and the name of the test file
+$observedMD5sum = $withoutName[0];       # just to have the md5sum result
+is($observedMD5sum,$expectedMD5sum,'Ok for the content of the samtools Flagstats output structure');
 
 exit;
