@@ -99,7 +99,7 @@ is_deeply(@outPut,\@expectedOutput,'Test for the output files produced by fastxT
 ###Test for correct file value of bwa index using a md5sum file control -  work through the different bwa versions
 my $expectedMD5sum='f9e6e28015919fab27f24dad62cb7a27';
 my $observedMD5sum=`md5sum ../DATA-TEST/fastxToolkitTestDir/RC3_1.FASTXTRIMMER.fastq`;#md5sum values observed for the current files produced
-@withoutName =split (" ", $observedMD5sum);     # to separate the structure and the name of the test file
+my @withoutName =split (" ", $observedMD5sum);     # to separate the structure and the name of the test file
 $observedMD5sum = $withoutName[0];      #just to have the md5sum result
 is($observedMD5sum,$expectedMD5sum,'Test for the content of the fastxTrimmer output');
 
