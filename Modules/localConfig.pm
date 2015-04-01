@@ -49,7 +49,7 @@ our $java = "/usr/local/java/latest/bin/java -Xmx12g -jar";
 our $bwa = "/usr/local/bin/bwa";
 our $picard = "$java /home/sabotf/sources/picard-tools";
 
-our $samtools = "/usr/local/bin/samtools";
+our $samtools = "/usr/local/bin/samtools_0.1.17";
 our $GATK = "/usr/java/jre1.7.0_51/bin/java -Xmx12g -jar /usr/local/GenomeAnalysisTK-3.3/GenomeAnalysisTK.jar";
 our $fastqc = "/usr/local/FastQC/fastqc";
 
