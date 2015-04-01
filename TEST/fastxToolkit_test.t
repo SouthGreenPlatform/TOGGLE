@@ -61,12 +61,12 @@ system($creatingDirCom) and die ("ERROR: $0 : Cannot execute the command $creati
 
 my $OriginalFastq="../DATA/expectedData/RC3_1.fastq";
 my $fastq1="$testingDir/RC3_1.fastq";
-my $refCopyCom="cp $OriginalFastq $fastq";
+my $refCopyCom="cp $OriginalFastq $fastq1";
 system($refCopyCom) and die ("ERROR: $0 : Cannot copy the Reference $OriginalFastq with the command $refCopyCom\n$!\n");     #Now we have a ref to be tested
 
 $OriginalFastq="../DATA/expectedData/RC3_2.fastq";
 my $fastq2="$testingDir/RC3_2.fastq";
-$refCopyCom="cp $OriginalFastq $fastq";
+$refCopyCom="cp $OriginalFastq $fastq2";
 system($refCopyCom) and die ("ERROR: $0 : Cannot copy the Reference $OriginalFastq with the command $refCopyCom\n$!\n");     #Now we have a ref to be tested
 
 
