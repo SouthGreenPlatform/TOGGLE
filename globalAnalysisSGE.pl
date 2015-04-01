@@ -45,6 +45,13 @@ my $fileConf = $ARGV[1];                                                        
 my $refFastaFile = $ARGV[2];                                                                                # recovery of the reference file
 my $cmd_line=$0." @ARGV";
 
+my $optionref = toolbox::readFileConf($fileConf);
+my $softParameters = toolbox::extractHashSoft($optionref, "SGE");   
+my $options="";
+$options=toolbox::extractOptions($softParameters); ##Get given options
+
+
+
 my $jobList;
 
 my $infosFile = "individuSoft.txt";
@@ -117,6 +124,9 @@ for (my $i=0; $i<=$#listOfFiles; $i++)                                          
     }
     elsif ($listOfFiles[$i]=~m/.+\/.+:$/)
     {
+        
+        
+      
         ##DEBUG toolbox::exportLog("FOLDER: $listOfFiles[$i]\n",1);
         my @fileAndPath = toolbox::extractPath($listOfFiles[$i]);                                           # recovery of file name and path to have it
         ##DEBUG toolbox::exportLog("INFOS extract file: $fileAndPath[0]\n",1);
@@ -130,7 +140,7 @@ for (my $i=0; $i<=$#listOfFiles; $i++)                                          
         if ($#listOfFastq == 0)                                                                             # if 1 file --> single analysis to do
         {
             toolbox::exportLog("INFOS: $0 : Run singleAnalysis.pl on $firstDir\n",1);
-            my $singleCom = 'qsub -N singleAnalysis -V -b Y "singleAnalysis.pl '.$firstDir.' '.$fileConf.' '.$refFastaFile.'"';
+            my $singleCom = 'qsub -N singleAnalysis '.$options.' "singleAnalysis.pl '.$firstDir.' '.$fileConf.' '.$refFastaFile.'"';
             ##DEBUG
             toolbox::exportLog("DEBUG: $0 : qsub singleAnalysis command : $singleCom\n",1);
             my $job_id = `$singleCom`;
@@ -148,7 +158,7 @@ for (my $i=0; $i<=$#listOfFiles; $i++)                                          
         elsif ($#listOfFastq == 1)                                                                          # if 2 files --> pair analysis to do
         {
             toolbox::exportLog("INFOS: $0 : Run pairAnalysis.pl on $firstDir\n",1);
-            my $pairCom = 'qsub -N pairAnalysis -V -b Y "pairAnalysis.pl '.$firstDir.' '.$fileConf.' '.$refFastaFile.'"';
+            my $pairCom = 'qsub -N pairAnalysis '.$options.' "pairAnalysis.pl '.$firstDir.' '.$fileConf.' '.$refFastaFile.'"';
             ##DEBUG
             toolbox::exportLog("DEBUG: $0 : qsub pairAnalysis command : $pairCom\n",1);
             my $job_id = `$pairCom`;
@@ -260,7 +270,7 @@ if ($okFinal == 1)
 
 
 toolbox::exportLog("INFOS: $0 : Run mergeAnalysis.pl on $bamDirPath\n",1);
-my $mergeCom = 'qsub -N mergeAnalysis -V -b Y "mergeAnalysis.pl '.$bamDirPath.' '.$fileConf.' '.$refFastaFile.'"';
+my $mergeCom = 'qsub -N mergeAnalysis '.$options.'  "mergeAnalysis.pl '.$bamDirPath.' '.$fileConf.' '.$refFastaFile.'"';
 ##DEBUG
 toolbox::exportLog("DEBUG: $0 : qsub pairAnalysis command : $mergeCom\n",1);
 toolbox::run($mergeCom);

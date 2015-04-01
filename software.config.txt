@@ -74,4 +74,9 @@ SORT_ORDER=coordinate
 VALIDATION_STRINGENCY=SILENT
 
 $picardTools markDuplicates
-VALIDATION_STRINGENCY=SILENT 
+VALIDATION_STRINGENCY=SILENT
+
+$SGE
+-q -q bioinfo.q@node13.alineos.net
+-N -V
+-b Y
