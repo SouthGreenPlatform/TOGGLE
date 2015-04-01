@@ -49,26 +49,42 @@ system($creatingCommand) and die ("ERROR: $0: Cannot create the individuSoft.txt
 #######################################
 #Cleaning the logs for the test
 #######################################
-my $cleaningCommand="rm -Rf fastxToolit_TEST_log.*";
+my $cleaningCommand="rm -Rf fastxToolkit_TEST_log.*";
 system($cleaningCommand) and die ("ERROR: $0: Cannot clean the previous log files for this test with the command $cleaningCommand \n$!\n");
 
-#########################################
-#Remove the files and directory created by the previous test
-#########################################
-$cleaningCommand="rm -Rf ../DATA-TEST/fastxToolkitTestDir";
-system($cleaningCommand) and die ("ERROR: $0 : Cannot remove the previous test dir with the command $cleaningCommand \n$!\n");
+########################################
+#initialisation and setting configs
+########################################
+my $testingDir="../DATA-TEST/fastxToolkitDir";
+my $creatingDirCom="rm -Rf $testingDir ; mkdir -p $testingDir";                                    #Allows to have a working directory for the tests
+system($creatingDirCom) and die ("ERROR: $0 : Cannot execute the command $creatingDirCom\n$!\n");
+
+my $OriginalFastq="../DATA/expectedData/RC3_1.fastq";
+my $fastq1="$testingDir/RC3_1.fastq";
+my $refCopyCom="cp $OriginalFastq $fastq";
+system($refCopyCom) and die ("ERROR: $0 : Cannot copy the Reference $OriginalFastq with the command $refCopyCom\n$!\n");     #Now we have a ref to be tested
+
+$OriginalFastq="../DATA/expectedData/RC3_2.fastq";
+my $fastq2="$testingDir/RC3_2.fastq";
+$refCopyCom="cp $OriginalFastq $fastq";
+system($refCopyCom) and die ("ERROR: $0 : Cannot copy the Reference $OriginalFastq with the command $refCopyCom\n$!\n");     #Now we have a ref to be tested
+
+
 
 ########################################
-#Creation of test directory
-########################################
-my $testingDir="../DATA-TEST/fastxToolkitTestDir";
-my $makeDirCom = "mkdir $testingDir";
-system ($makeDirCom) and die ("ERROR: $0 : Cannot create the new directory with the command $makeDirCom\n$!\n");
-
-########################################
-#use of bwa module ok
+#use of module ok
 ########################################
 use_ok('fastxToolkit') or exit;
 can_ok( 'fastxToolkit','fastxTrimmer');
 
 use fastxToolkit;
+
+
+################################################################################################
+#####Test for fastxTrimmer
+my %optionsHachees = ("-f" => "8");        # Hash containing informations
+my $optionHachees = \%optionsHachees;                           # Ref of the hash
+
+my $fastq1Trimmed="$testingDir/RC3_1.FASTXTRIMMER.fastq";
+is(fastxToolkit::fastxTrimmer($fastq1, $fastq1Trimmed, $optionHachees),1, 'Test for fastxToolkit::fastxTrimmer');
+
