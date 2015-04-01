@@ -11,8 +11,8 @@ in different environments (single machine to HPC clusters).
 
 ##  Contributing
 
-* Licencied under CeCill-C (http://www.cecill.info/licences/Licence_CeCILL-C_V1-en.html) and GPLv3 
-* Intellectual property belongs to IRD, CIRAD and SouthGreen developpement plateform 
+* Licencied under CeCill-C (http://www.cecill.info/licences/Licence_CeCILL-C_V1-en.html) and GPLv3
+* Intellectual property belongs to IRD, CIRAD and SouthGreen developpement plateform
 * Written by Cecile Monat, Christine Tranchant, Ayite Kougbeadjo, Cedric Farcy, Mawusse Agbessi, Marilyne Summo, and Francois Sabot
 
 ## REQUIREMENTS
@@ -29,9 +29,9 @@ in different environments (single machine to HPC clusters).
 
 * java 1.7
 * fastQC v0.10.1
-* cutadapt 1.2.1 
-* BWA 0.7.2 
-* gatk 3.3 
+* cutadapt 1.2.1
+* BWA 0.7.2
+* gatk 3.3
 * picardTools 1.63
 * SAMtools 0.1.18
 
@@ -49,7 +49,7 @@ TOGGLE
             |———— arcad2_1.fastq
             |———— arcad3_1.fastq
             |———— arcad3_2.fastq
-    |———— expectedData    
+    |———— expectedData
     |———— iriginTest
             |———— irigin1_1.fastq
             |———— irigin1_2.fastq
@@ -83,10 +83,10 @@ TOGGLE
             |———— cutadapt_test.t
             |———— fastqUtils_test.t
             |———— fastqc_test.t
-            |———— gatk_test.t	
-            |———— localConfig_test.t	
-            |———— pairing_test.t	
-            |———— picardTools_test.t	
+            |———— gatk_test.t
+            |———— localConfig_test.t
+            |———— pairing_test.t
+            |———— picardTools_test.t
             |———— pipelineTryExample.p
             |———— samTools_test.t
             |———— software.config.txt
@@ -103,7 +103,7 @@ TOGGLE
 |_ software.config.txt.test
 ````
 
-#### INSTALL 
+#### INSTALL
 
 * Create the directory TOGGLE where you want to install TOGGLE and go into this directory
 
@@ -133,7 +133,7 @@ $cd /pathToToggle
 $chmod 755 *pl
 ```
 
-* Modify the file /pathToToggle/Modules/localConfig.pm
+* Modify the file /pathToToggle/Modules/localConfig.pm (line $TOGGLE and others if necessary)
 
 
 * Run the test script
@@ -149,10 +149,11 @@ $sh all_tests.sh
 $globalAnalysis.pl $PATH_INSTALL/DATA/arcardTest/ $PATH_INSTALL/software.config.txt $PATH_INSTALL/DATA/referenceArcad.fasta
 ````
 
-* Check the good running 
-> > * No error message
-> > * BamDirectory has been well created into $PATH_INSTALL/DATA
-> > * the data generated are good
+* Check the good running
+
+>> * No error message
+>> * BamDirectory has been well created into $PATH_INSTALL/DATA
+>> * the data generated are good
 
 ````
 tail $PATH_INSTALL/DATA/BamDirectory/GATKVARIANTFILTRATION.vcf
