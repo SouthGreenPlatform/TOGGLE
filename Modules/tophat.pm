@@ -49,7 +49,8 @@ sub bowtieBuild
     {
         my $options=toolbox::extractOptions($optionsHachees, " ");		##Get given options
         my $command=$bowtieBuild.$options." ".$refFastaFileIn." ".$prefixRef;		##command
-        ##DEBUG toolbox::exportLog("INFOS: tophat::bowtieBuild : $command\n",1);
+        ##DEBUG
+        toolbox::exportLog("INFOS: tophat::bowtieBuild : $command\n",1);
         #Execute command
         if(toolbox::run($command)==1)		##The command should be executed correctly (ie return) before exporting the log
 	{
@@ -82,7 +83,8 @@ sub bowtie2Build
     {
         my $options=toolbox::extractOptions($optionsHachees, " ");		##Get given options
         my $command=$bowtie2Build.$options." ".$refFastaFileIn." ".$prefixRef;		##command
-        ##DEBUG toolbox::exportLog("INFOS: tophat::bowtieBuild : $command\n",1);
+        ##DEBUG
+        toolbox::exportLog("INFOS: tophat::bowtieBuild : $command\n",1);
         #Execute command
         if(toolbox::run($command)==1)		##The command should be executed correctly (ie return) before exporting the log
 	{
@@ -105,16 +107,36 @@ sub bowtie2Build
 sub tophat2
 {
     my ($tophatDirOut, $prefixRef, $forwardFastqFileIn,$reverseFastqFileIn,$gffFile,$optionsHachees)=@_;
-    if ((toolbox::sizeFile($forwardFastqFileIn)==1) and (toolbox::sizeFile($reverseFastqFileIn)==1) and (toolbox::sizeFile($gffFile)==1))		##Check if entry files exist and are not empty
+    my $options="";
+    if ($optionsHachees)
     {
-        my $options="";
-        if ($optionsHachees)
-	{
-            $options=toolbox::extractOptions($optionsHachees);		##Get given options
-        }
-        
+        $options=toolbox::extractOptions($optionsHachees);		##Get given options
+    }
+    
+    if ((toolbox::sizeFile($forwardFastqFileIn)==1) and (toolbox::sizeFile($reverseFastqFileIn,0)==1) and (toolbox::sizeFile($gffFile)==1))		##Check if entry files exist and are not empty
+    {
         my $command=$tophat2.$options." -G ".$gffFile." -o ".$tophatDirOut." ".$prefixRef." ".$forwardFastqFileIn." ".$reverseFastqFileIn;		# command line
      	#my $command2="$tophat2 $options -G $gffFile -o $tophatDirOut $refFastaFileIn $forwardFastqFileIn $reverseFastqFileIn";		# command line
+ 
+        ##DEBUG
+        toolbox::exportLog("INFOS: tophat::topHat2 : $command\n",1);
+
+        # Command is executed with the run function (package toolbox)
+        if (toolbox::run($command)==1)
+        {
+            toolbox::exportLog("INFOS: tophat : correctly done\n",1);
+            return 1;
+        }
+        else
+        {
+            toolbox::exportLog("ERROR: tophat : ABBORTED\n",0);
+            return 0;
+        }
+        
+    }
+    elsif ((toolbox::sizeFile($forwardFastqFileIn)==1) and (toolbox::sizeFile($reverseFastqFileIn,0)==0) and (toolbox::sizeFile($gffFile)==1))		##Check if entry files exist and are not empty
+    {
+        my $command=$tophat2.$options." -G ".$gffFile." -o ".$tophatDirOut." ".$prefixRef." ".$forwardFastqFileIn;		# command line
  
         ##DEBUG
         toolbox::exportLog("INFOS: tophat::topHat2 : $command\n",1);
