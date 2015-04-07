@@ -47,6 +47,7 @@ use pairing;
 use toolbox;
 use fastxToolkit;
 use tophat;
+use cufflinks;
 
 ##########################################
 # recovery of initial informations/files
@@ -55,7 +56,7 @@ my $initialDir = $ARGV[0];                                                      
 my $fileConf = $ARGV[1];                                                                                    # recovery of the name of the software.configuration.txt file
 my $refFastaFile = $ARGV[2];                                                                                # recovery of the reference file
 my $gffFile = $ARGV[3];
-
+my $annotGffFile = $ARGV[4];
 $refFastaFile =~ /^([^\.]+)\./;                                                                    # catch o,ly the file name without the file extension and store it into $prefixRef variable
 my $prefixRef = $1;
 
@@ -97,6 +98,7 @@ toolbox::makeDir("$initialDir/11_FASTX/");
 toolbox::makeDir("$initialDir/2_CUTADAPT/");
 toolbox::makeDir("$initialDir/3_PAIRING_SEQUENCES/");
 toolbox::makeDir("$initialDir/4_MAPPING/");
+toolbox::makeDir("$initialDir/41_CUFFLINKS/");
 toolbox::makeDir("$initialDir/5_PICARDTOOLS/");
 toolbox::makeDir("$initialDir/6_SAMTOOLS/");
 toolbox::makeDir("$initialDir/7_GATK/");
@@ -304,12 +306,30 @@ my $repairingList = toolbox::readDir($repairingDir);
 my @repairingList = @$repairingList;
 
 $softParameters = toolbox::extractHashSoft($optionref,"tophat2");                                       # recovery of specific parameters of tophat2 aln
-my $tophatdirOut = $newDir."/tophat";   #créer le répertoire des résultats de topaht
+my $tophatdirOut = $newDir;   #créer le répertoire des résultats de topaht
 
 print LOG "INFOS tophats argument: $tophatdirOut,$refIndex,$repairingList[0],$repairingList[1],$gffFile";
 tophat::tophat2($tophatdirOut,$refIndex,$repairingList[0],$repairingList[1],$gffFile,$softParameters);
 
 
+##########################################
+# cufflinks::execution
+##########################################
+
+print LOG "INFOS: $0 : start execution\n";
+print F1 "execution\n";
+$newDir = toolbox::changeDirectoryArbo($initialDir,41);
+my $cufflinksDir = $newDir;
+##DEBUG print LOG "CHANGE DIRECTORY TO $newDir\n";
+
+my $mappingList = toolbox::readDir($tophatDir);
+##DEBUGprint LOG "INFOS toolbox ReadDir: @$tophatList\n";
+my @mappingList = @$mappingList;
+
+$softParameters = toolbox::extractHashSoft($optionref,"cufflinks");                                       # recovery of specific parameters of tophat2 aln
+my $cufflinksdirOut = $newDir;   #créer le répertoire des résultats de cufflinks
+
+cufflinks::execution($cufflinksdirOut,$mappingList[0],$annotGffFile,$softParameters);
 
 
 print LOG "#########################################\nINFOS: Paired sequences analysis done correctly\n#########################################\n";
