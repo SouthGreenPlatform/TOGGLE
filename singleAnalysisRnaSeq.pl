@@ -46,6 +46,8 @@ use fastqc;
 use fastxToolkit;
 use fastqUtils;
 use toolbox;
+use tophat;
+use cufflinks;
 
 
 ##########################################
@@ -54,6 +56,8 @@ use toolbox;
 my $initialDir = $ARGV[0];                                                                                  # recovery of the name of the directory to analyse
 my $fileConf = $ARGV[1];                                                                                    # recovery of the name of the software.configuration.txt file
 my $refFastaFile = $ARGV[2];                                                                                # recovery of the reference file
+my $gffFile = $ARGV[3];
+my $annotGffFile = $ARGV[4];
 toolbox::existsDir($initialDir);                                                                            # check if this directory exists
 
 
@@ -93,7 +97,8 @@ toolbox::makeDir("$initialDir/0_PAIRING_FILES/");
 toolbox::makeDir("$initialDir/1_FASTQC/");
 toolbox::makeDir("$initialDir/11_FASTX/");
 toolbox::makeDir("$initialDir/2_CUTADAPT/");
-toolbox::makeDir("$initialDir/4_BWA/");
+toolbox::makeDir("$initialDir/4_MAPPING/");
+toolbox::makeDir("$initialDir/41_CUFFLINKS/");
 toolbox::makeDir("$initialDir/5_PICARDTOOLS/");
 toolbox::makeDir("$initialDir/6_SAMTOOLS/");
 toolbox::makeDir("$initialDir/7_GATK/");
@@ -196,26 +201,57 @@ my $fileOut = "$newDir"."/"."$fileWithoutExtention".".CUTADAPT.fastq";          
 print LOG "INFOS: $0 : Start cutadapt execution on file $trimmedFiles[0]\n";
 cutadapt::execution($trimmedFiles[0],$cutadaptSpecificFileConf,$fileOut);                                    # run cutadapt program on current file
 
+
 #########################################
-# BWA INDEX, ALN and SAMSE
+# BOWIEBUILD, BOWTIE2BUILD and TOPHAT2
 #########################################
 print LOG "----------------------------------------\n";
-print LOG "INFOS: $0 : Start BWA index and aln\n";
-print F1 "BWA\n";
-$newDir = toolbox::changeDirectoryArbo($initialDir,4);                                                      # change for the bwa direcotry
-##DEBUG print LOG "CHANGE DIRECTORY TO $newDir\n";
-$softParameters = toolbox::extractHashSoft($optionref,"BWA index");                                      # recovery of specific parameters of bwa index
-bwa::bwaIndex($refFastaFile,$softParameters);                                                               # indexation of Reference sequences file
-$softParameters = toolbox::extractHashSoft($optionref,"BWA aln");                                           # recovery of specific parameters of bwa aln
-$fileWithoutExtention = toolbox::extractName($listOfFiles[0]);                                              # extract name of file without the extention
-my $saiFileOut = "$newDir"."/"."$fileWithoutExtention".".BWAALN.sai";                                       # name for the output file of bwa aln
-bwa::bwaAln($refFastaFile,$fileOut,$saiFileOut,$softParameters);                                     # find the SA coordinates of the current file
-my $samFileOut = "$newDir"."/"."$fileWithoutExtention".".BWASAMSE.sam";                                     # name for the output file of bwa samse
-$softParameters = toolbox::extractHashSoft($optionref,"BWA samse");                                         # recovery of specific parameters of bwa samse
+print LOG "INFOS: $0 : Start BOWTIE index and tophat2\n";
+print F1 "TOPHAT2\n";
+$newDir = toolbox::changeDirectoryArbo($initialDir,4);                                                      # change for the tophat direcotry
+my $tophatDir = $newDir;
 
-@fileAndPath = toolbox::extractPath($listOfFiles[0]); 
-#my $infoForRG = pairing::pairRecognition($fileAndPath[1]);                                                      # recovery of ReadGroup information
-bwa::bwaSamse($samFileOut,$refFastaFile,$saiFileOut,$listOfFiles[0],$fileWithoutExtention,$softParameters);            # generate alignement in SAM format
+##DEBUG
+print LOG "CHANGE DIRECTORY TO $newDir\n";
+$softParameters = toolbox::extractHashSoft($optionref, "bowtieBuild");                              # recovery of specific parameters of bowtiebuild index
+
+#tophat::bowtieBuild($refFastaFile,$softParameters);                                           # indexation of Reference sequences file
+
+$softParameters = toolbox::extractHashSoft($optionref, "bowtie2-build");                                      # recovery of specific parameters of tophat index
+my $refIndex=tophat::bowtie2Build($refFastaFile,$softParameters);                                            # indexation of Reference sequences file                # indexation of Reference sequences file
+
+$softParameters = toolbox::extractHashSoft($optionref, "tophat2");                                       # recovery of specific parameters of tophat2 aln
+my $tophatdirOut = $newDir;   #créer le répertoire des résultats de topaht
+
+
+@fileAndPath = toolbox::extractPath($listOfFiles[0]);
+##DEBUG
+print LOG "INFOS extract path: $listOfFiles[0]\n";
+print LOG "INFOS tophats argument: $tophatdirOut,$refIndex,$listOfFiles[0],$gffFile";
+my $fileReverse;
+tophat::tophat2($tophatdirOut,$refIndex,$listOfFiles[0], undef $fileReverse, $gffFile,$softParameters);            # generate alignement in SAM format
+
+
+##########################################
+# cufflinks::execution
+##########################################
+
+print LOG "INFOS: $0 : start execution\n";
+print F1 "execution\n";
+$newDir = toolbox::changeDirectoryArbo($initialDir,41);
+my $cufflinksDir = $newDir;
+##DEBUG print LOG "CHANGE DIRECTORY TO $newDir\n";
+
+
+my $mappingList = toolbox::readDir($tophatDir);
+##DEBUGprint LOG "INFOS toolbox ReadDir: @$tophatList\n";
+my @mappingList = @$mappingList;
+
+$softParameters = toolbox::extractHashSoft($optionref,"cufflinks");                                       # recovery of specific parameters of tophat2 aln
+my $cufflinksdirOut = $newDir;   #créer le répertoire des résultats de cufflinks
+
+
+cufflinks::execution($cufflinksdirOut,$mappingList[0],$annotGffFile,$softParameters);
 
 print LOG "#########################################\nINFOS: Single sequence analysis done correctly\n#########################################\n";
 close F1;
