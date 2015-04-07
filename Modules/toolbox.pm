@@ -1197,7 +1197,8 @@ sub dnaFastaFormatValidator{
           {
           #Will stop after 20 errors
           $errors{"-1"} = "Too much errors in the file, only the 20 first are shown..."; #Will be printed before all errors, as line number 0 does not exist
-	  print Dumper(\%errors);
+	  my $dumpy = Dumper(\%errors);
+	  toolbox::exportLog($dumpy,2);
           last;
           }
         next;
