@@ -125,8 +125,8 @@ my $createFileCommand="touch $emptyFile";
 system($createFileCommand) and die ("ERROR: $0 : Cannot create the empty file with the command $createFileCommand\n$!\n"); +
 
 #Fasta files
-my $originalReference = "../DATA/expectedData/Reference.fasta";
-my $reference = "$testingDir/Reference.fasta";
+my $originalReference = "../DATA/expectedData/correctReference.fasta";
+my $reference = "$testingDir/correctReference.fasta";
 $copyCommand=" cp $originalReference $reference";
 system($copyCommand) and die ("ERROR: $0 : Cannot copy the fasta file with the command $copyCommand\n$!\n");
 my $originalWrongFasta = "../DATA/expectedData/wrongReference.fasta";
