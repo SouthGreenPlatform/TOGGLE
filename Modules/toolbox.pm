@@ -1196,10 +1196,8 @@ sub dnaFastaFormatValidator{
         if (scalar (keys %errors) > 15)
           {
           #Will stop after 15 errors
-          $errors{"-1"} = "Too much errors in the file, only the 15 first are shown..."; #Will be printed before all errors, as line number 0 does not exist
-	  my $dumpy = Dumper(\%errors);
-	  $dumpy = "COUCOU".$dumpy;
-	  toolbox::exportLog($dumpy,1);
+          my $tooMuchErrors = "Too much errors in the file, only the 15 first are shown..."; #Will be printed before all errors, as line number 0 does not exist
+	  toolbox::exportLog($tooMuchErrors,2);
           last;
           }
         next;
