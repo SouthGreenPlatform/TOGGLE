@@ -1196,7 +1196,7 @@ sub dnaFastaFormatValidator{
         if (scalar (keys %errors) > 19)
           {
           #Will stop after 20 errors
-          my $tooMuchErrors = "Too much errors in the Fasta file $file, only the first 20 errors are shown..."; #Will be printed before all errors
+          my $tooMuchErrors = "WARNING : toolbox::dnaFastaFormatValidator : Too much errors in the Fasta file $file, only the first 20 errors are shown..."; #Will be printed before all errors
 	  toolbox::exportLog($tooMuchErrors,2);
           last;
           }
