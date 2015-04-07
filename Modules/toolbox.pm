@@ -1193,10 +1193,10 @@ sub dnaFastaFormatValidator{
 	    $errors{$lineNumber} = "Not basic IUPAC letter, only ATGCNatgcn characters are allowed: unauthorized characters are $modifiedLine.";
 	    }
 	#Check if there are too much errors...
-        if (scalar (keys %errors) > 20)
+        if (scalar (keys %errors) > 15)
           {
-          #Will stop after 20 errors
-          $errors{"-1"} = "Too much errors in the file, only the 20 first are shown..."; #Will be printed before all errors, as line number 0 does not exist
+          #Will stop after 15 errors
+          $errors{"-1"} = "Too much errors in the file, only the 15 first are shown..."; #Will be printed before all errors, as line number 0 does not exist
 	  my $dumpy = Dumper(\%errors);
 	  $dumpy = "COUCOU".$dumpy;
 	  toolbox::exportLog($dumpy,1);
