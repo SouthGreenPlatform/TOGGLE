@@ -1193,10 +1193,10 @@ sub dnaFastaFormatValidator{
 	    $errors{$lineNumber} = "Not basic IUPAC letter, only ATGCNatgcn characters are allowed: unauthorized characters are $modifiedLine.";
 	    }
 	#Check if there are too much errors...
-        if (scalar (keys %errors) > 15)
+        if (scalar (keys %errors) > 19)
           {
-          #Will stop after 15 errors
-          my $tooMuchErrors = "Too much errors in the file, only the 15 first are shown..."; #Will be printed before all errors, as line number 0 does not exist
+          #Will stop after 20 errors
+          my $tooMuchErrors = "Too much errors in the Fasta file $file, only the first 20 errors are shown..."; #Will be printed before all errors
 	  toolbox::exportLog($tooMuchErrors,2);
           last;
           }
