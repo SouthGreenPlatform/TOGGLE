@@ -1213,7 +1213,7 @@ sub dnaFastaFormatValidator{
 	#Formatting errors for the warning
 	my $warningLog;
 	$warningLog.="WARNING : toolbox::dnaFastaFormatValidator : There are $numberOfErrors errors detected for file $file\n";
-	foreach my $individualError (sort {$a cmp $b} keys %errors)#Sorting error per line number
+	foreach my $individualError (sort {$a <=> $b} keys %errors)#Sorting error per line number
 	    {
 	    $warningLog.="WARNING : toolbox::dnaFastaFormatValidator : Line $individualError does not respect FASTA standard : $errors{$individualError}\n";
 	    }
