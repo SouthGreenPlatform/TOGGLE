@@ -68,9 +68,7 @@ Mesg
 }
 
 my %param = @ARGV;                                                                                          # get the parameters 
-@param{ map { lc $_ } keys %param } = values %param;
 
-my $SEQ_file=$param{'-i'};
 
 ##########################################
 # recovery of initial informations/files
