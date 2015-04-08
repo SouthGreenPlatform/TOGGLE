@@ -32,7 +32,6 @@ package localConfig;
 
 
 
-
 use strict;
 use warnings;
 use Exporter;
@@ -41,7 +40,7 @@ our @ISA=qw(Exporter);
 our @EXPORT=qw($bwa $picard $samtools $GATK $cufflinks $pacBioToCA $cutadapt $fastqc $java $snpEff $toggle);
 
 #toggle path
-our $toggle="/path/to/toggle";
+our $toggle="/home/cecmonat/TOGGLE";
 
 #PATH for Mapping on cluster
 our $java = "/usr/local/java/latest/bin/java -Xmx12g -jar";
