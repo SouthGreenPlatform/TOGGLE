@@ -62,7 +62,6 @@ Mesg
 }
 
 my %param = @ARGV;                                                                                          # get the parameters 
-@param{ map { lc $_ } keys %param } = values %param;
 
 
 ##########################################
