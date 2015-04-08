@@ -15,9 +15,9 @@ in different environments (single machine to HPC clusters).
 * Intellectual property belongs to IRD, CIRAD and SouthGreen developpement plateform 
 * Written by Cecile Monat, Christine Tranchant, Ayite Kougbeadjo, Cedric Farcy, Mawusse Agbessi, Marilyne Summo, and Francois Sabot
 
-## REQUIREMENTS
+## REQUIREMENTS - Enrique
 
-#### Perl
+#### Perl - Julie
 
 * Data::Translate
 * Data::Dumper
@@ -25,7 +25,8 @@ in different environments (single machine to HPC clusters).
 * Test::Deep
 * Capture::Tiny
 
-#### Bioinformatics software
+
+#### Bioinformatics software amanzougarene sur la branche 
 
 * java 1.7
 * fastQC v0.10.1
@@ -169,7 +170,7 @@ tail $PATH_INSTALL/DATA/BamDirectory/GATKVARIANTFILTRATION.vcf
 2290182    1013    .    A    G    45.65    PASS    AC=2;AF=1.00;AN=2;DP=2;FS=0.000;MLEAC=2;MLEAF=1.00;MQ=29.00;MQ0=0;QD=22.83;SOR=0.693    GT:AD:DP:GQ:PL    ./.    ./.    ./.    1/1:0,2:2:6:70,6,0    ./.
 ````
 
-##  Version Notes
+##  Versions Notes - branche dev
 
 Release 0.2, 14st of March, 2015
 
