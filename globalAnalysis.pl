@@ -260,7 +260,7 @@ if ($okFinal == 1)
 
 
 toolbox::exportLog("INFOS: $0 : Run mergeAnalysis.pl on $bamDirPath\n",1);
-my $mergeCom = "mergeAnalysis.pl $bamDirPath $fileConf $refFastaFile";
+my $mergeCom = "mergeAnalysis.pl -d $bamDirPath -c $fileConf -r $refFastaFile";
 toolbox::run($mergeCom);
 
 toolbox::exportLog("#########################################\nCONGRATS: SNP calling done correctly !\n#########################################\n",1);
