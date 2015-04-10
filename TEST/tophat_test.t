@@ -77,7 +77,7 @@ use tophat;
 ################################################################################################
 ###tophat::bowtieBuild
 ################################################################################################
-my $expectedIndexPrefix="$testingDir/Reference";
+my $expectedIndexPrefix=$testingDir."/Reference";
 my $observedIndexPrefix=is(tophat::bowtieBuild($fastaRef),1, 'OK for bowtieBuild RUNNING');
 is($expectedIndexPrefix,$observedIndexPrefix,'OK for prefix index');
 
@@ -91,9 +91,9 @@ $observedMD5sum = $withoutName[0];       # just to have the md5sum result
 is($observedMD5sum,$expectedMD5sum,'Ok for the content of the samtools faidx output structure');
 
 ################################################################################################
-###tophat::bowtieBuild
+###tophat::bowtie2Build
 ################################################################################################
-$expectedIndexPrefix="$testReference";
+$expectedIndexPrefix="$testingDir/Reference";
 $observedIndexPrefix=is(tophat::bowtieBuild($fastaRef),1, 'OK for bowtieBuild RUNNING');
 
 
