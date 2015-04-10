@@ -74,4 +74,22 @@ SORT_ORDER=coordinate
 VALIDATION_STRINGENCY=SILENT
 
 $picardTools markDuplicates
-VALIDATION_STRINGENCY=SILENT 
+VALIDATION_STRINGENCY=SILENT
+
+$fastx_trimmer
+-f 8
+
+$bowtie2-build
+
+$bowtieBuild
+
+$tophat2
+-i=30
+-I=20000
+-a=8
+-m=1
+--no-coverage-search
+-g=10
+--bowtie-n
+--library-type=fr-unstranded
+--microexon-search
