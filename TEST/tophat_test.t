@@ -102,7 +102,7 @@ is($expectedIndexPrefix,$observedIndexPrefix,'OK for prefix index');
 ###Checking the correct structure for the output file using md5sum
 $expectedMD5sum="4b9a4431e72c9db7e5c1f2153eba9fe7";
 $observedMD5sum=`md5sum $fastaRef.fai`;# structure of the test file
-my @withoutName = split (" ", $observedMD5sum);     # to separate the structure and the name of the test file
+@withoutName = split (" ", $observedMD5sum);     # to separate the structure and the name of the test file
 $observedMD5sum = $withoutName[0];       # just to have the md5sum result
 is($observedMD5sum,$expectedMD5sum,'Ok for the content of the samtools faidx output structure');
 
