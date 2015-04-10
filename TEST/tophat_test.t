@@ -77,7 +77,8 @@ use tophat;
 ################################################################################################
 ###tophat::bowtieBuild
 ################################################################################################
-my $indexPrefix="fastq";
-is(tophat::bowtieBuild($fastaRef),1, 'Test for tophat::bowtieBuild');
+my $expectedIndexPrefix="Reference";
+my $observedIndexPrefix=is(tophat::bowtieBuild($fastaRef),1, 'OK for bowtieBuild RUNNING');
+is($expectedIndexPrefix,$observedIndexPrefix,'OK for prefix index');
 
 exit;
