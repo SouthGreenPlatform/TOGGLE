@@ -41,40 +41,10 @@ use Data::Dumper;
 use pairing;
 use toolbox;
 
-
-
-
-
-##########################################
-# recovery of parameters/arguments given when the program is executed
-##########################################
+my $initialDir = $ARGV[0];                                                                                  # recovery of the name of the directory to analyse
+my $fileConf = $ARGV[1];                                                                                    # recovery of the name of the software.configuration.txt file
+my $refFastaFile = $ARGV[2];                                                                                # recovery of the reference file
 my $cmd_line=$0." @ARGV";
-unless ($#ARGV>=0)                                                                                          # if no argument given
-{
-  my ($nomprog)=$0=~/([^\/]+)$/;
-  print <<"Mesg";
-
-  perldoc $nomprog display the help
-
-Mesg
-
-  exit;
-}
-
-my %param = @ARGV;                                                                                          # get the parameters 
-
-
-##########################################
-# recovery of initial informations/files
-##########################################
-my $initialDir = $param{'-d'};                                                                              # recovery of the name of the directory to analyse
-my $fileConf = $param{'-c'};                                                                                # recovery of the name of the software.configuration.txt file
-my $refFastaFile = $param{'-r'};                                                                            # recovery of the reference file
-toolbox::existsDir($initialDir);                                                                            # check if this directory exists
-
-my $fileAdaptator = defined($param{'-a'})? $param{'-a'} : "$toggle/adaptator.txt";                          # recovery of the adaptator file
-toolbox::checkFile($fileAdaptator);
-
 
 
 my $infosFile = "individuSoft.txt";
@@ -106,9 +76,7 @@ my $loop = 0;                                                                   
 
 
 my $listOfFiles = toolbox::readDir($initialDir);                                                            # read it to recover files in it
-##DEBUG
-
-toolbox::exportLog("INFOS toolbox ReadDir: @$listOfFiles\n",1);
+##DEBUG toolbox::exportLog("INFOS toolbox ReadDir: @$listOfFiles\n",1);
 my @listOfFiles = @$listOfFiles;
 
 
@@ -144,36 +112,31 @@ for (my $i=0; $i<=$#listOfFiles; $i++)                                          
 {
     if ($listOfFiles[$i]=~m/.+\..+/)                                                                        # if it's a file and not a folder
     {
-        ##DEBUG
-        toolbox::exportLog("FILES: $listOfFiles[$i]\n",1);
+        ##DEBUG toolbox::exportLog("FILES: $listOfFiles[$i]\n",1);
         next;
     }
     elsif ($listOfFiles[$i]=~m/.+\/.+:$/)
     {
-        ##DEBUG
-        toolbox::exportLog("FOLDER: $listOfFiles[$i]\n",1);
+        ##DEBUG toolbox::exportLog("FOLDER: $listOfFiles[$i]\n",1);
         my @fileAndPath = toolbox::extractPath($listOfFiles[$i]);                                           # recovery of file name and path to have it
-        ##DEBUG
-        toolbox::exportLog("INFOS extract file: $fileAndPath[0]\n",1);
-        ##DEBUG
-        toolbox::exportLog("INFOS extract path: $fileAndPath[1]\n",1);
+        ##DEBUG toolbox::exportLog("INFOS extract file: $fileAndPath[0]\n",1);
+        ##DEBUG toolbox::exportLog("INFOS extract path: $fileAndPath[1]\n",1);
         my @splitName = split (":", $fileAndPath[0]);
      
         my $firstDir = "$fileAndPath[1]$splitName[0]/";
         my $listOfFastq = toolbox::readDir($firstDir);                                                      # recovery of fastq file(s)
-        ##DEBUG
-        toolbox::exportLog("INFOS toolbox ReadDir: @$listOfFastq\n",1);
+        ##DEBUG toolbox::exportLog("INFOS toolbox ReadDir: @$listOfFastq\n",1);
         my @listOfFastq = @$listOfFastq;
         if ($#listOfFastq == 0)                                                                             # if 1 file --> single analysis to do
         {
             toolbox::exportLog("INFOS: $0 : Run singleAnalysis.pl on $firstDir\n",1);
-            my $singleCom = "singleAnalysis.pl -d $firstDir -c $fileConf -r $refFastaFile -a $fileAdaptator";
+            my $singleCom = "singleAnalysis.pl $firstDir $fileConf $refFastaFile";
             toolbox::run($singleCom);
         }
         elsif ($#listOfFastq == 1)                                                                          # if 2 files --> pair analysis to do
         {
             toolbox::exportLog("INFOS: $0 : Run pairAnalysis.pl on $firstDir\n",1);
-            my $pairCom = "pairAnalysis.pl -d $firstDir -c $fileConf -r $refFastaFile -a $fileAdaptator";
+            my $pairCom = "pairAnalysis.pl $firstDir $fileConf $refFastaFile";
             toolbox::run($pairCom);
         }
         else                                                                                                # if more than 2 files, there is a problem
@@ -259,7 +222,7 @@ if ($okFinal == 1)
 
 
 toolbox::exportLog("INFOS: $0 : Run mergeAnalysis.pl on $bamDirPath\n",1);
-my $mergeCom = "mergeAnalysis.pl -d $bamDirPath -c $fileConf -r $refFastaFile";
+my $mergeCom = "mergeAnalysis.pl $bamDirPath $fileConf $refFastaFile";
 toolbox::run($mergeCom);
 
 toolbox::exportLog("#########################################\nCONGRATS: SNP calling done correctly !\n#########################################\n",1);
