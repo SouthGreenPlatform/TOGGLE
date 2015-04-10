@@ -73,3 +73,5 @@ can_ok( 'tophat','bowtieBuild');
 
 use toolbox;
 use tophat;
+
+exit;
