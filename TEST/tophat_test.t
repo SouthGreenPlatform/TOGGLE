@@ -178,7 +178,7 @@ is($observedMD5sum,$expectedMD5sum,'Ok for the content of the bowtie build rev.2
 ################################################################################################
 ###tophat::tophat2
 ################################################################################################
-my $gffFile=`echo \"#\" > empty.gff`;
+my $gffFile=`echo \"#\" > $testingDir/empty.gff`;
 
 %optionsHachees = ("-i" => "30", "-I" => "20000",
                       "-a" => "8",
