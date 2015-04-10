@@ -134,6 +134,8 @@ exit;
 ################################################################################################
 ###tophat::bowtie2Build
 ################################################################################################
+%optionsHachees = ("-T" => "RealignerTargetCreator","-nt" => "4");        # Hash containing informations
+$optionHachees = \%optionsHachees;                           # Ref of the hash
 is(tophat::bowtie2Build($fastaRef),$expectedIndexPrefix, 'OK for bowtie2Build RUNNING');
 
 ###Checking the correct structure for the output file using md5sum
@@ -176,5 +178,5 @@ is($observedMD5sum,$expectedMD5sum,'Ok for the content of the bowtie build rev.2
 ################################################################################################
 ###tophat::tophat2
 ################################################################################################
-$optionsHachees=$configInfos->{'tophat'};
+my $gffFile;
 is(tophat::tophat2($testingDir, $expectedIndexPrefix, $fastqFile1, $fastqFile2, $gffFile, , 'OK for bowtie2Build RUNNING');
