@@ -78,6 +78,8 @@ system($seqCopyCom2) and die ("ERROR: $0 : Cannot copy the Fastq file $fastqFile
 use_ok('toolbox') or exit;
 use_ok('tophat') or exit;
 can_ok( 'tophat','bowtieBuild');
+can_ok( 'tophat','bowtie2Build');
+can_ok( 'tophat','tophat2');
 
 use toolbox;
 use tophat;
