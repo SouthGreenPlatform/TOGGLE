@@ -76,7 +76,7 @@ sub bowtieBuild
 ################################################################################################
 
 
-##tophat2 INDEX-BOWTIE2-BUILD
+
 ################################################################################################
 # sub bowtie2Build : builds a Bowtie index from a set of DNA sequences. 
 ################################################################################################
@@ -86,21 +86,20 @@ sub bowtieBuild
 sub bowtie2Build
 {
     my($refFastaFileIn,$optionsHachees)=@_;
-    $refFastaFileIn =~ /^(.+)\.[^\.]+$/;  # catch o,ly the file name without the file extension and store it into $prefixRef variable
+    $refFastaFileIn =~ /^(.+)\.[^\.]+$/;  						# catch only the file name without the file extension and store it into $prefixRef variable
     my $prefixRef = $1;
-    ##DEBUG
-    toolbox::exportLog("DEBUG: tophat::bowtie2Build : $prefixRef\n",1);
+    ##DEBUG toolbox::exportLog("DEBUG: tophat::bowtie2Build : $prefixRef\n",1);
     
-    if (toolbox::sizeFile($refFastaFileIn)==1)		##Check if the reference file exist and is not empty
+    if (toolbox::sizeFile($refFastaFileIn)==1)						# Check if the reference file exist and is not empty
     {
-        my $options=toolbox::extractOptions($optionsHachees, " ");		##Get given options
-        my $command=$bowtie2Build.$options." ".$refFastaFileIn." ".$prefixRef;		##command
+        my $options=toolbox::extractOptions($optionsHachees, " ");			# Get given options
+        my $command=$bowtie2Build.$options." ".$refFastaFileIn." ".$prefixRef;		# command
         ##DEBUG
-        toolbox::exportLog("INFOS: tophat::bowtieBuild : $command\n",1);
+        toolbox::exportLog("INFOS: tophat::bowtie2Build : $command\n",1);
         #Execute command
-        if(toolbox::run($command)==1)		##The command should be executed correctly (ie return) before exporting the log
+        if(toolbox::run($command)==1)							# The command should be executed correctly (ie return) before exporting the log
 	{
-            toolbox::exportLog("INFOS: tophat::bowtie2Build : correctly done\n",1);		# bowtie2build have been correctly done
+            toolbox::exportLog("INFOS: tophat::bowtie2Build : correctly done\n",1);	# bowtie2build have been correctly done
         }
         else
         {
@@ -115,7 +114,18 @@ sub bowtie2Build
     }
     return $prefixRef;
 }
+################################################################################################
+# END sub bowtie2Build 
+################################################################################################
 
+
+
+################################################################################################
+# sub bowtie2Build : builds a Bowtie index from a set of DNA sequences. 
+################################################################################################
+# arguments : fasta file to index and options used for bowtie2Build running
+# Returns prefixname of the database created  (1 if the execution is correctly done else 0)
+################################################################################################
 sub tophat2
 {
     my ($tophatDirOut, $prefixRef, $forwardFastqFileIn,$reverseFastqFileIn,$gffFile,$optionsHachees)=@_;
