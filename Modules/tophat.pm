@@ -45,7 +45,7 @@ use Data::Dumper;
 sub bowtieBuild
 {
     my ($refFastaFileIn,$optionsHachees)=@_;
-    $refFastaFileIn =~ /^([^\.]+)\./;   # catch only the file name without the file extension and store it into $prefixRef variable
+    $refFastaFileIn =~ /^(.+)\.[^\.]+$/;  # catch only the file name without the file extension and store it into $prefixRef variable
     my $prefixRef = $1;
     ##DEBUG
     toolbox::exportLog("DEBUG: tophat::bowtieBuild : $prefixRef\n",1);
@@ -89,7 +89,7 @@ sub bowtie2Build
     $refFastaFileIn =~ /^(.+)\.[^\.]+$/;  # catch o,ly the file name without the file extension and store it into $prefixRef variable
     my $prefixRef = $1;
     ##DEBUG
-    toolbox::exportLog("INFOS: tophat::bowtie2Build : $prefixRef\n",1);
+    toolbox::exportLog("DEBUG: tophat::bowtie2Build : $prefixRef\n",1);
     
     if (toolbox::sizeFile($refFastaFileIn)==1)		##Check if the reference file exist and is not empty
     {
