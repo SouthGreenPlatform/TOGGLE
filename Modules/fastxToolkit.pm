@@ -107,5 +107,5 @@ One argument is required : the fastq filename
 The parameter returned is a boolean : 1 if the analysys has been correctly done else 0.
 
 Example : 
-CfastxToolkit::fastxTrimmer($fastqFilename);>
+<fastxToolkit::fastxTrimmer($fastqFilename);>
 
