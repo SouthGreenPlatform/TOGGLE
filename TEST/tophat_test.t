@@ -63,6 +63,14 @@ my $fastaRef="$testingDir/Reference.fasta";
 my $refCopyCom="cp $OriginalFastaRef $fastaRef";
 system($refCopyCom) and die ("ERROR: $0 : Cannot copy the Reference $OriginalFastaRef with the command $refCopyCom\n$!\n");     #Now we have a ref to be tested
 
+my $originalFastqFile1="../DATA/expectedData/RC3_1.REPAIRING.fastq";
+my $originalFastqFile2="../DATA/expectedData/RC3_2.REPAIRING.fastq";
+my $fastqFile1="$testingDir/RC3_1.REPAIRING.fastq";
+my $fastqFile2="$testingDir/RC3_2.REPAIRING.fastq";
+my $seqCopyCom1="cp $originalFastqFile1 $fastqFile1";
+my $seqCopyCom2="cp $originalFastqFile2 $fastqFile2";
+system($seqCopyCom1) and die ("ERROR: $0 : Cannot copy the Fastq file $fastqFile1 for test with the command $seqCopyCom1 \n$!\n");    #The sequences are copied for testing
+system($seqCopyCom2) and die ("ERROR: $0 : Cannot copy the Fastq file $fastqFile2 for test with the command $seqCopyCom2 \n$!\n");    #The sequences are copied for testing
 
 ########################################
 #use of module ok
@@ -77,8 +85,10 @@ use tophat;
 ################################################################################################
 ###tophat::bowtieBuild
 ################################################################################################
+my %optionsHachees = ('');        # Hash containing informations
+my $optionHachees = \%optionsHachees;                           # Ref of the hash
 my $expectedIndexPrefix=$testingDir."/Reference";
-is(tophat::bowtieBuild($fastaRef),$expectedIndexPrefix, 'OK for bowtieBuild RUNNING');
+is(tophat::bowtieBuild($fastaRef,$optionHachees),$expectedIndexPrefix, 'OK for bowtieBuild RUNNING');
 
 ###Checking the correct structure for the output file using md5sum
 my $expectedMD5sum="de1ef57892bd9f508fb466521bd5a5b6";
@@ -119,6 +129,7 @@ is($observedMD5sum,$expectedMD5sum,'Ok for the content of the bowtie build rev.2
 
 
 
+exit;
 
 ################################################################################################
 ###tophat::bowtie2Build
@@ -162,3 +173,8 @@ $observedMD5sum=`md5sum $expectedIndexPrefix.rev.2.bt2`;# structure of the test 
 $observedMD5sum = $withoutName[0];       # just to have the md5sum result
 is($observedMD5sum,$expectedMD5sum,'Ok for the content of the bowtie build rev.2.bt2 structure');
 
+################################################################################################
+###tophat::tophat2
+################################################################################################
+$optionsHachees=$configInfos->{'tophat'};
+is(tophat::tophat2($testingDir, $expectedIndexPrefix, $fastqFile1, $fastqFile2, $gffFile, , 'OK for bowtie2Build RUNNING');
