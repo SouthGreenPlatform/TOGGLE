@@ -85,7 +85,7 @@ use tophat;
 ################################################################################################
 ###tophat::bowtieBuild
 ################################################################################################
-my %optionsHachees = ('');        # Hash containing informations
+my %optionsHachees = ();        # Hash containing informations
 my $optionHachees = \%optionsHachees;                           # Ref of the hash
 my $expectedIndexPrefix=$testingDir."/Reference";
 is(tophat::bowtieBuild($fastaRef,$optionHachees),$expectedIndexPrefix, 'OK for bowtieBuild RUNNING');
