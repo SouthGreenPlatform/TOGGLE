@@ -125,8 +125,6 @@ is($observedMD5sum,$expectedMD5sum,'Ok for the content of the bowtie build rev.2
 ################################################################################################
 is(tophat::bowtie2Build($fastaRef),$expectedIndexPrefix, 'OK for bowtie2Build RUNNING');
 
-exit;
-
 ###Checking the correct structure for the output file using md5sum
 $expectedMD5sum="b7a6d65d4bcefe2332dcdc8e9c0cb9c1";
 $observedMD5sum=`md5sum $expectedIndexPrefix.1.bt2`;# structure of the test file
