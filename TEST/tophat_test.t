@@ -128,39 +128,39 @@ is(tophat::bowtie2Build($fastaRef),$expectedIndexPrefix, 'OK for bowtie2Build RU
 exit;
 
 ###Checking the correct structure for the output file using md5sum
-my $expectedMD5sum="de1ef57892bd9f508fb466521bd5a5b6";
-my $observedMD5sum=`md5sum $expectedIndexPrefix.1.ebwt`;# structure of the test file
-my @withoutName = split (" ", $observedMD5sum);     # to separate the structure and the name of the test file
-$observedMD5sum = $withoutName[0];       # just to have the md5sum result
-is($observedMD5sum,$expectedMD5sum,'Ok for the content of the bowtie build 1.ebwt structure');
-
-$expectedMD5sum="5fe542df841de8685b4ee1c694b52f64";
-$observedMD5sum=`md5sum $expectedIndexPrefix.2.ebwt`;# structure of the test file
+$expectedMD5sum="b7a6d65d4bcefe2332dcdc8e9c0cb9c1";
+$observedMD5sum=`md5sum $expectedIndexPrefix.1.bt2`;# structure of the test file
 @withoutName = split (" ", $observedMD5sum);     # to separate the structure and the name of the test file
 $observedMD5sum = $withoutName[0];       # just to have the md5sum result
-is($observedMD5sum,$expectedMD5sum,'Ok for the content of the bowtie build 2.ebwt structure');
+is($observedMD5sum,$expectedMD5sum,'Ok for the content of the bowtie build 1.bt2 structure');
+
+$expectedMD5sum="481b0055258e98825bb4a8c52c3e90c0";
+$observedMD5sum=`md5sum $expectedIndexPrefix.2.bt2`;# structure of the test file
+@withoutName = split (" ", $observedMD5sum);     # to separate the structure and the name of the test file
+$observedMD5sum = $withoutName[0];       # just to have the md5sum result
+is($observedMD5sum,$expectedMD5sum,'Ok for the content of the bowtie build 2.bt2 structure');
 
 $expectedMD5sum="dc12cca8433dfb22df23bc78bc6aeef6";
-$observedMD5sum=`md5sum $expectedIndexPrefix.3.ebwt`;# structure of the test file
+$observedMD5sum=`md5sum $expectedIndexPrefix.3.bt2`;# structure of the test file
 @withoutName = split (" ", $observedMD5sum);     # to separate the structure and the name of the test file
 $observedMD5sum = $withoutName[0];       # just to have the md5sum result
-is($observedMD5sum,$expectedMD5sum,'Ok for the content of the bowtie build 3.ebwt structure');
+is($observedMD5sum,$expectedMD5sum,'Ok for the content of the bowtie build 3.bt2 structure');
 
 $expectedMD5sum="3d11892beee30c866ee5e2a06bbbc3d8";
-$observedMD5sum=`md5sum $expectedIndexPrefix.4.ebwt`;# structure of the test file
+$observedMD5sum=`md5sum $expectedIndexPrefix.4.bt2`;# structure of the test file
 @withoutName = split (" ", $observedMD5sum);     # to separate the structure and the name of the test file
 $observedMD5sum = $withoutName[0];       # just to have the md5sum result
-is($observedMD5sum,$expectedMD5sum,'Ok for the content of the bowtie build 4.ebwt structure');
+is($observedMD5sum,$expectedMD5sum,'Ok for the content of the bowtie build 4.bt2 structure');
 
-$expectedMD5sum="cdf0694f4adfc7c5773f59c234081e98";
-$observedMD5sum=`md5sum $expectedIndexPrefix.rev.1.ebwt`;# structure of the test file
+$expectedMD5sum="c5c13aab02f5bf0d2701b8de21df32ec";
+$observedMD5sum=`md5sum $expectedIndexPrefix.rev.1.bt2`;# structure of the test file
 @withoutName = split (" ", $observedMD5sum);     # to separate the structure and the name of the test file
 $observedMD5sum = $withoutName[0];       # just to have the md5sum result
-is($observedMD5sum,$expectedMD5sum,'Ok for the content of the bowtie build rev.1.ebwt structure');
+is($observedMD5sum,$expectedMD5sum,'Ok for the content of the bowtie build rev.1.bt2 structure');
 
-$expectedMD5sum="f55fc9bd3bc5298fb0946289db6cff66";
-$observedMD5sum=`md5sum $expectedIndexPrefix.rev.2.ebwt`;# structure of the test file
+$expectedMD5sum="f53340fee1bdbd14d0da74565975c29d";
+$observedMD5sum=`md5sum $expectedIndexPrefix.rev.2.bt2`;# structure of the test file
 @withoutName = split (" ", $observedMD5sum);     # to separate the structure and the name of the test file
 $observedMD5sum = $withoutName[0];       # just to have the md5sum result
-is($observedMD5sum,$expectedMD5sum,'Ok for the content of the bowtie build rev.2.ebwt structure');
+is($observedMD5sum,$expectedMD5sum,'Ok for the content of the bowtie build rev.2.bt2 structure');
 
