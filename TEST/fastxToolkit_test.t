@@ -32,7 +32,7 @@
 
 use strict;
 
-#Will test if bwa works correctly
+#Will test if fastxToolkit works correctly
 use warnings;
 use Test::More 'no_plan'; #Number of tests, to modify if new tests implemented. Can be changed as 'no_plan' instead of tests=>11 .
 use Test::Deep;
@@ -62,12 +62,12 @@ system($creatingDirCom) and die ("ERROR: $0 : Cannot execute the command $creati
 my $OriginalFastq="../DATA/expectedData/RC3_1.fastq";
 my $fastq1="$testingDir/RC3_1.fastq";
 my $refCopyCom="cp $OriginalFastq $fastq1";
-system($refCopyCom) and die ("ERROR: $0 : Cannot copy the Reference $OriginalFastq with the command $refCopyCom\n$!\n");     #Now we have a ref to be tested
+system($refCopyCom) and die ("ERROR: $0 : Cannot copy the fastq file $OriginalFastq with the command $refCopyCom\n$!\n");     #Now we have a ref to be tested
 
 $OriginalFastq="../DATA/expectedData/RC3_2.fastq";
 my $fastq2="$testingDir/RC3_2.fastq";
 $refCopyCom="cp $OriginalFastq $fastq2";
-system($refCopyCom) and die ("ERROR: $0 : Cannot copy the Reference $OriginalFastq with the command $refCopyCom\n$!\n");     #Now we have a ref to be tested
+system($refCopyCom) and die ("ERROR: $0 : Cannot copy the fastq file $OriginalFastq with the command $refCopyCom\n$!\n");     #Now we have a ref to be tested
 
 
 
@@ -84,7 +84,7 @@ use fastxToolkit;
 
 ################################################################################################
 #####Test for fastxTrimmer
-my %optionsHachees = ("-f" => "8");        # Hash containing informations
+my %optionsHachees = ("-f" => "8");                             # Hash containing informations
 my $optionHachees = \%optionsHachees;                           # Ref of the hash
 
 my $fastq1Trimmed="$testingDir/RC3_1.FASTXTRIMMER.fastq";
@@ -96,11 +96,11 @@ my @outPut=toolbox::readDir($testingDir);
 
 is_deeply(@outPut,\@expectedOutput,'Test for the output files produced by fastxTrimmer');
 
-###Test for correct file value of bwa index using a md5sum file control -  work through the different bwa versions
+###Test for correct file value of fastq trimmed file using a md5sum file control
 my $expectedMD5sum='f9e6e28015919fab27f24dad62cb7a27';
-my $observedMD5sum=`md5sum ../DATA-TEST/fastxToolkitTestDir/RC3_1.FASTXTRIMMER.fastq`;#md5sum values observed for the current files produced
-my @withoutName =split (" ", $observedMD5sum);     # to separate the structure and the name of the test file
-$observedMD5sum = $withoutName[0];      #just to have the md5sum result
+my $observedMD5sum=`md5sum ../DATA-TEST/fastxToolkitTestDir/RC3_1.FASTXTRIMMER.fastq`;  #md5sum values observed for the current files produced
+my @withoutName =split (" ", $observedMD5sum);                                           # to separate the structure and the name of the test file
+$observedMD5sum = $withoutName[0];                                                      #just to have the md5sum result
 is($observedMD5sum,$expectedMD5sum,'Test for the content of the fastxTrimmer output');
 
 
