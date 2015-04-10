@@ -78,8 +78,8 @@ use tophat;
 ###tophat::bowtieBuild
 ################################################################################################
 my $expectedIndexPrefix=$testingDir."/Reference";
-my $observedIndexPrefix=is(tophat::bowtieBuild($fastaRef),1, 'OK for bowtieBuild RUNNING');
-is($expectedIndexPrefix,$observedIndexPrefix,'OK for prefix index');
+is(tophat::bowtieBuild($fastaRef),1, 'OK for bowtieBuild RUNNING');
+is($expectedIndexPrefix,tophat::bowtieBuild($fastaRef),'OK for prefix index');
 
 exit;
 
@@ -93,8 +93,8 @@ is($observedMD5sum,$expectedMD5sum,'Ok for the content of the samtools faidx out
 ################################################################################################
 ###tophat::bowtie2Build
 ################################################################################################
-$expectedIndexPrefix="$testingDir/Reference";
-$observedIndexPrefix=is(tophat::bowtieBuild($fastaRef),1, 'OK for bowtieBuild RUNNING');
+$expectedIndexPrefix="$testingDir."/Reference";
+$observedIndexPrefix=is(tophat::bowtie2Build($fastaRef),1, 'OK for bowtie2Build RUNNING');
 
 
 is($expectedIndexPrefix,$observedIndexPrefix,'OK for prefix index');
