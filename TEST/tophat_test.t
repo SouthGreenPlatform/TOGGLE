@@ -99,6 +99,25 @@ $observedMD5sum=`md5sum $expectedIndexPrefix.3.ebwt`;# structure of the test fil
 $observedMD5sum = $withoutName[0];       # just to have the md5sum result
 is($observedMD5sum,$expectedMD5sum,'Ok for the content of the bowtie build 3.ebwt structure');
 
+$expectedMD5sum="3d11892beee30c866ee5e2a06bbbc3d8";
+$observedMD5sum=`md5sum $expectedIndexPrefix.4.ebwt`;# structure of the test file
+@withoutName = split (" ", $observedMD5sum);     # to separate the structure and the name of the test file
+$observedMD5sum = $withoutName[0];       # just to have the md5sum result
+is($observedMD5sum,$expectedMD5sum,'Ok for the content of the bowtie build 4.ebwt structure');
+
+$expectedMD5sum="cdf0694f4adfc7c5773f59c234081e98";
+$observedMD5sum=`md5sum $expectedIndexPrefix.rev.1.ebwt`;# structure of the test file
+@withoutName = split (" ", $observedMD5sum);     # to separate the structure and the name of the test file
+$observedMD5sum = $withoutName[0];       # just to have the md5sum result
+is($observedMD5sum,$expectedMD5sum,'Ok for the content of the bowtie build rev.1.ebwt structure');
+
+$expectedMD5sum="f55fc9bd3bc5298fb0946289db6cff66";
+$observedMD5sum=`md5sum $expectedIndexPrefix.rev.2.ebwt`;# structure of the test file
+@withoutName = split (" ", $observedMD5sum);     # to separate the structure and the name of the test file
+$observedMD5sum = $withoutName[0];       # just to have the md5sum result
+is($observedMD5sum,$expectedMD5sum,'Ok for the content of the bowtie build rev.2.ebwt structure');
+
+
 exit;
 
 ################################################################################################
