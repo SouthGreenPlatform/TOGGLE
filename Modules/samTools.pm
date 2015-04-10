@@ -227,49 +227,6 @@ sub samToolsMerge{
           }
 }
 
-##
-##
-##SAMTOOLS FLAGSTATS
-#Provide simple stats on a BAM/SAM file.
-sub samToolsFlagstat {
-     my ($bamFile,$flagstatsOutputFile)=@_;
-     #Testing if sent bam is a true bam
-     my $bamFilesToCompute; # set of correct bam, ready for command launch
-
-     if (toolbox::sizeFile($bamFile)==1)
-          {#The file exists and is not empty
-          #check if it is a BAM
-          if (toolbox::checkSamOrBamFormat($bamFile)==2)
-               {
-               #The file is a BAM
-               $bamFilesToCompute.=" ".$bamFile;
-               }
-          else
-               {#The file is not a BAM
-               toolbox::exportLog("ERROR: samTools::samToolsFlagstat : The file $bamFile is not a BAM file\n",0);
-               return 0;  
-               }
-          }
-     else #The file does not exist
-          {
-          toolbox::exportLog("ERROR: samTools::samToolsFlagstat : The file $bamFile does not exist\n",0);
-          return 0;
-          }
-     #We have the BAM validated, let's launch the command!!
-     
-     my $command = "$samtools flagstat $bamFile > $flagstatsOutputFile";#Command to launch
-     if(toolbox::run($command)==1)
-          {
-          toolbox::exportLog("INFOS: samTools::samToolsFlagstat : Correctly done\n",1);
-          return 1;#Command Ok
-          }
-     else
-          {
-          toolbox::exportLog("ERROR: samTools::samToolsFlagstat : Uncorrectly done\n",0);
-          return 0;#Command Ok
-          } 
-}
-
 
 ##SAMTOOLS IDXSTATS
 # samtools idxstats <aln.bam>
@@ -346,6 +303,52 @@ sub samToolsDepth {
           toolbox::exportLog("ERROR: samTools::samToolsDepth : Uncorrectly done\n",0);
           return 0;#Command not Ok
           } 
+}
+
+##
+##
+##SAMTOOLS FLAGSTATS
+#Provide simple stats on a BAM/SAM file.
+sub samToolsFlagstat
+{
+	my ($bamFile,$flagstatsOutputFile)=@_;
+	if (toolbox::sizeFile($bamFile)==1)##Check if entry file exist and is not empty
+	{ 
+		#Check if the format is correct
+		if (toolbox::checkSamOrBamFormat($bamFile)!=2)#The file is not a BAM file
+		{
+			if (toolbox::checkSamOrBamFormat($bamFile)==1)#The file is a SAM file
+			{
+				toolbox::exportLog("ERROR: samTools::samToolsFlagstat : The file $bamFile is a SAM file and samTools::samToolsFlagstat accept only BAM file\n",0);
+				return 0;
+			}
+			elsif (toolbox::checkSamOrBamFormat($bamFile)==0)#The file is not a SAM/BAM file
+			{
+				toolbox::exportLog("ERROR: samTools::samToolsFlagstat : The file $bamFile is not either a SAM or BAM file and samTools::samToolsFlagstat accept only BAM file\n",0);
+				return 0;
+			}
+		}
+		else ##We have the BAM validated
+		{
+			toolbox::exportLog("INFOS: samTools::samToolsFlagstat : The file $bamFile is a BAM file\n",1);
+			my $command = "$samtools flagstat $bamFile > $flagstatsOutputFile";#Command to launch
+			if(toolbox::run($command)==1)
+			{
+				toolbox::exportLog("INFOS: samTools::samToolsFlagstat : Correctly done\n",1);
+				return 1;
+			}
+			else
+			{
+				toolbox::exportLog("ERROR: samTools::samToolsFlagstat : Uncorrectly done\n",0);
+				return 0;
+			} 
+		}
+	}
+	else ##The file does not exist or is empty
+	{
+		toolbox::exportLog("ERROR: samTools::samToolsFlagstat : The file $bamFile does not exist or is empty\n",0);
+		return 0;
+	}
 }
 
 1;
