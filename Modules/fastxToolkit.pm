@@ -61,14 +61,12 @@ sub fastxTrimmer
         else
         {
             toolbox::exportLog("ERROR: fastxToolkit:fastxTrimmer : ABBORTED\n",0);
-            return 0;
         }
         
     }
     else
     {
         toolbox::exportLog("ERROR: fastxToolkit::fastxTrimmer : Problem with the file $fastqFileIn (don't exist ou invalid fastq format)\n",0);
-        return 0;
     }
     
     
