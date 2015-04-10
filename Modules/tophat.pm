@@ -36,39 +36,44 @@ use localConfig;
 use toolbox;
 use Data::Dumper;
 
-#tophat2 INDEX-BOWTIE-BUILD
+################################################################################################
+# sub bowtieBuild : builds a Bowtie index from a set of DNA sequences. 
+################################################################################################
+# arguments : fasta file to index and options used for bowtieBuild running
+# Returns prefixname of the database created  (1 if the execution is correctly done else 0)
+################################################################################################
 sub bowtieBuild
 {
-    my($refFastaFileIn,$optionsHachees)=@_;
-    $refFastaFileIn =~ /^([^\.]+)\./;   # catch o,ly the file name without the file extension and store it into $prefixRef variable
+    my ($refFastaFileIn,$optionsHachees)=@_;
+    $refFastaFileIn =~ /^([^\.]+)\./;   # catch only the file name without the file extension and store it into $prefixRef variable
     my $prefixRef = $1;
-    ##DEBUG
-    toolbox::exportLog("INFOS: tophat::bowtieBuild : $prefixRef\n",1);
+    ##DEBUG toolbox::exportLog("DEBUG: tophat::bowtieBuild : $prefixRef\n",1);
     
-    if (toolbox::sizeFile($refFastaFileIn)==1)		##Check if the reference file exist and is not empty
+    if (toolbox::sizeFile($refFastaFileIn)==1)						# check if the reference file exist and is not empty
     {
-        my $options=toolbox::extractOptions($optionsHachees, " ");		##Get given options
-        my $command=$bowtieBuild.$options." ".$refFastaFileIn." ".$prefixRef;		##command
-        ##DEBUG
-        toolbox::exportLog("INFOS: tophat::bowtieBuild : $command\n",1);
-        #Execute command
-        if(toolbox::run($command)==1)		##The command should be executed correctly (ie return) before exporting the log
+        my $options=toolbox::extractOptions($optionsHachees, " ");			# Get given options
+        my $command=$bowtieBuild.$options." ".$refFastaFileIn." ".$prefixRef;		# command
+        ##DEBUG toolbox::exportLog("DEBUG: tophat::bowtieBuild : $command\n",1);
+        # Execute command
+        if(toolbox::run($command)==1)							# The command should be executed correctly (ie return) before exporting the log
 	{
-            toolbox::exportLog("INFOS: tophat::bowtieBuild : correctly done\n",1);		# bowtiebuild have been correctly done
+            toolbox::exportLog("INFOS: tophat::bowtieBuild : correctly done\n",1);	# bowtiebuild have been correctly done
         }
         else
         {
             toolbox::exportLog("ERROR: tophat::bowtieBuild : ABORTED\n",0);		# bowtiebuild have not been correctly done
-            return 0;
         }
     }
     else
     {
         toolbox::exportLog("ERROR: tophat::bowtiebBuild : Problem with the file $refFastaFileIn\n",0);		# bowtiebuild can not function because of wrong/missing reference file
-        return 0;
     }
     return $prefixRef;
 }
+################################################################################################
+# END sub bowtieBuild 
+################################################################################################
+
 
 ##tophat2 INDEX-BOWTIE2-BUILD
 sub bowtie2Build
