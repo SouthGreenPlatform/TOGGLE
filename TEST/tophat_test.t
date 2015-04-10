@@ -80,6 +80,14 @@ use tophat;
 my $expectedIndexPrefix=$testingDir."/Reference";
 is(tophat::bowtieBuild($fastaRef),$expectedIndexPrefix, 'OK for bowtieBuild RUNNING');
 
+###Checking the correct structure for the output file using md5sum
+my $expectedMD5sum="de1ef57892bd9f508fb466521bd5a5b6";
+my $observedMD5sum=`md5sum $expectedIndexPrefix.1.ebwt`;# structure of the test file
+my @withoutName = split (" ", $observedMD5sum);     # to separate the structure and the name of the test file
+$observedMD5sum = $withoutName[0];       # just to have the md5sum result
+is($observedMD5sum,$expectedMD5sum,'Ok for the content of the samtools faidx output structure');
+
+
 exit;
 
 ################################################################################################
