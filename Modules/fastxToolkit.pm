@@ -37,11 +37,12 @@ use toolbox;
 use Data::Dumper;
 
 
-################################
-# Different softwares of fastxToolkit
-################################
-#
-# sub fastxTrimmer : to remove the n first pb of sequences in  fatsq file
+################################################################################################
+# sub fastxTrimmer : to remove the n first pb of sequences in  fastq file
+################################################################################################
+# arguments : fastq file to analyze
+# Returns boolean (1 if the execution is correctly done else 0)
+################################################################################################
 sub fastxTrimmer
 {
     my($fastqFileIn,$fastqFileOut,$optionsHachees)=@_;
@@ -72,6 +73,39 @@ sub fastxTrimmer
     
     
 }
-
+################################################################################################
+# END sub fastxTrimmer 
+################################################################################################
 
 1;
+
+=head1 NAME
+
+package I<fastxToolkit> 
+
+=head1 SYNOPSIS
+
+	use fastxToolkit;
+
+	fastxToolkit::fastxTrimmer($fastqFilename);
+	
+=head1 DESCRIPTION
+
+The FASTX-Toolkit (http://hannonlab.cshl.edu/fastx_toolkit/index.html) is a collection of command line tools for Short-Reads FASTA/FASTQ files preprocessing.
+
+
+=head2 Functions
+
+=head3 fastxToolkit::fastxTrimmer()
+
+This function execute the fasttx_trimmer program that remove the n first pb of sequences in  a fastq file.
+One argument is required : the fastq filename
+- lines to print in a log or error file
+- boolean value to control the type of the log and of the error. 0 : print logs into error log file and die.
+1 : print logs into log file. 2 : print logs into error log file and the program continue.
+
+The parameter returned is a boolean : 1 if the analysys has been correctly done else 0.
+
+Example : 
+CfastxToolkit::fastxTrimmer($fastqFilename);>
+
