@@ -74,4 +74,10 @@ can_ok( 'tophat','bowtieBuild');
 use toolbox;
 use tophat;
 
+################################################################################################
+###tophat::bowtieBuild
+################################################################################################
+my $indexPrefix="fastq";
+is(tophat::bowtieBuild($fastaRef),1, 'Test for tophat::bowtieBuild');
+
 exit;
