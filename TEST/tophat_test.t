@@ -78,8 +78,7 @@ use tophat;
 ###tophat::bowtieBuild
 ################################################################################################
 my $expectedIndexPrefix=$testingDir."/Reference";
-is(tophat::bowtieBuild($fastaRef),1, 'OK for bowtieBuild RUNNING');
-is($expectedIndexPrefix,tophat::bowtieBuild($fastaRef),'OK for prefix index');
+is(tophat::bowtieBuild($fastaRef),$expectedIndexPrefix, 'OK for bowtieBuild RUNNING');
 
 exit;
 
