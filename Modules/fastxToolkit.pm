@@ -48,19 +48,18 @@ sub fastxTrimmer
     if (toolbox::sizeFile($fastqFileIn)==1 and toolbox::checkFormatFastq($fastqFileIn)==1)             ##Check if the fastqfile exist and is not empty
     {
         my $options=toolbox::extractOptions($optionsHachees, " ");  ##Get given options by software.config
-        ## DEBUGG
-        toolbox::exportLog("DEBUG: fastxToolkit::fastxTrimmer : fastxTrimmer option equals to $options",1);
+        ## DEBUG toolbox::exportLog("DEBUG: fastxToolkit::fastxTrimmer : fastxTrimmer option equals to $options",1);
         my $command=$fastxTrimmer." ".$options." -i ".$fastqFileIn." -o ".$fastqFileOut; ## Command initialization
         
         # Command is executed with the run function (package toolbox)
         if (toolbox::run($command)==1)
         {
-            toolbox::exportLog("INFOS: fastxToolkit : correctly done\n",1);
+            toolbox::exportLog("INFOS: fastxToolkit::fastxTrimmer : correctly done\n",1);
             return 1;
         }
         else
         {
-            toolbox::exportLog("ERROR: fastxToolkit : ABBORTED\n",0);
+            toolbox::exportLog("ERROR: fastxToolkit:fastxTrimmer : ABBORTED\n",0);
             return 0;
         }
         
