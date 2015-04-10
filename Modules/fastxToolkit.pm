@@ -45,7 +45,7 @@ use Data::Dumper;
 sub fastxTrimmer
 {
     my($fastqFileIn,$fastqFileOut,$optionsHachees)=@_;
-    if (toolbox::sizeFile($fastqFileIn)==1 and checkFormatFastq($fastqFileIn)==1)             ##Check if the fastqfile exist and is not empty
+    if (toolbox::sizeFile($fastqFileIn)==1 and toolbox::checkFormatFastq($fastqFileIn)==1)             ##Check if the fastqfile exist and is not empty
     {
         my $options=toolbox::extractOptions($optionsHachees, " ");  ##Get given options by software.config
         ## DEBUGG
