@@ -122,7 +122,17 @@ system($copyCommand) and die ("ERROR: $0 : Cannot copy the vcf file with the com
 #File empty
 my $emptyFile="$testingDir/empty-file.vcf";
 my $createFileCommand="touch $emptyFile";
-system($createFileCommand) and die ("ERROR: $0 : Cannot create the empty file with the command $createFileCommand\n$!\n"); 
+system($createFileCommand) and die ("ERROR: $0 : Cannot create the empty file with the command $createFileCommand\n$!\n"); +
+
+#Fasta files
+my $originalReference = "../DATA/expectedData/correctReference.fasta";
+my $reference = "$testingDir/correctReference.fasta";
+$copyCommand=" cp $originalReference $reference";
+system($copyCommand) and die ("ERROR: $0 : Cannot copy the fasta file with the command $copyCommand\n$!\n");
+my $originalWrongFasta = "../DATA/expectedData/wrongReference.fasta";
+my $wrongFasta = "$testingDir/wrongReference.fasta";
+$copyCommand=" cp $originalWrongFasta $wrongFasta";
+system($copyCommand) and die ("ERROR: $0 : Cannot copy the fasta file with the command $copyCommand\n$!\n");
 
 
 ########################################
@@ -252,6 +262,10 @@ is(toolbox::checkFormatFastq($fastqFile),'1', 'Test for checkFormatFastq');
 #checkSamOrBamFormat
 is (toolbox::checkSamOrBamFormat($samFile),'1', 'Test for checkSamOrBamFormat... sam format');
 is (toolbox::checkSamOrBamFormat($bamFile),'2', 'Test for checkSamOrBamFormat... bam format');
+
+#dnaFastaFormatValidator
+is (toolbox::dnaFastaFormatValidator($reference),'1','Test for dnaFastaFormatValidator... Format Ok');
+is (toolbox::dnaFastaFormatValidator($wrongFasta),'0','Test for dnaFastaFormatValidator... Format not Ok, warnings send');
 
 ########################################
 #Config file test
