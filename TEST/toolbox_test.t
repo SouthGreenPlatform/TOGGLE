@@ -264,8 +264,8 @@ is (toolbox::checkSamOrBamFormat($samFile),'1', 'Test for checkSamOrBamFormat...
 is (toolbox::checkSamOrBamFormat($bamFile),'2', 'Test for checkSamOrBamFormat... bam format');
 
 #dnaFastaFormatValidator
-is (toolbox::dnaFastaFormatValidator($reference),'1','Test for dnaFastaFormatValidator... Format Ok');
-is (toolbox::dnaFastaFormatValidator($wrongFasta),'0','Test for dnaFastaFormatValidator... Format not Ok, warnings send');
+is (toolbox::checkFormatFasta($reference),'1','Test for checkFormatFasta... Format Ok');
+is (toolbox::checkFormatFasta($wrongFasta),'0','Test for checkFormatFasta... Format not Ok, warnings send');
 
 ########################################
 #Config file test
