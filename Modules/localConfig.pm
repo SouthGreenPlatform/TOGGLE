@@ -40,13 +40,15 @@ our @ISA=qw(Exporter);
 our @EXPORT=qw($bwa $picard $samtools $GATK $cufflinks $pacBioToCA $cutadapt $fastqc $java $snpEff $toggle);
 
 #toggle path
-our $toggle="/home/cecmonat/TOGGLE";
+our $toggle="/home/sabotf/scripts/TOGGLE/";
+
 
 #PATH for Mapping on cluster
 our $java = "/usr/local/java/latest/bin/java -Xmx12g -jar";
 
 our $bwa = "/usr/local/bin/bwa";
 our $picard = "$java /home/sabotf/sources/picard-tools";
+
 
 our $samtools = "/usr/local/samtools-0.1.18/samtools-0.1.18/samtools";
 
