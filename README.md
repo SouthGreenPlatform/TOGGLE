@@ -15,9 +15,9 @@ in different environments (single machine to HPC clusters).
 * Intellectual property belongs to IRD, CIRAD and SouthGreen developpement plateform 
 * Written by Cecile Monat, Christine Tranchant, Ayite Kougbeadjo, Cedric Farcy, Mawusse Agbessi, Marilyne Summo, and Francois Sabot
 
-## REQUIREMENTS - Enrique
+## REQUIREMENTS
 
-#### Perl - Julie
+#### Perl
 
 * Data::Translate
 * Data::Dumper
@@ -26,7 +26,7 @@ in different environments (single machine to HPC clusters).
 * Capture::Tiny
 
 
-#### Bioinformatics software amanzougarene sur la branche 
+#### Bioinformatics software 
 
 * java 1.7
 * fastQC v0.10.1
