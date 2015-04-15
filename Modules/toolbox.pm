@@ -1135,7 +1135,7 @@ sub transferDirectoryFromNodeToMaster
 
 
 ################################################################################################
-# sub dnaFastaFormatValidator => check if a given file is a fasta or not 
+# sub checkFormatFasta => check if a given file is a fasta or not
 ################################################################################################
 # arguments :
 # 	- the fasta file
@@ -1144,19 +1144,19 @@ sub transferDirectoryFromNodeToMaster
 #	- send a warning to the log if not a fasta file
 ################################################################################################
 
-sub dnaFastaFormatValidator{
+sub checkFormatFasta{
     my ($file)=@_;
 
     #Check if we can read the file
     my $rightToRead = readFile($file);
     if ($rightToRead == 0)
     {
-	exportLog("ERROR: toolbox::dnaFastaFormatValidator : The file $file is not readable\n",0);
+	exportLog("ERROR: toolbox::checkFormatFasta : The file $file is not readable\n",0);
 	return 0;
     }
     
     #Opening file
-    open(FILE, "<", $file) or toolbox::exportLog("ERROR: toolbox::dnaFastaFormatValidator : Cannot open the file $file\n$!\n",0);
+    open(FILE, "<", $file) or toolbox::exportLog("ERROR: toolbox::checkFormatFasta : Cannot open the file $file\n$!\n",0);
    
     #Reading file
     my $initiator = 0; #We need to scan the very first line, that begins with '>', but this is the only one beginning with that we need
@@ -1196,7 +1196,7 @@ sub dnaFastaFormatValidator{
         if (scalar (keys %errors) > 19)
           {
           #Will stop after 20 errors
-          my $tooMuchErrors = "WARNING : toolbox::dnaFastaFormatValidator : Too much errors in the Fasta file $file, only the first 20 errors are shown..."; #Will be printed before all errors
+          my $tooMuchErrors = "WARNING : toolbox::checkFormatFasta : Too much errors in the Fasta file $file, only the first 20 errors are shown..."; #Will be printed before all errors
 	  toolbox::exportLog($tooMuchErrors,2);
           last;
           }
@@ -1213,10 +1213,10 @@ sub dnaFastaFormatValidator{
 	{
 	#Formatting errors for the warning
 	my $warningLog;
-	$warningLog.="WARNING : toolbox::dnaFastaFormatValidator : There are $numberOfErrors errors detected for file $file\n";
+	$warningLog.="WARNING : toolbox::checkFormatFasta : There are $numberOfErrors errors detected for file $file\n";
 	foreach my $individualError (sort {$a <=> $b} keys %errors)#Sorting error per line number
 	    {
-	    $warningLog.="WARNING : toolbox::dnaFastaFormatValidator : Line $individualError does not respect FASTA standard : $errors{$individualError}\n";
+	    $warningLog.="WARNING : toolbox::checkFormatFasta : Line $individualError does not respect FASTA standard : $errors{$individualError}\n";
 	    }
 	#Sending the warning
 	toolbox::exportLog($warningLog,2);
@@ -1225,7 +1225,7 @@ sub dnaFastaFormatValidator{
         }
        
     #returning ok
-    toolbox::exportLog("INFOS: toolbox::dnaFastaFormatValidator : The file $file is a FASTA file\n",1);
+    toolbox::exportLog("INFOS: toolbox::checkFormatFasta : The file $file is a FASTA file\n",1);
     return 1;    
     }
    
@@ -1509,7 +1509,7 @@ Example :
 C<( toolbox::transferDirectoryFromNodeToMaster($initialDir."/*", $MasterDir, $nodeInitial,1);); >
 
 
-=head3 toolbox::dnaFastaFormatValidator()
+=head3 toolbox::checkFormatFasta()
 
 This function checks if a given file is a true DNA fasta file
 The only required argument is the filemane. The file can be plain text
@@ -1518,7 +1518,7 @@ Will return a maximum of 20 errors.
 Will stop immediatly if the first line is misformatted
 
 Example : 
-C<( toolbox::dnaFastaFormatValidator($fastaFile);); >
+C<( toolbox::checkFormatFasta($fastaFile);); >
 
 
 =head1 AUTHORS
