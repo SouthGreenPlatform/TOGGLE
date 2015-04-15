@@ -381,6 +381,25 @@ sub readDir
     
     # split the list into a table returned after
     my @fileList = split /\n/, $file; #print Dumper(\@fileList);
+
+
+    #Validation of the complete path provided, to avoid the 'ls *' bug with a single subfolder
+    foreach my $ files (@fileList)
+	{
+	##DEBUG print $files," --> ";
+	#Check if there is at least a '/' in the name
+	if ($files =~ m/\//)
+	    { #The file has the full path
+	    ##DEBUG print "No changes to $files\n";
+	    last; # all must be with full path, so let's leave the correction
+	    }
+	#The full path is not implemented
+	my $subfolder = `ls $dir`;
+	chomp $subfolder;
+	$files = $dir."/".$subfolder."/".$files; #Adding the complete path
+	##DEBUG print $files,"\n";
+	}
+
     return(\@fileList);
 
 }
