@@ -178,3 +178,4 @@ tail $PATH_INSTALL/DATA/BamDirectory/GATKVARIANTFILTRATION.vcf
 Release 0.2, 14st of March, 2015
 
 Second version release
+

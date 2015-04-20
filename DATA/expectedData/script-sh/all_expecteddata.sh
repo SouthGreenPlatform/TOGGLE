@@ -17,6 +17,7 @@ rm RC3.GATKINDELREALIGNER.bam RC3.GATKINDELREALIGNER.bai RC3Single.GATKINDELREAL
 rm RC3.PICARDTOOLSMARKDUPLICATES.bam RC3.PICARDTOOLSMARKDUPLICATES.bamDuplicates RC3Single.PICARDTOOLSMARKDUPLICATES.bam RC3Single.PICARDTOOLSMARKDUPLICATES.bamDuplicates
 rm GATKHAPLOTYPECALLER.vcf  GATKSELECTVARIANTS.vcf  GATKVARIANTFILTRATION.vcf
 rm GATKHAPLOTYPECALLER.vcf.idx  GATKSELECTVARIANTS.vcf.idx  GATKVARIANTFILTRATION.vcf.idx
+rm RC3.SAMTOOLSFLAGSTAT.txt
 
 cd script-sh
 
@@ -76,6 +77,7 @@ sh samtools_index1.sh;
 sh samtools_view.sh;
 sh samtools_index2.sh;
 sh samtools_faidx.sh;
+sh samtools_flagstat.sh;
 
 echo "
 ################ gatk
