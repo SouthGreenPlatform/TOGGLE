@@ -209,7 +209,17 @@ my $dictFileOut=$refFastaFile;                                                  
 $dictFileOut =~ s/\.[^\.]*$/.dict/;
 ##DEBUG print LOG "INFOS: $0 : dict filename: $dictFileOut\n";
 $softParameters = toolbox::extractHashSoft($optionref,"picardTools createSequenceDictionary");              # recovery of specific parameters of picard create sequence dictionary
-picardTools::picardToolsCreateSequenceDictionary($refFastaFile,$dictFileOut,$softParameters);               # create ".dict" of the reference file
+
+if (-e $dictFileOut)
+{
+        print LOG "INFOS: $0 : PicardTools Dictionary already exists: $dictFileOut \n";
+}
+else
+{
+        print LOG "INFOS: $0 : PicardTools Dictionary created: $dictFileOut \n";
+        picardTools::picardToolsCreateSequenceDictionary($refFastaFile,$dictFileOut,$softParameters);               # create ".dict" of the reference file
+}
+
 $fileWithoutExtention = pairing::extractName($samFileOut);                                                  # extract name of file without the extention
 my $bamFileOut = "$newDir"."/"."$fileWithoutExtention".".PICARDTOOLSSORT.bam";                              # name for the output file of picardtools sort sam
 $softParameters = toolbox::extractHashSoft($optionref,"picardTools sortsam single");                        # recovery of specific parameters of picard sort sam
