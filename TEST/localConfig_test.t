@@ -121,7 +121,7 @@ is($line,"cutadapt: error: At least one parameter needed: name of a FASTA or FAS
 # Testing the correct location of java
 ######################################
 
-`$java 1> /tmp/out.txt`;#We works with the STDERR output
+`$java &> /tmp/out.txt`;#We works with the STDERR output
 open(OUT,"<", "/tmp/out.txt");
 while (<OUT>) {
     $line=$_;
