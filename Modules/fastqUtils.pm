@@ -205,7 +205,7 @@ sub convertLinePHRED33ToPHRED64
 
         use fastqUtils;
     
-        fastqUtils::checkNumberByWC ($fileName);
+        fastqUtils::checkNumberLignes ($fileName);
     
         fastqUtils::checkEncodeByASCIIcontrol ($fileName);
     
@@ -222,7 +222,7 @@ Package fastqUtils is a set of modules which deals with issues relative to FASTQ
 =head2 FUNCTIONS
 
 
-=head3 fastqUtils::checkNumberByWC
+=head3 fastqUtils::checkNumberLignes
 
 This module check the sequences number of a given file using the wc -l command from bash
 It takes only one argument, the file you want to know the number of lines
