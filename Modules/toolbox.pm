@@ -40,6 +40,7 @@ use Exporter;
 
 use lib qw(.);
 use localConfig;
+use fastqUtils;
 
 #Global infos
 our @ISA=qw(Exporter);
@@ -687,7 +688,7 @@ sub checkFormatFastq
     my ($fileToTest) = @_;                                              # recovery of file to test
     my $readOk = readFile($fileToTest);                                 # check if the file to test is readable
     
-    my nbLignes = fastqUtils::checkNumberLignes(@_);                    # calculing number lines in file
+    my $nbLignes = fastqUtils::checkNumberLignes(@_);                    # calculing number lines in file
     my $modulo = ($nbLignes % 4);
     my $even   = ($nbLignes % 2);
     
