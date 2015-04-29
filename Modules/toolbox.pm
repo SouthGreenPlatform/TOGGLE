@@ -39,6 +39,7 @@ use Exporter;
 
 use lib qw(.);
 use localConfig;
+use fastqUtils;
 
 #Global infos
 our @ISA=qw(Exporter);
@@ -691,49 +692,129 @@ sub run
 ################################################################################################
 
 
-
-
-
-
 ################################################################################################
 # sub checkFormatFastq => check if a file is really a FASTQ file
 ################################################################################################
 # arguments : filename to analyze
 # Returns boolean (1 if the format is fastq else 0)
 ################################################################################################
+
 sub checkFormatFastq
 {
-    my $notOk = 0;                      # counter of error(s)
-    my ($fileToTest) = @_;              # recovery of file to test
-    my $readOk = readFile($fileToTest); # check if the file to test is readable
-    open (F1, $fileToTest) or toolbox::exportLog("ERROR: toolbox::checkFormatFastq : Cannot open the file $fileToTest\n$!\n",0);             # open the file to test
-    while (<F1>)                 	# for the first line of the sequence with normally, ID info
+    
+    my $notOk = 0;                                                      # counter of error(s)
+    my ($fileToTest) = @_;                                              # recovery of file to test
+    my $readOk = readFile($fileToTest);                                 # check if the file to test is readable
+    
+    my $nbLignes = fastqUtils::checkNumberLignes(@_);                    # calculing number lines in file
+    my $modulo = ($nbLignes % 4);
+    my $even   = ($nbLignes % 2);
+    
+    if ( ($nbLignes>0) and ($modulo==0) and ($even==0) )                # testing if the number of lines is a multiple of 4
     {
-        if ($_=~m/^$/)                  # if ID info's are not present ...
+        #print "$nbLignes is a multiple of 4\n";
+    }
+    else {
+        toolbox::exportLog("ERROR: toolbox::checkFormatFastq : Number of lines is not a multiple of 4 in file $fileToTest.\n",0);
+        return 0;
+    }
+                                                                        # open and traite the file if the number of lines is a multiple of 4
+    open (F1, $fileToTest) or toolbox::exportLog("ERROR: toolbox::checkFormatFastq : Cannot open the file $fileToTest\n$!\n",0); # open the file to test
+    
+    my  @lignesF1=();
+    my $comp=0;
+    my $countlines=0;
+    my $stop=0;
+    
+    while ((my $line = <F1>))                                           # scanning file and stocking in an array the four lines of a read.
+    {
+        chomp $line;
+        $countlines++;
+        
+        if ($comp<3)
         {
-            toolbox::exportLog("ERROR: toobox::checkFormatFastq : The file $fileToTest is not a FASTQ file => The ID infos line is not present\n", 0);
-            $notOk++;                   # one error occured, so count it
+            $comp++;
+            push (@lignesF1,$line);
         }
-        my $line2=<F1>;                 # for second line of the sequence with the sequence
-        my $line3=<F1>;                 # for the third line of the sequence with normally, "+" for quality infos
-        if ($line3=~m/^$/)                  # if "+" not present...
+        else                                                            # Completing block, treatment starts here.
         {
-            toolbox::exportLog("ERROR: toobox::checkFormatFastq : The file $fileToTest is not a FASTQ file => The \"+\" line is not present\n",0);
-            $notOk++;                   # one error occured, so count it
+            $stop++;
+            push (@lignesF1,$line);
+            
+            my $i=0;
+            while ( ($i<=$#lignesF1) and ($notOk <=1))                 # treatment of a block containing four lines of file and stop if 20 errors found.
+            {
+                
+                my $idLine=$lignesF1[$i];
+                my $fastaLine=$lignesF1[$i+1];
+                my $plusLine=$lignesF1[$i+2];
+                my $qualityLine=$lignesF1[$i+3];
+                my $nbIDLine=$countlines-3;
+                my $nbLineFasta=$countlines-2;
+                my $nbPlusLine=$countlines-1;
+                my $nbQualityLine=$countlines;
+                
+                if (($idLine=~m/^$/) and ($plusLine=~m/^$/))            # if the ID line and the "plus" line are not empty ...
+                {
+                    toolbox::exportLog("ERROR: toolbox::checkFormatFastq : The file $fileToTest is not a FASTQ file => The ID infos line $nbIDLine is not present.\n",0);
+                    $notOk++;                                           # one error occured, so count it
+                }
+                
+                elsif ( (($idLine=~m/^\@.*/) or ($idLine=~m/^\>.*/) ) and ($plusLine=~m/^\+$/) )   # if ID ligne is not empty and it starts by "@" or ">" and the
+                # plus line has a "+", the block of four lines ($i to $i+3) is traited.
+                {
+                    if ( length($fastaLine) == length($qualityLine) )   # comparing the fasta line and the quality line lengths.
+                    {
+                        my @fasta = split //, $fastaLine;
+                        foreach my $nucleotide (@fasta)
+                        {
+                            if ($nucleotide!~m/A|T|G|C|a|g|t|c|N|n/)    # checking nucleotides in the fasta line.
+                            {
+                                toolbox::exportLog ("ERROR: toolbox::checkFormatFastq : Not basic IUPAC letter, only ATGCNatgcn characters are allowed: unauthorized characters are in the line $nbLineFasta of $fileToTest.\n",0);
+                                $notOk++;
+                            }
+                        }
+                    }
+                    else 												# error if fasta line length and quality line length are differents.
+                    {
+                        toolbox::exportLog("ERROR: toolbox::checkFormatFastq : Fasta line $nbLineFasta has not the same lenght than quality line $nbQualityLine in file $fileToTest.\n",0);
+                        $notOk++;
+                    }
+                }
+                
+                else													#error if the ID line do not start with @ or >.
+                {
+                    toolbox::exportLog("ERROR: toolbox::checkFormatFastq : ID line has to start with @ or > in line $nbIDLine of file $fileToTest.\n",0);
+                    $notOk++;
+                }
+                $i=$i+4; 												# jumping to next read.
+            }
+            
+            last if ($stop==200000);                                    # stoping treatment if 50000 reads were analysed.
+            
+            undef @lignesF1;
+            $comp=0;
         }
-        my $line4=<F1>;                 # for the fourth line of the sequence with quality score
+        next;
     }
-    if ($notOk == 0)                    # if no error occured in the whole file, ok
+    
+    
+    #print "le nb de lines : $countlines\n";
+    if (($notOk == 0))                    						# if any error occured in the file, the format is right.
     {
-        toolbox::exportLog("INFOS: toobox::checkFormatFastq : The file $fileToTest is a FASTQ file\n",1);
-	return 1;
+        print "INFOS: toolbox::checkFormatFastq : The file $fileToTest is a FASTQ file.\n";
+        #### toolbox::exportLog("INFOS: toolbox::checkFormatFastq : The file $fileToTest is a FASTQ file.\n",1);
+		return 1;
     }
-    else                                # if one or some error(s) occured on the whole file, not ok
+    else                                						# if one or some error(s) occured on the file, the fastq format is not right.
     {
-        toolbox::exportLog("ERROR: toobox::checkFormatFastq : The file $fileToTest is not a FASTQ file\n",0);
-	return 0;
+        #### toolbox::exportLog("ERROR: toolbox::checkFormatFastq : Invalid FASTQ requirements in file $fileToTest.\n",0);
+        print "ERROR: toolbox::checkFormatFastq : Invalid FASTQ requirements in file $fileToTest.\n";
+		return 0;
     }
+    
     close F1;
+    
 }
 ################################################################################################
 # END sub checkFormatFastq
@@ -1539,9 +1620,24 @@ Example :
 C<( toolbox::checkFormatFasta($fastaFile);); >
 
 
-=head1 AUTHORS
+=head3 toolbox::checkFormatFastq()
+ 
+This function checks if a given file is a FASTQ file.
+The only required argument is the filename.
+Returns a 1 for success, and a 0 for failure. Will send a warning to the log in case of failure.
+Will return a maximum of 1 errors.
+Will stop immediatly if the first line is misformatted
+Use fastqUtils::checkNumberLignes to count the number of lines and calculate if this number is a multiple of 4.
+Use a 4 lines block to avoid stocking in memory the whole of lines from file.
+Check the format of the first 50000 fastq reads.
+ 
+Example :
+toolbox::checkFormatFasta($fastaFile);
+ 
 
- Cecile Monat, Julie Orjuela-Bouniol, Ayite Kougbeadjo, Marilyne Summo, Cedric Farcy, Mawusse Agbessi, Christine Tranchant and Francois Sabot
+=head1 AUTHORS
+ 
+Cecile Monat, Ayite Kougbeadjo, Julie Orjuela-Bouniol, Marilyne Summo, Cedric Farcy, Mawusse Agbessi, Christine Tranchant and Francois Sabot
 
 L<http://www.southgreen.fr/>
 
