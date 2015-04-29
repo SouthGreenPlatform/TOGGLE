@@ -37,13 +37,13 @@ toolbox::readFileConf("software.config.txt");
 #######################################
 #Creating the IndividuSoft.txt file
 #######################################
-my $creatingCommand="echo \"picardtools\nTEST\" > individuSoft.txt";
+my $creatingCommand="echo \"picardTools\nTEST\" > individuSoft.txt";
 system($creatingCommand) and die ("ERROR: $0 : Cannot create the individuSoft.txt file with the command $creatingCommand\n$!\n");
 
 #######################################
 #Cleaning the logs for the test
 #######################################
-my $cleaningCommand="rm -Rf picardtools_TEST_log.*";
+my $cleaningCommand="rm -Rf picardTools_TEST_log.*";
 system($cleaningCommand) and die ("ERROR: $0 : Cannot remove the previous log files with the command $cleaningCommand \n$!\n");
 
 #########################################
@@ -117,7 +117,7 @@ my $optionRef = \%optionsRef;                           # Ref of the hash
 is(picardTools::picardToolsSortSam($samFile,$bamFileOut,$optionRef),1,'Test for picardTools::picardToolsSortSam single');  # test if picardTools::picardToolsSortSam works
 
 #### TEST OF STRUCTURE
-my $md5sumExpected = "5b4ca218eb2b99bd8d127c8e26756bf0";
+my $md5sumExpected = "22e0135ae3488cf16fdb095283ac91c4";
 my $md5sumObserved = `md5sum $bamFileOut`;
 @nameless = split (" ", $md5sumObserved);           # to separate the structure and the name of file
 $md5sumObserved = $nameless[0];                        # just to have the md5sum result
@@ -143,7 +143,7 @@ $optionRef = \%optionsRef;                           # Ref of the hash
 is(picardTools::picardToolsSortSam($samFile,$bamFileOut,$optionRef),1,'Test for picardTools::picardToolsSortSam pair');  # test if picardTools::picardToolsSortSam works
 
 #### TEST OF STRUCTURE
-$md5sumExpected = "e0c7718735a6829c63b0d57f947fada6";
+$md5sumExpected = "b8a74a771fed5eb41fe185b77c70e3f8";
 $md5sumObserved = `md5sum $bamFileOut`;
 @nameless = split (" ", $md5sumObserved);           # to separate the structure and the name of file
 $md5sumObserved = $nameless[0];                        # just to have the md5sum result
@@ -171,7 +171,7 @@ $optionRef = \%optionsRef;                           # Ref of the hash
 is(picardTools::picardToolsMarkDuplicates($bamFile, $bamFileOut, $duplicatesFileOut, $optionRef),1,'Test for picardTools::picardToolsMarkDuplicates');  # test if picardTools::picardToolsMarkDuplicates works
 
 #### TEST OF STRUCTURE
-my $expectedBam = "3dd6b2eb31ef6d296b5039b2f8ec67da";
+my $expectedBam = "ed71faf044357f8bd36eeb30c500100f";
 my $observedBam = `md5sum $bamFileOut`;
 @nameless = split (" ", $observedBam);           # to separate the structure and the name of file
 $observedBam = $nameless[0];                        # just to have the md5sum result
