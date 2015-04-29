@@ -54,7 +54,7 @@ sub picardToolsMarkDuplicates
 	{
             $options=toolbox::extractOptions($optionsHachees,"=");      # recovery of options if they are provided
         }
-        my $comPicardToolsMarkDuplicates = "$picard/MarkDuplicates.jar $options INPUT=$bamToAnalyze OUTPUT=$bamAnalyzed METRICS_FILE=$bamDuplicates ";      #command line 
+        my $comPicardToolsMarkDuplicates = "$picard/picard.jar MarkDuplicates $options INPUT=$bamToAnalyze OUTPUT=$bamAnalyzed METRICS_FILE=$bamDuplicates ";      #command line 
         toolbox::run($comPicardToolsMarkDuplicates);        # command line execution                                                                                                                                                                                                                    
     }
     else        # if something wrong (size, format) in the file to examine, don't run the module ...                                                                                                                                                                                                                                                                 # if previous files doesn't exists or are empty or if picardToolsMarkDuplicates failed
@@ -76,7 +76,7 @@ sub picardToolsCreateSequenceDictionary
         {
             $options=toolbox::extractOptions($optionsHachees);      # recovery of options if they are provided
         }
-        my $command="$picard/CreateSequenceDictionary.jar $options REFERENCE=$refFastaFile OUTPUT=$dictFileOut";        #creation of the command line
+        my $command="$picard/picard.jar CreateSequenceDictionary $options REFERENCE=$refFastaFile OUTPUT=$dictFileOut";        #creation of the command line
         if(toolbox::run($command)==1)       #Execution of the command line
         {
             toolbox::exportLog("INFOS: picardTools::picardToolsCreateSequenceDictionary : Correctly run\n",1);
@@ -103,7 +103,7 @@ sub picardToolsSortSam
         {
             $options=toolbox::extractOptions($optionsHachees,"=");      # recovery of options if they are provided
         }
-        my $command="$picard/SortSam.jar $options INPUT=$bamOrSamFileIn OUTPUT=$bamOrSamFileOut";       #creation of the command line
+        my $command="$picard/picard.jar SortSam $options INPUT=$bamOrSamFileIn OUTPUT=$bamOrSamFileOut";       #creation of the command line
         if(toolbox::run($command)==1)       #Execute command
         {
             toolbox::exportLog("INFOS: picardTools::picardToolsSortSam : Correctly run\n",1);

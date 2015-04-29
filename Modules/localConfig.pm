@@ -32,6 +32,7 @@ package localConfig;
 
 
 
+
 use strict;
 use warnings;
 use Exporter;
@@ -40,29 +41,27 @@ our @ISA=qw(Exporter);
 our @EXPORT=qw($bwa $picard $samtools $GATK $cufflinks $pacBioToCA $cutadapt $fastqc $java $snpEff $toggle);
 
 #toggle path
-our $toggle="/home/sabotf/scripts/TOGGLE/";
-
+our $toggle="/home/ortega-abboud/remplacement_marylyne/TOGGLEv02/TOGGLE";
 
 #PATH for Mapping on cluster
-our $java = "/usr/local/java/latest/bin/java -Xmx12g -jar";
+our $java = "/usr/local/java/jre7/bin/java";
 
-our $bwa = "/usr/local/bin/bwa";
-our $picard = "$java /home/sabotf/sources/picard-tools";
+our $bwa = "/usr/local/bioinfo/bwa/0.7.12/bwa";
+#our $picard = "$java -Xmx3g -jar /usr/local/bioinfo/picard-tools/1.119/";
+our $picard = "$java -Xmx3g -jar /usr/local/bioinfo/picard-tools/1.130/";
 
-
-our $samtools = "/usr/local/samtools-0.1.18/samtools-0.1.18/samtools";
-
-our $GATK = "/usr/java/jre1.7.0_51/bin/java -Xmx12g -jar /usr/local/GenomeAnalysisTK-3.3/GenomeAnalysisTK.jar";
-our $fastqc = "/usr/local/FastQC/fastqc";
+our $samtools = "/usr/local/bioinfo/samtools/1.2/bin/samtools";
+our $GATK = "$java -Xmx3g -jar /usr/local/bioinfo/GenomeAnalysisTK/3.3-0/GenomeAnalysisTK.jar";
+our $fastqc = "/usr/local/bioinfo/FastQC/0.10.1/fastqc -j /usr/local/java/jre6/bin/java";
 
 #PATH for Cufflinks bin on cluster
-our $cufflinks = "/usr/local/cufflinks-2.1.1.Linux_x86_64";
+our $cufflinks = "/usr/local/bioinfo/cufflinks/cufflinks";
 
 #Path for pacBioToCa
 our $pacBioToCA = "/home/sabotf/sources/wgs/Linux-amd64/bin/pacBioToCA";
 
 #Path for CutAdapt
-our $cutadapt = "/usr/local/cutadapt-1.2.1/bin/cutadapt";
+our $cutadapt = "/usr/local/bioinfo/python/3.4.3/bin/cutadapt";
 
 #Path for SNPeff
 our $snpEff="$java /home/sabotf/sources/snpEff/snpEff.jar";
