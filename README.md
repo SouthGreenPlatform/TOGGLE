@@ -26,7 +26,7 @@ in different environments (single machine to HPC clusters).
 * Capture::Tiny
 
 
-#### Bioinformatics software amanzougarene sur la branche 
+#### Bioinformatics software 
 
 * java 1.7
 * fastQC v0.10.1
@@ -151,6 +151,16 @@ $sh all_tests.sh
 
 ````
 $globalAnalysis.pl $PATH_INSTALL/DATA/arcardTest/ $PATH_INSTALL/software.config.txt $PATH_INSTALL/DATA/referenceArcad.fasta
+````
+
+* Check the good running 
+> > * No error message
+> > * BamDirectory has been well created into $PATH_INSTALL/DATA
+> > * the data generated are good
+
+
+````
+$globalAnalysis.pl $PATH_INSTALL/DATA/iriginTest/ $PATH_INSTALL/software.config.txt $PATH_INSTALL/DATA/referenceIrigin.fasta
 ````
 
 * Check the good running 

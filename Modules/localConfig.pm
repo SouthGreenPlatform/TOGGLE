@@ -32,39 +32,28 @@ package localConfig;
 
 
 
+
 use strict;
 use warnings;
 use Exporter;
 
 our @ISA=qw(Exporter);
-our @EXPORT=qw($bwa $picard $samtools $GATK $cufflinks $pacBioToCA $cutadapt $fastqc $java $snpEff $toggle);
+our @EXPORT=qw($bwa $picard $samtools $GATK $cutadapt $fastqc $java $toggle);
 
 #toggle path
-our $toggle="/home/sabotf/scripts/TOGGLE/";
-
+our $toggle="/path/to/toggle";
 
 #PATH for Mapping on cluster
-our $java = "/usr/local/java/latest/bin/java -Xmx12g -jar";
+our $java = "/path/to/java -Xmx12g -jar";
 
-our $bwa = "/usr/local/bin/bwa";
-our $picard = "$java /home/sabotf/sources/picard-tools";
+our $bwa = "/path/to/bwa";
+our $picard = "$java /path/to/picard-tools";
 
-
-our $samtools = "/usr/local/samtools-0.1.18/samtools-0.1.18/samtools";
-
-our $GATK = "/usr/java/jre1.7.0_51/bin/java -Xmx12g -jar /usr/local/GenomeAnalysisTK-3.3/GenomeAnalysisTK.jar";
-our $fastqc = "/usr/local/FastQC/fastqc";
-
-#PATH for Cufflinks bin on cluster
-our $cufflinks = "/usr/local/cufflinks-2.1.1.Linux_x86_64";
-
-#Path for pacBioToCa
-our $pacBioToCA = "/home/sabotf/sources/wgs/Linux-amd64/bin/pacBioToCA";
+our $samtools = "/path/to/samtools_O.1.17";
+our $GATK = "/path/to/java -Xmx12g -jar /path/to/GenomeAnalysisTK-3.3/GenomeAnalysisTK.jar";
+our $fastqc = "/path/to/FastQC/fastqc";
 
 #Path for CutAdapt
-our $cutadapt = "/usr/local/cutadapt-1.2.1/bin/cutadapt";
-
-#Path for SNPeff
-our $snpEff="$java /home/sabotf/sources/snpEff/snpEff.jar";
+our $cutadapt = "/path/to/cutadapt-1.2.1/bin/cutadapt";
 
 1;
