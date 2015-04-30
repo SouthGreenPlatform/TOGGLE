@@ -706,13 +706,13 @@ sub checkFormatFastq
     my ($fileToTest) = @_;                                              # recovery of file to test
     my $readOk = readFile($fileToTest);                                 # check if the file to test is readable
     
-    my $nbLignes = fastqUtils::checkNumberLignes(@_);                    # calculing number lines in file
-    my $modulo = ($nbLignes % 4);
-    my $even   = ($nbLignes % 2);
+    my $nbLines = fastqUtils::checkNumberLines(@_);                    # calculing number lines in file
+    my $modulo = ($nbLines % 4);
+    my $even   = ($nbLines % 2);
     
-    if ( ($nbLignes>0) and ($modulo==0) and ($even==0) )                # testing if the number of lines is a multiple of 4
+    if ( ($nbLines>0) and ($modulo==0) and ($even==0) )                # testing if the number of lines is a multiple of 4
     {
-        #print "$nbLignes is a multiple of 4\n";
+        #print "$nbLines is a multiple of 4\n";
     }
     else {
         toolbox::exportLog("ERROR: toolbox::checkFormatFastq : Number of lines is not a multiple of 4 in file $fileToTest.\n",0);
@@ -721,7 +721,7 @@ sub checkFormatFastq
                                                                         # open and traite the file if the number of lines is a multiple of 4
     open (F1, $fileToTest) or toolbox::exportLog("ERROR: toolbox::checkFormatFastq : Cannot open the file $fileToTest\n$!\n",0); # open the file to test
     
-    my  @lignesF1=();
+    my  @linesF1=();
     my $comp=0;
     my $countlines=0;
     my $stop=0;
@@ -734,21 +734,21 @@ sub checkFormatFastq
         if ($comp<3)
         {
             $comp++;
-            push (@lignesF1,$line);
+            push (@linesF1,$line);
         }
         else                                                            # Completing block, treatment starts here.
         {
             $stop++;
-            push (@lignesF1,$line);
+            push (@linesF1,$line);
             
             my $i=0;
-            while ( ($i<=$#lignesF1) and ($notOk <=1))                 # treatment of a block containing four lines of file and stop if 20 errors found.
+            while ( ($i<=$#linesF1) and ($notOk <=1))                 # treatment of a block containing four lines of file and stop if 20 errors found.
             {
                 
-                my $idLine=$lignesF1[$i];
-                my $fastaLine=$lignesF1[$i+1];
-                my $plusLine=$lignesF1[$i+2];
-                my $qualityLine=$lignesF1[$i+3];
+                my $idLine=$linesF1[$i];
+                my $fastaLine=$linesF1[$i+1];
+                my $plusLine=$linesF1[$i+2];
+                my $qualityLine=$linesF1[$i+3];
                 my $nbIDLine=$countlines-3;
                 my $nbLineFasta=$countlines-2;
                 my $nbPlusLine=$countlines-1;
@@ -792,7 +792,7 @@ sub checkFormatFastq
             
             last if ($stop==200000);                                    # stoping treatment if 50000 reads were analysed.
             
-            undef @lignesF1;
+            undef @linesF1;
             $comp=0;
         }
         next;
@@ -1627,7 +1627,7 @@ The only required argument is the filename.
 Returns a 1 for success, and a 0 for failure. Will send a warning to the log in case of failure.
 Will return a maximum of 1 errors.
 Will stop immediatly if the first line is misformatted
-Use fastqUtils::checkNumberLignes to count the number of lines and calculate if this number is a multiple of 4.
+Use fastqUtils::checkNumberLines to count the number of lines and calculate if this number is a multiple of 4.
 Use a 4 lines block to avoid stocking in memory the whole of lines from file.
 Check the format of the first 50000 fastq reads.
  
