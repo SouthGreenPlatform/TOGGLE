@@ -39,7 +39,6 @@ use Exporter;
 
 use lib qw(.);
 use localConfig;
-use fastqUtils;
 
 #Global infos
 our @ISA=qw(Exporter);
@@ -692,6 +691,26 @@ sub run
 ################################################################################################
 
 
+#########################################
+#checkNumberLines
+#check the sequences number using the wc -l command from bash and return the number of lines
+#########################################
+
+sub checkNumberLines
+{
+    my ($fileName)=@_;		# recovery of informations
+    my $nbLineCommand="wc -l ".$fileName; #command to count the line number
+    my $nbLine = `$nbLineCommand` or exportLog("ERROR: toolbox::checkNumberLines : Cannot run $nbLineCommand\n$!\n",0);	# execution of the command or if not possible, return an error message
+    chomp $nbLine;
+    
+    #Add a split to only keep the number of line without the file name
+    my @splitLine = split (" ", $nbLine);
+    $nbLine = $splitLine[0];
+    
+    return $nbLine;  # return the number of line of file
+}
+
+
 ################################################################################################
 # sub checkFormatFastq => check if a file is really a FASTQ file
 ################################################################################################
@@ -706,7 +725,7 @@ sub checkFormatFastq
     my ($fileToTest) = @_;                                              # recovery of file to test
     my $readOk = readFile($fileToTest);                                 # check if the file to test is readable
     
-    my $nbLines = fastqUtils::checkNumberLines(@_);                    # calculing number lines in file
+    my $nbLines = toolbox::checkNumberLines(@_);                    # calculing number lines in file
     my $modulo = ($nbLines % 4);
     my $even   = ($nbLines % 2);
     
@@ -798,19 +817,15 @@ sub checkFormatFastq
         next;
     }
     
-    
-    #print "le nb de lines : $countlines\n";
     if (($notOk == 0))                    						# if any error occured in the file, the format is right.
     {
-        print "INFOS: toolbox::checkFormatFastq : The file $fileToTest is a FASTQ file.\n";
-        #### toolbox::exportLog("INFOS: toolbox::checkFormatFastq : The file $fileToTest is a FASTQ file.\n",1);
-		return 1;
+        toolbox::exportLog("INFOS: toolbox::checkFormatFastq : The file $fileToTest is a FASTQ file.\n",1);
+	return 1;
     }
     else                                						# if one or some error(s) occured on the file, the fastq format is not right.
     {
-        #### toolbox::exportLog("ERROR: toolbox::checkFormatFastq : Invalid FASTQ requirements in file $fileToTest.\n",0);
-        print "ERROR: toolbox::checkFormatFastq : Invalid FASTQ requirements in file $fileToTest.\n";
-		return 0;
+        toolbox::exportLog("ERROR: toolbox::checkFormatFastq : Invalid FASTQ requirements in file $fileToTest.\n",0);
+	return 0;
     }
     
     close F1;
@@ -1247,10 +1262,10 @@ sub checkFormatFasta{
     my ($file)=@_;
 
     #Check if we can read the file
-    my $rightToRead = readFile($file);
+    my $rightToRead = toolbox::readFile($file);
     if ($rightToRead == 0)
     {
-	exportLog("ERROR: toolbox::checkFormatFasta : The file $file is not readable\n",0);
+	toolbox::exportLog("ERROR: toolbox::checkFormatFasta : The file $file is not readable\n",0);
 	return 0;
     }
     
@@ -1627,13 +1642,18 @@ The only required argument is the filename.
 Returns a 1 for success, and a 0 for failure. Will send a warning to the log in case of failure.
 Will return a maximum of 1 errors.
 Will stop immediatly if the first line is misformatted
-Use fastqUtils::checkNumberLines to count the number of lines and calculate if this number is a multiple of 4.
+Use toolbox::checkNumberLines to count the number of lines and calculate if this number is a multiple of 4.
 Use a 4 lines block to avoid stocking in memory the whole of lines from file.
 Check the format of the first 50000 fastq reads.
  
 Example :
 toolbox::checkFormatFasta($fastaFile);
- 
+
+
+=head3 toolbox::checkNumberLines
+
+This module check the sequences number of a given file using the wc -l command from bash
+It takes only one argument, the file you want to know the number of lines
 
 =head1 AUTHORS
  
