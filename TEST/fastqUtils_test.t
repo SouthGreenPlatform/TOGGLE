@@ -25,7 +25,7 @@ use toolbox;
 use_ok('fastqUtils');
 can_ok('fastqUtils','changeEncode');
 can_ok('fastqUtils','checkEncodeByASCIIcontrol');
-can_ok('fastqUtils','checkNumberByWC');
+#can_ok('fastqUtils','checkNumberByWC');
 can_ok('fastqUtils','convertLinePHRED33ToPHRED64');
 can_ok('fastqUtils','convertLinePHRED64ToPHRED33');
 
@@ -74,11 +74,11 @@ system($seqCopyCom) and die ("ERROR: $0 : Cannot copy the file $originalFastqFil
 #Sequence count test
 #########################################
 #checkNumberByWC test with a fastq file
-my $count = fastqUtils::checkNumberByWC($fastqFile1);
-is($count,'1000',"Test for checkNumberByWC... $fastqFile1");
+#my $count = fastqUtils::checkNumberByWC($fastqFile1);
+#is($count,'1000',"Test for checkNumberByWC... $fastqFile1");
 
-$count = fastqUtils::checkNumberByWC($fastqFile2);
-is($count,'1000',"Test for checkNumberByWC... $fastqFile2");
+#$count = fastqUtils::checkNumberByWC($fastqFile2);
+#is($count,'1000',"Test for checkNumberByWC... $fastqFile2");
 
 
 #########################################
