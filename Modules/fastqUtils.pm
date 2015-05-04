@@ -41,54 +41,6 @@ use Data::Translate;#To convert ASCII to decimal, required!
 use Data::Dumper;
 
 
-#########################################
-#checkNumberLignes
-#check the sequences number using the wc -l command from bash and return the number of lines
-#########################################
-
-sub checkNumberLignes
-{
-    my ($fileName)=@_;		# recovery of informations
-    my $nbLineCommand="wc -l ".$fileName; #command to count the line number
-    my $nbLine = `$nbLineCommand` or toolbox::exportLog("ERROR: fastqUtils::checkNumberLignes : Cannot run $nbLineCommand\n$!\n",0);	# execution of the command or if not possible, return an error message
-    chomp $nbLine;
-    
-    #Add a split to only keep the number of line without the file name
-    my @splitLine = split (" ", $nbLine);
-    $nbLine = $splitLine[0];
-    
-    return $nbLine;  # return the number of line of file
-}
-
-
-#########################################
-#checkNumberByWC
-#check the sequences number using the wc -l command from bash
-#########################################
-sub checkNumberByWC
-{
-    my ($fileName)=@_;		# recovery of informations
-    if (toolbox::checkFormatFastq($fileName)== 1)		# check if the file you give is a FASTQ file
-    {
-        toolbox::exportLog("INFOS: fastqUtils::checkNumberByWCl : The file $fileName is a fastq file\n",1);
-    }
-    else
-    {
-        toolbox::exportLog("ERROR: fastqUtils::checkNumberByWC : The file $fileName is not a fastq file\n",0);
-    }
-    my $nbLineCommand="wc -l ".$fileName; #command to count the line number
-    my $nbLine = `$nbLineCommand` or toolbox::exportLog("ERROR: fastqUtils::checkNumberByWC : Cannot run $nbLineCommand\n$!\n",0);	# execution of the command or if not possible, return an error message
-    chomp $nbLine;
-    
-    #Add a split to only keep the number of line without the file name
-    my @splitLine = split (" ", $nbLine);
-    $nbLine = $splitLine[0];
-    
-    my $numberOfReads = $nbLine/4;#Each sequence if made of 4 lines in Fastq
-    return $numberOfReads;
-}
-
-
 
 #########################################
 #checkEncodeByASCIIcontrol
@@ -214,8 +166,6 @@ sub convertLinePHRED33ToPHRED64
 
         use fastqUtils;
     
-        fastqUtils::checkNumberLignes ($fileName);
-    
         fastqUtils::checkEncodeByASCIIcontrol ($fileName);
     
         fastqUtils::changeEncode ($fileIn,$fileOut,$formatInit,$formatOut);
@@ -229,17 +179,6 @@ sub convertLinePHRED33ToPHRED64
 Package fastqUtils is a set of modules which deals with issues relative to FASTQ format files
 
 =head2 FUNCTIONS
-
-
-=head3 fastqUtils::checkNumberLignes
-
-This module check the sequences number of a given file using the wc -l command from bash
-It takes only one argument, the file you want to know the number of lines
-
-=head3 fastqUtils::checkNumberByWC
- 
-This module check the sequences number of a given file using the wc -l command from bash
-It takes only one argument, the file you want to know the number of READS
  
 
 =head3 fastqUtils::checkEncodeByASCIIcontrol
