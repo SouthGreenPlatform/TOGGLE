@@ -1,3 +1,5 @@
+There are 3 ways to obtain TOGGLE. We recommend the first one for an install in a cluster.
+
 # INSTALL FROM GitHub REPOSITORY
 
 * Create the directory TOGGLE where you want to install TOGGLE and go into this directory
