@@ -54,6 +54,24 @@ $globalAnalysis.pl $PATH_INSTALL/DATA/arcardTest/ $PATH_INSTALL/software.config.
 > > * BamDirectory has been well created into $PATH_INSTALL/DATA
 > > * the data generated are good
 
+````
+tail $PATH_INSTALL/DATA/BamDirectory/GATKVARIANTFILTRATION.vcf
+
+##contig=<ID=LOC_Os01g62920.1,length=2879>
+##contig=<ID=LOC_Os12g32240.1,length=1088>
+##reference=file:///home/ravel/TOGGLE/DATA/referenceArcad.fasta
+#CHROM  POS     ID      REF     ALT     QUAL    FILTER  INFO    FORMAT  arcad1Single    arcad1_1.REPAIRING.BWAALN       arcad2_1        arcad3Single    arcad3_1.REPAIRING.BWAALN
+LOC_Os01g44110.1        2316    .       G       T       38.78   PASS    AC=3;AF=0.500;AN=6;BaseQRankSum=-1.422;ClippingRankSum=-1.279;DP=24;FS=4.873;MLEAC=3;MLEAF=0.500;MQ=56.82;MQ0=0;MQRankSum=-0.142;QD=1.62;ReadPosRankSum=0.213;SOR=0.707 GT:AD:DP:GQ:PL  ./.     0/1:8,2:10:19:19,0,200  0/1:3,1:4:30:30,0,113   ./.     0/1:8,2:10:19:19,0,200
+LOC_Os01g62920.1        293     .       C       T       74.70   PASS    AC=3;AF=0.500;AN=6;BaseQRankSum=-1.000;ClippingRankSum=0.380;DP=12;FS=0.000;MLEAC=3;MLEAF=0.500;MQ=56.82;MQ0=0;MQRankSum=-0.529;QD=6.23;ReadPosRankSum=-0.689;SOR=0.760 GT:AD:DP:GQ:PL  ./.     0/1:3,2:5:34:34,0,64    0/1:1,1:2:36:36,0,36    ./.     0/1:3,2:5:34:34,0,64
+LOC_Os01g62920.1        1602    .       T       C       1050.69 PASS    AC=6;AF=1.00;AN=6;DP=34;FS=0.000;MLEAC=6;MLEAF=1.00;MQ=55.45;MQ0=0;QD=30.90;SOR=1.244   GT:AD:DP:GQ:PL  ./.     1/1:0,13:13:39:371,39,0 1/1:0,8:8:24:334,24,0   ./.     1/1:0,13:13:39:371,39,0
+LOC_Os01g62920.1        1721    .       A       G       2197.56 PASS    AC=10;AF=1.00;AN=10;DP=65;FS=0.000;MLEAC=10;MLEAF=1.00;MQ=57.37;MQ0=0;QD=33.81;SOR=0.854        GT:AD:DP:GQ:PL  1/1:0,1:1:3:37,3,0
+      1/1:0,28:28:84:928,84,0 1/1:0,7:7:21:292,21,0   1/1:0,1:1:3:37,3,0      1/1:0,28:28:84:928,84,0
+LOC_Os01g62920.1        1907    .       T       C       2228.68 PASS    AC=6;AF=1.00;AN=6;DP=60;FS=0.000;MLEAC=6;MLEAF=1.00;MQ=56.82;MQ0=0;QD=33.32;SOR=3.113   GT:AD:DP:GQ:PL  ./.     1/1:0,25:25:75:918,75,0 1/1:0,10:10:30:418,30,0 ./.     1/1:0,25:25:75:918,75,0
+LOC_Os01g62920.1        2305    .       A       C       35.92   PASS    AC=1;AF=0.167;AN=6;BaseQRankSum=-1.472;ClippingRankSum=-1.383;DP=28;FS=12.553;MLEAC=1;MLEAF=0.167;MQ=54.43;MQ0=0;MQRankSum=-1.561;QD=4.49;ReadPosRankSum=-1.829;SOR=2.205       GT:AD:DP:GQ:PL  ./.     0/0:10,0:10:30:0,30,735 0/1:6,2:8:66:66,0,392   ./.     0/0:10,0:10:30:0,30,735
+LOC_Os01g62920.1        2308    .       T       G       35.92   PASS    AC=1;AF=0.167;AN=6;BaseQRankSum=-0.937;ClippingRankSum=-0.937;DP=28;FS=12.553;MLEAC=1;MLEAF=0.167;MQ=54.43;MQ0=0;MQRankSum=-2.007;QD=4.49;ReadPosRankSum=-2.364;SOR=2.205       GT:AD:DP:GQ:PL  ./.     0/0:10,0:10:30:0,30,735 0/1:6,2:8:66:66,0,392   ./.     0/0:10,0:10:30:0,30,735
+LOC_Os12g32240.1        864     .       C       T       974.62  PASS    AC=10;AF=1.00;AN=10;DP=26;FS=0.000;MLEAC=10;MLEAF=1.00;MQ=55.54;MQ0=0;QD=26.53;SOR=4.255        GT:AD:DP:GQ:PL  1/1:0,1:1:3:37,3,0
+      1/1:0,10:10:30:379,30,0 1/1:0,4:4:12:167,12,0   1/1:0,1:1:3:37,3,0      1/1:0,10:10:30:379,30,0
+````
 
 ````
 $globalAnalysis.pl $PATH_INSTALL/DATA/iriginTest/ $PATH_INSTALL/software.config.txt $PATH_INSTALL/DATA/referenceIrigin.fasta
@@ -67,16 +85,16 @@ $globalAnalysis.pl $PATH_INSTALL/DATA/iriginTest/ $PATH_INSTALL/software.config.
 ````
 tail $PATH_INSTALL/DATA/BamDirectory/GATKVARIANTFILTRATION.vcf
 
-##contig=<ID=2299889,length=39753>
-##contig=<ID=2299897,length=19555>
-##reference=file:///home/tranchant/TOGGLE-19-02/DATA/referenceIrigin.fasta
-#CHROM    POS    ID    REF    ALT    QUAL    FILTER    INFO    FORMAT    irigin1    irigin1Single    irigin2_1    irigin3    irigin3Single
-2224477    996    .    TA    T    35.61    PASS    AC=2;AF=1.00;AN=2;DP=2;FS=0.000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.81;SOR=0.693    GT:AD:DP:GQ:PL    ./.    ./.    ./.    1/1:0,2:2:6:69,6,0    ./.
-2248321    377    .    C    G    65.65    PASS    AC=2;AF=1.00;AN=2;DP=2;FS=0.000;MLEAC=2;MLEAF=1.00;MQ=29.00;MQ0=0;QD=32.83;SOR=0.693    GT:AD:DP:GQ:PL    ./.    ./.    ./.    1/1:0,2:2:6:90,6,0    ./.
-2248321    379    .    C    T    65.65    PASS    AC=2;AF=1.00;AN=2;DP=2;FS=0.000;MLEAC=2;MLEAF=1.00;MQ=29.00;MQ0=0;QD=32.83;SOR=0.693    GT:AD:DP:GQ:PL    ./.    ./.    ./.    1/1:0,2:2:6:90,6,0    ./.
-2281178    4213    .    G    A    65.65    PASS    AC=2;AF=1.00;AN=2;DP=2;FS=0.000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=32.83;SOR=0.693    GT:AD:DP:GQ:PL    ./.    ./.    ./.    1/1:0,2:2:6:90,6,0    ./.
-2281178    4214    .    A    G    65.65    PASS    AC=2;AF=1.00;AN=2;DP=2;FS=0.000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=32.83;SOR=0.693    GT:AD:DP:GQ:PL    ./.    ./.    ./.    1/1:0,2:2:6:90,6,0    ./.
-2290182    1013    .    A    G    45.65    PASS    AC=2;AF=1.00;AN=2;DP=2;FS=0.000;MLEAC=2;MLEAF=1.00;MQ=29.00;MQ0=0;QD=22.83;SOR=0.693    GT:AD:DP:GQ:PL    ./.    ./.    ./.    1/1:0,2:2:6:70,6,0    ./.
+##reference=file:///home/ravel/TOGGLE/DATA/referenceArcad.fasta
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	arcad1Single	arcad1_1.REPAIRING.BWAALN	arcad2_1	arcad3Single	arcad3_1.REPAIRING.BWAALN
+LOC_Os01g44110.1	2316	.	G	T	38.78	PASS	AC=3;AF=0.500;AN=6;BaseQRankSum=-1.422;ClippingRankSum=-1.279;DP=24;FS=4.873;MLEAC=3;MLEAF=0.500;MQ=56.82;MQ0=0;MQRankSum=-0.142;QD=1.62;ReadPosRankSum=0.213;SOR=0.707	GT:AD:DP:GQ:PL	./.	0/1:8,2:10:19:19,0,200	0/1:3,1:4:30:30,0,113	./.	0/1:8,2:10:19:19,0,200
+LOC_Os01g62920.1	293	.	C	T	74.70	PASS	AC=3;AF=0.500;AN=6;BaseQRankSum=-1.000;ClippingRankSum=0.380;DP=12;FS=0.000;MLEAC=3;MLEAF=0.500;MQ=56.82;MQ0=0;MQRankSum=-0.529;QD=6.23;ReadPosRankSum=-0.689;SOR=0.760	GT:AD:DP:GQ:PL	./.	0/1:3,2:5:34:34,0,64	0/1:1,1:2:36:36,0,36	./.	0/1:3,2:5:34:34,0,64
+LOC_Os01g62920.1	1602	.	T	C	1050.69	PASS	AC=6;AF=1.00;AN=6;DP=34;FS=0.000;MLEAC=6;MLEAF=1.00;MQ=55.45;MQ0=0;QD=30.90;SOR=1.244	GT:AD:DP:GQ:PL	./.	1/1:0,13:13:39:371,39,0	1/1:0,8:8:24:334,24,0	./.	1/1:0,13:13:39:371,39,0
+LOC_Os01g62920.1	1721	.	A	G	2197.56	PASS	AC=10;AF=1.00;AN=10;DP=65;FS=0.000;MLEAC=10;MLEAF=1.00;MQ=57.37;MQ0=0;QD=33.81;SOR=0.854	GT:AD:DP:GQ:PL	1/1:0,1:1:3:37,3,0	1/1:0,28:28:84:928,84,0	1/1:0,7:7:21:292,21,0	1/1:0,1:1:3:37,3,0	1/1:0,28:28:84:928,84,0
+LOC_Os01g62920.1	1907	.	T	C	2228.68	PASS	AC=6;AF=1.00;AN=6;DP=60;FS=0.000;MLEAC=6;MLEAF=1.00;MQ=56.82;MQ0=0;QD=33.32;SOR=3.113	GT:AD:DP:GQ:PL	./.	1/1:0,25:25:75:918,75,0	1/1:0,10:10:30:418,30,0	./.	1/1:0,25:25:75:918,75,0
+LOC_Os01g62920.1	2305	.	A	C	35.92	PASS	AC=1;AF=0.167;AN=6;BaseQRankSum=-1.472;ClippingRankSum=-1.383;DP=28;FS=12.553;MLEAC=1;MLEAF=0.167;MQ=54.43;MQ0=0;MQRankSum=-1.561;QD=4.49;ReadPosRankSum=-1.829;SOR=2.205	GT:AD:DP:GQ:PL	./.	0/0:10,0:10:30:0,30,735	0/1:6,2:8:66:66,0,392	./.	0/0:10,0:10:30:0,30,735
+LOC_Os01g62920.1	2308	.	T	G	35.92	PASS	AC=1;AF=0.167;AN=6;BaseQRankSum=-0.937;ClippingRankSum=-0.937;DP=28;FS=12.553;MLEAC=1;MLEAF=0.167;MQ=54.43;MQ0=0;MQRankSum=-2.007;QD=4.49;ReadPosRankSum=-2.364;SOR=2.205	GT:AD:DP:GQ:PL	./.	0/0:10,0:10:30:0,30,735	0/1:6,2:8:66:66,0,392	./.	0/0:10,0:10:30:0,30,735
+LOC_Os12g32240.1	864	.	C	T	974.62	PASS	AC=10;AF=1.00;AN=10;DP=26;FS=0.000;MLEAC=10;MLEAF=1.00;MQ=55.54;MQ0=0;QD=26.53;SOR=4.255	GT:AD:DP:GQ:PL	1/1:0,1:1:3:37,3,0	1/1:0,10:10:30:379,30,0	1/1:0,4:4:12:167,12,0	1/1:0,1:1:3:37,3,0	1/1:0,10:10:30:379,30,0
 ````
 # INSTALL FROM THE DOCKER IMAGE
 
