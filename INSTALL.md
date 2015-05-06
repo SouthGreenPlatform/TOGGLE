@@ -36,14 +36,14 @@ $chmod 755 *pl
 * Modify the shebang of perl in the begining of the script /pathToToggle/pairAnalysis.pl
 * Modify the shebang of perl in the begining of the script /pathToToggle/mergeAnalysis.pl
 
-* Run the test script
+* Run the test script (BE CAREFUL: will succeed only with specifc versions of the different softwares - see ChangeLog.md)
 
 ````
 $cd TEST
 $sh all_tests.sh
 ````
 
-* Test the pipiline with the test data
+* Test the pipeline with the test data
 
 ````
 $globalAnalysis.pl $PATH_INSTALL/DATA/arcardTest/ $PATH_INSTALL/software.config.txt $PATH_INSTALL/DATA/referenceArcad.fasta

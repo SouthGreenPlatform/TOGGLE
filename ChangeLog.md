@@ -13,6 +13,15 @@
 * Modification of the FASTQ format control
 * Various minor bugs adjustments
 
+### Software versions tested
+* bwa
+* Picard-tools
+* SAMtools
+* GATK
+* FastQC
+* CutAdapt
+* Java
+
 
 ## Release 0.2, 14st of March, 2015
 
