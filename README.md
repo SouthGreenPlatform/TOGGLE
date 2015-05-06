@@ -15,6 +15,11 @@ in different environments (single machine to HPC clusters).
 * Intellectual property belongs to IRD, CIRAD, ADNid and SouthGreen development platform
 * Written by Cecile Monat, Christine Tranchant, Ayite Kougbeadjo, Cedric Farcy, Mawusse Agbessi, Enrique Ortega-Abboud, Sébastien Ravel, Julie Orjuela-Bouniol, Souhila Amanzougarene, Gauthier Sarah, Marilyne Summo, and Francois Sabot
 
+##INSTALLATION
+
+see https://github.com/SouthGreenPlatform/TOGGLE/blob/master/INSTALL.md
+
+
 ## REQUIREMENTS
 
 #### Perl
