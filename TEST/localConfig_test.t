@@ -213,7 +213,7 @@ close OUT;
 unlink("/tmp/out.txt");
 
 is($line,"No input sequence or sequence file specified!
-Bowtie 2 version 2.2.5 by Ben Langmead (langmea@cs.jhu.edu, www.cs.jhu.edu/~langmea)","Test for bowtie2-build location");
+Bowtie 2 version 2.2.5 by Ben Langmead (langmea\@cs.jhu.edu, www.cs.jhu.edu/~langmea)","Test for bowtie2-build location");
 
 ######################################
 # Testing the correct location of tophat2
