@@ -57,7 +57,7 @@ my $initialDir = $ARGV[0];                                                      
 my $fileConf = $ARGV[1];                                                                                    # recovery of the name of the software.configuration.txt file
 my $refFastaFile = $ARGV[2];                                                                                # recovery of the reference file
 my $gffFile = $ARGV[3];
-my $annotGffFile = $ARGV[4];
+
 toolbox::existsDir($initialDir);                                                                            # check if this directory exists
 
 
@@ -218,7 +218,7 @@ $softParameters = toolbox::extractHashSoft($optionref, "bowtieBuild");          
 #tophat::bowtieBuild($refFastaFile,$softParameters);                                           # indexation of Reference sequences file
 
 $softParameters = toolbox::extractHashSoft($optionref, "bowtie2-build");                                      # recovery of specific parameters of tophat index
-my $refIndex=tophat::bowtie2Build($refFastaFile,$softParameters);                                            # indexation of Reference sequences file                # indexation of Reference sequences file
+my $refIndex=tophat::bowtie2Build($refFastaFile,$softParameters);                                            # indexation of Reference sequences file               
 
 $softParameters = toolbox::extractHashSoft($optionref, "tophat2");                                       # recovery of specific parameters of tophat2 aln
 my $tophatdirOut = $newDir;   #créer le répertoire des résultats de topaht
@@ -251,7 +251,7 @@ $softParameters = toolbox::extractHashSoft($optionref,"cufflinks");             
 my $cufflinksdirOut = $newDir;   #créer le répertoire des résultats de cufflinks
 
 
-cufflinks::execution($cufflinksdirOut,$mappingList[0],$annotGffFile,$softParameters);
+cufflinks::execution($cufflinksdirOut,$mappingList[0],$gffFile,$softParameters);
 
 print LOG "#########################################\nINFOS: Single sequence analysis done correctly\n#########################################\n";
 close F1;
