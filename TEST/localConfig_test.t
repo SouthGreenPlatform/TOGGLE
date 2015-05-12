@@ -197,24 +197,6 @@ is($line,"No input sequence or sequence file specified!
 Usage: bowtie-build [options]* <reference_in> <ebwt_outfile_base>","Test for bowtie-build location");
 
 
-######################################
-# Testing the correct location of tophat2
-######################################
-
-`$tophat2 2> /tmp/out.txt`;#We works with the STDERR output
-open(OUT,"<", "/tmp/out.txt");
-while (<OUT>) {
-    $line=$_;
-    $line.=<OUT>;
-    chomp $line;
-    last; 
-}
-close OUT;
-#unlink("/tmp/out.txt");
-
-is($line,"tophat: 
-TopHat maps short sequences from spliced transcripts to whole genomes.","Test for tophat2 location");
-
 
 
 ######################################
