@@ -163,10 +163,10 @@ unlink("/tmp/out.txt");
 is($line,"            FastQC - A high throughput sequence QC analysis tool\n","Test for FASTQC location");
 
 ######################################
-# Testing the correct location of picardtools
+# Testing the correct location of fastx_trimmer
 ######################################
 
-`$picard/FastqToSam.jar 2> /tmp/out.txt`;#We works with the STDERR output
+`$fastxTrimmer -h 2> /tmp/out.txt`;#We works with the STDERR output
 open(OUT,"<", "/tmp/out.txt");
 while (<OUT>) {
     $line=$_;
@@ -175,7 +175,8 @@ while (<OUT>) {
 close OUT;
 unlink("/tmp/out.txt");
 
-is($line,"ERROR: Option 'FASTQ' is required.\n","Test for picardTools location");
+is($line,"usage: fastx_trimmer [-h] [-f N] [-l N] [-t N] [-m MINLEN] [-z] [-v] [-i INFILE] [-o OUTFILE]");
+
 
 ######################################
 # Testing the correct location of cufflinks
