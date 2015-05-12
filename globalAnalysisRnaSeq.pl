@@ -45,7 +45,7 @@ my $initialDir = $ARGV[0];                                                      
 my $fileConf = $ARGV[1];                                                                                    # recovery of the name of the software.configuration.txt file
 my $refFastaFile = $ARGV[2];                                                                                # recovery of the reference file
 my $gffFile = $ARGV[3];
-my $annotGffFile = $ARGV[4];
+
 my $cmd_line=$0." @ARGV";
 
 
@@ -74,7 +74,7 @@ toolbox::checkFile($fileConf);                                                  
 toolbox::existsDir($initialDir);                                                                            # check if this directory exists
 toolbox::checkFile($refFastaFile);                                                                          # check if the reference file exists
 toolbox::checkFile($gffFile);
-toolbox::checkFile($annotGffFile);
+
 my $loop = 0;                                                                                               # for the second loop
 
 
@@ -134,13 +134,13 @@ for (my $i=0; $i<=$#listOfFiles; $i++)                                          
         if ($#listOfFastq == 0)                                                                             # if 1 file --> single analysis to do
         {
             toolbox::exportLog("INFOS: $0 : Run /data/projects/Floripalm/STAGE-SOUHILA/TOGGLE/singleAnalysisRnaSeq.pl on $firstDir\n",1);
-            my $singleCom = "/data/projects/Floripalm/STAGE-SOUHILA/TOGGLE/singleAnalysisRnaSeq.pl $firstDir $fileConf $refFastaFile $gffFile $annotGffFile";
+            my $singleCom = "/data/projects/Floripalm/STAGE-SOUHILA/TOGGLE/singleAnalysisRnaSeq.pl $firstDir $fileConf $refFastaFile $gffFile";
             toolbox::run($singleCom);
         }
         elsif ($#listOfFastq == 1)                                                                          # if 2 files --> pair analysis to do
         {
             toolbox::exportLog("INFOS: $0 : Run /data/projects/Floripalm/STAGE-SOUHILA/TOGGLE/pairAnalysisRnaSeq.pl on $firstDir\n",1);
-            my $pairCom = "/data/projects/Floripalm/STAGE-SOUHILA/TOGGLE/pairAnalysisRnaSeq.pl $firstDir $fileConf $refFastaFile $gffFile $annotGffFile";
+            my $pairCom = "/data/projects/Floripalm/STAGE-SOUHILA/TOGGLE/pairAnalysisRnaSeq.pl $firstDir $fileConf $refFastaFile $gffFile";
             toolbox::run($pairCom);
         }
         else                                                                                                # if more than 2 files, there is a problem
