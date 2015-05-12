@@ -166,7 +166,7 @@ is($line,"            FastQC - A high throughput sequence QC analysis tool\n","T
 # Testing the correct location of fastx_trimmer
 ######################################
 
-`$fastxTrimmer -h 2> /tmp/out.txt`;#We works with the STDERR output
+`$fastxTrimmer -h > /tmp/out.txt`;#We works with the STDERR output
 open(OUT,"<", "/tmp/out.txt");
 while (<OUT>) {
     $line=$_;
@@ -175,7 +175,7 @@ while (<OUT>) {
 close OUT;
 unlink("/tmp/out.txt");
 
-is($line,"usage: fastx_trimmer [-h] [-f N] [-l N] [-t N] [-m MINLEN] [-z] [-v] [-i INFILE] [-o OUTFILE]");
+is($line,"usage: fastx_trimmer [-h] [-f N] [-l N] [-t N] [-m MINLEN] [-z] [-v] [-i INFILE] [-o OUTFILE]","Test for fastx_trimmer location");
 
 
 ######################################
