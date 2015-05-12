@@ -158,7 +158,7 @@ sub tophat2
     }
     elsif ((toolbox::sizeFile($forwardFastqFileIn)==1) and (toolbox::sizeFile($reverseFastqFileIn,0)==0) and (toolbox::sizeFile($gffFile)==1))		##Check if entry files exist and are not empty
     {
-        my $command=$tophat2.$options." -G ".$gffFile." -o ".$tophatDirOut." ".$prefixRef." ".$forwardFastqFileIn;		# command line
+        my $command=$tophat2.$options." -p 8"." -G ".$gffFile." -o ".$tophatDirOut." ".$prefixRef." ".$forwardFastqFileIn;		# command line
  
         ##DEBUG
         toolbox::exportLog("INFOS: tophat::topHat2 : $command\n",1);
