@@ -56,8 +56,7 @@ my $initialDir = $ARGV[0];                                                      
 my $fileConf = $ARGV[1];                                                                                    # recovery of the name of the software.configuration.txt file
 my $refFastaFile = $ARGV[2];                                                                                # recovery of the reference file
 my $gffFile = $ARGV[3];
-my $annotGffFile = $ARGV[4];
-$refFastaFile =~ /^([^\.]+)\./;                                                                    # catch o,ly the file name without the file extension and store it into $prefixRef variable
+$refFastaFile =~ /^([^\.]+)\./;                                                                             # catch o,ly the file name without the file extension and store it into $prefixRef variable
 my $prefixRef = $1;
 
 toolbox::existsDir($initialDir);                                                                            # check if this directory exists
@@ -329,7 +328,7 @@ my @mappingList = @$mappingList;
 $softParameters = toolbox::extractHashSoft($optionref,"cufflinks");                                       # recovery of specific parameters of tophat2 aln
 my $cufflinksdirOut = $newDir;   #créer le répertoire des résultats de cufflinks
 
-cufflinks::execution($cufflinksdirOut,$mappingList[0],$annotGffFile,$softParameters);
+cufflinks::execution($cufflinksdirOut,$mappingList[0],$gffFile,$softParameters);
 
 
 print LOG "#########################################\nINFOS: Paired sequences analysis done correctly\n#########################################\n";
