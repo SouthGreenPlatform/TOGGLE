@@ -170,6 +170,7 @@ is($line,"            FastQC - A high throughput sequence QC analysis tool\n","T
 open(OUT,"<", "/tmp/out.txt");
 while (<OUT>) {
     $line=$_;
+    chomp $line;
     last; 
 }
 close OUT;
