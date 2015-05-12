@@ -183,7 +183,7 @@ is($line,"usage: fastx_trimmer [-h] [-f N] [-l N] [-t N] [-m MINLEN] [-z] [-v] [
 # Testing the correct location of fastx_trimmer
 ######################################
 
-`$tophat2 -h > /tmp/out.txt`;#We works with the STDERR output
+`$tophat2 > /tmp/out.txt`;#We works with the STDERR output
 open(OUT,"<", "/tmp/out.txt");
 while (<OUT>) {
     $line=$_;
