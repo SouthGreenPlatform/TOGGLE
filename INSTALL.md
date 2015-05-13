@@ -118,7 +118,7 @@ Just download it, launch it and follow the instructions.
 
 ````
 $wget http://bioinfo-web.mpl.ird.fr/toggle/TOGGLEinstall.sh
-$sh TOGGLEinstall.sh
+$bash TOGGLEinstall.sh
 ````
 
 Then you can launch the different scripts in the TOGGLE folder
