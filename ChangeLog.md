@@ -15,7 +15,7 @@
 
 ### Software versions tested
 * bwa
-* Picard-tools
+* Picard-tools 1.124 and Higher
 * SAMtools
 * GATK
 * FastQC

@@ -117,8 +117,8 @@ This script is dedicated for an installation in the user space (no admin rights 
 Just download it, launch it and follow the instructions.
 
 ````
-$wget http://bioinfo-web.mpl.ird.fr/toggle/installationTOGGLE.sh
-$sh installationTOGGLE.sh
+$wget http://bioinfo-web.mpl.ird.fr/toggle/TOGGLEinstall.sh
+$sh TOGGLEinstall.sh
 ````
 
 Then you can launch the different scripts in the TOGGLE folder

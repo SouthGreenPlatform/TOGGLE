@@ -33,13 +33,13 @@ see https://github.com/SouthGreenPlatform/TOGGLE/blob/master/INSTALL.md
 
 #### Bioinformatics software
 
-* java 1.7
-* fastQC v0.10.1
-* cutadapt 1.2.1
-* BWA 0.7.2
-* gatk 3.3
-* picardTools 1.63
-* SAMtools 0.1.18
+* Java 1.7
+* FastQC v0.11.1 or higher
+* CutAdapt 1.2.1 or higher
+* bwa 0.7.2 or higher
+* GATK 3.3x or higher
+* PicardTools 1.124 or higher
+* SAMtools 0.1.18 or higher
 
 #### TOGGLE DIRECTORY
 
