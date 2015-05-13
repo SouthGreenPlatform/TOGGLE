@@ -35,7 +35,7 @@
 
 use strict;
 use warnings;
-use lib qw(/data/projects/Floripalm/STAGE-SOUHILA/TOGGLE/Modules);
+use lib qw(./Modules);
 use localConfig;
 use Data::Dumper;
 
@@ -47,7 +47,6 @@ use fastxToolkit;
 use fastqUtils;
 use toolbox;
 use tophat;
-use cufflinks;
 
 
 ##########################################
@@ -232,26 +231,6 @@ my $fileReverse;
 tophat::tophat2($tophatdirOut,$refIndex,$listOfFiles[0], undef $fileReverse, $gffFile,$softParameters);            # generate alignement in SAM format
 
 
-##########################################
-# cufflinks::execution
-##########################################
-
-print LOG "INFOS: $0 : start execution\n";
-print F1 "execution\n";
-$newDir = toolbox::changeDirectoryArbo($initialDir,41);
-my $cufflinksDir = $newDir;
-##DEBUG print LOG "CHANGE DIRECTORY TO $newDir\n";
-
-
-my $mappingList = toolbox::readDir($tophatDir);
-##DEBUGprint LOG "INFOS toolbox ReadDir: @$tophatList\n";
-my @mappingList = @$mappingList;
-
-$softParameters = toolbox::extractHashSoft($optionref,"cufflinks");                                       # recovery of specific parameters of tophat2 aln
-my $cufflinksdirOut = $newDir;   #créer le répertoire des résultats de cufflinks
-
-
-cufflinks::execution($cufflinksdirOut,$mappingList[0],$gffFile,$softParameters);
 
 print LOG "#########################################\nINFOS: Single sequence analysis done correctly\n#########################################\n";
 close F1;
