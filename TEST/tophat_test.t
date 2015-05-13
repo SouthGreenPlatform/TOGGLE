@@ -63,6 +63,11 @@ my $fastaRef="$testingDir/referenceRNASeq.fa";
 my $refCopyCom="cp $OriginalFastaRef $fastaRef";
 system($refCopyCom) and die ("ERROR: $0 : Cannot copy the Reference $OriginalFastaRef with the command $refCopyCom\n$!\n");     #Now we have a ref to be tested
 
+my $OriginalGffRef="../DATA/expectedData/referenceRNASeq.gff3";
+my $gffRef="$testingDir/referenceRNASeq.gff3";
+my $refCopyCom="cp $OriginalGffRef $gffRef";
+system($refCopyCom) and die ("ERROR: $0 : Cannot copy the gff Reference $OriginalGffRef with the command $refCopyCom\n$!\n");     #Now we have a ref to be tested
+
 my $originalFastqFile1="../DATA/expectedData/RNASeq_1.fastq";
 my $originalFastqFile2="../DATA/expectedData/RNASeq_2.fastq";
 my $fastqFile1="$testingDir/RNASeq_1.fastq";
@@ -170,7 +175,7 @@ $observedMD5sum=`md5sum $expectedIndexPrefix.rev.1.bt2`;# structure of the test 
 $observedMD5sum = $withoutName[0];       # just to have the md5sum result
 is($observedMD5sum,$expectedMD5sum,'Ok for the content of the bowtie build rev.1.bt2 structure');
 
-$expectedMD5sum="619322d189d42f4eaede8aaaedf9890e";
+$expectedMD5sum="df753d8d0522ee01e2479f99a04525dd";
 $observedMD5sum=`md5sum $expectedIndexPrefix.rev.2.bt2`;# structure of the test file
 @withoutName = split (" ", $observedMD5sum);     # to separate the structure and the name of the test file
 $observedMD5sum = $withoutName[0];       # just to have the md5sum result
