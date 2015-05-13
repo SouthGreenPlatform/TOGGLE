@@ -65,7 +65,7 @@ system($refCopyCom) and die ("ERROR: $0 : Cannot copy the Reference $OriginalFas
 
 my $OriginalGffRef="../DATA/expectedData/referenceRNASeq.gff3";
 my $gffRef="$testingDir/referenceRNASeq.gff3";
-my $refCopyCom="cp $OriginalGffRef $gffRef";
+$refCopyCom="cp $OriginalGffRef $gffRef";
 system($refCopyCom) and die ("ERROR: $0 : Cannot copy the gff Reference $OriginalGffRef with the command $refCopyCom\n$!\n");     #Now we have a ref to be tested
 
 my $originalFastqFile1="../DATA/expectedData/RNASeq_1.fastq";
@@ -128,8 +128,7 @@ $observedMD5sum=`md5sum $expectedIndexPrefix.rev.1.ebwt`;# structure of the test
 $observedMD5sum = $withoutName[0];       # just to have the md5sum result
 is($observedMD5sum,$expectedMD5sum,'Ok for the content of the bowtie build rev.1.ebwt structure');
 
-$expectedMD5sum="619322d189d42f4eaede8aaaedf9890e@:w!
-";
+$expectedMD5sum="619322d189d42f4eaede8aaaedf9890e";
 $observedMD5sum=`md5sum $expectedIndexPrefix.rev.2.ebwt`;# structure of the test file
 @withoutName = split (" ", $observedMD5sum);     # to separate the structure and the name of the test file
 $observedMD5sum = $withoutName[0];       # just to have the md5sum result
@@ -184,17 +183,17 @@ is($observedMD5sum,$expectedMD5sum,'Ok for the content of the bowtie build rev.2
 ################################################################################################
 ###tophat::tophat2
 ################################################################################################
-`echo \"#\" > $testingDir/referenceRNASeq.gff3`;
-my $gffFile="$testingDir/referenceRNASeq.gff3";
-
-%optionsHachees = ("-i" => "30", "-I" => "20000",
-                      "-a" => "8",
-                      "-m" => "1",
-                      "--no-coverage-search" => '',
-                      "-g" => "10",
-                      "--bowtie-n" => '',
-                      "--library-type" => 'fr-secondstrand',
-                      "--microexon-search" => '');
-$optionHachees = \%optionsHachees;                           # Ref of the hash
-
-is(tophat::tophat2($testingDir, $expectedIndexPrefix, $fastqFile1, $fastqFile2, $gffFile, $optionHachees), 'OK for tophat2 RUNNING');
+#`echo \"#\" > $testingDir/referenceRNASeq.gff3`;
+#my $gffFile="$testingDir/referenceRNASeq.gff3";
+#
+#%optionsHachees = ("-i" => "30", "-I" => "20000",
+#                      "-a" => "8",
+#                      "-m" => "1",
+#                      "--no-coverage-search" => '',
+#                      "-g" => "10",
+#                      "--bowtie-n" => '',
+#                      "--library-type" => 'fr-secondstrand',
+#                      "--microexon-search" => '');
+#$optionHachees = \%optionsHachees;                           # Ref of the hash
+#
+#is(tophat::tophat2($testingDir, $expectedIndexPrefix, $fastqFile1, $fastqFile2, $gffFile, $optionHachees), 'OK for tophat2 RUNNING');
