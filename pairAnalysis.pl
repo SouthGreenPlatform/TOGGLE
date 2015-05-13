@@ -50,12 +50,34 @@ use samTools;
 use toolbox;
 
 
+
+##########################################
+# recovery of parameters/arguments given when the program is executed
+##########################################
+my $cmd_line=$0." @ARGV";
+unless ($#ARGV>=0)                                                                                          # if no argument given
+{
+  my ($nomprog)=$0=~/([^\/]+)$/;
+  print <<"Mesg";
+
+  perldoc $nomprog display the help
+
+Mesg
+
+  exit;
+}
+
+my %param = @ARGV;                                                                                          # get the parameters 
+@param{ map { lc $_ } keys %param } = values %param;
+
+my $SEQ_file=$param{'-i'};
+
 ##########################################
 # recovery of initial informations/files
 ##########################################
-my $initialDir = $ARGV[0];                                                                                  # recovery of the name of the directory to analyse
-my $fileConf = $ARGV[1];                                                                                    # recovery of the name of the software.configuration.txt file
-my $refFastaFile = $ARGV[2];                                                                                # recovery of the reference file
+my $initialDir = $param{'-d'};                                                                              # recovery of the name of the directory to analyse
+my $fileConf = $param{'-c'};                                                                                # recovery of the name of the software.configuration.txt file
+my $refFastaFile = $param{'-r'};                                                                            # recovery of the reference file
 toolbox::existsDir($initialDir);                                                                            # check if this directory exists
 
 

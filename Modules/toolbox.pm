@@ -841,14 +841,15 @@ sub changeDirectoryArbo
 {
     my ($inputDir,$numberOfDirectory) = @_;
     # numberOfDirectory could be:
-    # 0 for /0_PAIRING_FILES/
-    # 1 for /1_FASTQC/
-    # 2 for /2_CUTADAPT/
-    # 3 for /3_PAIRING_SEQUENCES/
-    # 4 for /4_BWA/
-    # 5 for /5_PICARDTOOLS/
-    # 6 for /6_SAMTOOLS/
-    # 7 for /7_GATK/
+    # 0  for /0_PAIRING_FILES/
+    # 1  for /1_FASTQC/
+    # 11 for /11_FASTX/
+    # 2  for /2_CUTADAPT/
+    # 3  for /3_PAIRING_SEQUENCES/
+    # 4  for /4_MAPPING/
+    # 5  for /5_PICARDTOOLS/
+    # 6  for /6_SAMTOOLS/
+    # 7  for /7_GATK/
     
     #TODO can be factorized using a HASH I think
     
@@ -862,6 +863,10 @@ sub changeDirectoryArbo
 	{
 	    $finalDirectory = "$inputDir"."1_FASTQC";
 	}
+	elsif ($numberOfDirectory == 11)		# if you want to move to 1_FASTQC/
+	{
+	    $finalDirectory = "$inputDir"."11_FASTX";
+	}
 	elsif ($numberOfDirectory == 2)		# if you want to move to 2_CUTADAPT/
 	{
 	    $finalDirectory = "$inputDir"."2_CUTADAPT";
@@ -872,7 +877,7 @@ sub changeDirectoryArbo
 	}
 	elsif ($numberOfDirectory == 4)		# if you want to move to 4_BWA/
 	{
-	    $finalDirectory = "$inputDir"."4_BWA";
+	    $finalDirectory = "$inputDir"."4_MAPPING";
 	}
 	elsif ($numberOfDirectory == 5)		# if you want to move to 5_PICARDTOOLS/
 	{

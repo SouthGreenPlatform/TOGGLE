@@ -163,19 +163,78 @@ unlink("/tmp/out.txt");
 is($line,"            FastQC - A high throughput sequence QC analysis tool\n","Test for FASTQC location");
 
 ######################################
-# Testing the correct location of picardtools
+# Testing the correct location of fastx_trimmer
 ######################################
 
-`$picard/FastqToSam.jar 2> /tmp/out.txt`;#We works with the STDERR output
+`$fastxTrimmer -h > /tmp/out.txt`;#We works with the STDERR output
 open(OUT,"<", "/tmp/out.txt");
 while (<OUT>) {
     $line=$_;
+    chomp $line;
     last; 
 }
 close OUT;
 unlink("/tmp/out.txt");
 
-is($line,"ERROR: Option 'FASTQ' is required.\n","Test for picardTools location");
+is($line,"usage: fastx_trimmer [-h] [-f N] [-l N] [-t N] [-m MINLEN] [-z] [-v] [-i INFILE] [-o OUTFILE]","Test for fastx_trimmer location");
+
+######################################
+# Testing the correct location of bowtie-build
+######################################
+
+`$bowtieBuild 2> /tmp/out.txt`;#We works with the STDERR output
+open(OUT,"<", "/tmp/out.txt");
+while (<OUT>) {
+    $line=$_;
+    $line.=<OUT>;
+    chomp $line;
+    last; 
+}
+close OUT;
+unlink("/tmp/out.txt");
+
+is($line,"No input sequence or sequence file specified!
+Usage: bowtie-build [options]* <reference_in> <ebwt_outfile_base>","Test for bowtie-build location");
+
+
+######################################
+# Testing the correct location of bowtie2-build
+######################################
+
+`$bowtie2Build 2> /tmp/out.txt`;#We works with the STDERR output
+open(OUT,"<", "/tmp/out.txt");
+while (<OUT>) {
+    $line=$_;
+    $line.=<OUT>;
+    chomp $line;
+    last; 
+}
+close OUT;
+unlink("/tmp/out.txt");
+
+is($line,"No input sequence or sequence file specified!
+Bowtie 2 version 2.2.5 by Ben Langmead (langmea\@cs.jhu.edu, www.cs.jhu.edu/~langmea)","Test for bowtie2-build location");
+
+######################################
+# Testing the correct location of tophat2
+######################################
+
+`$tophat2 2> /tmp/out.txt`;#We works with the STDERR output
+open(OUT,"<", "/tmp/out.txt");
+while (<OUT>) {
+    $line=$_;
+    $line.=<OUT>;
+    chomp $line;
+    last; 
+}
+close OUT;
+unlink("/tmp/out.txt");
+
+is($line,"tophat: 
+TopHat maps short sequences from spliced transcripts to whole genomes.","Test for tophat2 location");
+
+
+
 
 ######################################
 # Testing the correct location of cufflinks

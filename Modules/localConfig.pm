@@ -38,10 +38,10 @@ use warnings;
 use Exporter;
 
 our @ISA=qw(Exporter);
-our @EXPORT=qw($bwa $picard $samtools $GATK $cufflinks $pacBioToCA $cutadapt $fastqc $java $snpEff $toggle);
+our @EXPORT=qw($bwa $picard $samtools $GATK $cufflinks $pacBioToCA $cutadapt $fastqc $java $snpEff $toggle $fastxTrimmer $tophat2 $bowtie2Build $bowtieBuild);
 
 #toggle path
-our $toggle="/path/to/toggle";
+our $toggle="/data/projects/Floripalm/STAGE-SOUHILA/TOGGLE/";
 
 #PATH for Mapping on cluster
 our $java = "/usr/local/java/latest/bin/java -Xmx12g -jar";
@@ -54,15 +54,34 @@ our $GATK = "/usr/java/jre1.7.0_51/bin/java -Xmx12g -jar /usr/local/GenomeAnalys
 our $fastqc = "/usr/local/FastQC/fastqc";
 
 #PATH for Cufflinks bin on cluster
-our $cufflinks = "/usr/local/cufflinks-2.1.1.Linux_x86_64";
+
+our $cufflinks = "/usr/local/cufflinks-2.2.1.Linux_x86_64/cufflinks";
 
 #Path for pacBioToCa
-our $pacBioToCA = "/home/sabotf/sources/wgs/Linux-amd64/bin/pacBioToCA";
+our $pacBioToCA = tophat_TEST_log.o "/home/sabotf/sources/wgs/Linux-amd64/bin/pacBioToCA";
 
 #Path for CutAdapt
 our $cutadapt = "/usr/local/cutadapt-1.2.1/bin/cutadapt";
 
 #Path for SNPeff
 our $snpEff="$java /home/sabotf/sources/snpEff/snpEff.jar";
+
+
+##### FOR RNASEQ analysis
+#Path for fastq_trimmer
+our $fastxTrimmer="/usr/local/bin/fastx_trimmer";
+
+#Path for tophat2
+our $tophat2="/usr/local/tophat-2.0.14/bin/tophat2";
+
+#path for bowtie2-build
+our $bowtie2Build="/usr/local/bowtie2-2.2.5/bowtie2-build";
+
+#path for bowtie-build
+our $bowtieBuild="/usr/local/bowtie-0.12.9/bowtie-build";
+
+
+
+
 
 1;
