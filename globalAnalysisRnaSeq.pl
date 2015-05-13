@@ -34,7 +34,7 @@
 
 use strict;
 use warnings;
-use lib qw(/data/projects/Floripalm/STAGE-SOUHILA/TOGGLE/Modules);
+use lib qw(./Modules);
 use localConfig;
 use Data::Dumper;
 
@@ -133,14 +133,14 @@ for (my $i=0; $i<=$#listOfFiles; $i++)                                          
         my @listOfFastq = @$listOfFastq;
         if ($#listOfFastq == 0)                                                                             # if 1 file --> single analysis to do
         {
-            toolbox::exportLog("INFOS: $0 : Run /data/projects/Floripalm/STAGE-SOUHILA/TOGGLE/singleAnalysisRnaSeq.pl on $firstDir\n",1);
-            my $singleCom = "/data/projects/Floripalm/STAGE-SOUHILA/TOGGLE/singleAnalysisRnaSeq.pl $firstDir $fileConf $refFastaFile $gffFile";
+            toolbox::exportLog("INFOS: $0 : Run singleAnalysisRnaSeq.pl on $firstDir\n",1);
+            my $singleCom = "singleAnalysisRnaSeq.pl $firstDir $fileConf $refFastaFile $gffFile";
             toolbox::run($singleCom);
         }
         elsif ($#listOfFastq == 1)                                                                          # if 2 files --> pair analysis to do
         {
-            toolbox::exportLog("INFOS: $0 : Run /data/projects/Floripalm/STAGE-SOUHILA/TOGGLE/pairAnalysisRnaSeq.pl on $firstDir\n",1);
-            my $pairCom = "/data/projects/Floripalm/STAGE-SOUHILA/TOGGLE/pairAnalysisRnaSeq.pl $firstDir $fileConf $refFastaFile $gffFile";
+            toolbox::exportLog("INFOS: $0 : Run pairAnalysisRnaSeq.pl on $firstDir\n",1);
+            my $pairCom = "pairAnalysisRnaSeq.pl $firstDir $fileConf $refFastaFile $gffFile";
             toolbox::run($pairCom);
         }
         else                                                                                                # if more than 2 files, there is a problem
