@@ -9,6 +9,7 @@ DATA-TEST/fastqcTestDir/
 DATA-TEST/gatkTestDir/
 DATA-TEST/pairingTestDir/
 DATA-TEST/picardtoolsTestDir/
+DATA-TEST/toolboxTestDir/
 DATA-TEST/samtoolsTestDir/
 DATAbak/
 Modules/Capture/
