@@ -34,7 +34,7 @@
 
 use strict;
 use warnings;
-use lib qw(/data/projects/Floripalm/STAGE-SOUHILA/TOGGLE/Modules);
+use lib qw(./Modules);
 use localConfig;
 use Data::Dumper;
 
