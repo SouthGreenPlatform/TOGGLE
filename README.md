@@ -1,4 +1,4 @@
-TOGGLE : Toolbox for generic NGS analyses
+TOGGLE : Toolbox for generic NGS analyses => version test: development for RnaSEQ 
 ===========
 
 TOGGLE (TOolbox for Generic nGs anaLysEs) is a suite of 10 packages and more than 110 modules able to manage a large set of NGS softwares
