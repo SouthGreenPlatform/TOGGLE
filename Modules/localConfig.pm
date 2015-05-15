@@ -38,47 +38,36 @@ use warnings;
 use Exporter;
 
 our @ISA=qw(Exporter);
-our @EXPORT=qw($bwa $picard $samtools $GATK $cufflinks $pacBioToCA $cutadapt $fastqc $java $snpEff $toggle $fastxTrimmer $tophat2 $bowtie2Build $bowtieBuild);
+our @EXPORT=qw($bwa $picard $samtools $GATK $cutadapt $fastqc $java $toggle $fastxTrimmer $tophat2 $bowtie2Build $bowtieBuild);
 
 #toggle path
-our $toggle="/data/projects/Floripalm/STAGE-SOUHILA/TOGGLE/";
+our $toggle="/path/to/toggle";
 
 #PATH for Mapping on cluster
-our $java = "/usr/local/java/latest/bin/java -Xmx12g -jar";
+our $java = "/path/to/java -Xmx12g -jar";
 
-our $bwa = "/usr/local/bin/bwa";
-our $picard = "$java /home/sabotf/sources/picard-tools";
+our $bwa = "/path/to/bwa";
+our $picard = "$java /path/to/picard-tools";
 
-our $samtools = "/usr/local/bin/samtools";
-our $GATK = "/usr/java/jre1.7.0_51/bin/java -Xmx12g -jar /usr/local/GenomeAnalysisTK-3.3/GenomeAnalysisTK.jar";
-our $fastqc = "/usr/local/FastQC/fastqc";
-
-#PATH for Cufflinks bin on cluster
-
-our $cufflinks = "/usr/local/cufflinks-2.2.1.Linux_x86_64/cufflinks";
-
-#Path for pacBioToCa
-our $pacBioToCA = tophat_TEST_log.o "/home/sabotf/sources/wgs/Linux-amd64/bin/pacBioToCA";
+our $samtools = "/path/to/samtools_O.1.17";
+our $GATK = "/path/to/java -Xmx12g -jar /path/to/GenomeAnalysisTK-3.3/GenomeAnalysisTK.jar";
+our $fastqc = "/path/to/FastQC/fastqc";
 
 #Path for CutAdapt
-our $cutadapt = "/usr/local/cutadapt-1.2.1/bin/cutadapt";
-
-#Path for SNPeff
-our $snpEff="$java /home/sabotf/sources/snpEff/snpEff.jar";
-
+our $cutadapt = "/path/to/cutadapt-1.2.1/bin/cutadapt";
 
 ##### FOR RNASEQ analysis
 #Path for fastq_trimmer
-our $fastxTrimmer="/usr/local/bin/fastx_trimmer";
+our $fastxTrimmer="/path/to/bin/fastx_trimmer";
 
 #Path for tophat2
-our $tophat2="/usr/local/tophat-2.0.14/bin/tophat2";
+our $tophat2="/path/to/tophat2";
 
 #path for bowtie2-build
-our $bowtie2Build="/usr/local/bowtie2-2.2.5/bowtie2-build";
+our $bowtie2Build="/path/to/bowtie2-build";
 
 #path for bowtie-build
-our $bowtieBuild="/usr/local/bowtie-0.12.9/bowtie-build";
+our $bowtieBuild="/path/to/bowtie-build";
 
 
 
