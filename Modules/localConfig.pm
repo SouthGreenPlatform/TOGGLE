@@ -69,7 +69,8 @@ our $bowtie2Build="/path/to/bowtie2-build";
 #path for bowtie-build
 our $bowtieBuild="/path/to/bowtie-build";
 
-
+#path for htseqcount
+our $htseqcount = "/usr/local/bin/htseq-count";
 
 
 
