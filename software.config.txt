@@ -76,6 +76,7 @@ VALIDATION_STRINGENCY=SILENT
 $picardTools markDuplicates
 VALIDATION_STRINGENCY=SILENT
 
+#RNASEQ analysis
 $fastx_trimmer
 -f 8
 
@@ -94,6 +95,9 @@ $tophat2
 --library-type=fr-unstranded
 --microexon-search
 
+$samtools sort
+-n
+ 
 $htseqcount
 -r=name
 -s=no
