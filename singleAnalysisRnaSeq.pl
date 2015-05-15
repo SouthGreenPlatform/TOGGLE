@@ -47,6 +47,7 @@ use fastxToolkit;
 use fastqUtils;
 use toolbox;
 use tophat;
+use samTools;
 
 
 ##########################################
@@ -249,7 +250,7 @@ print LOG "INFOS: $0 : start samtools sort\n";
 print F1 "samtools\n";
 $softParameters = toolbox::extractHashSoft($optionref,"samtools sort");  
 my $tophatBam=$tophatdirOut."/accepted_hits.bam";
-samToolsSort($tophatBam,$softParameters);
+samTools::samToolsSort($tophatBam,$softParameters);
 print LOG "#########################################\nINFOS: Single sequence analysis done correctly\n#########################################\n";
 close F1;
 close LOG;
