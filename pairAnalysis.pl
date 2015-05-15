@@ -50,13 +50,35 @@ use samTools;
 use toolbox;
 
 
+
+##########################################
+# recovery of parameters/arguments given when the program is executed
+##########################################
+my $cmd_line=$0." @ARGV";
+unless ($#ARGV>=0)                                                                                          # if no argument given
+{
+  my ($nomprog)=$0=~/([^\/]+)$/;
+  print <<"Mesg";
+
+  perldoc $nomprog display the help
+
+Mesg
+
+  exit;
+}
+
+my %param = @ARGV;                                                                                          # get the parameters 
+@param{ map { lc $_ } keys %param } = values %param;
+
+my $SEQ_file=$param{'-i'};
+
 ##########################################
 # recovery of initial informations/files
 ##########################################
 my $initialDir = $ARGV[0];                                                                                  # recovery of the name of the directory to analyse
 my $fileConf = $ARGV[1];                                                                                    # recovery of the name of the software.configuration.txt file
 my $refFastaFile = $ARGV[2];                                                                                # recovery of the reference file
-toolbox::existsDir($initialDir);                                                                            # check if this directory exists
+toolbox::existsDir($initialDir);                                                                            # check if this directory exists                                                                          # recovery of the reference file
 
 
 
@@ -93,7 +115,7 @@ toolbox::makeDir("$initialDir/0_PAIRING_FILES/");
 toolbox::makeDir("$initialDir/1_FASTQC/");
 toolbox::makeDir("$initialDir/2_CUTADAPT/");
 toolbox::makeDir("$initialDir/3_PAIRING_SEQUENCES/");
-toolbox::makeDir("$initialDir/4_BWA/");
+toolbox::makeDir("$initialDir/4_MAPPING/");
 toolbox::makeDir("$initialDir/5_PICARDTOOLS/");
 toolbox::makeDir("$initialDir/6_SAMTOOLS/");
 toolbox::makeDir("$initialDir/7_GATK/");
