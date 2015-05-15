@@ -139,9 +139,9 @@ is($observedMD5sum,$expectedMD5sum,'Ok for the content of the bowtie build rev.2
 ################################################################################################
 ###tophat::bowtie2Build
 ################################################################################################
-%optionsHachees = ("-T" => "RealignerTargetCreator","-nt" => "4");        # Hash containing informations
+%optionsHachees = ();        # Hash containing informations
 $optionHachees = \%optionsHachees;                           # Ref of the hash
-is(tophat::bowtie2Build($fastaRef),$expectedIndexPrefix, 'OK for bowtie2Build RUNNING');
+is(tophat::bowtie2Build($fastaRef,$optionHachees),$expectedIndexPrefix, 'OK for bowtie2Build RUNNING');
 
 ###Checking the correct structure for the output file using md5sum
 $expectedMD5sum="4e0329b55cd2a67490ef96b7b2567e5d";
