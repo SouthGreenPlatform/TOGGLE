@@ -38,7 +38,7 @@ use Data::Dumper;
 
 
 
-sub htseqcount
+sub htseqCount
 {
     my ($bamFileIn,$htseqFileOut,$annotGffFile,$optionsHachees)=@_;
     if (toolbox::sizeFile($bamFileIn)==1 and toolbox::sizeFile($annotGffFile)==1)            ##Check if the bamfileIn exist and is not empty
@@ -50,18 +50,18 @@ sub htseqcount
         # Command is executed with the run function (package toolbox)
         if (toolbox::run($command)==1)
         {
-            toolbox::exportLog("INFOS: HTSeq::htseqcount : correctly done\n",1);
+            toolbox::exportLog("INFOS: HTSeq::htseqCount : correctly done\n",1);
             return 1;
         }
         else
         {
-            toolbox::exportLog("ERROR: HTSeq::htseqcount : ABBORTED\n",0);
+            toolbox::exportLog("ERROR: HTSeq::htseqCount : ABBORTED\n",0);
         }
         
     }
     else
     {
-        toolbox::exportLog("ERROR: HTSeq::htseqcount : Problem with the file $bamFileIn (don't exist ou invalid bam format)\n",0);
+        toolbox::exportLog("ERROR: HTSeq::htseqCount : Problem with the file $bamFileIn (don't exist ou invalid bam format)\n",0);
     }
 }
 
