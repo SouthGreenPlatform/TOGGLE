@@ -46,7 +46,7 @@ use fastqc;
 use fastxToolkit;
 use fastqUtils;
 use toolbox;
-use tophat;ssh
+use tophat;
 
 
 ##########################################
