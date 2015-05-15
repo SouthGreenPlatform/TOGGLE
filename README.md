@@ -150,7 +150,7 @@ $cd TEST
 $sh all_tests.sh
 ````
 
-* Test the pipiline with the test data
+* Test the pipeline with the test data
 
 ````
 $globalAnalysis.pl $PATH_INSTALL/DATA/arcardTest/ $PATH_INSTALL/software.config.txt $PATH_INSTALL/DATA/referenceArcad.fasta
@@ -185,6 +185,12 @@ tail $PATH_INSTALL/DATA/BamDirectory/GATKVARIANTFILTRATION.vcf
 2281178    4213    .    G    A    65.65    PASS    AC=2;AF=1.00;AN=2;DP=2;FS=0.000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=32.83;SOR=0.693    GT:AD:DP:GQ:PL    ./.    ./.    ./.    1/1:0,2:2:6:90,6,0    ./.
 2281178    4214    .    A    G    65.65    PASS    AC=2;AF=1.00;AN=2;DP=2;FS=0.000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=32.83;SOR=0.693    GT:AD:DP:GQ:PL    ./.    ./.    ./.    1/1:0,2:2:6:90,6,0    ./.
 2290182    1013    .    A    G    45.65    PASS    AC=2;AF=1.00;AN=2;DP=2;FS=0.000;MLEAC=2;MLEAF=1.00;MQ=29.00;MQ0=0;QD=22.83;SOR=0.693    GT:AD:DP:GQ:PL    ./.    ./.    ./.    1/1:0,2:2:6:70,6,0    ./.
+````
+
+* Test the RNASeq pipeline with the test data
+
+````
+$globalAnalysisRnaSeq.pl $PATH_INSTALL/DATA/rnaseqTest/ $PATH_INSTALL/software.config.txt $PATH_INSTALL/DATA/referenceRnaseq.fa $PATH_INSTALL/DATA/referenceRnaseq.gff3
 ````
 
 ##  Versions Notes - branche dev
