@@ -40,8 +40,8 @@ use Data::Dumper;
 
 sub htseqcount
 {
-    my($bamFileIn,$htseqFileOut,$annotGffFile,$optionsHachees)=@_;
-    if (toolbox::sizeFile($bamFileIn)==1 and (toolbox::sizeFile($annotGffFile)==1)            ##Check if the bamfileIn exist and is not empty
+    my ($bamFileIn,$htseqFileOut,$annotGffFile,$optionsHachees)=@_;
+    if (toolbox::sizeFile($bamFileIn)==1 and toolbox::sizeFile($annotGffFile)==1)            ##Check if the bamfileIn exist and is not empty
     {
         my $options=toolbox::extractOptions($optionsHachees, " ");  ##Get given options by software.config
         ## DEBUG toolbox::exportLog("DEBUG: HTSeq::htseqcount : htseqcount option equals to $options",1);
@@ -63,8 +63,6 @@ sub htseqcount
     {
         toolbox::exportLog("ERROR: HTSeq::htseqcount : Problem with the file $bamFileIn (don't exist ou invalid bam format)\n",0);
     }
-    
-    
 }
 
 
