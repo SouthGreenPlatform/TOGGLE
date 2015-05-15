@@ -190,7 +190,7 @@ $softParameters = toolbox::extractHashSoft($optionref,"cutadapt");
 ##DEBUG print LOG Dumper ($optionref);
 
 cutadapt::createConfFile($fileAdaptator, $cutadaptSpecificFileConf, $softParameters);                            # create the configuration file specific to cutadapt software
-my $trimmedFiles=toolbox::readDir($initialDir."/11_FASTX/");
+my $trimmedFiles=toolbox::readDir($initialDir."/11_FASTXTRIMMER/");
 my @trimmedFiles=@$trimmedFiles;
 #DEBUG print LOG Dumper(@trimmedFiles);
 
