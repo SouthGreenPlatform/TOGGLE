@@ -235,10 +235,10 @@ my $tophatdirOut = $newDir;   #créer le répertoire des résultats de topaht
 print LOG "INFOS: $0 : start tophat2\n";
 print F1 "tophat2\n";
 $softParameters = toolbox::extractHashSoft($optionref,"tophat2");  
-@fileAndPath = toolbox::extractPath($listOfFiles[0]);
+#@fileAndPath = toolbox::extractPath($listOfFiles[0]);
 ##DEBUG
-print LOG "INFOS extract path: $listOfFiles[0]\n";
-print LOG "INFOS tophats argument: $tophatdirOut,$refIndex,$listOfFil,$gffFile";
+#print LOG "INFOS extract path: $listOfFiles[0]\n";
+print LOG "INFOS tophats argument: $tophatdirOut,$refIndex,$fileCutadaptOut,$gffFile";
 my $fileReverse;
 tophat::tophat2($tophatdirOut,$refIndex,$fileCutadaptOut,undef $fileReverse, $gffFile,$softParameters);            # generate alignement in SAM format
 
