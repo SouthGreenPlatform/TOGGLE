@@ -228,7 +228,7 @@ my $tophatdirOut = $newDir;   #créer le répertoire des résultats de topaht
 print LOG "INFOS extract path: $listOfFiles[0]\n";
 print LOG "INFOS tophats argument: $tophatdirOut,$refIndex,$listOfFiles[0],$gffFile";
 my $fileReverse;
-tophat::tophat2($tophatdirOut,$refIndex,$listOfFiles[0], undef $fileReverse, $gffFile,$softParameters);            # generate alignement in SAM format
+tophat::tophat2($tophatdirOut,$refIndex,$listOfFiles[0],, $gffFile,$softParameters);            # generate alignement in SAM format
 
 
 
