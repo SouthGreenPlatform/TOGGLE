@@ -48,6 +48,7 @@ use fastqUtils;
 use toolbox;
 use tophat;
 use samTools;
+use HTSeq;
 
 
 ##########################################
@@ -211,7 +212,7 @@ my $tophatDir = $newDir;
 ##DEBUG
 print LOG "CHANGE DIRECTORY TO $newDir\n";
 $softParameters = toolbox::extractHashSoft($optionref, "bowtieBuild");                              # recovery of specific parameters of bowtiebuild index
-#tophat::bowtieBuild($refFastaFile,$softParameters);                                           # indexation of Reference sequences file
+tophat::bowtieBuild($refFastaFile,$softParameters);                                           # indexation of Reference sequences file
 
 
 ##########################################
@@ -225,8 +226,6 @@ print F1 "BOWTIE2BUILD\n";
 print LOG "CHANGE DIRECTORY TO $newDir\n";                          
 $softParameters = toolbox::extractHashSoft($optionref, "bowtie2-build");                                      # recovery of specific parameters of tophat index
 my $refIndex=tophat::bowtie2Build($refFastaFile,$softParameters);                                            # indexation of Reference sequences file               
-                                  
-my $tophatdirOut = $newDir;   #créer le répertoire des résultats de topaht
 
 
 ##########################################
@@ -234,23 +233,37 @@ my $tophatdirOut = $newDir;   #créer le répertoire des résultats de topaht
 ##########################################
 print LOG "INFOS: $0 : start tophat2\n";
 print F1 "tophat2\n";
+
+my $tophatdirOut = $newDir;   #créer le répertoire des résultats de tophat
 $softParameters = toolbox::extractHashSoft($optionref,"tophat2");  
-#@fileAndPath = toolbox::extractPath($listOfFiles[0]);
-##DEBUG
-#print LOG "INFOS extract path: $listOfFiles[0]\n";
+
 print LOG "INFOS tophats argument: $tophatdirOut,$refIndex,$fileCutadaptOut,$gffFile";
 my $fileReverse;
 tophat::tophat2($tophatdirOut,$refIndex,$fileCutadaptOut,undef $fileReverse, $gffFile,$softParameters);            # generate alignement in SAM format
 
 
 ##########################################
-# tophat::tophat2
+# samTools::sort
 ##########################################
 print LOG "INFOS: $0 : start samtools sort\n";
 print F1 "samtools\n";
 $softParameters = toolbox::extractHashSoft($optionref,"samtools sort");  
 my $tophatBam=$tophatdirOut."/accepted_hits.bam";
 samTools::samToolsSort($tophatBam,$softParameters);
+
+
+##########################################
+# HTSeq::htseqCount
+##########################################
+print LOG "INFOS: $0 : start htseq-count\n";
+print F1 "htseqcount\n";
+$softParameters = toolbox::extractHashSoft($optionref,"htseqcount");
+
+my $htseqcountBam=$tophatdirOut."/accepted_hits.SAMTOOLSSORT.bam";
+my $htseqcountOut=$tophatdirOut."/accepted_hits.HTSEQCOUNT.txt";
+HTSeq::htseqCount($htseqcountBam,$htseqcountOut,$gffFile,$softParameters);
+
+
 print LOG "#########################################\nINFOS: Single sequence analysis done correctly\n#########################################\n";
 close F1;
 close LOG;
