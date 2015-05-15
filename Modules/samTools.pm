@@ -145,7 +145,7 @@ sub samToolsSort{
           }
           
           my $bamPath=toolbox::extractPath($bamFileIn);
-          my $bamFileName=toolbox::extractName($bamFileIn).".SAMTOOLSSORTED";
+          my $bamFileName=toolbox::extractName($bamFileIn).".SAMTOOLSSORT";
           my $bamFileOut = $bamPath.$bamFileName;
           my $options="";
           if ($optionsHachees) {
