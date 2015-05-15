@@ -65,7 +65,7 @@ system($bamCopyCom) and die ("ERROR: $0 : Cannot copy the bam file $originalBam 
 
 my $OriginalGffRef="../DATA/expectedData/referenceRNASeq.gff3";
 my $gffRef="$testingDir/referenceRNASeq.gff3";
-$gffCopyCom="cp $OriginalGffRef $gffRef";
+my $gffCopyCom="cp $OriginalGffRef $gffRef";
 system($gffCopyCom) and die ("ERROR: $0 : Cannot copy the gff Reference $OriginalGffRef with the command $gffCopyCom\n$!\n");     #Now we have a gff to be tested
 
 ########################################
