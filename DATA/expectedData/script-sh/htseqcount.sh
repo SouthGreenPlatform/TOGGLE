@@ -1,0 +1,2 @@
+samtools sort -n ../tophat/accepted_hits.bam ../tophat/accepted_hits_SAMTOOLSSORT.bam
+htseqcount -r=name -s=no -t=mRNA -m=union -i=ID -f=bam ../tophat/accepted_hits.SAMTOOLSSORT.bam ../referenceRNASeq.gff3 > ../tophat/accepted_hits.HTSEQCOUNT.txt
