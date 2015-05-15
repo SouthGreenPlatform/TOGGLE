@@ -112,5 +112,6 @@ sh fastxTrimmer.sh;
 sh bowtie-build.sh;
 sh bowtie2-build.sh;
 sh tophat.sh;
+sh htseqcount.sh;
 
 exit;
