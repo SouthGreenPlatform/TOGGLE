@@ -135,7 +135,7 @@ sub tophat2
         $options=toolbox::extractOptions($optionsHachees);		##Get given options
     }
     
-    if ((toolbox::sizeFile($forwardFastqFileIn)==1) and (toolbox::sizeFile($reverseFastqFileIn,0)==1) and (toolbox::sizeFile($gffFile)==1))		##Check if entry files exist and are not empty
+    if ((toolbox::sizeFile($forwardFastqFileIn)==1) and (toolbox::sizeFile($reverseFastqFileIn)==1) and (toolbox::sizeFile($gffFile)==1))		##Check if entry files exist and are not empty
     {
         my $command=$tophat2.$options." -G ".$gffFile." -o ".$tophatDirOut." ".$prefixRef." ".$forwardFastqFileIn." ".$reverseFastqFileIn;		# command line
      	#my $command2="$tophat2 $options -G $gffFile -o $tophatDirOut $refFastaFileIn $forwardFastqFileIn $reverseFastqFileIn";		# command line
@@ -156,7 +156,7 @@ sub tophat2
         }
         
     }
-    elsif ((toolbox::sizeFile($forwardFastqFileIn)==1) and (toolbox::sizeFile($reverseFastqFileIn,0)==0) and (toolbox::sizeFile($gffFile)==1))		##Check if entry files exist and are not empty
+    elsif ((toolbox::sizeFile($forwardFastqFileIn)==1) and (not defined $reverseFastqFileIn) and (toolbox::sizeFile($gffFile)==1))		##Check if entry files exist and are not empty
     {
         my $command=$tophat2.$options." -p 8"." -G ".$gffFile." -o ".$tophatDirOut." ".$prefixRef." ".$forwardFastqFileIn;		# command line
  
