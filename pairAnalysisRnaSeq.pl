@@ -38,8 +38,6 @@ use lib qw(./Modules);
 use localConfig;
 use Data::Dumper;
 
-
-
 use cutadapt;
 use fastqc;
 use fastqUtils;
@@ -47,6 +45,9 @@ use pairing;
 use toolbox;
 use fastxToolkit;
 use tophat;
+use samTools;
+use HTSeq;
+
 
 ##########################################
 # recovery of initial informations/files
@@ -92,7 +93,7 @@ my $optionref = toolbox::readFileConf($fileConf);
 ### Create the Arborescence
 toolbox::makeDir("$initialDir/0_PAIRING_FILES/");
 toolbox::makeDir("$initialDir/1_FASTQC/");
-toolbox::makeDir("$initialDir/11_FASTX/");
+toolbox::makeDir("$initialDir/11_FASTXTRIMMER/");
 toolbox::makeDir("$initialDir/2_CUTADAPT/");
 toolbox::makeDir("$initialDir/3_PAIRING_SEQUENCES/");
 toolbox::makeDir("$initialDir/4_MAPPING/");
@@ -301,6 +302,28 @@ my $tophatdirOut = $newDir;   #créer le répertoire des résultats de topaht
 
 print LOG "INFOS tophats argument: $tophatdirOut,$refIndex,$repairingList[0],$repairingList[1],$gffFile";
 tophat::tophat2($tophatdirOut,$refIndex,$repairingList[0],$repairingList[1],$gffFile,$softParameters);
+
+
+##########################################
+# samTools::sort
+##########################################
+print LOG "INFOS: $0 : start samtools sort\n";
+print F1 "samtools\n";
+$softParameters = toolbox::extractHashSoft($optionref,"samtools sort");  
+my $tophatBam=$tophatdirOut."/accepted_hits.bam";
+samTools::samToolsSort($tophatBam,$softParameters);
+
+
+##########################################
+# HTSeq::htseqCount
+##########################################
+print LOG "INFOS: $0 : start htseq-count\n";
+print F1 "htseqcount\n";
+$softParameters = toolbox::extractHashSoft($optionref,"htseqcount");
+
+my $htseqcountBam=$tophatdirOut."/accepted_hits.SAMTOOLSSORT.bam";
+my $htseqcountOut=$tophatdirOut."/accepted_hits.HTSEQCOUNT.txt";
+HTSeq::htseqCount($htseqcountBam,$htseqcountOut,$gffFile,$softParameters);
 
 
 print LOG "#########################################\nINFOS: Paired sequences analysis done correctly\n#########################################\n";
