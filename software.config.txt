@@ -93,3 +93,14 @@ $tophat2
 --bowtie-n
 --library-type=fr-unstranded
 --microexon-search
+
+$htseqcount
+
+-r=name
+-s=no
+-t=mRNA
+-m=union
+-i=ID
+-f=bam
+
+
