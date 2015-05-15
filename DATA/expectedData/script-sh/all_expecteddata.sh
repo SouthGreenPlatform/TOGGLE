@@ -19,7 +19,7 @@ rm GATKHAPLOTYPECALLER.vcf  GATKSELECTVARIANTS.vcf  GATKVARIANTFILTRATION.vcf
 rm GATKHAPLOTYPECALLER.vcf.idx  GATKSELECTVARIANTS.vcf.idx  GATKVARIANTFILTRATION.vcf.idx
 rm RC3_1.FASTXTRIMMER.fastq RC3_2.FASTXTRIMMER.fastq
 rm -rf tophat
-rm referenceRNASeq*bt2 referenceRNASeq*ebwt referenceRNASeq.rev*
+rm referenceRNASeq*bt2 referenceRNASeq*ebwt
 cd script-sh
 
 echo "
