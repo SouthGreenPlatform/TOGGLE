@@ -75,10 +75,10 @@ my $SEQ_file=$param{'-i'};
 ##########################################
 # recovery of initial informations/files
 ##########################################
-my $initialDir = $param{'-d'};                                                                              # recovery of the name of the directory to analyse
-my $fileConf = $param{'-c'};                                                                                # recovery of the name of the software.configuration.txt file
-my $refFastaFile = $param{'-r'};                                                                            # recovery of the reference file
-toolbox::existsDir($initialDir);                                                                            # check if this directory exists
+my $initialDir = $ARGV[0];                                                                                  # recovery of the name of the directory to analyse
+my $fileConf = $ARGV[1];                                                                                    # recovery of the name of the software.configuration.txt file
+my $refFastaFile = $ARGV[2];                                                                                # recovery of the reference file
+toolbox::existsDir($initialDir);                                                                            # check if this directory exists                                                                          # recovery of the reference file
 
 
 
