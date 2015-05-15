@@ -134,13 +134,10 @@ sub tophat2
     {
         $options=toolbox::extractOptions($optionsHachees);		##Get given options
     }
-    
-    if ((toolbox::sizeFile($forwardFastqFileIn)==1) and (toolbox::sizeFile($reverseFastqFileIn)==1) and (toolbox::sizeFile($gffFile)==1))		##Check if entry files exist and are not empty
-    {
-        my $command=$tophat2.$options." -G ".$gffFile." -o ".$tophatDirOut." ".$prefixRef." ".$forwardFastqFileIn." ".$reverseFastqFileIn;		# command line
-     	#my $command2="$tophat2 $options -G $gffFile -o $tophatDirOut $refFastaFileIn $forwardFastqFileIn $reverseFastqFileIn";		# command line
- 
-        ##DEBUG
+
+    if ((toolbox::sizeFile($forwardFastqFileIn)==1) and not (defined $reverseFastqFileIn) and (toolbox::sizeFile($gffFile)==1))		##Check if entry files exist and are not empty
+    {   
+        my $command=$tophat2.$options." -p 8"." -G ".$gffFile." -o ".$tophatDirOut." ".$prefixRef." ".$forwardFastqFileIn;		# command line
         toolbox::exportLog("INFOS: tophat::topHat2 : $command\n",1);
 
         # Command is executed with the run function (package toolbox)
@@ -156,11 +153,9 @@ sub tophat2
         }
         
     }
-    elsif ((toolbox::sizeFile($forwardFastqFileIn)==1) and (not defined $reverseFastqFileIn) and (toolbox::sizeFile($gffFile)==1))		##Check if entry files exist and are not empty
+    elsif ((toolbox::sizeFile($forwardFastqFileIn)==1) and (toolbox::sizeFile($reverseFastqFileIn)==1) and (toolbox::sizeFile($gffFile)==1))		##Check if entry files exist and are not empty
     {
-        my $command=$tophat2.$options." -p 8"." -G ".$gffFile." -o ".$tophatDirOut." ".$prefixRef." ".$forwardFastqFileIn;		# command line
- 
-        ##DEBUG
+        my $command=$tophat2.$options." -G ".$gffFile." -o ".$tophatDirOut." ".$prefixRef." ".$forwardFastqFileIn." ".$reverseFastqFileIn;		# command line
         toolbox::exportLog("INFOS: tophat::topHat2 : $command\n",1);
 
         # Command is executed with the run function (package toolbox)
@@ -174,14 +169,12 @@ sub tophat2
             toolbox::exportLog("ERROR: tophat : ABBORTED\n",0);
             return 0;
         }
-        
     }
     else
     {
         toolbox::exportLog("ERROR: tophat::tophat2 : Problem with the files\n",0);
         return 0;
-    }
-    
+    }    
     
 }
 
