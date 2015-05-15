@@ -73,8 +73,12 @@ system($gffCopyCom) and die ("ERROR: $0 : Cannot copy the gff Reference $Origina
 ########################################
 use_ok('toolbox') or exit;
 use_ok('HTSeq') or exit;
-can_ok( 'HTSeq','htseqcount');
+can_ok( 'HTSeq','htseqCount');
 
 use toolbox;
 use HTSeq;
 
+
+########################################
+#HTSeq::htseqCount
+########################################
