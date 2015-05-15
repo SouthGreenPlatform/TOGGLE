@@ -129,12 +129,12 @@ if (@$initialsFiles != 2)                                                       
 for (my $i=0; $i<=$#initialsFiles; $i++)
 {
     ##########################################
-    # fastqUtils::checkNumberByWC
+    # fastqUtils::checkNumberLines
     ##########################################
     print LOG "INFOS: $0 : Checking sequences number on file $initialsFiles[$i]\n";
 
-    #print F1 "checkNumberByWC\n";
-    my $numberOfReads = fastqUtils::checkNumberByWC($initialsFiles[$i]);                                      # check the number of sequences
+    #print F1 "checkNumberLines\n";
+    my $numberOfReads = (toolbox::checkNumberLines($initialsFiles[$i]))/4;                                      # check the number of sequences
     print LOG "INFOS: $0 : Number of reads: $numberOfReads\n";
     ##########################################
     # fastqUtils::checkEncodeByASCIIcontrol
