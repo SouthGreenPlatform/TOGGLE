@@ -95,7 +95,6 @@ $tophat2
 --microexon-search
 
 $htseqcount
-
 -r=name
 -s=no
 -t=mRNA
