@@ -58,8 +58,8 @@ my $testingDir="../DATA-TEST/htseqTestDir";
 my $creatingDirCom="rm -rf $testingDir ; mkdir -p $testingDir";                                    #Allows to have a working directory for the tests
 system($creatingDirCom) and die ("ERROR: $0 : Cannot execute the command $creatingDirCom\n$!\n");
 
-my $originalBam="../DATA/expectedData/tophat/accepted_hits.SAMTOOLSSORT.bam ";
-my $bam="$testingDir/accepted_hits.SAMTOOLSSORT.bam ";
+my $originalBam="../DATA/expectedData/tophat/accepted_hits.SAMTOOLSSORT.bam";
+my $bam="$testingDir/accepted_hits.SAMTOOLSSORT.bam";
 my $bamCopyCom="cp $originalBam $bam";
 system($bamCopyCom) and die ("ERROR: $0 : Cannot copy the bam file $originalBam with the command $bamCopyCom\n$!\n");     #Now we have a bam to be tested
 
@@ -82,8 +82,9 @@ use HTSeq;
 ########################################
 #HTSeq::htseqCount
 ########################################
-%optionsHachees = ("-r" => "name", "-s" => "no", "-t" => "mRNA",  "-m" => "union",  "-i" => "ID",  "-f" => "bam");        # Hash containing informations
-$optionHachees = \%optionsHachees;                           # Ref of the hash
+my %optionsHachees = ("-r" => "name", "-s" => "no", "-t" => "mRNA",  "-m" => "union",  "-i" => "ID",  "-f" => "bam");        # Hash containing informations
+my $optionHachees = \%optionsHachees;                           # Ref of the hash
 
-is(HTSeq::htseqCount($bam, $gffRef, $optionHachees),1,'OK for htseqCount RUNNING');
+my $htseqcountFile=$testingDir."/accepted_hits.HTSEQCOUNT.txt";
+is(HTSeq::htseqCount($bam, $htseqcountFile,$gffRef, $optionHachees),1,'OK for htseqCount RUNNING');
 
