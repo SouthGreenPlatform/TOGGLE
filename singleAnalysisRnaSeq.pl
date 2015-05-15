@@ -97,10 +97,7 @@ toolbox::makeDir("$initialDir/1_FASTQC/");
 toolbox::makeDir("$initialDir/11_FASTX/");
 toolbox::makeDir("$initialDir/2_CUTADAPT/");
 toolbox::makeDir("$initialDir/4_MAPPING/");
-toolbox::makeDir("$initialDir/41_CUFFLINKS/");
-toolbox::makeDir("$initialDir/5_PICARDTOOLS/");
-toolbox::makeDir("$initialDir/6_SAMTOOLS/");
-toolbox::makeDir("$initialDir/7_GATK/");
+
 
 
 ### Copy fastq into 0_PAIRING_FILES/    
@@ -196,26 +193,35 @@ my @trimmedFiles=@$trimmedFiles;
 #DEBUG print LOG Dumper(@trimmedFiles);
 
 my $fileWithoutExtention = toolbox::extractName($trimmedFiles[0]);                                           # extract name of file without the extention
-my $fileOut = "$newDir"."/"."$fileWithoutExtention".".CUTADAPT.fastq";                                      # name for the output file of cutadapt execution
+my $fileCutadaptOut = "$newDir"."/"."$fileWithoutExtention".".CUTADAPT.fastq";                                      # name for the output file of cutadapt execution
 print LOG "INFOS: $0 : Start cutadapt execution on file $trimmedFiles[0]\n";
-cutadapt::execution($trimmedFiles[0],$cutadaptSpecificFileConf,$fileOut);                                    # run cutadapt program on current file
+cutadapt::execution($trimmedFiles[0],$cutadaptSpecificFileConf,$fileCutadaptOut);                                    # run cutadapt program on current file
 
 
-#########################################
-# BOWIEBUILD, BOWTIE2BUILD and TOPHAT2
-#########################################
+##########################################
+# tophat::bowtieBuild
+##########################################
 print LOG "----------------------------------------\n";
-print LOG "INFOS: $0 : Start BOWTIE index and tophat2\n";
-print F1 "TOPHAT2\n";
+print LOG "INFOS: $0 : Start BOWTIE inde\n";
+print F1 "BOWTIEBUILD\n";
 $newDir = toolbox::changeDirectoryArbo($initialDir,4);                                                      # change for the tophat direcotry
 my $tophatDir = $newDir;
 
 ##DEBUG
 print LOG "CHANGE DIRECTORY TO $newDir\n";
 $softParameters = toolbox::extractHashSoft($optionref, "bowtieBuild");                              # recovery of specific parameters of bowtiebuild index
-
 tophat::bowtieBuild($refFastaFile,$softParameters);                                           # indexation of Reference sequences file
 
+
+##########################################
+# tophat::bowtie2Build
+##########################################
+print LOG "----------------------------------------\n";
+print LOG "INFOS: $0 : Start BOWTIE2-BUILD\n";
+print F1 "BOWTIE2BUILD\n";
+                          
+##DEBUG
+print LOG "CHANGE DIRECTORY TO $newDir\n";                          
 $softParameters = toolbox::extractHashSoft($optionref, "bowtie2-build");                                      # recovery of specific parameters of tophat index
 my $refIndex=tophat::bowtie2Build($refFastaFile,$softParameters);                                            # indexation of Reference sequences file               
 
@@ -223,12 +229,17 @@ $softParameters = toolbox::extractHashSoft($optionref, "tophat2");              
 my $tophatdirOut = $newDir;   #créer le répertoire des résultats de topaht
 
 
+##########################################
+# tophat::tophat2
+##########################################
+print LOG "INFOS: $0 : start tophat2\n";
+print F1 "tophat2\n";
 @fileAndPath = toolbox::extractPath($listOfFiles[0]);
 ##DEBUG
 print LOG "INFOS extract path: $listOfFiles[0]\n";
 print LOG "INFOS tophats argument: $tophatdirOut,$refIndex,$listOfFiles[0],$gffFile";
 my $fileReverse;
-tophat::tophat2($tophatdirOut,$refIndex,$listOfFiles[0],, $gffFile,$softParameters);            # generate alignement in SAM format
+tophat::tophat2($tophatdirOut,$refIndex,$fileCutadaptOut,'', $gffFile,$softParameters);            # generate alignement in SAM format
 
 
 
