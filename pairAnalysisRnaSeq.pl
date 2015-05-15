@@ -96,10 +96,7 @@ toolbox::makeDir("$initialDir/11_FASTX/");
 toolbox::makeDir("$initialDir/2_CUTADAPT/");
 toolbox::makeDir("$initialDir/3_PAIRING_SEQUENCES/");
 toolbox::makeDir("$initialDir/4_MAPPING/");
-toolbox::makeDir("$initialDir/41_CUFFLINKS/");
-toolbox::makeDir("$initialDir/5_PICARDTOOLS/");
-toolbox::makeDir("$initialDir/6_SAMTOOLS/");
-toolbox::makeDir("$initialDir/7_GATK/");
+
 
 
 ### Copy fastq into 0_PAIRING_FILES/    
@@ -265,12 +262,12 @@ print LOG "INFOS: $0 : Start BOWTIEBUILD\n";
 print F1 "BOWTIEBUILD\n";
 $newDir = toolbox::changeDirectoryArbo($initialDir,4);                                                  # change for the Mapper direcotry
 my $tophatDir = $newDir;                                                                                # to keep the information of tophat folder for the following analysis
+
 ##DEBUG
 print LOG "CHANGE DIRECTORY TO $newDir\n";
 
 $softParameters = toolbox::extractHashSoft($optionref, "bowtieBuild");                              # recovery of specific parameters of bowtiebuild index
-
-#tophat::bowtieBuild($refFastaFile,$softParameters);                                           # indexation of Reference sequences file
+tophat::bowtieBuild($refFastaFile,$softParameters);                                                 # indexation of Reference sequences file
 
 
 
@@ -280,8 +277,7 @@ $softParameters = toolbox::extractHashSoft($optionref, "bowtieBuild");          
 print LOG "----------------------------------------\n";
 print LOG "INFOS: $0 : Start BOWTIE2-BUILD\n";
 print F1 "BOWTIE2BUILD\n";
-$newDir = toolbox::changeDirectoryArbo($initialDir,4);                                                  # change for the Mapper direcotry
-$tophatDir = $newDir;                                                                                # to keep the information of tophat folder for the following analysis
+                                                                                                    # to keep the information of tophat folder for the following analysis
 ##DEBUG
 print LOG "CHANGE DIRECTORY TO $newDir\n";
 $softParameters = toolbox::extractHashSoft($optionref, "bowtie2-build");                              # recovery of specific parameters of bowtie2build index
@@ -292,11 +288,8 @@ my $refIndex=tophat::bowtie2Build($refFastaFile,$softParameters);               
 ##########################################
 # tophat::tophat2
 ##########################################
-
 print LOG "INFOS: $0 : start tophat2\n";
 print F1 "tophat2\n";
-$newDir = toolbox::changeDirectoryArbo($initialDir,4);
-$tophatDir = $newDir;
 ##DEBUG print LOG "CHANGE DIRECTORY TO $newDir\n";
 
 my $repairingList = toolbox::readDir($repairingDir);
