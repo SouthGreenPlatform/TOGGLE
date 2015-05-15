@@ -35,6 +35,7 @@ $chmod 755 *pl
 * Modify the shebang of perl in the begining of the script /pathToToggle/singleAnalysis.pl
 * Modify the shebang of perl in the begining of the script /pathToToggle/pairAnalysis.pl
 * Modify the shebang of perl in the begining of the script /pathToToggle/mergeAnalysis.pl
+* Modify the shebang of perl in the begining of the script for RNASeq analysis
 
 * Run the test script (BE CAREFUL: will succeed only with specifc versions of the different softwares - see ChangeLog.md)
 
@@ -96,6 +97,15 @@ LOC_Os01g62920.1	2305	.	A	C	35.92	PASS	AC=1;AF=0.167;AN=6;BaseQRankSum=-1.472;Cl
 LOC_Os01g62920.1	2308	.	T	G	35.92	PASS	AC=1;AF=0.167;AN=6;BaseQRankSum=-0.937;ClippingRankSum=-0.937;DP=28;FS=12.553;MLEAC=1;MLEAF=0.167;MQ=54.43;MQ0=0;MQRankSum=-2.007;QD=4.49;ReadPosRankSum=-2.364;SOR=2.205	GT:AD:DP:GQ:PL	./.	0/0:10,0:10:30:0,30,735	0/1:6,2:8:66:66,0,392	./.	0/0:10,0:10:30:0,30,735
 LOC_Os12g32240.1	864	.	C	T	974.62	PASS	AC=10;AF=1.00;AN=10;DP=26;FS=0.000;MLEAC=10;MLEAF=1.00;MQ=55.54;MQ0=0;QD=26.53;SOR=4.255	GT:AD:DP:GQ:PL	1/1:0,1:1:3:37,3,0	1/1:0,10:10:30:379,30,0	1/1:0,4:4:12:167,12,0	1/1:0,1:1:3:37,3,0	1/1:0,10:10:30:379,30,0
 ````
+
+* Test the RNASeq pipeline with the test data
+
+````
+$globalAnalysisRnaSeq.pl $PATH_INSTALL/DATA/rnaseqTest/ $PATH_INSTALL/software.config.txt $PATH_INSTALL/DATA/referenceRnaseq.fa $PATH_INSTALL/DATA/referenceRnaseq.gff3
+````
+
+
+
 # INSTALL FROM THE DOCKER IMAGE
 
 A Docker image based on Ubuntu 14.04 is available at http://bioinfo-web.mpl.ird.fr/toggle/toggle.tgz

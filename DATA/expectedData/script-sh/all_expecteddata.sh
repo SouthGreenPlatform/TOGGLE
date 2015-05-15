@@ -18,6 +18,9 @@ rm RC3.PICARDTOOLSMARKDUPLICATES.bam RC3.PICARDTOOLSMARKDUPLICATES.bamDuplicates
 rm GATKHAPLOTYPECALLER.vcf  GATKSELECTVARIANTS.vcf  GATKVARIANTFILTRATION.vcf
 rm GATKHAPLOTYPECALLER.vcf.idx  GATKSELECTVARIANTS.vcf.idx  GATKVARIANTFILTRATION.vcf.idx
 rm RC3.SAMTOOLSFLAGSTAT.txt
+rm RC3_1.FASTXTRIMMER.fastq RC3_2.FASTXTRIMMER.fastq
+rm -rf tophat
+rm referenceRNASeq*bt2 referenceRNASeq*ebwt
 
 cd script-sh
 
@@ -106,5 +109,14 @@ echo "
 sh gatk_haplotypeCaller.sh;
 sh gatk_variantFiltration.sh;
 sh gatk_selectVariants.sh
+
+echo "
+################ fastxTrimmer
+";
+sh fastxTrimmer.sh;
+sh bowtie-build.sh;
+sh bowtie2-build.sh;
+sh tophat.sh;
+sh htseqcount.sh;
 
 exit;

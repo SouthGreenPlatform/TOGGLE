@@ -32,13 +32,12 @@ package localConfig;
 
 
 
-
 use strict;
 use warnings;
 use Exporter;
 
 our @ISA=qw(Exporter);
-our @EXPORT=qw($bwa $picard $samtools $GATK $cutadapt $fastqc $java $toggle);
+our @EXPORT=qw($bwa $picard $samtools $GATK $cutadapt $fastqc $java $toggle $fastxTrimmer $tophat2 $bowtie2Build $bowtieBuild);
 
 #toggle path
 our $toggle="/path/to/toggle";
@@ -55,5 +54,21 @@ our $fastqc = "/path/to/FastQC/fastqc";
 
 #Path for CutAdapt
 our $cutadapt = "/path/to/cutadapt-1.2.1/bin/cutadapt";
+
+##### FOR RNASEQ analysis
+#Path for fastq_trimmer
+our $fastxTrimmer="/path/to/bin/fastx_trimmer";
+
+#Path for tophat2
+our $tophat2="/path/to/tophat2";
+
+#path for bowtie2-build
+our $bowtie2Build="/path/to/bowtie2-build";
+
+#path for bowtie-build
+our $bowtieBuild="/path/to/bowtie-build";
+
+#path for htseqcount
+our $htseqcount = "/path/to/htseq-count";
 
 1;

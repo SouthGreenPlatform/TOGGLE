@@ -94,7 +94,7 @@ toolbox::checkFile($refFastaFile);                                              
 toolbox::makeDir("$initialDir/0_PAIRING_FILES/");
 toolbox::makeDir("$initialDir/1_FASTQC/");
 toolbox::makeDir("$initialDir/2_CUTADAPT/");
-toolbox::makeDir("$initialDir/4_BWA/");
+toolbox::makeDir("$initialDir/4_MAPPING/");
 toolbox::makeDir("$initialDir/5_PICARDTOOLS/");
 toolbox::makeDir("$initialDir/6_SAMTOOLS/");
 toolbox::makeDir("$initialDir/7_GATK/");
@@ -126,9 +126,9 @@ if (@$listOfFiles != 1)                                                         
 ##########################################
 print LOG "----------------------------------------\n";
 print LOG "INFOS: $0 : Checking sequences number on file $listOfFiles[0]\n";
-print F1 "checkNumberByWC\n";
+print F1 "checkNumberLines\n";
 toolbox::checkFile($listOfFiles[0]);                                                                        # check that the file exists, is readble, writable and has something in
-my $numberOfReads = fastqUtils::checkNumberByWC($listOfFiles[0]);                                           # check the number of sequences
+my $numberOfReads = toolbox::checkNumberLines($listOfFiles[0])/4;                                           # check the number of sequences
 print LOG "INFOS: $0 : Number of reads: $numberOfReads\n";
 my $phred33Control = fastqUtils::checkEncodeByASCIIcontrol($listOfFiles[0]);                                # check the encode format (PHRED 33 or 64)
 print LOG "INFOS: $0 : Return 1 if PHRED33, 0 if PHRED64: $phred33Control\n";

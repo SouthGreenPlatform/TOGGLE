@@ -80,3 +80,34 @@ $SGE
 -q -q bioinfo.q@node13.alineos.net
 -N -V
 -b Y
+
+#RNASEQ analysis
+$fastx_trimmer
+-f 8
+
+$bowtie2-build
+
+$bowtieBuild
+
+$tophat2
+-i=30
+-I=20000
+-a=8
+-m=1
+--no-coverage-search
+-g=10
+--bowtie-n
+--library-type=fr-unstranded
+--microexon-search
+
+$samtools sort
+-n
+ 
+$htseqcount
+-r=name
+-s=no
+-t=mRNA
+-m=union
+-i=ID
+-f=bam
+

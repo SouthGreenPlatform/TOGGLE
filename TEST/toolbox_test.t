@@ -45,6 +45,7 @@ can_ok('toolbox','extractPath');
 can_ok('toolbox','extractOptions');
 can_ok('toolbox','extractName');
 can_ok('toolbox','run');
+can_ok('toolbox','checkNumberLines');
 can_ok('toolbox','checkFormatFastq');
 can_ok('toolbox','addInfoHeader');
 can_ok('toolbox','checkSamOrBamFormat');
@@ -252,6 +253,19 @@ is_deeply (\@expectedList,\@testList,'Test for extractPath');
 
 # Extract name from path test
 is (toolbox::extractName($samFile),'RC3.BWASAMPE','Test for extractName');
+
+
+#########################################
+##Sequence count test
+##########################################
+##checkNumberLines test with a fastq file
+my $count = (toolbox::checkNumberLines($fastqFile))/4;
+is($count,'1000',"Test for checkNumberLines... $fastqFile");
+
+#$count = toolbox::checkNumberLines($fastqFile2);
+#is($count,'1000',"Test for checkNumberLines... $fastqFile2");
+
+
 
 ########################################
 #File Format test
