@@ -239,7 +239,7 @@ print F1 "tophat2\n";
 print LOG "INFOS extract path: $listOfFiles[0]\n";
 print LOG "INFOS tophats argument: $tophatdirOut,$refIndex,$listOfFiles[0],$gffFile";
 my $fileReverse;
-tophat::tophat2($tophatdirOut,$refIndex,$fileCutadaptOut,'', $gffFile,$softParameters);            # generate alignement in SAM format
+tophat::tophat2($tophatdirOut,$refIndex,$fileCutadaptOut,undef $fileReverse, $gffFile,$softParameters);            # generate alignement in SAM format
 
 
 
