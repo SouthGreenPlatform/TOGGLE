@@ -1,1 +1,1 @@
-tophat2 -i 30 -I 20000 -a 8 -m 1 --no-coverage-search -g 10 --bowtie-n --library-type fr-secondstrand --microexon-search -G ../referenceRNASeq.gff3 -o ../tophat ../referenceRNASeq ../RNASeq_1.fastq ../RNASeq_2.fastq
+/usr/local/tophat-2.0.14/bin/tophat2 -i 30 -I 20000 -a 8 -m 1 --no-coverage-search -g 10 --bowtie-n --library-type fr-secondstrand --microexon-search -G ../referenceRNASeq.gff3 -o ../tophat ../referenceRNASeq ../RNASeq_1.fastq ../RNASeq_2.fastq
