@@ -46,7 +46,7 @@ use fastqc;
 use fastxToolkit;
 use fastqUtils;
 use toolbox;
-use tophat;
+use tophat;ssh
 
 
 ##########################################
@@ -214,7 +214,7 @@ my $tophatDir = $newDir;
 print LOG "CHANGE DIRECTORY TO $newDir\n";
 $softParameters = toolbox::extractHashSoft($optionref, "bowtieBuild");                              # recovery of specific parameters of bowtiebuild index
 
-#tophat::bowtieBuild($refFastaFile,$softParameters);                                           # indexation of Reference sequences file
+tophat::bowtieBuild($refFastaFile,$softParameters);                                           # indexation of Reference sequences file
 
 $softParameters = toolbox::extractHashSoft($optionref, "bowtie2-build");                                      # recovery of specific parameters of tophat index
 my $refIndex=tophat::bowtie2Build($refFastaFile,$softParameters);                                            # indexation of Reference sequences file               
