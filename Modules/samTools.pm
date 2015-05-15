@@ -145,7 +145,7 @@ sub samToolsSort{
           }
           
           my $bamPath=toolbox::extractPath($bamFileIn);
-          my $bamFileName=toolbox::extractName($bamFileIn)."_samtoolSorted";
+          my $bamFileName=toolbox::extractName($bamFileIn).".SAMTOOLSSORTED";
           my $bamFileOut = $bamPath.$bamFileName;
           my $options="";
           if ($optionsHachees) {
@@ -301,7 +301,6 @@ sub samToolsFlagstat {
 ##
 ##SAMTOOLS DEPTH
 #Compute the depth on a BAM file (or a set of bam) and provide a tabular file with the number of reads per positions.
-
 sub samToolsDepth {
      my ($bamFilesList, $depthOutputFile,$optionsHachees)=@_;
      #Testing if sent bam are true bam and recover them
