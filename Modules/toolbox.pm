@@ -865,7 +865,7 @@ sub changeDirectoryArbo
 	}
 	elsif ($numberOfDirectory == 11)		# if you want to move to 1_FASTQC/
 	{
-	    $finalDirectory = "$inputDir"."11_FASTX";
+	    $finalDirectory = "$inputDir"."11_FASTXTRIMMER";
 	}
 	elsif ($numberOfDirectory == 2)		# if you want to move to 2_CUTADAPT/
 	{
