@@ -82,3 +82,8 @@ use HTSeq;
 ########################################
 #HTSeq::htseqCount
 ########################################
+%optionsHachees = ("-r" => "name", "-s" => "no", "-t" => "mRNA",  "-m" => "union",  "-i" => "ID",  "-f" => "bam");        # Hash containing informations
+$optionHachees = \%optionsHachees;                           # Ref of the hash
+
+is(HTSeq::htseqCount($bam, $gffRef, $optionHachees),1,'OK for htseqCount RUNNING');
+
