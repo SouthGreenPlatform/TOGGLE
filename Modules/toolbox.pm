@@ -843,7 +843,7 @@ sub changeDirectoryArbo
     # numberOfDirectory could be:
     # 0  for /0_PAIRING_FILES/
     # 1  for /1_FASTQC/
-    # 11 for /11_FASTX/
+    # 11 for /11_FASTXTRIMMER/
     # 2  for /2_CUTADAPT/
     # 3  for /3_PAIRING_SEQUENCES/
     # 4  for /4_MAPPING/
