@@ -210,7 +210,7 @@ my $tophatDir = $newDir;
 ##DEBUG
 print LOG "CHANGE DIRECTORY TO $newDir\n";
 $softParameters = toolbox::extractHashSoft($optionref, "bowtieBuild");                              # recovery of specific parameters of bowtiebuild index
-tophat::bowtieBuild($refFastaFile,$softParameters);                                           # indexation of Reference sequences file
+#tophat::bowtieBuild($refFastaFile,$softParameters);                                           # indexation of Reference sequences file
 
 
 ##########################################
@@ -224,8 +224,7 @@ print F1 "BOWTIE2BUILD\n";
 print LOG "CHANGE DIRECTORY TO $newDir\n";                          
 $softParameters = toolbox::extractHashSoft($optionref, "bowtie2-build");                                      # recovery of specific parameters of tophat index
 my $refIndex=tophat::bowtie2Build($refFastaFile,$softParameters);                                            # indexation of Reference sequences file               
-
-$softParameters = toolbox::extractHashSoft($optionref, "tophat2");                                       # recovery of specific parameters of tophat2 aln
+                                  
 my $tophatdirOut = $newDir;   #créer le répertoire des résultats de topaht
 
 
@@ -243,7 +242,14 @@ my $fileReverse;
 tophat::tophat2($tophatdirOut,$refIndex,$fileCutadaptOut,undef $fileReverse, $gffFile,$softParameters);            # generate alignement in SAM format
 
 
-
+##########################################
+# tophat::tophat2
+##########################################
+print LOG "INFOS: $0 : start samtools sort\n";
+print F1 "samtools\n";
+$softParameters = toolbox::extractHashSoft($optionref,"samtools sort");  
+my $tophatBam=$tophatdirOut."/accepted_hits.bam";
+samToolsSort($tophatBam,$softParameters);
 print LOG "#########################################\nINFOS: Single sequence analysis done correctly\n#########################################\n";
 close F1;
 close LOG;
