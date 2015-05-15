@@ -115,7 +115,7 @@ toolbox::makeDir("$initialDir/0_PAIRING_FILES/");
 toolbox::makeDir("$initialDir/1_FASTQC/");
 toolbox::makeDir("$initialDir/2_CUTADAPT/");
 toolbox::makeDir("$initialDir/3_PAIRING_SEQUENCES/");
-toolbox::makeDir("$initialDir/4_BWA/");
+toolbox::makeDir("$initialDir/4_MAPPING/");
 toolbox::makeDir("$initialDir/5_PICARDTOOLS/");
 toolbox::makeDir("$initialDir/6_SAMTOOLS/");
 toolbox::makeDir("$initialDir/7_GATK/");
