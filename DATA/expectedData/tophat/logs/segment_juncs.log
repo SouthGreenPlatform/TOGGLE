@@ -1,0 +1,23 @@
+segment_juncs v2.0.14 (4318)
+---------------------------
+[samopen] SAM header is present: 1 sequences.
+Loading reference sequences...
+	Loading EG5_Chr1...done
+	Loading ...done
+>> Performing segment-search:
+Loading left segment hits...
+done.
+Loading right segment hits...
+done.
+	found 173 potential split-segment junctions
+	found 0 potential small deletions
+	found 2 potential small insertions
+>> Performing microexon-search: 
+Aligning 54 microexon segments in 50 windows
+Checked 108 segments against 50 windows for microexon junctions
+Found 28 potential microexon junctions
+	found 28 potential junctions
+Reported 200 total potential splices
+Reporting 0 potential deletions...
+Reporting 2 potential insertions...
+Reporting potential fusions...

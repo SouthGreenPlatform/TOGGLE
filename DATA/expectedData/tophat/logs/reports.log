@@ -1,0 +1,11 @@
+tophat_reports v2.0.14 (4318)
+---------------------------------------
+[samopen] SAM header is present: 1 sequences.
+	Loading EG5_Chr1...done
+	Loading ...done
+Loaded 7271 GFF junctions from ../tophat/tmp/referenceRNASeq.juncs.
+Loaded 7394 junctions
+Printing junction BED track...done
+Printing insertions...done
+Printing deletions...done
+Found 292 junctions from happy spliced reads
