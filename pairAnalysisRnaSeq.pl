@@ -104,7 +104,7 @@ toolbox::makeDir("$initialDir/4_MAPPING/");
 my $copyCom = "cp $initialDir/*.fastq $initialDir/0_PAIRING_FILES/.";                               # command to move the initial fastq files into the directory appropriate for the pipeline
 toolbox::run($copyCom);                                                                             # move the files
   
-my $removeCom = "rm $initialDir/*.fastq";                                                            # command to remove the files in the main directory
+my $removeCom = "rm $initialDir/*.fastq";                                                           # command to remove the files in the main directory
 toolbox::run($removeCom); 
 
 
@@ -208,7 +208,7 @@ my $softParameters = toolbox::extractHashSoft($optionref, "cutadapt");          
 ##DEBUG print LOG Dumper ($optionref);
 cutadapt::createConfFile($fileAdaptator, $cutadaptSpecificFileConf, $softParameters);                            # create the configuration file specific to cutadapt software
 
-my $trimmedFiles=toolbox::readDir($initialDir."/11_FASTX/");
+my $trimmedFiles=toolbox::readDir($initialDir."/11_FASTXTRIMMER/");
 my @trimmedFiles=@$trimmedFiles;
 ##DEBUG print LOG Dumper(@trimmedFiles);
 
