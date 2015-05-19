@@ -47,7 +47,7 @@ $sh all_tests.sh
 * Test the pipeline with the test data
 
 ````
-$globalAnalysis.pl $PATH_INSTALL/DATA/arcardTest/ $PATH_INSTALL/software.config.txt $PATH_INSTALL/DATA/referenceArcad.fasta
+$globalAnalysis.pl -d $PATH_INSTALL/DATA/arcardTest/ -c $PATH_INSTALL/software.config.txt -r $PATH_INSTALL/DATA/referenceArcad.fasta
 ````
 
 * Check the good running
@@ -75,7 +75,7 @@ LOC_Os12g32240.1        864     .       C       T       974.62  PASS    AC=10;AF
 ````
 
 ````
-$globalAnalysis.pl $PATH_INSTALL/DATA/iriginTest/ $PATH_INSTALL/software.config.txt $PATH_INSTALL/DATA/referenceIrigin.fasta
+$globalAnalysis.pl -d $PATH_INSTALL/DATA/iriginTest/ -c $PATH_INSTALL/software.config.txt -r $PATH_INSTALL/DATA/referenceIrigin.fasta
 ````
 
 * Check the good running
