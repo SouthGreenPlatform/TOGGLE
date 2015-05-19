@@ -83,7 +83,7 @@ my $fileConf = $param{'-c'};                                                    
 my $refFastaFile = $param{'-r'};                                                                            # recovery of the reference file
 
 my $fileAdaptator = defined($param{'-a'})? $param{'-a'} : "$toggle/adaptator.txt";                          # recovery of the adaptator file
-toolbox::checkFile($fileAdaptator);
+
 
 my $infosFile = "individuSoft.txt";
 
@@ -109,6 +109,7 @@ toolbox::exportLog("----------------------------------------",1);
 toolbox::checkFile($fileConf);                                                                              # check if this file exists
 toolbox::existsDir($initialDir);                                                                            # check if this directory exists
 toolbox::checkFile($refFastaFile);                                                                          # check if the reference file exists
+toolbox::checkFile($fileAdaptator);
 my $loop = 0;                                                                                               # for the second loop
 
 
