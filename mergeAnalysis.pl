@@ -43,10 +43,45 @@ use gatk;
 use samTools;
 use toolbox;
 
-my $initialDir = $ARGV[0];                                                                                  # recovery of the name of the directory to analyse
-my $fileConf = $ARGV[1];                                                                                    # recovery of the name of the software.configuration.txt file
-my $refFastaFile = $ARGV[2];                                                                                # recovery of the reference file
+
+
+
+##########################################
+# recovery of parameters/arguments given when the program is executed
+##########################################
+my $cmd_line=$0." @ARGV";
+my ($nomprog)=$0=~/([^\/]+)$/;
+unless ($#ARGV>=0)                                                                                          # if no argument given
+{
+  print <<"Mesg";
+
+  perldoc $nomprog display the help
+
+Mesg
+
+  exit;
+}
+
+my %param = @ARGV;                                                                                          # get the parameters 
+if (not defined($param{'-d'}) or not defined($param{'-c'}) or not defined($param{'-r'}))
+{
+  print <<"Mesg";
+
+  ERROR: Parameters -d or -c or -r are required.
+  perldoc $nomprog display the help
+
+Mesg
+  exit;
+}
+
+##########################################
+# recovery of initial informations/files
+##########################################
+my $initialDir = $param{'-d'};                                                                              # recovery of the name of the directory to analyse
+my $fileConf = $param{'-c'};                                                                                # recovery of the name of the software.configuration.txt file
+my $refFastaFile = $param{'-r'};                                                                            # recovery of the reference file
 toolbox::existsDir($initialDir);                                                                            # check if this directory exists
+
 
 
 ##########################################
@@ -101,3 +136,25 @@ close LOG;
 close F1;
 
 exit;
+
+=head1 Name
+
+mergeAnalysis.pl
+
+=head1 Usage
+
+mergeAnalysis.pl -d DIR-c FILE -r FILE [-a FILE]
+
+=head1 Required arguments
+
+      -d DIR    The directory containing bam files
+      -c FILE   The configuration file
+      -r FILE   The reference sequence (fasta)
+
+=head1 Optional argument
+      -a FILE   The file containig the adaptator sequences
+
+=head1  Author
+Cecile Monat, Christine Tranchant, Ayite Kougbeadjo, Cedric Farcy, Mawusse Agbessi, Marilyne Summo, and Francois Sabot
+
+=cut
