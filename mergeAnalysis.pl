@@ -50,9 +50,9 @@ use toolbox;
 # recovery of parameters/arguments given when the program is executed
 ##########################################
 my $cmd_line=$0." @ARGV";
+my ($nomprog)=$0=~/([^\/]+)$/;
 unless ($#ARGV>=0)                                                                                          # if no argument given
 {
-  my ($nomprog)=$0=~/([^\/]+)$/;
   print <<"Mesg";
 
   perldoc $nomprog display the help
