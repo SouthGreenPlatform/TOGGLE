@@ -81,7 +81,6 @@ Mesg
 my $initialDir = $param{'-d'};                                                # recovery of the name of the directory to analyse
 my $fileConf = $param{'-c'};                                                                                # recovery of the name of the software.configuration.txt file
 my $refFastaFile = $param{'-r'};                                                                            # recovery of the reference file
-toolbox::existsDir($initialDir);                                                                            # check if this directory exists
 
 my $fileAdaptator = defined($param{'-a'})? $param{'-a'} : "$toggle/adaptator.txt";                          # recovery of the adaptator file
 toolbox::checkFile($fileAdaptator);
