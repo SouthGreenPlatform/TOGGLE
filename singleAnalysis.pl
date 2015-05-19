@@ -52,13 +52,43 @@ use toolbox;
 
 
 ##########################################
+# recovery of parameters/arguments given when the program is executed
+##########################################
+my $cmd_line=$0." @ARGV";
+my ($nomprog)=$0=~/([^\/]+)$/;
+unless ($#ARGV>=0)                                                                                          # if no argument given
+{
+  print <<"Mesg";
+
+  perldoc $nomprog display the help
+
+Mesg
+
+  exit;
+}
+
+my %param = @ARGV;                                                                                          # get the parameters 
+if (not defined($param{'-d'}) or not defined($param{'-c'}) or not defined($param{'-r'}))
+{
+  print <<"Mesg";
+
+  ERROR: Parameters -d or -c or -r are required.
+  perldoc $nomprog display the help
+
+Mesg
+  exit;
+}
+
+##########################################
 # recovery of initial informations/files
 ##########################################
-my $initialDir = $ARGV[0];                                                                                  # recovery of the name of the directory to analyse
-my $fileConf = $ARGV[1];                                                                                    # recovery of the name of the software.configuration.txt file
-my $refFastaFile = $ARGV[2];                                                                                # recovery of the reference file
+my $initialDir = $param{'-d'};                                                                              # recovery of the name of the directory to analyse
+my $fileConf = $param{'-c'};                                                                                # recovery of the name of the software.configuration.txt file
+my $refFastaFile = $param{'-r'};                                                                            # recovery of the reference file
 toolbox::existsDir($initialDir);                                                                            # check if this directory exists
 
+my $fileAdaptator = defined($param{'-a'})? $param{'-a'} : "$toggle/adaptator.txt";                          # recovery of the adaptator file
+toolbox::checkFile($fileAdaptator);
 
 
 
@@ -163,8 +193,7 @@ print LOG "INFOS: $0 : Start cutadapt create configuration file\n";
 print F1 "cutadapt\n";
 $newDir = toolbox::changeDirectoryArbo($initialDir,2);                                                   # change for the cutadapt directory
 ##DEBUG print LOG "CHANGE DIRECTORY TO $newDir\n";
-my $fileAdaptator = "$toggle/adaptator.txt";     # /!\ ARGV[3] et si non reseigné ce fichier là, mais on le place où ?
-toolbox::checkFile($fileAdaptator);
+
 my $cutadaptSpecificFileConf = "$newDir"."/cutadapt.conf";                                                  # name for the cutadapt specific configuration file
 my $optionref = toolbox::readFileConf($fileConf);                                                           # recovery of option for cutadapt
 my $softParameters = toolbox::extractHashSoft($optionref,"cutadapt");
@@ -286,3 +315,25 @@ print LOG "#########################################\nINFOS: Single sequence ana
 close F1;
 close LOG;
 exit;
+
+=head1 Name
+
+singleAnalysis.pl
+
+=head1 Usage
+
+singleAnalysis.pl -d DIR-c FILE -r FILE [-a FILE]
+
+=head1 Required arguments
+
+      -d DIR    The directory containing fastq file
+      -c FILE   The configuration file
+      -r FILE   The reference sequence (fasta)
+
+=head1 Optional argument
+      -a FILE   The file containig the adaptator sequences
+
+=head1  Author
+Cecile Monat, Christine Tranchant, Ayite Kougbeadjo, Cedric Farcy, Mawusse Agbessi, Marilyne Summo, and Francois Sabot
+
+=cut

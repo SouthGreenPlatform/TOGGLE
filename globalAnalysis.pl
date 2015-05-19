@@ -41,11 +41,50 @@ use Data::Dumper;
 use pairing;
 use toolbox;
 
-my $initialDir = $ARGV[0];                                                                                  # recovery of the name of the directory to analyse
-my $fileConf = $ARGV[1];                                                                                    # recovery of the name of the software.configuration.txt file
-my $refFastaFile = $ARGV[2];                                                                                # recovery of the reference file
-my $cmd_line=$0." @ARGV";
 
+
+
+
+##########################################
+# recovery of parameters/arguments given when the program is executed
+##########################################
+my $cmd_line=$0." @ARGV";
+my ($nomprog)=$0=~/([^\/]+)$/;
+unless ($#ARGV>=0)                                                                                          # if no argument given
+{
+
+  print <<"Mesg";
+
+  perldoc $nomprog display the help
+
+Mesg
+
+  exit;
+}
+
+my %param = @ARGV;                                                                                          # get the parameters 
+if (not defined($param{'-d'}) or not defined($param{'-c'}) or not defined($param{'-r'}))
+{
+  print <<"Mesg";
+
+  ERROR: Parameters -d or -c or -r are required.
+  perldoc $nomprog display the help
+
+Mesg
+  exit;
+}
+
+
+##########################################
+# recovery of initial informations/files
+##########################################
+my $initialDir = $param{'-d'};                                                # recovery of the name of the directory to analyse
+my $fileConf = $param{'-c'};                                                                                # recovery of the name of the software.configuration.txt file
+my $refFastaFile = $param{'-r'};                                                                            # recovery of the reference file
+toolbox::existsDir($initialDir);                                                                            # check if this directory exists
+
+my $fileAdaptator = defined($param{'-a'})? $param{'-a'} : "$toggle/adaptator.txt";                          # recovery of the adaptator file
+toolbox::checkFile($fileAdaptator);
 
 my $infosFile = "individuSoft.txt";
 
@@ -130,13 +169,13 @@ for (my $i=0; $i<=$#listOfFiles; $i++)                                          
         if ($#listOfFastq == 0)                                                                             # if 1 file --> single analysis to do
         {
             toolbox::exportLog("INFOS: $0 : Run singleAnalysis.pl on $firstDir\n",1);
-            my $singleCom = "singleAnalysis.pl $firstDir $fileConf $refFastaFile";
+            my $singleCom = "singleAnalysis.pl -d $firstDir -c $fileConf -r $refFastaFile -a $fileAdaptator";
             toolbox::run($singleCom);
         }
         elsif ($#listOfFastq == 1)                                                                          # if 2 files --> pair analysis to do
         {
             toolbox::exportLog("INFOS: $0 : Run pairAnalysis.pl on $firstDir\n",1);
-            my $pairCom = "pairAnalysis.pl $firstDir $fileConf $refFastaFile";
+            my $pairCom = "pairAnalysis.pl -d $firstDir -c $fileConf -r $refFastaFile -a $fileAdaptator";
             toolbox::run($pairCom);
         }
         else                                                                                                # if more than 2 files, there is a problem
@@ -222,7 +261,7 @@ if ($okFinal == 1)
 
 
 toolbox::exportLog("INFOS: $0 : Run mergeAnalysis.pl on $bamDirPath\n",1);
-my $mergeCom = "mergeAnalysis.pl $bamDirPath $fileConf $refFastaFile";
+my $mergeCom = "mergeAnalysis.pl -d $bamDirPath -c $fileConf -r $refFastaFile";
 toolbox::run($mergeCom);
 
 toolbox::exportLog("#########################################\nCONGRATS: SNP calling done correctly !\n#########################################\n",1);
@@ -230,3 +269,25 @@ toolbox::exportLog("#########################################\nCONGRATS: SNP cal
 
 close F1;
 exit;
+
+=head1 Name
+
+globalAnalysis.pl
+
+=head1 Usage
+
+globalAnalysis.pl -d DIR-c FILE -r FILE [-a FILE]
+
+=head1 Required arguments
+
+      -d DIR    The directory containing fastq file
+      -c FILE   The configuration file
+      -r FILE   The reference sequence (fasta)
+
+=head1 Optional argument
+      -a FILE   The file containig the adaptator sequences
+
+=head1  Author
+Cecile Monat, Christine Tranchant, Ayite Kougbeadjo, Cedric Farcy, Mawusse Agbessi, Marilyne Summo, and Francois Sabot
+
+=cut
