@@ -59,9 +59,7 @@ my ($nomprog)=$0=~/([^\/]+)$/;
 unless ($#ARGV>=0)                                                                                          # if no argument given
 {
   print <<"Mesg";
-
   perldoc $nomprog display the help
-
 Mesg
 
   exit;
@@ -71,10 +69,8 @@ my %param = @ARGV;                                                              
 if (not defined($param{'-d'}) or not defined($param{'-c'}) or not defined($param{'-r'}))
 {
   print <<"Mesg";
-
   ERROR: Parameters -d or -c or -r are required.
   perldoc $nomprog display the help
-
 Mesg
   exit;
 }
@@ -317,23 +313,15 @@ close LOG;
 exit;
 
 =head1 Name
-
 singleAnalysis.pl
-
 =head1 Usage
-
 singleAnalysis.pl -d DIR-c FILE -r FILE [-a FILE]
-
 =head1 Required arguments
-
       -d DIR    The directory containing fastq file
       -c FILE   The configuration file
       -r FILE   The reference sequence (fasta)
-
 =head1 Optional argument
       -a FILE   The file containig the adaptator sequences
-
 =head1  Author
 Cecile Monat, Christine Tranchant, Ayite Kougbeadjo, Cedric Farcy, Mawusse Agbessi, Marilyne Summo, and Francois Sabot
-
 =cut

@@ -293,7 +293,7 @@ toolbox::readFileConf($configFile);
 is (ref($configInfos),'HASH','Test for readFileConf... the reference returned is a HASH');
 
 #checking how many software configs
-my @listOfSoftwares=keys ($configInfos);#Soft are BWA and samtoolsView
+my @listOfSoftwares=keys (%$configInfos);#Soft are BWA and samtoolsView
 ##DEBUG foreach my $key(@listOfSoftwares){print "$key\n";}
 my $numberOfSoft= scalar (@listOfSoftwares); #expecting 17
 my $command='grep "^\\\$" '.$configFile.' -c';

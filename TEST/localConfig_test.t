@@ -252,4 +252,3 @@ TopHat maps short sequences from spliced transcripts to whole genomes.","Test fo
 #unlink("/tmp/out.txt");
 #
 #is($line,"Usage:   cufflinks [options] <hits.sam>\n","Test for cufflinks location");
-
