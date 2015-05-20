@@ -51,11 +51,11 @@ system($creatingDirCom) and die ("ERROR: $0 : Cannot execute the command $creati
 ########################################
 #Input files
 ########################################
-my $originalFastqcFile = "../DATA/expectedData/*_1.fastq";     # fastq file 
+my $originalFastqcFile = "../DATA/expectedData/RC*_1.fastq";     # fastq file 
 my $fastqcFileCopyCom = "cp $originalFastqcFile $testingDir";           # command to copy the original fastq file into the test directory
 system ($fastqcFileCopyCom) and die ("ERROR: $0 : Cannot copy the file $originalFastqcFile in the test directory with the command $fastqcFileCopyCom\n$!\n");    # RUN the copy command
 
-$originalFastqcFile = "../DATA/expectedData/*_2.fastq";     # fastq file 
+$originalFastqcFile = "../DATA/expectedData/RC*_2.fastq";     # fastq file 
 $fastqcFileCopyCom = "cp $originalFastqcFile $testingDir";           # command to copy the original fastq file into the test directory
 system ($fastqcFileCopyCom) and die ("ERROR: $0 : Cannot copy the file $originalFastqcFile in the test directory with the command $fastqcFileCopyCom\n$!\n");    # RUN the copy command
 
@@ -76,6 +76,7 @@ my $expectRG2=("RC3");
 my ($obsName2, $obsRG2)=pairing::extractName('$testingDir/RC3_2.fastq');
 is_deeply($obsName2,$expectName2,'Test for pairing::extractName... individu RC3_2');
 is_deeply($obsRG2,$expectRG2,'Test for pairing::extractName... RG RC3');
+
 
 
 ########################################
@@ -101,6 +102,7 @@ my $expectedOutput={
 my $observedoutput=pairing::pairRecognition($testingDir);
 ##DEBUG print "pairRecognition Expected :\n"; print Dumper ($expectedOutput);print "pairRecognition Observed:\n"; print Dumper ($observedoutput);
 is_deeply($expectedOutput,$observedoutput,'Test for pairing::pairRecognition');
+
 
 
 #########################################
