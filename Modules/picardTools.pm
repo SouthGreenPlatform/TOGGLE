@@ -84,6 +84,7 @@ sub picardToolsCreateSequenceDictionary
 	        toolbox::exportLog("INFOS: picardTools::picardToolsCreateSequenceDictionary : Correctly run\n",1);
 	        return 1;
 	    }
+	}
 	else 
 	{
 	    toolbox::exportLog("INFOS: picardTools::picardToolsCreateSequenceDictionary : The file $dictFileOut already exists\n",1);
