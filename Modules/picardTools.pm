@@ -71,24 +71,31 @@ sub picardToolsCreateSequenceDictionary
     my($refFastaFile,$dictFileOut,$optionsHachees)= @_;     # recovery of informations
     if (toolbox::sizeFile($refFastaFile)==1)        # check if the reference fasta file is not empty 
     {
-        my $options="";
-        if ($optionsHachees)
-        {
-            $options=toolbox::extractOptions($optionsHachees);      # recovery of options if they are provided
-        }
-        my $command="$picard/picard.jar CreateSequenceDictionary $options REFERENCE=$refFastaFile OUTPUT=$dictFileOut";        #creation of the command line
-        if(toolbox::run($command)==1)       #Execution of the command line
-        {
-            toolbox::exportLog("INFOS: picardTools::picardToolsCreateSequenceDictionary : Correctly run\n",1);
-            return 1;
-       	}
+	if (toolbox::existsFile($dictFileOut,0)==0)
+	{
+	    my $options="";
+	    if ($optionsHachees)
+	    {
+	        $options=toolbox::extractOptions($optionsHachees);      # recovery of options if they are provided
+	    }
+	    my $command="$picard/picard.jar CreateSequenceDictionary $options REFERENCE=$refFastaFile OUTPUT=$dictFileOut";        #creation of the command line
+	    if(toolbox::run($command)==1)       #Execution of the command line
+	    {
+	        toolbox::exportLog("INFOS: picardTools::picardToolsCreateSequenceDictionary : Correctly run\n",1);
+	        return 1;
+	    }
+	else 
+	{
+	    toolbox::exportLog("INFOS: picardTools::picardToolsCreateSequenceDictionary : The file $dictFileOut already exists\n",1);
+	    return 1;
+	}
     }
     else        # if the reference fasta file is empty, don't run the module ...
     {
         toolbox::exportLog("ERROR: picardTools::picardToolsCreateSequenceDictionary : The file $refFastaFile is incorrect\n",0);        # ... and return and error message
         return 0;
     }
-}
+}    
 ######################################
 #PicardToolsSortSam
 ######################################
