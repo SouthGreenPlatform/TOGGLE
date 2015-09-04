@@ -183,9 +183,11 @@ sub bwaMem
 
     #bwa mem work with paired end and single; test if both reverse and mate agiven or not
     my $fastqFileIn = 1; 	# In standard, the fastq are two files
-    if ($reverseFastqFileIn eq "") # the fourth argument is empty, meaning a single file
+    unless ($optionsHachees) # the last argument is empty, meaning a single file
     {
-        $fastqFileIn = 0; # the boolean is put to zero for signaling the single mode
+        $optionsHachees=$readGroupLine;
+	$readGroupLine=$reverseFastqFileIn;
+	$fastqFileIn = 0; # the boolean is put to zero for signaling the single mode
     }
 
     if ((toolbox::sizeFile($refFastaFileIn)==1) and (toolbox::sizeFile($forwardFastqFileIn)==1))
