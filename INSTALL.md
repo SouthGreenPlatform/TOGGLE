@@ -8,6 +8,8 @@ There are 3 ways to obtain TOGGLE. We recommend the first one for an install in 
 
 ````
 $git clone https://github.com/SouthGreenPlatform/TOGGLE.git .
+````
+
 * Add the Module path to the PERL5LIB environment variable
 
 ````
