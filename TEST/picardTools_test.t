@@ -117,7 +117,7 @@ my $optionRef = \%optionsRef;                           # Ref of the hash
 is(picardTools::picardToolsSortSam($samFile,$bamFileOut,$optionRef),1,'Test for picardTools::picardToolsSortSam single');  # test if picardTools::picardToolsSortSam works
 
 #### TEST OF STRUCTURE
-my $md5sumExpected = "22e0135ae3488cf16fdb095283ac91c4";
+my $md5sumExpected = "5b4ca218eb2b99bd8d127c8e26756bf0"";
 my $md5sumObserved = `md5sum $bamFileOut`;
 @nameless = split (" ", $md5sumObserved);           # to separate the structure and the name of file
 $md5sumObserved = $nameless[0];                        # just to have the md5sum result
