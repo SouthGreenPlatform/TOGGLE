@@ -17,7 +17,11 @@ in different environments (single machine to HPC clusters).
 * Written by Cecile Monat, Christine Tranchant, Ayite Kougbeadjo, Cedric Farcy, Mawusse Agbessi, Enrique Ortega-Abboud, Sébastien Ravel, Julie Orjuela-Bouniol, Souhila Amanzougarene, Gauthier Sarah, Marilyne Summo, and Francois Sabot
 * Copyright 2014-2015
 
-##INSTALLATION
+##  Citation
+**TOGGLE: Toolbox for generic NGS analyses**. Cécile Monat, Christine Tranchant-Dubreuil, Ayité Kougbeadjo, Cédric Farcy, Enrique
+Ortega-Abboud, Souhila Amanzougarene, Sébastien Ravel, Mawussé Agbessi, Julie Orjuela-Bouniol, Maryline Summo and François Sabot. In Revision for *BMC Bioinformatics*.
+
+##  INSTALLATION
 
 see https://github.com/SouthGreenPlatform/TOGGLE/blob/master/INSTALL.md
 
@@ -112,4 +116,3 @@ TOGGLE
 |_ software.config.txt
 |_ software.config.txt.test
 ````
-
