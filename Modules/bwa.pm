@@ -201,7 +201,7 @@ sub bwaMem
             toolbox::exportLog("ERROR: bwa::bwaMem : ABBORTED\n",0);
         }
     }
-    elsif ((toolbox::sizeFile($forwardFastqFileIn)==1) and (toolbox::sizeFile($reverseFastqFileIn)==1)
+    elsif ((toolbox::sizeFile($forwardFastqFileIn)==1) and (toolbox::sizeFile($reverseFastqFileIn)==1))
     {
         
 	my $command="$bwa mem $options $refFastaFileIn $forwardFastqFileIn  $reverseFastqFileIn  -R '\@RG\\tID:".$readGroupLine."\\tSM:".$readGroupLine."\\tPL:Illumina' > $samFileOut";		# command line
