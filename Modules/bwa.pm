@@ -180,51 +180,45 @@ sub bwaSamse
 sub bwaMem 
 {
     my($samFileOut,$refFastaFileIn, $forwardFastqFileIn,$reverseFastqFileIn, $readGroupLine,$optionsHachees)=@_;
-
-    #bwa mem work with paired end and single; test if both reverse and mate agiven or not
-    my $fastqFileIn = 1; 	# In standard, the fastq are two files
-    if ($reverseFastqFileIn eq "") # the fourth argument is empty, meaning a single file
+    my $options="";
+    if ($optionsHachees)
     {
-        $fastqFileIn = 0; # the boolean is put to zero for signaling the single mode
+        $options=toolbox::extractOptions($optionsHachees);		##Get given options
     }
-
-    if ((toolbox::sizeFile($refFastaFileIn)==1) and (toolbox::sizeFile($forwardFastqFileIn)==1))
+    
+    if ((toolbox::sizeFile($forwardFastqFileIn)==1) and not (defined $reverseFastqFileIn)) 
     {
-	#$samFileOut=toolbox::extractName($fastqFileIn).".sam" unless $samFileOut;
-	my $options="";
-	if ($optionsHachees) 
-	{
-	    my $options=toolbox::extractOptions($optionsHachees);
-	}
+	my $command="$bwa mem $options $refFastaFileIn $forwardFastqFileIn   -R '\@RG\\tID:".$readGroupLine."\\tSM:".$readGroupLine."\\tPL:Illumina' > $samFileOut";		# command line
+        toolbox::exportLog("INFOS: bwa::bwaMem : $command\n",1);
 
-	$readGroupLine="" unless $readGroupLine;		# Unless a read group is specified by user, readGroupLine is empty
-	# command
-	my $command="";
-	if ($fastqFileIn==1)		# if paired-end data
-	{
-	    $command="$bwa mem $options $refFastaFileIn $forwardFastqFileIn  $reverseFastqFileIn  -R '\@RG\\tID:".$readGroupLine."\\tSM:".$readGroupLine."\\tPL:Illumina' > $samFileOut";		# command line
-	}
-	else		# if single-end data
-	{
-	    $command="$bwa mem $options $refFastaFileIn $forwardFastqFileIn   -R '\@RG\\tID:".$readGroupLine."\\tSM:".$readGroupLine."\\tPL:Illumina' > $samFileOut";		# command line
-	}
-
-       #Execute command
-	if(toolbox::run($command)==1)
-	{
-	    toolbox::exportLog("INFOS: bwa::bwaMem : correctly done\n",1);
-	    return 1;
-	}
-	else
-	{
-	    toolbox::exportLog("ERROR: bwa::bwaMem : ABORTED\n",0);
-	    return 0;
-	}
+        if (toolbox::run($command)==1)
+        {
+            toolbox::exportLog("INFOS: bwa::bwaMem : correctly done\n",1);
+            return 1;
+        }
+        else
+        {
+            toolbox::exportLog("ERROR: bwa::bwaMem : ABBORTED\n",0);
+        }
+    }
+    elsif ((toolbox::sizeFile($forwardFastqFileIn)==1) and (toolbox::sizeFile($reverseFastqFileIn)==1))
+    {
+        
+	my $command="$bwa mem $options $refFastaFileIn $forwardFastqFileIn  $reverseFastqFileIn  -R '\@RG\\tID:".$readGroupLine."\\tSM:".$readGroupLine."\\tPL:Illumina' > $samFileOut";		# command line
+        
+        if (toolbox::run($command)==1)
+        {
+            toolbox::exportLog("INFOS: bwa::bwaMem : correctly done\n",1);
+            return 1;
+        }
+        else
+        {
+            toolbox::exportLog("ERROR: bwa::bwaMem : ABBORTED\n",0);
+        }
     }
     else
     {
        toolbox::exportLog("ERROR: bwa::bwaMem : Problem with the files\n",0);
-       return 0;
     }                                                                                                                              
 }
 1;
