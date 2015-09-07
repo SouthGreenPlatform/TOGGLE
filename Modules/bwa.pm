@@ -188,7 +188,7 @@ sub bwaMem
     
     if ((toolbox::sizeFile($forwardFastqFileIn)==1) and not (defined $reverseFastqFileIn)) {
     {
-	$command="$bwa mem $options $refFastaFileIn $forwardFastqFileIn   -R '\@RG\\tID:".$readGroupLine."\\tSM:".$readGroupLine."\\tPL:Illumina' > $samFileOut";		# command line
+	my $command="$bwa mem $options $refFastaFileIn $forwardFastqFileIn   -R '\@RG\\tID:".$readGroupLine."\\tSM:".$readGroupLine."\\tPL:Illumina' > $samFileOut";		# command line
         toolbox::exportLog("INFOS: bwa::bwaMem : $command\n",1);
 
         if (toolbox::run($command)==1)
@@ -204,7 +204,7 @@ sub bwaMem
     elsif ((toolbox::sizeFile($forwardFastqFileIn)==1) and (toolbox::sizeFile($reverseFastqFileIn)==1)
     {
         
-	$command="$bwa mem $options $refFastaFileIn $forwardFastqFileIn  $reverseFastqFileIn  -R '\@RG\\tID:".$readGroupLine."\\tSM:".$readGroupLine."\\tPL:Illumina' > $samFileOut";		# command line
+	my $command="$bwa mem $options $refFastaFileIn $forwardFastqFileIn  $reverseFastqFileIn  -R '\@RG\\tID:".$readGroupLine."\\tSM:".$readGroupLine."\\tPL:Illumina' > $samFileOut";		# command line
         
         if (toolbox::run($command)==1)
         {
