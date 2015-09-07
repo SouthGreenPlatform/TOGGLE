@@ -186,7 +186,7 @@ sub bwaMem
         $options=toolbox::extractOptions($optionsHachees);		##Get given options
     }
     
-    if ((toolbox::sizeFile($forwardFastqFileIn)==1) and not (defined $reverseFastqFileIn)) {
+    if ((toolbox::sizeFile($forwardFastqFileIn)==1) and not (defined $reverseFastqFileIn)) 
     {
 	my $command="$bwa mem $options $refFastaFileIn $forwardFastqFileIn   -R '\@RG\\tID:".$readGroupLine."\\tSM:".$readGroupLine."\\tPL:Illumina' > $samFileOut";		# command line
         toolbox::exportLog("INFOS: bwa::bwaMem : $command\n",1);
