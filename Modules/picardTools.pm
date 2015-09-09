@@ -54,7 +54,7 @@ sub picardToolsMarkDuplicates
 	{
             $options=toolbox::extractOptions($optionsHachees,"=");      # recovery of options if they are provided
         }
-        my $comPicardToolsMarkDuplicates = "$picard/MarkDuplicates.jar $options INPUT=$bamToAnalyze OUTPUT=$bamAnalyzed METRICS_FILE=$bamDuplicates ";      #command line 
+        my $comPicardToolsMarkDuplicates = "$picard/picard.jar MarkDuplicates $options INPUT=$bamToAnalyze OUTPUT=$bamAnalyzed METRICS_FILE=$bamDuplicates ";      #command line 
         toolbox::run($comPicardToolsMarkDuplicates);        # command line execution                                                                                                                                                                                                                    
     }
     else        # if something wrong (size, format) in the file to examine, don't run the module ...                                                                                                                                                                                                                                                                 # if previous files doesn't exists or are empty or if picardToolsMarkDuplicates failed
@@ -71,17 +71,19 @@ sub picardToolsCreateSequenceDictionary
     my($refFastaFile,$dictFileOut,$optionsHachees)= @_;     # recovery of informations
     if (toolbox::sizeFile($refFastaFile)==1)        # check if the reference fasta file is not empty 
     {
-
-	my $options="";
-	if ($optionsHachees)
+	if (toolbox::existsFile($dictFileOut,0)==0)
 	{
-	    $options=toolbox::extractOptions($optionsHachees);      # recovery of options if they are provided
-	}
-	my $command="$picard/CreateSequenceDictionary.jar $options REFERENCE=$refFastaFile OUTPUT=$dictFileOut";        #creation of the command line
-	if(toolbox::run($command)==1)       #Execution of the command line
-	{
-	    toolbox::exportLog("INFOS: picardTools::picardToolsCreateSequenceDictionary : Correctly run\n",1);
-	    return 1;
+	    my $options="";
+	    if ($optionsHachees)
+	    {
+	        $options=toolbox::extractOptions($optionsHachees);      # recovery of options if they are provided
+	    }
+	    my $command="$picard/picard.jar CreateSequenceDictionary $options REFERENCE=$refFastaFile OUTPUT=$dictFileOut";        #creation of the command line
+	    if(toolbox::run($command)==1)       #Execution of the command line
+	    {
+	        toolbox::exportLog("INFOS: picardTools::picardToolsCreateSequenceDictionary : Correctly run\n",1);
+	        return 1;
+	    }
 	}
 	else 
 	{
@@ -109,7 +111,7 @@ sub picardToolsSortSam
         {
             $options=toolbox::extractOptions($optionsHachees,"=");      # recovery of options if they are provided
         }
-        my $command="$picard/SortSam.jar $options INPUT=$bamOrSamFileIn OUTPUT=$bamOrSamFileOut";       #creation of the command line
+        my $command="$picard/picard.jar SortSam $options INPUT=$bamOrSamFileIn OUTPUT=$bamOrSamFileOut";       #creation of the command line
         if(toolbox::run($command)==1)       #Execute command
         {
             toolbox::exportLog("INFOS: picardTools::picardToolsSortSam : Correctly run\n",1);
@@ -125,11 +127,8 @@ sub picardToolsSortSam
 1;
 
 =head1 NAME
-
     Package I<picardTools> 
-
 =head1 SYNOPSIS
-
         use picardTools;
     
         picardTools::picardToolsMarkDuplicates ($bamToAnalyze, $bamAnalyzed, $bamDuplicates, $option_prog{'picardTools markDuplicates'});
@@ -137,44 +136,24 @@ sub picardToolsSortSam
         picardTools::picardToolsCreateSequenceDictionary ($refFastaFile,$dictFileOut,$option_prog{'picardTools createSequenceDictionary'});
     
         picardTools::picardToolsSortSam ($bamOrSamFileIn,$bamOrSamFileOut,$option_prog{'picardTools sortsam single/pair'});
-
 =head1 DESCRIPTION
-
     Package picardTools is a set of Java command line tools for manipulating high-throughput sequencing data (HTS) data and formats.
-
 =head2 FUNCTIONS
-
-
 =head3 picardTools::picardToolsMarkDuplicates
-
 This module examines aligned records in the supplied SAM or BAM file to locate duplicate molecules. All records are then written to the output file with the duplicate records flagged
 It takes at least three arguments: the ".bam" file user wants to examine, the name of the output file,the name of file to write duplication metrics
 The last argument is the options of picardTools markDuplicates, for more informations see http://broadinstitute.github.io/picard/command-line-overview.html#MarkDuplicates
-
-
-
 =head3 picardTools::picardToolsCreateSequenceDictionary
-
 This module read fasta or fasta.gz containing reference sequences, and write as a SAM or BAM file with only sequence dictionary
 It takes at least two arguments: the database indexed, the name of the output file
 The last argument is the options of picardTools createSequenceDictionnary, for more informations see http://broadinstitute.github.io/picard/command-line-overview.html#CreateSequenceDictionary
-
-
-
 =head3 picardTools::picardToolsSortSam
-
 This module sorts the input SAM or BAM
 It takes at least two arguments: the file to sort, the name of the output file
 The last argument is the options of picardTools sortSam, for more informations see http://broadinstitute.github.io/picard/command-line-overview.html#SortSam
-
-
 =head1 AUTHORS
-
 Intellectual property belongs to IRD, CIRAD and South Green developpement plateform 
 Written by Cecile Monat, Ayite Kougbeadjo, Marilyne Summo, Cedric Farcy, Mawusse Agbessi, Christine Tranchant and Francois Sabot
-
 =head1 SEE ALSO
-
 L<http://www.southgreen.fr/>
-
 =cut
