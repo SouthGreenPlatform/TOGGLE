@@ -102,7 +102,7 @@ LOC_Os12g32240.1	864	.	C	T	974.62	PASS	AC=10;AF=1.00;AN=10;DP=26;FS=0.000;MLEAC=
 * Test the RNASeq pipeline with the test data
 
 ````
-$globalAnalysisRnaSeq.pl $PATH_INSTALL/DATA/rnaseqTest/ $PATH_INSTALL/software.config.txt $PATH_INSTALL/DATA/referenceRnaseq.fa $PATH_INSTALL/DATA/referenceRnaseq.gff3
+$globalAnalysisRnaSeq.pl -d $PATH_INSTALL/DATA/rnaseqTest/ -d $PATH_INSTALL/software.config.txt -r $PATH_INSTALL/DATA/referenceRnaseq.fa -g $PATH_INSTALL/DATA/referenceRnaseq.gff3
 ````
 
 
