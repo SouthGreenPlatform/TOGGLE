@@ -384,7 +384,7 @@ sub readDir
 
 
     #Validation of the complete path provided, to avoid the 'ls *' bug with a single subfolder
-    foreach my $ files (@fileList)
+    foreach my $files (@fileList)
 	{
 	##DEBUG print $files," --> ";
 	#Check if there is at least a '/' in the name
