@@ -384,6 +384,7 @@ sub readDir
 
 
     #Validation of the complete path provided, to avoid the 'ls *' bug with a single subfolder
+    my @correctedListOFiles; #Creating a new list for corrected filename/filepath
     foreach my $files (@fileList)
 	{
 	##DEBUG print $files," --> ";
@@ -391,6 +392,7 @@ sub readDir
 	if ($files =~ m/\//)
 	    { #The file has the full path
 	    ##DEBUG print "No changes to $files\n";
+	    @correctedListOFiles = @fileList; # no need to change
 	    last; # all must be with full path, so let's leave the correction
 	    }
 	#The full path is not implemented
@@ -398,8 +400,11 @@ sub readDir
 	chomp $subfolder;
 	$files = $dir."/".$subfolder."/".$files; #Adding the complete path
 	##DEBUG print $files,"\n";
+	push @correctedListOFiles, $files;
 	}
-
+    
+    @fileList=@correctedListOFiles; # reinject the correct names/path in the file list
+    
     return(\@fileList);
 
 }
