@@ -387,7 +387,7 @@ sub readDir
     my @correctedListOFiles; #Creating a new list for corrected filename/filepath
     foreach my $files (@fileList)
 	{
-	##DEBUG print $files," --> ";
+	print $files," --> ";
 	#Check if there is at least a '/' in the name
 	if ($files =~ m/\//)
 	    { #The file has the full path
@@ -399,11 +399,13 @@ sub readDir
 	my $subfolder = `ls $dir`;
 	chomp $subfolder;
 	$files = $dir."/".$subfolder."/".$files; #Adding the complete path
-	##DEBUG print $files,"\n";
+	print $files,"\n";
 	push @correctedListOFiles, $files;
 	}
     
     @fileList=@correctedListOFiles; # reinject the correct names/path in the file list
+    
+    print "@fileList","\n";
     
     return(\@fileList);
 
