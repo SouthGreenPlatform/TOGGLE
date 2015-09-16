@@ -391,7 +391,8 @@ sub readDir
 	#Check if there is at least a '/' in the name
 	if ($files =~ m/\//)
 	    { #The file has the full path
-	    ##DEBUG print "No changes to $files\n";
+	    ##DEBUG
+	    print "No changes to $files\n";
 	    @correctedListOFiles = @fileList; # no need to change
 	    last; # all must be with full path, so let's leave the correction
 	    }
