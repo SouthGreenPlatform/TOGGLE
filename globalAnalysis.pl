@@ -134,6 +134,19 @@ if ($folder == 0)                                                               
     pairing::createDirPerCouple($pairsInfos,$initialDir);                                                   # from infos of pairs, construction of the pair folder
 
     $listOfFiles = toolbox::readDir($initialDir);                                                           # read it to recover files in it
+    #Correction for single initial dir bug link to 'ls *'
+    
+    my %folderHash;
+    foreach my $putativeFolder (@$listOfFiles)
+    {
+        unless (-d $putativeFolder) #The folder is not a true folder, have to change
+        {
+            $putativeFolder = `dirname $putativeFolder` or die ("INFOS: $0 : changing dirname in globalAnalysis.pl not working\n");
+            chomp $putativeFolder;
+        }
+        $folderHash{$putativeFolder}=1; # Will create if not exists, will crunch if exists - equivalent to uniq on the list w/o the need of another module
+    }
+    $listOfFiles = keys %folderHash;
     toolbox::exportLog("INFOS: $0 : toolbox::readDir : $initialDir after create dir per couple: @$listOfFiles\n",1);
     @listOfFiles = @$listOfFiles;
 }
