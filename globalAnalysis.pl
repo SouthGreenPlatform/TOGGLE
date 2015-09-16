@@ -268,7 +268,7 @@ my $okFinal;
 
 for (my $i=0; $i<=$#listOfFiles; $i++)                                                                      # for each folder...
 {
-    my $copyCom = "cp $listOfFiles[$i] $bamDirPath.";                                 # command to move bam files just created into the directory appropriate for the pipeline
+    my $copyCom = "cp $listOfFiles[$i]* $bamDirPath.";                                 # command to move bam files just created into the directory appropriate for the pipeline
     ##DEBUG toolbox::exportLog("DEBUG: $0 : Check bam cp command: $copyCom\n",1);
     $okFinal = toolbox::run($copyCom);                                                                  # move the files
 }
