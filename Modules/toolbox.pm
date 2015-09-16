@@ -373,7 +373,8 @@ sub readDir
     
     # if the part of name is given in the second argument, search for files directory/*part_of_name
     # else search for all files directory/*
-    my $path = defined ($_[0]) ? $dir.'/*'.$_[0] : $dir."/*";
+    #my $path = defined ($_[0]) ? $dir.'/*'.$_[0] : $dir."/*";
+    my $path = $dir;
     
     # ls run
     my $file=`ls $path` or toolbox::exportLog("ERROR: toolbox::readDir : Can't open the directory $path\n$!\n",0);
