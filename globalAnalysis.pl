@@ -132,7 +132,7 @@ if ($folder == 0)                                                               
     #########################################
     my $pairsInfos = pairing::pairRecognition($initialDir);                                                 # from files fasta recognition of paired files
     pairing::createDirPerCouple($pairsInfos,$initialDir);                                                   # from infos of pairs, construction of the pair folder
-
+    print "\n\nPROUT\n\n";
     $listOfFiles = toolbox::readDir($initialDir);                                                           # read it to recover files in it
     #Correction for single initial dir bug link to 'ls *'
     
