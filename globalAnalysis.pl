@@ -264,25 +264,13 @@ $listOfFiles = toolbox::readDir2($initialDir."/*/7_GATK/","bam");               
 @listOfFiles = @$listOfFiles;
 my @listOfGATK;
 my @listOfBAM;
-my $gatkPath;
 my $okFinal;
 
 for (my $i=0; $i<=$#listOfFiles; $i++)                                                                      # for each folder...
 {
-    ##DEBUG toolbox::exportLog("DEBUG: $0 : File directory created @ listOfFiles : $listOfFiles[$i]\n",1);
-    if ($listOfFiles[$i]=~m/^(.+):$/)
-    {
-        $gatkPath=$1;                                                                                       # recovery of the current GATK's folder path
-    }
-    elsif ($listOfFiles[$i]=~m/(7_GATK)$/)
-    {
-        $gatkPath.="/7_GATK";
-        ##DEBUG toolbox::exportLog("DEBUG: $0 : if File directory eq 7_GATK : $listOfFiles[$i]\n",1);
-        my $copyCom = "cp $gatkPath/*.GATKINDELREALIGNER.ba* $bamDirPath.";                                 # command to move bam files just created into the directory appropriate for the pipeline
-        ##DEBUG toolbox::exportLog("DEBUG: $0 : Check bam cp command: $copyCom\n",1);
-        $okFinal = toolbox::run($copyCom);                                                                  # move the files
-        undef($gatkPath);
-    }
+    my $copyCom = "cp $listOfFiles[$i] $bamDirPath.";                                 # command to move bam files just created into the directory appropriate for the pipeline
+    ##DEBUG toolbox::exportLog("DEBUG: $0 : Check bam cp command: $copyCom\n",1);
+    $okFinal = toolbox::run($copyCom);                                                                  # move the files
 }
 
 if ($okFinal == 1)
