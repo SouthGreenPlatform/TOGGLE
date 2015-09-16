@@ -434,7 +434,7 @@ sub readDir2
 {
     toolbox::exportLog("ERROR: toolbox::readDir2 : should get two arguments, folder and file extension\n",0) if (@_ < 2 );
     
-    my ($dir,$fileExtension)= shift @_;
+    my ($dir,$fileExtension)= @_;
     
     my $path = $dir."/*".$fileExtension;
     

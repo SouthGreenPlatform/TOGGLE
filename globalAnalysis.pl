@@ -258,7 +258,7 @@ my @fileAndPath = toolbox::extractPath($initialDir);
 my $bamDirPath = "$fileAndPath[1]"."BamDirectory/";                                                         # name of the BAM directory
 toolbox::makeDir("$bamDirPath");                                                                            # to create the BAM directory
 
-print "Calling readDir2 on globalAnalysis.pl upon $initialDir\n";
+print "\nCalling readDir2 on globalAnalysis.pl upon $initialDir\n";
 
 $listOfFiles = toolbox::readDir2($initialDir,"bam");                                                              # read the initial dir
 @listOfFiles = @$listOfFiles;
