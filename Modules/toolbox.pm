@@ -399,6 +399,7 @@ sub readDir
 	    }
 	#The full path is not implemented
 	my $subfolder = `ls $dir`;
+	print "\n++",$subfolder;
 	chomp $subfolder;
 	$files = $dir."/".$subfolder."/".$files; #Adding the complete path
 	print "**",$files,"\n";
