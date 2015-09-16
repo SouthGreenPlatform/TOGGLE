@@ -64,6 +64,7 @@ $GATK gatkIndelRealigner
 
 $GATK gatkHaplotypeCaller
 -T=HaplotypeCaller
+-rf BadCigar
 
 $picardTools sortsam pair
 SORT_ORDER=coordinate
