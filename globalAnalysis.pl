@@ -171,9 +171,12 @@ LOOP:
 toolbox::exportLog("----------------------------------------",1);
 for (my $i=0; $i<=$#listOfFiles; $i++)                                                                      # for each folder, create directories for different step of analysis
 {
+    print "FILE for launching:",$listOfFiles[$i],"\n";
+    
     if ($listOfFiles[$i]=~m/.+\..+/)                                                                        # if it's a file and not a folder
     {
-        ##DEBUG toolbox::exportLog("FILES: $listOfFiles[$i]\n",1);
+        ##DEBUG
+        toolbox::exportLog("FILES: $listOfFiles[$i]\n",1);
         next;
     }
     elsif ($listOfFiles[$i]=~m/.+\/.+:$/)
@@ -212,6 +215,7 @@ for (my $i=0; $i<=$#listOfFiles; $i++)                                          
     }
     else
     {
+        print "\nPROBLEM\n";
         next;
     }
 }
