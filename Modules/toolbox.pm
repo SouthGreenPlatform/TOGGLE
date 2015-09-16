@@ -400,13 +400,13 @@ sub readDir
 	my $subfolder = `ls $dir`;
 	chomp $subfolder;
 	$files = $dir."/".$subfolder."/".$files; #Adding the complete path
-	print $files,"\n";
+	print "**",$files,"\n";
 	push @correctedListOFiles, $files;
 	}
     
     @fileList=@correctedListOFiles; # reinject the correct names/path in the file list
     
-    print "@fileList","\n";
+    print "\nFINAL LIST: ","@fileList","\n";
     
     return(\@fileList);
 
