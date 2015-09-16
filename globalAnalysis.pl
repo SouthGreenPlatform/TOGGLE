@@ -146,7 +146,7 @@ if ($folder == 0)                                                               
         }
         $folderHash{$putativeFolder}=1; # Will create if not exists, will crunch if exists - equivalent to uniq on the list w/o the need of another module
     }
-    $listOfFiles = keys %folderHash;
+    $listOfFiles = \(keys %folderHash);
     toolbox::exportLog("INFOS: $0 : toolbox::readDir : $initialDir after create dir per couple: @$listOfFiles\n",1);
     @listOfFiles = @$listOfFiles;
 }
