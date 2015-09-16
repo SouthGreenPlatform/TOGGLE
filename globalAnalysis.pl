@@ -179,7 +179,7 @@ for (my $i=0; $i<=$#listOfFiles; $i++)                                          
         toolbox::exportLog("FILES: $listOfFiles[$i]\n",1);
         next;
     }
-    elsif ($listOfFiles[$i]=~m/.+\/.+:$/)
+    elsif ($listOfFiles[$i]=~m/.+\/.+$/)
     {
         ##DEBUG
         toolbox::exportLog("FOLDER: $listOfFiles[$i]\n",1);
