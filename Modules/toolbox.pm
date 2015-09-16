@@ -432,13 +432,11 @@ sub readDir
 ################################################################################################
 sub readDir2
 {
-    toolbox::exportLog("ERROR: toolbox::readDir2 : should get at one argument at least\n",0) if (@_ < 1 );
+    toolbox::exportLog("ERROR: toolbox::readDir2 : should get two arguments, folder and file extension\n",0) if (@_ < 2 );
     
-    my ($dir)= shift @_;
+    my ($dir,$fileExtension)= shift @_;
     
-    # if the part of name is given in the second argument, search for files directory/part_of_name*
-    # else search for all files directory/*
-    my $path = defined ($_[0]) ? $dir.'/'.$_[0].'*' : $dir."/*";
+    my $path = $dir."/*".$fileExtension;
     
     # ls command
     my $file=`ls $path` or toolbox::exportLog("ERROR: toolbox::readDir : Can't open the directory $path\n$!\n",0);
@@ -1486,13 +1484,12 @@ C<toolbox::readDir($dirToParse,'fastq');>
 
 =head3 toolbox::readDir2()
 
-This function lists the content of a directory and returns the list of files. One argument is required : the name of the directory.
-An other optional argument can be used that allows to filter on the beginning of a filename. 
+This function lists the content of a directory and returns the list of files corresponding to a given extension. Two arguments are required : the name of the directory and the extension to be checked.
 
-Returns the list of files.
+Returns the list of files with the given extension.
 
 Example : 
-C<toolbox::readDir2($dirToParse,'RC');>
+C<toolbox::readDir2($dirToParse,'bam');>
 
 
 =head3 toolbox::extractPath()
