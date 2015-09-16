@@ -139,6 +139,11 @@ if ($folder == 0)                                                               
     my %folderHash;
     foreach my $putativeFolder (@$listOfFiles)
     {
+        if ($putativeFolder =~ m/:/)
+        {
+            $folderHash{$putativeFolder}=1;
+            next;
+        }
         unless (-d $putativeFolder) #The folder is not a true folder, have to change
         {
             $putativeFolder = `dirname $putativeFolder` or die ("INFOS: $0 : first changing dirname in globalAnalysis.pl not working\n");
