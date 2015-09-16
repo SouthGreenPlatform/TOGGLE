@@ -146,9 +146,9 @@ if ($folder == 0)                                                               
         }
         unless (-d $putativeFolder) #The folder is not a true folder, have to change
         {
-            $putativeFolder = `dirname $putativeFolder` or die ("INFOS: $0 : first changing dirname in globalAnalysis.pl not working\n");
+            $putativeFolder = `dirname $putativeFolder` or toolbox::exportLog("INFOS: dirname $putativeFolder : first changing dirname in globalAnalysis.pl not working\n",0);
             chomp $putativeFolder;
-            $putativeFolder = `dirname $putativeFolder` or die ("INFOS: $0 : second changing dirname in globalAnalysis.pl not working\n");
+            $putativeFolder = `dirname $putativeFolder` or  toolbox::exportLog("INFOS: dirname $putativeFolder : second changing dirname in globalAnalysis.pl not working\n",0);
             chomp $putativeFolder;
         }
         $folderHash{$putativeFolder}=1; # Will create if not exists, will crunch if exists - equivalent to uniq on the list w/o the need of another module
