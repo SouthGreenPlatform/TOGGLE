@@ -172,15 +172,19 @@ for (my $i=0; $i<=$#listOfFiles; $i++)                                          
     }
     elsif ($listOfFiles[$i]=~m/.+\/.+:$/)
     {
-        ##DEBUG toolbox::exportLog("FOLDER: $listOfFiles[$i]\n",1);
+        ##DEBUG
+        toolbox::exportLog("FOLDER: $listOfFiles[$i]\n",1);
         my @fileAndPath = toolbox::extractPath($listOfFiles[$i]);                                           # recovery of file name and path to have it
-        ##DEBUG toolbox::exportLog("INFOS extract file: $fileAndPath[0]\n",1);
-        ##DEBUG toolbox::exportLog("INFOS extract path: $fileAndPath[1]\n",1);
+        ##DEBUG
+        toolbox::exportLog("INFOS extract file: $fileAndPath[0]\n",1);
+        ##DEBUG
+        toolbox::exportLog("INFOS extract path: $fileAndPath[1]\n",1);
         my @splitName = split (":", $fileAndPath[0]);
      
         my $firstDir = "$fileAndPath[1]$splitName[0]/";
         my $listOfFastq = toolbox::readDir($firstDir);                                                      # recovery of fastq file(s)
-        ##DEBUG toolbox::exportLog("INFOS toolbox ReadDir: @$listOfFastq\n",1);
+        ##DEBUG
+        toolbox::exportLog("INFOS toolbox ReadDir: @$listOfFastq\n",1);
         my @listOfFastq = @$listOfFastq;
         if ($#listOfFastq == 0)                                                                             # if 1 file --> single analysis to do
         {
