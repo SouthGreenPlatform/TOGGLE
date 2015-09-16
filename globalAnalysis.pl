@@ -139,6 +139,7 @@ if ($folder == 0)                                                               
     my %folderHash;
     foreach my $putativeFolder (@$listOfFiles)
     {
+        print "Current file: ",$putativeFolder,"n";
         if ($putativeFolder =~ m/:/)
         {
             $folderHash{$putativeFolder}=1;
