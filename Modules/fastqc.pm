@@ -104,7 +104,7 @@ sub parse
 	my @listOfFiles = @$listOfFiles;			# recovery of this folder/files
 	for (my $i=0; $i<=$#listOfFiles; $i++)			# for each of them
 	{
-		if ($listOfFiles[$i]=~m/(.+_fastqc):/)		# if not a zip folder
+		if ($listOfFiles[$i]=~m/(.+_fastqc)/)		# if not a zip folder
 		{
 			my $rightPath = $1;
 			$fastqcFile = $rightPath."/fastqc_data.txt";	# recovery of this info to construct the right path for fastqc::parse
