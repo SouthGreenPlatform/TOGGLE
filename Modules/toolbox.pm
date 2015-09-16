@@ -443,7 +443,8 @@ sub readDir2
     chomp $file;
     
     # split the list into a table returned after
-    my @fileList = split /\n/, $file; 
+    my @fileList = split /\n/, $file;
+    print "readDir2 filelist:","@fileList","\n";
     return(\@fileList);
 
 }
