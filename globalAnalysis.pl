@@ -226,7 +226,7 @@ my @toRedoLoop = ();
 
 for (my $j=0; $j<=$#listOfFilesV2; $j++)
 {
-    if ($listOfFilesV2[$j]=~m/.+\/\w+_Single:$/)
+    if ($listOfFilesV2[$j]=~m/.+\/\w+_Single$/)
     {
         push (@toRedoLoop,"$listOfFilesV2[$j]");
     }
