@@ -132,7 +132,6 @@ if ($folder == 0)                                                               
     #########################################
     my $pairsInfos = pairing::pairRecognition($initialDir);                                                 # from files fasta recognition of paired files
     pairing::createDirPerCouple($pairsInfos,$initialDir);                                                   # from infos of pairs, construction of the pair folder
-    print "\n\nPROUT\n\n";
     $listOfFiles = toolbox::readDir($initialDir);                                                           # read it to recover files in it
     #Correction for single initial dir bug link to 'ls *'
     
@@ -171,29 +170,24 @@ LOOP:
 toolbox::exportLog("----------------------------------------",1);
 for (my $i=0; $i<=$#listOfFiles; $i++)                                                                      # for each folder, create directories for different step of analysis
 {
-    print "FILE for launching:",$listOfFiles[$i],"\n";
+    ##DEBUG print "FILE for launching:",$listOfFiles[$i],"\n";
     
     if ($listOfFiles[$i]=~m/.+\..+/)                                                                        # if it's a file and not a folder
     {
-        ##DEBUG
-        toolbox::exportLog("FILES: $listOfFiles[$i]\n",1);
+        ##DEBUG        toolbox::exportLog("FILES: $listOfFiles[$i]\n",1);
         next;
     }
     elsif ($listOfFiles[$i]=~m/.+\/.+$/)
     {
-        ##DEBUG
-        toolbox::exportLog("FOLDER: $listOfFiles[$i]\n",1);
+        ##DEBUG        toolbox::exportLog("FOLDER: $listOfFiles[$i]\n",1);
         my @fileAndPath = toolbox::extractPath($listOfFiles[$i]);                                           # recovery of file name and path to have it
-        ##DEBUG
-        toolbox::exportLog("INFOS extract file: $fileAndPath[0]\n",1);
-        ##DEBUG
-        toolbox::exportLog("INFOS extract path: $fileAndPath[1]\n",1);
+        ##DEBUG        toolbox::exportLog("INFOS extract file: $fileAndPath[0]\n",1);
+        ##DEBUG        toolbox::exportLog("INFOS extract path: $fileAndPath[1]\n",1);
         my @splitName = split (":", $fileAndPath[0]);
      
         my $firstDir = "$fileAndPath[1]$splitName[0]/";
         my $listOfFastq = toolbox::readDir($firstDir);                                                      # recovery of fastq file(s)
-        ##DEBUG
-        toolbox::exportLog("INFOS toolbox ReadDir: @$listOfFastq\n",1);
+        ##DEBUG        toolbox::exportLog("INFOS toolbox ReadDir: @$listOfFastq\n",1);
         my @listOfFastq = @$listOfFastq;
         if ($#listOfFastq == 0)                                                                             # if 1 file --> single analysis to do
         {
@@ -215,7 +209,7 @@ for (my $i=0; $i<=$#listOfFiles; $i++)                                          
     }
     else
     {
-        print "\nPROBLEM\n";
+       ##DEBUG  print "\nPROBLEM\n";
         next;
     }
 }
@@ -258,7 +252,7 @@ my @fileAndPath = toolbox::extractPath($initialDir);
 my $bamDirPath = "$fileAndPath[1]"."BamDirectory/";                                                         # name of the BAM directory
 toolbox::makeDir("$bamDirPath");                                                                            # to create the BAM directory
 
-print "\nCalling readDir2 on globalAnalysis.pl upon $initialDir/*/7_GATK/\n";
+##DEBUG print "\nCalling readDir2 on globalAnalysis.pl upon $initialDir/*/7_GATK/\n";
 
 $listOfFiles = toolbox::readDir2($initialDir."/*/7_GATK/","bam");                                                              # read the initial dir
 @listOfFiles = @$listOfFiles;

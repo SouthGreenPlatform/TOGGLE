@@ -367,7 +367,7 @@ sub makeDir
 ################################################################################################
 sub readDir
 {
-    toolbox::exportLog("ERROR: toolbox::readDir : should get at one argument at least\n",0) if (@_ < 1 );
+    toolbox::exportLog("ERROR: toolbox::readDir : should get at one argument only\n",0) if (@_ != 1 );
     
     my ($dir)= shift @_;
     
@@ -388,28 +388,27 @@ sub readDir
     my @correctedListOFiles; #Creating a new list for corrected filename/filepath
     foreach my $files (@fileList)
 	{
-	print $files," --> ";
+	##DEBUG print $files," --> ";
 	#Check if there is at least a '/' in the name
 	if ($files =~ m/\//)
 	    { #The file has the full path
-	    ##DEBUG
-	    print "No changes to $files\n";
+	    ##DEBUG	    print "No changes to $files\n";
 	    @correctedListOFiles = @fileList; # no need to change
 	    last; # all must be with full path, so let's leave the correction
 	    }
 	#The full path is not implemented
 	my $subfolder = `ls $dir`;
-	print "\n++",$subfolder;
+	##DEBUG print "\n++",$subfolder;
 	chomp $subfolder;
 	#$files = $dir."/".$subfolder."/".$files; #Adding the complete path
 	$files = $dir."/".$files; #Adding the complete path
-	print "**",$files,"\n";
+	##DEBUG print "**",$files,"\n";
 	push @correctedListOFiles, $files;
 	}
     
     @fileList=@correctedListOFiles; # reinject the correct names/path in the file list
     
-    print "\nFINAL LIST: ","@fileList","\n";
+    ##DEBUG print "\nFINAL LIST: ","@fileList","\n";
     
     return(\@fileList);
 
@@ -438,7 +437,7 @@ sub readDir2
     
     my $path = $dir."/*".$fileExtension;
     
-    print "\nreadDir2 working on $path\n";
+   ##DEBUG  print "\nreadDir2 working on $path\n";
     
     # ls command
     my $file=`ls $path` or toolbox::exportLog("ERROR: toolbox::readDir : Can't open the directory $path\n$!\n",0);
@@ -446,7 +445,7 @@ sub readDir2
     
     # split the list into a table returned after
     my @fileList = split /\n/, $file;
-    print "\nreadDir2 filelist:","@fileList","\n";
+    ##DEBUG print "\nreadDir2 filelist:","@fileList","\n";
     return(\@fileList);
 
 }
