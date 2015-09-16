@@ -438,13 +438,15 @@ sub readDir2
     
     my $path = $dir."/*".$fileExtension;
     
+    print "\nreadDir2 working on $path\n";
+    
     # ls command
     my $file=`ls $path` or toolbox::exportLog("ERROR: toolbox::readDir : Can't open the directory $path\n$!\n",0);
     chomp $file;
     
     # split the list into a table returned after
     my @fileList = split /\n/, $file;
-    print "readDir2 filelist:","@fileList","\n";
+    print "\nreadDir2 filelist:","@fileList","\n";
     return(\@fileList);
 
 }
