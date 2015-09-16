@@ -113,7 +113,7 @@ toolbox::checkFile($refFastaFile);                                              
 print LOG "INFOS: $0 : Start GATK Haplotype Caller, Select Variants and Variant Filtration\n";
 print F1 "gatk\n";
 
-my $listOfBam = toolbox::readDir($initialDir,"bam");                                                        # read the BAM directory to recover files in it
+my $listOfBam = toolbox::readDir2($initialDir,"bam");                                                        # read the BAM directory to recover files in it
 my $optionref = toolbox::readFileConf($fileConf);                                                           # read the configuration file
 my $vcfCalled = "$initialDir"."/GATKHAPLOTYPECALLER.vcf";                                                   # name of the first VCF file
 my $softParameters = toolbox::extractHashSoft($optionref, "GATK gatkHaplotypeCaller");                         # recovery of specific parameters of gatk haplotype caller
