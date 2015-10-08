@@ -31,7 +31,6 @@ package tophat;
 use strict;
 use warnings;
 
-use lib qw(.);
 use localConfig;
 use toolbox;
 use Data::Dumper;
