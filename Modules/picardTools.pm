@@ -35,7 +35,6 @@ package picardTools;
 
 use strict;
 use warnings;
-use lib qw(.);
 use localConfig;
 use toolbox;
 
