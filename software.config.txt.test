@@ -26,7 +26,6 @@ $samtools view pair
 $BWA aln
 -n=5
 -o=1
--e=-1
 
 $BWA index
 -a=is
