@@ -36,7 +36,6 @@ use strict;
 use warnings;
 use Data::Dumper;
 
-use lib qw(.);
 use localConfig;
 use toolbox;
 
