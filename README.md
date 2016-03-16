@@ -18,7 +18,7 @@ The system is able to detect parallel/scheduling launching and to manage large a
 * Licencied under CeCill-C (http://www.cecill.info/licences/Licence_CeCILL-C_V1-en.html) and GPLv3
 * Intellectual property belongs to IRD, CIRAD, ADNid and SouthGreen development platform
 * Written by Cecile Monat, Christine Tranchant, Ayite Kougbeadjo, Cedric Farcy, Mawusse Agbessi, Enrique Ortega-Abboud, Sébastien Ravel, Julie Orjuela-Bouniol, Souhila Amanzougarene, Gauthier Sarah, Marilyne Summo, and Francois Sabot
-* Copyright 2014-2015
+* Copyright 2014-2016
 
 ## Contact
 
@@ -148,6 +148,6 @@ Ortega-Abboud, Souhila Amanzougarene, Sébastien Ravel, Mawussé Agbessi, Julie 
 
 
 [paperLink]:http://www.biomedcentral.com/1471-2105/16/374
-[installLink]:https://github.com/SouthGreenPlatform/TOGGLE-DEV/blob/master/INSTALL.md
-[manualLink]:https://github.com/SouthGreenPlatform/TOGGLE-DEV/blob/master/MANUAL.md
-[releaseLink]:https://github.com/SouthGreenPlatform/TOGGLE-DEV/blob/master/ReleaseNotes.md
+[installLink]:https://github.com/SouthGreenPlatform/TOGGLE/blob/master/INSTALL.md
+[manualLink]:https://github.com/SouthGreenPlatform/TOGGLE/blob/master/MANUAL.md
+[releaseLink]:https://github.com/SouthGreenPlatform/TOGGLE/blob/master/ReleaseNotes.md

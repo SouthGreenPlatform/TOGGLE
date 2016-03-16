@@ -1,7 +1,7 @@
 
 # Versions Notes
 
-## Release 0.3, the 2th of December, 2015
+## Release 0.3, the 16th of March, 2016
 
 ### Modules
 
