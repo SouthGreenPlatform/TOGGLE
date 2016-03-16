@@ -2,7 +2,7 @@ package HTSeq;
 
 ###################################################################################################################################
 #
-# Copyright 2014 IRD-CIRAD
+# Copyright 2014-2015 IRD-CIRAD-INRA-ADNid
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,15 +23,16 @@ package HTSeq;
 # You should have received a copy of the CeCILL-C license with this program.
 #If not see <http://www.cecill.info/licences/Licence_CeCILL-C_V1-en.txt>
 #
-# Intellectual property belongs to IRD, CIRAD and South Green developpement plateform
-# Written by Cecile Monat, Christine Tranchant, Ayite Kougbeadjo, Cedric Farcy, Mawusse Agbessi, Marilyne Summo, and Francois Sabot
+# Intellectual property belongs to IRD, CIRAD and South Green developpement plateform for all versions also for ADNid for v2 and v3 and INRA for v3
+# Version 1 written by Cecile Monat, Ayite Kougbeadjo, Christine Tranchant, Cedric Farcy, Mawusse Agbessi, Maryline Summo, and Francois Sabot
+# Version 2 written by Cecile Monat, Christine Tranchant, Cedric Farcy, Enrique Ortega-Abboud, Julie Orjuela-Bouniol, Sebastien Ravel, Souhila Amanzougarene, and Francois Sabot
+# Version 3 written by Cecile Monat, Christine Tranchant, Cedric Farcy, Maryline Summo, Julie Orjuela-Bouniol, Sebastien Ravel, Gautier Sarah, and Francois Sabot
 #
 ###################################################################################################################################
 
 use strict;
 use warnings;
 
-use lib qw(.);
 use localConfig;
 use toolbox;
 use Data::Dumper;
@@ -43,10 +44,32 @@ sub htseqCount
     my ($bamFileIn,$htseqFileOut,$annotGffFile,$optionsHachees)=@_;
     if (toolbox::sizeFile($bamFileIn)==1 and toolbox::sizeFile($annotGffFile)==1)            ##Check if the bamfileIn exist and is not empty
     {
-        my $options=toolbox::extractOptions($optionsHachees, " ");  ##Get given options by software.config
-        ## DEBUG toolbox::exportLog("DEBUG: HTSeq::htseqcount : htseqcount option equals to $options",1);
-        my $command=$htseqcount." ".$options." ".$bamFileIn." ".$annotGffFile." -o ".$htseqFileOut; ## Command initialization
         
+        my $options=toolbox::extractOptions($optionsHachees, " ");  ##Get given options by software.config
+        ## DEBUG toolbox::exportLog("DEBUG: HTSeq::htseqcount : htseqcount option equals to options $options",1);
+        
+        my $command;
+        my ($bamFileOut,$readGroup) = pairing::extractName($bamFileIn);
+        
+        # Verify if $bamFileIn is a bam or sam
+        if ($bamFileIn =~ m/.sam$/) # if the file type is sam
+            {
+                $command="$htseqcount $options $bamFileIn $annotGffFile > $htseqFileOut"; ## Command initialization
+            }
+        if ($bamFileIn =~ m/.bam$/) # if the file type is bam, samtools view is used. HTseq-count does not count reads if bam is used.
+            {
+                #$command=samTools::samToolsView($bamFileIn,$bamFileOut, XX?); # pbm avec $optionsHachees
+                $command="samtools view -h  $bamFileIn"; ## Command initialization to samtools view
+                if (toolbox::run($command)==1)
+                {
+                    toolbox::exportLog("INFOS: samTools::samToolsView : correctly done\n",1);
+                    $command="$htseqcount $options $bamFileIn $annotGffFile > $htseqFileOut" ;
+                }
+                else
+                {
+                    toolbox::exportLog("ERROR: samTools::samToolsView : ABORTED\n",0);
+                }
+            }
         # Command is executed with the run function (package toolbox)
         if (toolbox::run($command)==1)
         {

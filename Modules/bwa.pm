@@ -1,10 +1,8 @@
 package bwa;
 
-
-
 ###################################################################################################################################
 #
-# Copyright 2014 IRD-CIRAD
+# Copyright 2014-2015 IRD-CIRAD-INRA-ADNid
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -25,12 +23,12 @@ package bwa;
 # You should have received a copy of the CeCILL-C license with this program.
 #If not see <http://www.cecill.info/licences/Licence_CeCILL-C_V1-en.txt>
 #
-# Intellectual property belongs to IRD, CIRAD and South Green developpement plateform
-# Written by Cecile Monat, Christine Tranchant, Ayite Kougbeadjo, Cedric Farcy, Mawusse Agbessi, Marilyne Summo, and Francois Sabot
+# Intellectual property belongs to IRD, CIRAD and South Green developpement plateform for all versions also for ADNid for v2 and v3 and INRA for v3
+# Version 1 written by Cecile Monat, Ayite Kougbeadjo, Christine Tranchant, Cedric Farcy, Mawusse Agbessi, Maryline Summo, and Francois Sabot
+# Version 2 written by Cecile Monat, Christine Tranchant, Cedric Farcy, Enrique Ortega-Abboud, Julie Orjuela-Bouniol, Sebastien Ravel, Souhila Amanzougarene, and Francois Sabot
+# Version 3 written by Cecile Monat, Christine Tranchant, Cedric Farcy, Maryline Summo, Julie Orjuela-Bouniol, Sebastien Ravel, Gautier Sarah, and Francois Sabot
 #
 ###################################################################################################################################
-
-
 
 use strict;
 use warnings;
@@ -52,7 +50,7 @@ sub bwaIndex
         #Execute command
         if(toolbox::run($command)==1)		##The command should be executed correctly (ie return) before exporting the log
 	{
-            toolbox::exportLog("INFOS: bwa::bwaIndex : correctly done\n",1);		# bwaIndex have been correctly done
+            ##DEBUG toolbox::exportLog("INFOS: bwa::bwaIndex : correctly done\n",1);		# bwaIndex have been correctly done
             return 1;
         }
         else
@@ -63,7 +61,7 @@ sub bwaIndex
     }
     else
     {
-        toolbox::exportLog("ERROR: bwa::bwaIndex : Problem with the file $refFastaFileIn\n",0);		# bwaIndex can not function because of wrong/missing reference file
+        toolbox::exportLog("ERROR: bwa::bwaIndex : the file $refFastaFileIn is empty\n",0);		# bwaIndex can not function because of wrong/missing reference file
         return 0;
     }
 }
@@ -83,7 +81,6 @@ sub bwaAln
         #Execute command
         if(toolbox::run($command)==1)		## if the command has been excuted correctly, export the log
 	{
-            toolbox::exportLog("INFOS: bwa::bwaAln : correctly done\n",1);
             return 1;
         }
 	else
@@ -120,8 +117,7 @@ sub bwaSampe
         #Execute command
         if(toolbox::run($command)==1)		## if the command has been excuted correctly, export the log
 	{
-        toolbox::exportLog("INFOS: bwa::bwaSampe : correctly done\n",1);
-        return 1;
+	    return 1;
         }
 	else
 	{
@@ -131,7 +127,7 @@ sub bwaSampe
     }
     else
     {
-        toolbox::exportLog("ERROR: bwa::bwaSampe : Problem with the files\n",0);
+        toolbox::exportLog("ERROR: bwa::bwaSampe : Problem with the files $refFastaFileIn or $forwardSaiFileIn or $forwardFastqFileIn or $reverseSaiFileIn or  $reverseFastqFileIn\n",0);
         return 0;
         
     }
@@ -141,7 +137,8 @@ sub bwaSampe
 sub bwaSamse
 {
     my($samFileOut,$refFastaFileIn,$saiFileIn,$fastqFileIn,$readGroupLine,$optionsHachees)=@_;
-    if ((toolbox::sizeFile($refFastaFileIn)==1) and (toolbox::sizeFile($saiFileIn)==1)and (toolbox::sizeFile($fastqFileIn)==1))		##Check if entry files exist and are not empty
+    
+    if ((toolbox::sizeFile($refFastaFileIn)==1) and (toolbox::sizeFile($saiFileIn)==1) and (toolbox::sizeFile($fastqFileIn)==1))		##Check if entry files exist and are not empty
     {
         my $options="";
         if ($optionsHachees)
@@ -158,8 +155,7 @@ sub bwaSamse
         #Execute command
         if(toolbox::run($command)==1)		## if the command has been excuted correctly, export the log
 	{
-        toolbox::exportLog("INFOS: bwa::bwaSamse : correctly done\n",1);
-        return 1;
+	    return 1;
         }
 	else
 	{
@@ -169,7 +165,7 @@ sub bwaSamse
     }
     else
     {
-        toolbox::exportLog("ERROR: bwa::bwaSamse : Problem with the files\n",0);
+        toolbox::exportLog("ERROR: bwa::bwaSamse : Problem with the files $refFastaFileIn or $saiFileIn or $fastqFileIn\n",0);
         return 0;
     }
 }
@@ -192,12 +188,11 @@ sub bwaMem
 
         if (toolbox::run($command)==1)
         {
-            toolbox::exportLog("INFOS: bwa::bwaMem : correctly done\n",1);
             return 1;
         }
         else
         {
-            toolbox::exportLog("ERROR: bwa::bwaMem : ABBORTED\n",0);
+            toolbox::exportLog("ERROR: bwa::bwaMem : ABORTED\n",0);
         }
     }
     elsif ((toolbox::sizeFile($forwardFastqFileIn)==1) and (toolbox::sizeFile($reverseFastqFileIn)==1))
@@ -207,17 +202,17 @@ sub bwaMem
         
         if (toolbox::run($command)==1)
         {
-            toolbox::exportLog("INFOS: bwa::bwaMem : correctly done\n",1);
             return 1;
         }
         else
         {
-            toolbox::exportLog("ERROR: bwa::bwaMem : ABBORTED\n",0);
+            toolbox::exportLog("ERROR: bwa::bwaMem : ABORTED\n",0);
         }
     }
     else
     {
-       toolbox::exportLog("ERROR: bwa::bwaMem : Problem with the files\n",0);
+       toolbox::exportLog("ERROR: bwa::bwaMem : Problem with the files $refFastaFileIn, $forwardFastqFileIn or/and $reverseFastqFileIn\n",0);
+       return 0;
     }                                                                                                                              
 }
 1;

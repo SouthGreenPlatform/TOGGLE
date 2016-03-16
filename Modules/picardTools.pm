@@ -1,10 +1,8 @@
 package picardTools;
 
-
-
 ###################################################################################################################################
 #
-# Copyright 2014 IRD-CIRAD
+# Copyright 2014-2015 IRD-CIRAD-INRA-ADNid
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -25,13 +23,12 @@ package picardTools;
 # You should have received a copy of the CeCILL-C license with this program.
 #If not see <http://www.cecill.info/licences/Licence_CeCILL-C_V1-en.txt>
 #
-# Intellectual property belongs to IRD, CIRAD and South Green developpement plateform
-# Written by Cecile Monat, Christine Tranchant, Ayite Kougbeadjo, Cedric Farcy, Mawusse Agbessi, Marilyne Summo, and Francois Sabot
+# Intellectual property belongs to IRD, CIRAD and South Green developpement plateform for all versions also for ADNid for v2 and v3 and INRA for v3
+# Version 1 written by Cecile Monat, Ayite Kougbeadjo, Christine Tranchant, Cedric Farcy, Mawusse Agbessi, Maryline Summo, and Francois Sabot
+# Version 2 written by Cecile Monat, Christine Tranchant, Cedric Farcy, Enrique Ortega-Abboud, Julie Orjuela-Bouniol, Sebastien Ravel, Souhila Amanzougarene, and Francois Sabot
+# Version 3 written by Cecile Monat, Christine Tranchant, Cedric Farcy, Maryline Summo, Julie Orjuela-Bouniol, Sebastien Ravel, Gautier Sarah, and Francois Sabot
 #
 ###################################################################################################################################
-
-
-
 
 use strict;
 use warnings;
@@ -80,7 +77,6 @@ sub picardToolsCreateSequenceDictionary
 	    my $command="$picard/picard.jar CreateSequenceDictionary $options REFERENCE=$refFastaFile OUTPUT=$dictFileOut";        #creation of the command line
 	    if(toolbox::run($command)==1)       #Execution of the command line
 	    {
-	        toolbox::exportLog("INFOS: picardTools::picardToolsCreateSequenceDictionary : Correctly run\n",1);
 	        return 1;
 	    }
 	}
@@ -103,7 +99,7 @@ sub picardToolsCreateSequenceDictionary
 sub picardToolsSortSam
 {
     my($bamOrSamFileIn,$bamOrSamFileOut,$optionsHachees)= @_;       # recovery of informations
-    if ((toolbox::checkSamOrBamFormat($bamOrSamFileIn)==1) && (toolbox::sizeFile($bamOrSamFileIn)==1))        # check if the file to sort is a ".sam" one and is not empty
+    if ((toolbox::checkSamOrBamFormat($bamOrSamFileIn)) && (toolbox::sizeFile($bamOrSamFileIn)==1))        # check if the file to sort is a ".sam" one and is not empty
     {
         my $options="";
         if ($optionsHachees)
@@ -113,7 +109,6 @@ sub picardToolsSortSam
         my $command="$picard/picard.jar SortSam $options INPUT=$bamOrSamFileIn OUTPUT=$bamOrSamFileOut";       #creation of the command line
         if(toolbox::run($command)==1)       #Execute command
         {
-            toolbox::exportLog("INFOS: picardTools::picardToolsSortSam : Correctly run\n",1);
             return 1;
         }
     }
@@ -123,11 +118,127 @@ sub picardToolsSortSam
         return 0;
     }
 }
+
+######################################
+#PicardToolsValidateSamFile
+######################################
+# This module validate the input SAM or BAM.
+sub picardToolsValidateSamFile
+{
+    my($bamOrSamFileIn,$infoFileOut,$optionsHachees)= @_;       # recovery of informations
+    if ((toolbox::checkSamOrBamFormat($bamOrSamFileIn)) && (toolbox::sizeFile($bamOrSamFileIn)==1))        # check if the file to validate is a ".sam" one and is not empty
+    {
+        my $options="";
+        if ($optionsHachees)
+        {
+            $options=toolbox::extractOptions($optionsHachees,"=");      # recovery of options if they are provided
+        }
+        my $command="$picard/picard.jar ValidateSamFile $options INPUT=$bamOrSamFileIn OUTPUT=$infoFileOut";       #creation of the command line
+        if(toolbox::run($command)==1)       #Execute command
+        {
+            toolbox::exportLog("INFOS: picardTools::picardToolsValidateSamFile : Correctly run\n",1);
+            return 1;
+        }
+    }
+    else        # if the file is not a ".bam" one or is empty don't run the module ...
+    {
+        toolbox::exportLog("ERROR: picardTools::picardToolsValidateSamFile : The file $bamOrSamFileIn is incorrect\n",0);       # ... and return an error message
+        return 0;
+    }
+}
+
+######################################
+#PicardToolsCleanSam
+######################################
+# This module cleans the input SAM.
+sub picardToolsCleanSam
+{
+    my($samFileIn,$samFileOut,$optionsHachees)= @_;       # recovery of informations
+    if ((toolbox::checkSamOrBamFormat($samFileIn)) && (toolbox::sizeFile($samFileIn)==1))        # check if the file to sort is a ".sam" one and is not empty
+    {
+        my $options="";
+        if ($optionsHachees)
+        {
+            $options=toolbox::extractOptions($optionsHachees,"=");      # recovery of options if they are provided
+        }
+        my $command="$picard/picard.jar CleanSam $options INPUT=$samFileIn OUTPUT=$samFileOut";       #creation of the command line
+        if(toolbox::run($command)==1)       #Execute command
+        {
+            toolbox::exportLog("INFOS: picardTools::picardToolsCleanSam : Correctly run\n",1);
+            return 1;
+        }
+    }
+    else        # if the file is not a ".bam" one or is empty don't run the module ...
+    {
+        toolbox::exportLog("ERROR: picardTools::picardToolsCleanSam : The file $samFileIn is incorrect\n",0);       # ... and return an error message
+        return 0;
+    }
+}
+
+######################################
+#PicardToolsSamFormatConverter
+######################################
+# This module transforms a SAM file in BAM.
+sub picardToolsSamFormatConverter
+{
+    my($samFileIn,$bamFileOut,$optionsHachees)= @_;       # recovery of informations
+    if ((toolbox::checkSamOrBamFormat($samFileIn)) && (toolbox::sizeFile($samFileIn)==1))        # check if the file to sort is a ".sam" one and is not empty
+    {
+        my $options="";
+        if ($optionsHachees)
+        {
+            $options=toolbox::extractOptions($optionsHachees,"=");      # recovery of options if they are provided
+        }
+        my $command="$picard/picard.jar SamFormatConverter $options INPUT=$samFileIn OUTPUT=$bamFileOut";       #creation of the command line
+        if(toolbox::run($command)==1)       #Execute command
+        {
+            toolbox::exportLog("INFOS: picardTools::picardToolsSamFormatConverter : Correctly run\n",1);
+            return 1;
+        }
+    }
+    else        # if the file is not a ".bam" one or is empty don't run the module ...
+    {
+        toolbox::exportLog("ERROR: picardTools::picardToolsSamFormatConverter : The file $samFileIn is incorrect\n",0);       # ... and return an error message
+        return 0;
+    }
+}
+
+######################################
+#PicardToolsAddOrReplaceGroup
+######################################
+# This module changes the ReadGroup
+sub picardToolsAddOrReplaceGroup
+{
+    my($samFileIn,$bamFileOut,$optionsHachees)= @_;       # recovery of informations
+    if ((toolbox::checkSamOrBamFormat($samFileIn)) && (toolbox::sizeFile($samFileIn)==1))        # check if the file to sort is a ".sam" one and is not empty
+    {
+        my $options="";
+        if ($optionsHachees)
+        {
+            $options=toolbox::extractOptions($optionsHachees,"=");      # recovery of options if they are provided
+        }
+        my $command="$picard/picard.jar AddOrReplaceReadGroups $options INPUT=$samFileIn OUTPUT=$bamFileOut";       #creation of the command line
+        if(toolbox::run($command)==1)       #Execute command
+        {
+            toolbox::exportLog("INFOS: picardTools::picardToolsAddOrReplaceGroup : Correctly run\n",1);
+            return 1;
+        }
+    }
+    else        # if the file is not a ".bam" one or is empty don't run the module ...
+    {
+        toolbox::exportLog("ERROR: picardTools::picardToolsAddOrReplaceGroup : The file $samFileIn is incorrect\n",0);       # ... and return an error message
+        return 0;
+    }
+}
+
 1;
 
 =head1 NAME
+
     Package I<picardTools> 
+
 =head1 SYNOPSIS
+
         use picardTools;
     
         picardTools::picardToolsMarkDuplicates ($bamToAnalyze, $bamAnalyzed, $bamDuplicates, $option_prog{'picardTools markDuplicates'});
@@ -135,24 +246,68 @@ sub picardToolsSortSam
         picardTools::picardToolsCreateSequenceDictionary ($refFastaFile,$dictFileOut,$option_prog{'picardTools createSequenceDictionary'});
     
         picardTools::picardToolsSortSam ($bamOrSamFileIn,$bamOrSamFileOut,$option_prog{'picardTools sortsam single/pair'});
+	
+	picardTools::picardToolsValidateSamFile ($bamOrSamFileIn,$bamOrSamFileOut,$option_prog{'picardTools validateSamFile single/pair'});
+
+
 =head1 DESCRIPTION
+
     Package picardTools is a set of Java command line tools for manipulating high-throughput sequencing data (HTS) data and formats.
+
 =head2 FUNCTIONS
+
+
 =head3 picardTools::picardToolsMarkDuplicates
+
 This module examines aligned records in the supplied SAM or BAM file to locate duplicate molecules. All records are then written to the output file with the duplicate records flagged
 It takes at least three arguments: the ".bam" file user wants to examine, the name of the output file,the name of file to write duplication metrics
 The last argument is the options of picardTools markDuplicates, for more informations see http://broadinstitute.github.io/picard/command-line-overview.html#MarkDuplicates
+
+
+
 =head3 picardTools::picardToolsCreateSequenceDictionary
+
 This module read fasta or fasta.gz containing reference sequences, and write as a SAM or BAM file with only sequence dictionary
 It takes at least two arguments: the database indexed, the name of the output file
 The last argument is the options of picardTools createSequenceDictionnary, for more informations see http://broadinstitute.github.io/picard/command-line-overview.html#CreateSequenceDictionary
+
+
+
 =head3 picardTools::picardToolsSortSam
+
 This module sorts the input SAM or BAM
 It takes at least two arguments: the file to sort, the name of the output file
 The last argument is the options of picardTools sortSam, for more informations see http://broadinstitute.github.io/picard/command-line-overview.html#SortSam
+
+=head3 picardTools::picardToolsValidateSamFile
+
+This module validates the structure of a SAM or BAM input file
+It takes at least two arguments: the file to validate, the name of the output file
+The last argument is the options of picardTools ValidateSamFile, for more informations see http://broadinstitute.github.io/picard/command-line-overview.html#ValidateSamFile
+
+=head3 picardTools::picardToolsClean
+
+This module cleans the provided SAM/BAM, soft-clipping beyond-end-of-reference alignments and setting MAPQ to 0 for unmapped reads
+It takes at least two arguments: the file to validate, the name of the output file
+The last argument is the options of picardTools CleanSam, for more informations see http://broadinstitute.github.io/picard/command-line-overview.html#CleanSam
+
+=head3 picardTools::picardToolsSamFormatConverter
+
+This module transforms the provided SAM/BAM in a BAM/SAM, respectively.
+It takes at least two arguments: the file to transform, the name of the output file
+The last argument is the options of picardTools SamFormatConverter, for more informations see http://broadinstitute.github.io/picard/command-line-overview.html#SamFormatConverter
+
+=head3 picardTools::picardToolsSamFormatConverter
+
+This module changes the ReadGroup or add one
+
 =head1 AUTHORS
+
 Intellectual property belongs to IRD, CIRAD and South Green developpement plateform 
 Written by Cecile Monat, Ayite Kougbeadjo, Marilyne Summo, Cedric Farcy, Mawusse Agbessi, Christine Tranchant and Francois Sabot
+
 =head1 SEE ALSO
+
 L<http://www.southgreen.fr/>
+
 =cut

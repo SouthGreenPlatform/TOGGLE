@@ -23,7 +23,7 @@ Calculating joined length
 Writing header
 Reserving space for joined string
 Joining reference sequences
-  Time to join reference sequences: 00:00:01
+  Time to join reference sequences: 00:00:00
 bmax according to bmaxDivN setting: 160407
 Using parameters --bmax 120306 --dcv 1024
   Doing ahead-of-time memory usage test

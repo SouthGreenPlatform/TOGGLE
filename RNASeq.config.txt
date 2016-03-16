@@ -1,0 +1,52 @@
+$order
+1=fastqc
+2=cutadapt
+3=tophat2
+4=picardToolsSortSam
+5=htseqcount
+
+$cleaner
+3
+
+#PUT YOUR OWN SGE CONFIGURATION HERE
+#$sge
+#-q YOURQUEUE.q
+#-b Y
+#-V
+
+$cutadapt
+-O=10
+-m=35
+-q=20
+--overlap=7
+-u=8
+-U=8
+# Adaptator1 is removed in the forward (-b) and reverse (-B) reads (5' and 3' position)
+-b ADAPTATOR1REVERSE -B ADAPTATOR1REVERSE 
+# Same traitement is done for the forward adaptator sequence
+-b ADAPTATOR1FORWARD -B ADAPTATOR1FORWARD
+
+
+$tophat2
+-i=30
+-I=20000
+-a=8
+-m=1
+--no-coverage-search
+-g=10
+--bowtie-n
+--library-type=fr-unstranded
+--microexon-search
+
+$htseqcount
+-r=name
+-s=no
+-t=mRNA
+-m=union
+-i=ID
+-f=bam
+
+$picardToolsSortSam
+SORT_ORDER=coordinate
+VALIDATION_STRINGENCY=SILENT
+CREATE_INDEX=TRUE

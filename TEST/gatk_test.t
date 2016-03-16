@@ -1,15 +1,34 @@
-#!/usr/bin/perl -w
+#!/usr/bin/perl
 
 ###################################################################################################################################
 #
-# Licencied under CeCill-C (http://www.cecill.info/licences/Licence_CeCILL-C_V1-en.html) and GPLv3
+# Copyright 2014-2015 IRD-CIRAD-INRA-ADNid
 #
-# Intellectual property belongs to IRD, CIRAD and South Green developpement plateform 
-# Written by Cecile Monat, Ayite Kougbeadjo, Marilyne Summo, Cedric Farcy, Mawusse Agbessi, Christine Tranchant and Francois Sabot
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, see <http://www.gnu.org/licenses/> or
+# write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston,
+# MA 02110-1301, USA.
+#
+# You should have received a copy of the CeCILL-C license with this program.
+#If not see <http://www.cecill.info/licences/Licence_CeCILL-C_V1-en.txt>
+#
+# Intellectual property belongs to IRD, CIRAD and South Green developpement plateform for all versions also for ADNid for v2 and v3 and INRA for v3
+# Version 1 written by Cecile Monat, Ayite Kougbeadjo, Christine Tranchant, Cedric Farcy, Mawusse Agbessi, Maryline Summo, and Francois Sabot
+# Version 2 written by Cecile Monat, Christine Tranchant, Cedric Farcy, Enrique Ortega-Abboud, Julie Orjuela-Bouniol, Sebastien Ravel, Souhila Amanzougarene, and Francois Sabot
+# Version 3 written by Cecile Monat, Christine Tranchant, Cedric Farcy, Maryline Summo, Julie Orjuela-Bouniol, Sebastien Ravel, Gautier Sarah, and Francois Sabot
 #
 ###################################################################################################################################
-
-
 
 #Will test if GATK works correctly
 use strict;
@@ -113,7 +132,7 @@ my $bamRealigned="$testingDir/RC3.GATKINDELREALIGNER.bam";
 is(gatk::gatkIndelRealigner($fastaRef, $bamToRealigne, $intervalsFile, $bamRealigned, $optionHachees),1, 'Test for gatk::gatkIndelRealigner');
 
 #####Checking the correct structure for the output file using md5sum
-$expectedMD5sum="56ae82eb60876eaa14b4d737c7d88653";     # structure of the ref file
+$expectedMD5sum="3296b45af3890583e257447cb8d94f2d";     # structure of the ref file
 $observedMD5sum=`md5sum ../DATA-TEST/gatkTestDir/RC3.GATKINDELREALIGNER.bam`;     # structure of the test file
 @withoutName =split (" ", $observedMD5sum);     # to separate the structure and the name of the test file
 $observedMD5sum = $withoutName[0];      #just to have the md5sum result

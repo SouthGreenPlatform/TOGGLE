@@ -1,0 +1,73 @@
+$order
+1=fastqc
+2=cutadapt
+3=bwaAln
+4=bwaSampe
+5=samToolsView
+6=samToolsIndex
+7=picardToolsSortSam
+8=gatkRealignerTargetCreator
+9=gatkIndelRealigner
+10=picardToolsMarkDuplicates
+1000=gatkHaplotypeCaller
+1001=gatkVariantFiltration
+1002=gatkSelectVariants
+
+$cleaner
+3
+4
+9
+
+#PUT YOUR OWN SGE CONFIGURATION HERE
+#$sge
+#-q YOURQUEUE.q
+#-b Y
+#-V
+
+$cutadapt
+-O=10
+-m=35
+-q=20
+--overlap=7
+# Adaptator1 is removed in the forward (-b) and reverse (-B) reads (5' and 3' position)
+-b ADAPTATOR1REVERSE -B ADAPTATOR1REVERSE 
+# Same traitement is done for the forward adaptator sequence
+-b ADAPTATOR1FORWARD -B ADAPTATOR1FORWARD
+
+$bwa aln
+-n=5
+
+$bwa sampe
+
+$picardToolsSortSam
+SORT_ORDER=coordinate
+VALIDATION_STRINGENCY=SILENT
+CREATE_INDEX=TRUE
+
+$samToolsView
+-h
+-b
+-f=0x02
+
+$gatkRealignerTargetCreator
+-T=RealignerTargetCreator
+
+$gatkIndelRealigner
+-T=IndelRealigner
+
+$picardToolsMarkDuplicates
+VALIDATION_STRINGENCY=SILENT
+CREATE_INDEX=TRUE
+REMOVE_DUPLICATES=TRUE
+
+$gatkHaplotypeCaller
+-T=HaplotypeCaller
+-rf BadCigar
+
+$gatkVariantFiltration
+-T=VariantFiltration
+--filterName 'FILTER-DP' --filterExpression 'DP<10 || DP>600' --filterName 'LowQual' --filterExpression 'QUAL<30'
+
+$gatkSelectVariants
+-T=SelectVariants
+-selectType=SNP

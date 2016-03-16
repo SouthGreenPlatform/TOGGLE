@@ -1,9 +1,8 @@
 package toolbox;
 
-
 ###################################################################################################################################
 #
-# Copyright 2014 IRD-CIRAD
+# Copyright 2014-2015 IRD-CIRAD-INRA-ADNid
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,25 +23,26 @@ package toolbox;
 # You should have received a copy of the CeCILL-C license with this program.
 #If not see <http://www.cecill.info/licences/Licence_CeCILL-C_V1-en.txt>
 #
-# Intellectual property belongs to IRD, CIRAD and South Green developpement plateform
-# Written by Cecile Monat, Christine Tranchant, Ayite Kougbeadjo, Cedric Farcy, Mawusse Agbessi, Marilyne Summo, and Francois Sabot
+# Intellectual property belongs to IRD, CIRAD and South Green developpement plateform for all versions also for ADNid for v2 and v3 and INRA for v3
+# Version 1 written by Cecile Monat, Ayite Kougbeadjo, Christine Tranchant, Cedric Farcy, Mawusse Agbessi, Maryline Summo, and Francois Sabot
+# Version 2 written by Cecile Monat, Christine Tranchant, Cedric Farcy, Enrique Ortega-Abboud, Julie Orjuela-Bouniol, Sebastien Ravel, Souhila Amanzougarene, and Francois Sabot
+# Version 3 written by Cecile Monat, Christine Tranchant, Cedric Farcy, Maryline Summo, Julie Orjuela-Bouniol, Sebastien Ravel, Gautier Sarah, and Francois Sabot
 #
 ###################################################################################################################################
-
-
-
 
 use strict;
 use warnings;
 use Data::Dumper;
 use Exporter;
+use IO::Uncompress::Gunzip qw(gunzip $GunzipError);
 
 use localConfig;
+use namingConvention;
 
 #Global infos
-our @ISA=qw(Exporter);
-our @EXPORT=qw($configInfos);
-our $configInfos; #Config informations, ref of an hash
+#our @ISA=qw(Exporter);
+#our @EXPORT=qw($configInfos);
+#my $configInfos; #Config informations, ref of an hash
 
 
 
@@ -145,32 +145,16 @@ sub checkFile
     
     #Check read and write right   
     my $readingRights = readFile($file);
-    my $writingRights = writeFile($file);
     
     my $logOut;
     
-    if ($readingRights == 1 and $writingRights == 1)
+  
+    if($readingRights == 0)
     {
-        $logOut= "INFOS: toolbox::checkFile : The file $file is readable and writable\n";
-    }
-    elsif($readingRights == 1 and $writingRights == 0)
-    {
-        $logOut="ERROR: toolbox::checkFile : The file $file is readable but not writable\n";
-    }
-    elsif($readingRights == 0 and $writingRights ==1)
-    {
-        $logOut="ERROR: toolbox::checkFile : The file $file is writable but not readable\n";
+        $logOut="ERROR: toolbox::checkFile : The file $file is not readable\n";
         exportLog($logOut,0);
-        return 1;
     }
-    else
-    {
-        $logOut="ERROR: toolbox::checkFile : The file $file is not readable and writable\n";
-        exportLog($logOut,0);
-        return 1;
-    }
-    
-    exportLog($logOut,1);   
+     
     return 1;
 }
 ################################################################################################
@@ -271,8 +255,8 @@ sub existsFile
     }
     else		#file does not exists and boolean==0 means log 
     {
-        my $logOut ="INFOS: toolbox::existsFile : The file $file does not exist or is not a file\n$!\n";
-        exportLog($logOut,1);
+        ##DEBUG my $logOut ="INFOS: toolbox::existsFile : The file $file does not exist or is not a file\n$!\n";
+        ##DEBUG exportLog($logOut,1);
 	return 0;
     }
 }
@@ -366,14 +350,13 @@ sub makeDir
 ################################################################################################
 sub readDir
 {
-    toolbox::exportLog("ERROR: toolbox::readDir : should get at one argument only\n",0) if (@_ != 1 );
+    toolbox::exportLog("ERROR: toolbox::readDir : should get at one argument at least\n",0) if (@_ < 1 );
     
     my ($dir)= shift @_;
     
     # if the part of name is given in the second argument, search for files directory/*part_of_name
     # else search for all files directory/*
-    #my $path = defined ($_[0]) ? $dir.'/*'.$_[0] : $dir."/*";
-    my $path = $dir;
+    my $path = defined ($_[0]) ? $dir.'/*'.$_[0] : $dir."/*";
     
     # ls run
     my $file=`ls $path` or toolbox::exportLog("ERROR: toolbox::readDir : Can't open the directory $path\n$!\n",0);
@@ -384,31 +367,22 @@ sub readDir
 
 
     #Validation of the complete path provided, to avoid the 'ls *' bug with a single subfolder
-    my @correctedListOFiles; #Creating a new list for corrected filename/filepath
     foreach my $files (@fileList)
 	{
 	##DEBUG print $files," --> ";
 	#Check if there is at least a '/' in the name
 	if ($files =~ m/\//)
 	    { #The file has the full path
-	    ##DEBUG	    print "No changes to $files\n";
-	    @correctedListOFiles = @fileList; # no need to change
+	    ##DEBUG print "No changes to $files\n";
 	    last; # all must be with full path, so let's leave the correction
 	    }
 	#The full path is not implemented
 	my $subfolder = `ls $dir`;
-	##DEBUG print "\n++",$subfolder;
 	chomp $subfolder;
-	#$files = $dir."/".$subfolder."/".$files; #Adding the complete path
-	$files = $dir."/".$files; #Adding the complete path
-	##DEBUG print "**",$files,"\n";
-	push @correctedListOFiles, $files;
+	$files = $dir."/".$subfolder."/".$files; #Adding the complete path
+	##DEBUG print $files,"\n";
 	}
-    
-    @fileList=@correctedListOFiles; # reinject the correct names/path in the file list
-    
-    ##DEBUG print "\nFINAL LIST: ","@fileList","\n";
-    
+
     return(\@fileList);
 
 }
@@ -430,21 +404,20 @@ sub readDir
 ################################################################################################
 sub readDir2
 {
-    toolbox::exportLog("ERROR: toolbox::readDir2 : should get two arguments, folder and file extension\n",0) if (@_ < 2 );
+    toolbox::exportLog("ERROR: toolbox::readDir2 : should get at one argument at least\n",0) if (@_ < 1 );
     
-    my ($dir,$fileExtension)= @_;
+    my ($dir)= shift @_;
     
-    my $path = $dir."/*".$fileExtension;
-    
-   ##DEBUG  print "\nreadDir2 working on $path\n";
+    # if the part of name is given in the second argument, search for files directory/part_of_name*
+    # else search for all files directory/*
+    my $path = defined ($_[0]) ? $dir.'/'.$_[0].'*' : $dir."/*";
     
     # ls command
     my $file=`ls $path` or toolbox::exportLog("ERROR: toolbox::readDir : Can't open the directory $path\n$!\n",0);
     chomp $file;
     
     # split the list into a table returned after
-    my @fileList = split /\n/, $file;
-    ##DEBUG print "\nreadDir2 filelist:","@fileList","\n";
+    my @fileList = split /\n/, $file; 
     return(\@fileList);
 
 }
@@ -513,7 +486,7 @@ sub extractPath
 sub readFileConf
 {
     my($fileConf) = @_;
-    
+    my $configInfos;
     #chech if the configuration file is readable
     readFile($fileConf) or exportLog("ERROR: toolbox::readFileConf : Cannot read the configuration file $fileConf\n$!\n",0);
  
@@ -537,7 +510,12 @@ sub readFileConf
         if ($currentLine =~ m/^\$/)		#New program to be configured, line starting by $
 	{
             $currentProgram=$currentLine;
-            $currentProgram =~ s/\$//;#remove the "$" in front of the name		
+            $currentProgram =~ s/\$//;#remove the "$" in front of the name
+	    
+	    if ($currentProgram =~ m/sge/i) #even if no options are provided, we must see the SGE key
+	    {
+		$configInfos->{$currentProgram}{' '}=' ';
+	    }
 		    
         }										
         else		#Config lines
@@ -554,6 +532,8 @@ sub readFileConf
         }
     }
   
+    $configInfos=namingConvention::softwareNomenclature($configInfos); # will correct the configInfo names
+    
     return $configInfos;
 
 }
@@ -632,7 +612,8 @@ sub extractName
 {
     my $bruteName=shift @_;	# get the complete path of the file
     
-    $bruteName=~ s/^.+\/(.+)\..+/$1/; # get just the name of the file after the last /
+    $bruteName=`basename $bruteName` or toolbox::exportLog("ERROR : $0 : toolbox::extractName cannot work on $bruteName name\n",0); # get just the name of the file after the last /
+    chomp $bruteName;
 					    ##### REVUE CODE CD 18-09 : et s'il y a un autre point dans le nom de fichier??? ou pas de point
     ##DEBUG print Dumper($bruteName);
     return $bruteName;
@@ -656,18 +637,9 @@ sub extractName
 sub run
 {
     use Capture::Tiny qw(capture);
-    # copy STDOUT and STDERR to another filehandle
-    #open (my $STDOUT_, '>&', STDOUT);
-    #open (my $STDERR_, '>&', STDERR);
-
-    # redirect STDOUT and STDERR to log.txt
-    #open (STDOUT, '>>', 'log.txt');
-    #open (STDERR, '>>', 'log.txt');
-
-    #TODO: Change the adresses for STDOUT and STDERR
     
-    my($command)=@_;
-    exportLog("INFOS: toolbox::run : $command\n",1);
+    my($command,$print)=@_;
+    exportLog("INFOS: toolbox::run : $command\n",1) if (not defined $print);
     
     ##Execute the command
     my ($result,$stderr)=capture {` $command `};
@@ -675,8 +647,7 @@ sub run
     ##Log export according to the error
     if ($?==0)
     {
-	##DEBUG
-	exportLog("INFOS: toolbox::run : ".$result."\n--".$stderr."\n",1);
+	##DEBUG exportLog("INFOS: toolbox::run : ".$result."\n--".$stderr."\n",1);
 	return 1;
     }
     else
@@ -709,8 +680,9 @@ sub run
 sub checkNumberLines
 {
     my ($fileName)=@_;		# recovery of informations
-    my $nbLineCommand="wc -l ".$fileName; #command to count the line number
-    my $nbLine = `$nbLineCommand` or exportLog("ERROR: toolbox::checkNumberLines : Cannot run $nbLineCommand\n$!\n",0);	# execution of the command or if not possible, return an error message
+    #my $nbLineCommand="wc -l ".$fileName; #command to count the line number
+    my $nbLine=4000;
+    #my $nbLine = `$nbLineCommand` or exportLog("ERROR: toolbox::checkNumberLines : Cannot run $nbLineCommand\n$!\n",0);	# execution of the command or if not possible, return an error message
     chomp $nbLine;
     
     #Add a split to only keep the number of line without the file name
@@ -734,28 +706,66 @@ sub checkFormatFastq
     my $notOk = 0;                                                      # counter of error(s)
     my ($fileToTest) = @_;                                              # recovery of file to test
     my $readOk = readFile($fileToTest);                                 # check if the file to test is readable
+
+    #The test of number of lines is too slow for large files
     
-    my $nbLines = toolbox::checkNumberLines(@_);                    # calculing number lines in file
-    my $modulo = ($nbLines % 4);
-    my $even   = ($nbLines % 2);
-    
-    if ( ($nbLines>0) and ($modulo==0) and ($even==0) )                # testing if the number of lines is a multiple of 4
-    {
-        #print "$nbLines is a multiple of 4\n";
-    }
-    else {
-        toolbox::exportLog("ERROR: toolbox::checkFormatFastq : Number of lines is not a multiple of 4 in file $fileToTest.\n",0);
-        return 0;
-    }
+    #my $nbLines = toolbox::checkNumberLines(@_);                    # calculing number lines in file
+    #my $modulo = ($nbLines % 4);
+    #my $even   = ($nbLines % 2);
+    #
+    #if ( ($nbLines>0) and ($modulo==0) and ($even==0) )                # testing if the number of lines is a multiple of 4
+    #{
+    #    #print "$nbLines is a multiple of 4\n";
+    #}
+    #else {
+    #    toolbox::exportLog("ERROR: toolbox::checkFormatFastq : Number of lines is not a multiple of 4 in file $fileToTest.\n",0);
+    #    return 0;
+    #}
                                                                         # open and traite the file if the number of lines is a multiple of 4
-    open (F1, $fileToTest) or toolbox::exportLog("ERROR: toolbox::checkFormatFastq : Cannot open the file $fileToTest\n$!\n",0); # open the file to test
+									
+    #Checking the beginning and end structure
+    my ($beginLines, $endLines);
+    if ($fileToTest =~ m/gz$/)
+	{ # The file is in gzipped format
+	#using zcat command for head and tail
+	$beginLines = `zcat $fileToTest | head -n 4`;
+	$endLines = `zcat $fileToTest | tail -n 4`;
+	 }
+    else
+	{
+	$beginLines = `head -n 4 $fileToTest`;
+	$endLines = `tail -n 4 $fileToTest`;
+	}
+    chomp $beginLines;
+    chomp $endLines;
+    
+    my $valid=1;
+    
+    if ($beginLines !~ m/^@/ and $endLines !~ m/^@/)
+    {
+	$valid = 0; # The file is not containing a 4 lines sequence in FASTQ format
+    }
+    
+    if ($valid == 0)
+    {
+	toolbox::exportLog("ERROR: toolbox::checkFormatFastq : Number of lines is not a multiple of 4 in file $fileToTest, thus not a FASTQ file.\n",0);
+    }
+    
+    
+    open (my $inputHandle, $fileToTest) or toolbox::exportLog("ERROR: toolbox::checkFormatFastq : Cannot open the file $fileToTest\n$!\n",0); # open the file to test
     
     my  @linesF1=();
     my $comp=0;
     my $countlines=0;
     my $stop=0;
     
-    while ((my $line = <F1>))                                           # scanning file and stocking in an array the four lines of a read.
+    #If $fileToTest is in gzip format
+    if($fileToTest =~ m/\.gz$/)
+	{
+	$inputHandle = new IO::Uncompress::Gunzip $inputHandle or toolbox::exportLog("ERROR: toolbox::checkFormatFastq : Cannot open the gz file $fileToTest: $GunzipError\n",0);
+	}	
+    
+    while ((my $line = <$inputHandle>))                                           # scanning file and stocking in an array the four lines of a read.
     {
         chomp $line;
         $countlines++;
@@ -806,7 +816,7 @@ sub checkFormatFastq
                     }
                     else 												# error if fasta line length and quality line length are differents.
                     {
-                        toolbox::exportLog("ERROR: toolbox::checkFormatFastq : Fasta line $nbLineFasta has not the same lenght than quality line $nbQualityLine in file $fileToTest.\n",0);
+                        toolbox::exportLog("ERROR: toolbox::checkFormatFastq : Fasta line $nbLineFasta has not the same length than quality line $nbQualityLine in file $fileToTest.\n",0);
                         $notOk++;
                     }
                 }
@@ -819,7 +829,7 @@ sub checkFormatFastq
                 $i=$i+4; 												# jumping to next read.
             }
             
-            last if ($stop==200000);                                    # stoping treatment if 50000 reads were analysed.
+            last if ($stop==20000);                                    # stoping treatment if 50000 reads were analysed.
             
             undef @linesF1;
             $comp=0;
@@ -838,7 +848,7 @@ sub checkFormatFastq
 	return 0;
     }
     
-    close F1;
+    close $inputHandle;
     
 }
 ################################################################################################
@@ -911,7 +921,8 @@ sub addInfoHeader
 # arguments : filename to analyze
 # Returns boolean (1 if the fileformat is sam, 2 bam and 0 neither bam or sam)
 ################################################################################################
-sub checkSamOrBamFormat {
+sub checkSamOrBamFormat
+{
     
     my ($samFile)=@_;
     
@@ -931,11 +942,11 @@ sub checkSamOrBamFormat {
     }
     my $checkFormatCommand="$samtools view $inputOption $samFile -H > /dev/null";
     # The samtools view will ask only for the header to be outputted (-H option), and the STDOUT is redirected to nowher (>/dev/null);
-    my $formatValidation=run($checkFormatCommand);
+    my $formatValidation=run($checkFormatCommand,"noprint");
     
     if ($formatValidation == 1)                    # if no error occured in extracting header, ok
     {
-        toolbox::exportLog("INFOS: toolbox::checkSamOrBamFormat : The file $samFile is a SAM/BAM file\n",1);
+        ##DEBUG toolbox::exportLog("INFOS: toolbox::checkSamOrBamFormat : The file $samFile is a SAM/BAM file\n",1);
 	return 1 if $binary == 0;# Return 1 if the file is a SAM
 	return 2 if $binary == 1;# Return 2 if the file is a BAM
     }
@@ -1129,9 +1140,14 @@ sub checkVcfFormat
     #Parsing the file
     my @header;#List to gather the header
     my @listOfFields;
-    open(VCF, "<",$file) or toolbox::exportLog("ERROR: toolbox::checkVcfFormat : Cannot open the file $file\n$!\n",0); 
+    open(my $inputHandle, "<",$file) or toolbox::exportLog("ERROR: toolbox::checkVcfFormat : Cannot open the file $file\n$!\n",0);
     
-    while (my $line=<VCF>)
+    # if the input file is a gz file
+    if($file =~ m/\.gz$/)
+    {
+	$inputHandle = new IO::Uncompress::Gunzip $inputHandle or toolbox::exportLog("ERROR: toolbox::checkVcfFormat : Cannot open the gz file $file: $GunzipError\n",0);
+    }
+    while (my $line=<$inputHandle>)
     {
 	chomp $line;
 	
@@ -1148,7 +1164,8 @@ sub checkVcfFormat
     exportLog("ERROR: toolbox::checkVcfFormat : There is no header of the file $file\n",0) unless (defined $versionLine); #Thrown an error if the $version cannot be obtained (misformatted line)	
 
     my @version=split /VCFv/,$versionLine;
-    exportLog("ERROR: toolbox::checkVcfFormat : Cannot evaluate the VCF version of the file $file file\n",0) if (undef @version); #Thrown an error if the $version cannot be obtained (misformatted line)
+    exportLog("ERROR: toolbox::checkVcfFormat : Cannot evaluate the VCF version of the file $file file\n",0) if (scalar(@version)==0); #Thrown an error if the $version cannot be obtained (misformatted line)
+    ##DEBUG print "DEBUG: $0: vcf version $versionLine : ".scalar(@version)." : $version[1] \n"; 
     eval ($version[1] == $version[1]) or exportLog("ERROR: toolbox::checkVcfFormat : Cannot obtain the VCF version of $file\n",0); #Verifying if the value obtained is numerical.
     
     # Check the first line format as recommanded
@@ -1162,7 +1179,7 @@ sub checkVcfFormat
     #Check if the second field (the position) is numerical
     eval ($listOfFields[1] == $listOfFields [1]) or exportLog("Cannot confirm that $file is a VCF.\nAborting.\n",0); #Verifying if numerical. Die if not
    
-    close VCF;
+    close $inputHandle;
 
     return 1; #Return correct if all check are Ok
 }
@@ -1184,7 +1201,7 @@ sub transferDirectoryFromMasterToNode
 {
     my ($localDir,$master) = @_;
 								    ###########################################################################
-    $master = 'nas' if (not defined $master or $master eq '');     #######SUPPOSE QUE LES DONNEES SONT TOUJOURS DANS NAS2 (donc pas /teams) - AJOUTER DANS fichier configuration?
+    $master = 'nas2' if (not defined $master or $master eq '');     #######SUPPOSE QUE LES DONNEES SONT TOUJOURS DANS NAS2 (donc pas /teams) - AJOUTER DANS fichier configuration?
 								    ###########################################################################
     # get the SGE user name
     my $SGE_User = `echo \$USER` or toolbox::exportLog("ERROR: toolbox::transferDirectoryFromMasterToNode : The SGE USER isn't defined\n",0);
@@ -1239,10 +1256,10 @@ sub transferDirectoryFromNodeToMaster
     
     my ($localDir,$distantDir,$erase,$master) = @_;
 								###########################################################################
-    $master = 'nas'; # if (not defined $master or $master eq ''); #######SUPPOSE QUE LES DONNEES SONT TOUJOURS DANS NAS2 (donc pas /teams) - AJOUTER DANS fichier configuration?
+    $master = 'nas2' if (not defined $master or $master eq ''); #######SUPPOSE QUE LES DONNEES SONT TOUJOURS DANS NAS2 (donc pas /teams) - AJOUTER DANS fichier configuration?
 								###########################################################################
     
-    $erase=1 ; # if (not defined $erase);					
+    $erase=1 if (not defined $erase);					
     
      # get the SGE user name
     my $SGE_User = `echo \$USER` or toolbox::exportLog("ERROR: toolbox::transferDirectoryFromMasterToNode : The SGE USER isn't defined\n",0);
@@ -1361,6 +1378,43 @@ sub checkFormatFasta{
    
 ################################################################################################
 # END sub fastaFormatValidator 
+################################################################################################
+
+
+################################################################################################
+# sub relativeToAbsolutePath => modify a relative path in absolute one
+################################################################################################
+# arguments :
+# 	- relative path
+# returns :
+#	- absolute path
+################################################################################################
+sub relativeToAbsolutePath
+{
+    
+    my ($relative)=@_;
+ 
+    return 0 if (not defined($relative));
+ 
+    my ($absolutePath,$log);
+    
+    if ($relative !~ m/^\//) # The relative path is a relative path, ie do not starts with /
+    {
+	my $com = "readlink -m $relative";
+	$absolutePath = `$com`;
+	chomp $absolutePath;
+	$log = "INFOS : $0 : toolbox::relativeToAbsolutePath : the relative path $relative has been modified as an absolute path in $absolutePath \n";
+    }
+    else #relative is in fact an absolute path, send a warning
+    {
+	$log = "INFOS : $0 : toolbox::relativeToAbsolutePath : the path $relative is not a relative but an absolute. TOGGLE will not modify it \n";
+	$absolutePath = $relative;
+    }
+    return ($absolutePath,$log);
+
+}
+################################################################################################
+# END sub relativeToAbsolutePath 
 ################################################################################################
 
 
@@ -1485,12 +1539,13 @@ C<toolbox::readDir($dirToParse,'fastq');>
 
 =head3 toolbox::readDir2()
 
-This function lists the content of a directory and returns the list of files corresponding to a given extension. Two arguments are required : the name of the directory and the extension to be checked.
+This function lists the content of a directory and returns the list of files. One argument is required : the name of the directory.
+An other optional argument can be used that allows to filter on the beginning of a filename. 
 
-Returns the list of files with the given extension.
+Returns the list of files.
 
 Example : 
-C<toolbox::readDir2($dirToParse,'bam');>
+C<toolbox::readDir2($dirToParse,'RC');>
 
 
 =head3 toolbox::extractPath()
@@ -1668,6 +1723,13 @@ toolbox::checkFormatFasta($fastaFile);
 
 This module check the sequences number of a given file using the wc -l command from bash
 It takes only one argument, the file you want to know the number of lines
+
+=head3 toolbox::relativeToAbsolutePath
+
+This module will transform a relative path to the corresponding absolute one using the readlink -m bash command.
+Take note that if the relative is wrong, the absolute will be wrong too.
+The module will inform for transformation and will not modify already absolute paths (starting by '/')
+It takes only one argument, the relative path you want to change
 
 =head1 AUTHORS
  

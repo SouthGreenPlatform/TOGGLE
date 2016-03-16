@@ -1,14 +1,17 @@
-
 TOGGLE : Toolbox for generic NGS analyses
-=========================================
+===========
+
+![TOGGLE Logo](toggleLogo.png)
 
 TOGGLE (TOolbox for Generic nGs anaLysEs) is a suite of 10 packages and more than 110 modules able to manage a large set of NGS softwares
 and utilities to easily design pipelines able to handle hundreds of samples. Moreover, TOGGLE offers an easy way to manipulate the various
 options of the different softwares through the pipelines in using a single basic configuration file, that can be changed for each assay without
 having to change the code itself.
 
-We present also the implementation of TOGGLE in a complete analysis pipeline designed for SNP discovery for large sets of NGS data, ready to use
-in different environments (single machine to HPC clusters).
+Users can also create their own pipeline through an easy and user-friendly approach. The pipelines can starts from Fastq (plain or gunzipped), SAM, BAM or VCF (plain of gunzipped) files, with parallel and global analyses. Samples pipelines are provided for SNP discovery and RNAseq counts.
+
+The system is able to detect parallel/scheduling launching and to manage large amount of samples on large cluster machines.
+
 
 ##  Contributing
 
@@ -17,102 +20,134 @@ in different environments (single machine to HPC clusters).
 * Written by Cecile Monat, Christine Tranchant, Ayite Kougbeadjo, Cedric Farcy, Mawusse Agbessi, Enrique Ortega-Abboud, Sébastien Ravel, Julie Orjuela-Bouniol, Souhila Amanzougarene, Gauthier Sarah, Marilyne Summo, and Francois Sabot
 * Copyright 2014-2015
 
+## Contact
+
+For bug tracking purpose you can use the GitHub or questions about TOGGLE, you can contact the mainteners using the following email addresses:
+
+* christine.tranchant_at_ird.fr
+* francois.sabot_at_ird.fr
+
 ##  Citation
 **TOGGLE: Toolbox for generic NGS analyses**. Cécile Monat, Christine Tranchant-Dubreuil, Ayité Kougbeadjo, Cédric Farcy, Enrique
-Ortega-Abboud, Souhila Amanzougarene, Sébastien Ravel, Mawussé Agbessi, Julie Orjuela-Bouniol, Maryline Summo and François Sabot. In Revision for *BMC Bioinformatics*.
+Ortega-Abboud, Souhila Amanzougarene, Sébastien Ravel, Mawussé Agbessi, Julie Orjuela-Bouniol, Maryline Summo and François Sabot.
+
+[*BMC Bioinformatics* 2015, 16:374  doi:10.1186/s12859-015-0795-6][paperLink]
 
 ##  INSTALLATION
 
-see https://github.com/SouthGreenPlatform/TOGGLE/blob/master/INSTALL.md
+[Follow the INSTALLATION instructions][installLink]
 
+## MANUAL
+
+[You can find a detailed MANUAL here][manualLink]
+
+## Release Notes
+
+[Current Release Notes][releaseLink]
 
 ## REQUIREMENTS
 
 #### Perl
 
 
-* Data::Translate
-* Data::Dumper
-* Test::More
-* Test::Deep
-* Capture::Tiny
+* [Data::Translate](http://search.cpan.org/~davieira/Data_Translate-0.3/Translate.pm)
+* [Data::Dumper](http://search.cpan.org/~smueller/Data-Dumper-2.154/Dumper.pm)
+* [Test::More](http://search.cpan.org/~exodist/Test-Simple-1.001014/lib/Test/More.pm)
+* [Test::Deep](http://search.cpan.org/~rjbs/Test-Deep-0.119/lib/Test/Deep.pm)
+* [Capture::Tiny](http://search.cpan.org/~dagolden/Capture-Tiny-0.30/lib/Capture/Tiny.pm)
+* [List::Compare](http://search.cpan.org/~jkeenan/List-Compare-0.53/lib/List/Compare.pm)
+* [Switch](https://metacpan.org/pod/Switch)
 
 
-#### Bioinformatics software
+#### Bioinformatics software (minimal version)
 
-* Java 1.7
-* FastQC v0.11.1 or higher
-* CutAdapt 1.2.1 or higher
-* bwa 0.7.2 or higher
-* GATK 3.3x or higher
-* PicardTools 1.124 or higher
-* SAMtools 0.1.18 or higher
+* [Perl 5.16](https://www.perl.org/)
+* [java 1.7](https://www.java.com/fr/)
+* [BWA 0.7.2](http://bio-bwa.sourceforge.net/)
+* [SAMtools 0.1.18](http://samtools.sourceforge.net/)
+* [picardTools 1.63](http://broadinstitute.github.io/picard/)
+* [gatk 3.3](https://www.broadinstitute.org/gatk/)
+* [fastQC v0.10.1](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
+* [cutadapt 1.2.1](https://pypi.python.org/pypi/cutadapt)
+* [FastxToolkit](http://hannonlab.cshl.edu/fastx_toolkit/)
+* [Tophat](https://ccb.jhu.edu/software/tophat/index.shtml)
+* [Snpeff](http://snpeff.sourceforge.net/)
+
+#### Bioinformatics tools included
+
+#####BWA (http://bio-bwa.sourceforge.net/)
+
+- bwaAln
+- bwaSampe
+- bwaSamse
+- bwaIndex
+- bwaMem
+
+#####SamTools (http://samtools.sourceforge.net/)
+
+- samToolsFaidx
+- samToolsIndex
+- samToolsView
+- samToolsSort
+- mergeHeader
+- samToolsMerge
+- samToolsIdxstats
+- samToolsDepth
+- samToolsFlagstat
+- samToolsMpileUp
+
+#####PicardTools (http://broadinstitute.github.io/picard/)
+
+- picardToolsMarkDuplicates
+- picardToolsCreateSequenceDictionary
+- picardToolsSortSam
+- picardToolsAddOrReplaceReadGroup
+- picardToolsValidateSamFile
+- picardToolsCleanSam
+- picardToolsSamFormatConverter
 
 
-#### TOGGLE DIRECTORY
+#####Gatk (https://www.broadinstitute.org/gatk/)
 
-````
-TOGGLE
-|
-|_ DATA-TEST
-|
-|_ DATA
-    |———— arcadTest
-            |———— arcad1_1.fastq
-            |———— arcad1_2.fastq
-            |———— arcad2_1.fastq
-            |———— arcad3_1.fastq
-            |———— arcad3_2.fastq
-    |———— expectedData
-    |———— iriginTest
-            |———— irigin1_1.fastq
-            |———— irigin1_2.fastq
-            |———— irigin2_1.fastq
-            |———— irigin3_1.fastq
-            |———— irigin3_2.fastq  
-    |____ referenceArcad.fasta
-    |____ referenceIrigin.fasta
-|
-|_ Modules
-|
-            |———— bwa.pm
-            |———— cufflinks.pm
-            |———— cutadapt.pm
-            |———— fastqUtils.pm
-            |———— fastqc.pm
-            |———— gatk.pm
-            |———— localConfig.pm
-            |———— pairing.pm
-            |———— picardTools.pm
-            |———— samTools.pm
-            |____ toolbox.pm
-            |____ tophat.pm
-|
-|_ TEST
-            |———— adaptator.txt
-            |————  adaptator.txt
-            |———— all_tests.sh
-            |———— bwa_test.t
-            |———— cufflinks_test.t
-            |———— cutadapt_test.t
-            |———— fastqUtils_test.t
-            |———— fastqc_test.t
-            |———— gatk_test.t
-            |———— localConfig_test.t
-            |———— pairing_test.t
-            |———— picardTools_test.t
-            |———— pipelineTryExample.p
-            |———— samTools_test.t
-            |———— software.config.txt
-            |———— toolbox_test.t
-            |———— tophat_test.t
-|_ LICENSE
-|_ README.md
-|_ adaptator.txt
-|_ globalAnalysis.pl
-|_ mergeAnaysis.pl
-|_ pairAnalysis.pl
-|_ singleAnalysis.pl
-|_ software.config.txt
-|_ software.config.txt.test
-````
+- gatkBaseRecalibrator
+- gatkRealignerTargetCreator
+- gatkIndelRealigner
+- gatkHaplotypeCaller
+- gatkSelectVariants
+- gatkVariantFiltration
+- gatkReadBackedPhasing
+- gatkUnifiedGenotyper
+- gatkBaseRecalibrator
+- gatkPrintReads
+
+#####Fastqc (http://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
+
+- fastqc
+
+#####FastxToolkit (http://hannonlab.cshl.edu/fastx_toolkit/)
+
+- fastxTrimmer
+
+#####Tophat (https://ccb.jhu.edu/software/tophat/index.shtml)
+
+- bowtiebuild
+- bowtie2build
+- tophat2
+
+#####Snpeff (http://snpeff.sourceforge.net/)
+
+- snpeffAnnotation
+
+#####Cutadapt (https://pypi.python.org/pypi/cutadapt)
+
+- cutadapt
+
+#### OPTIONAL
+- Graphviz v2.xx (http://www.graphviz.org/)
+
+
+
+[paperLink]:http://www.biomedcentral.com/1471-2105/16/374
+[installLink]:https://github.com/SouthGreenPlatform/TOGGLE-DEV/blob/master/INSTALL.md
+[manualLink]:https://github.com/SouthGreenPlatform/TOGGLE-DEV/blob/master/MANUAL.md
+[releaseLink]:https://github.com/SouthGreenPlatform/TOGGLE-DEV/blob/master/ReleaseNotes.md

@@ -1,0 +1,32 @@
+
+##########################################
+# picardToolsMarkDuplicates
+##########################################
+
+#Correct variable populating
+foreach my $file (@{$fileList})
+{
+    if ($file =~ m/bam$|sam$/) # the file type is normally bam or sam
+    {
+        if ( $samFileIn eq "NA" ) # first sam or bam found
+        {
+            $samFileIn = $file;
+        }
+        else
+        {
+            toolbox::exportLog("ERROR : $0 : there are more than two bam or sam files at $stepName step.\n",0);
+        }
+    }
+}
+
+if ($samFileIn eq "NA" )    # No sam or bam found
+{
+    toolbox::exportLog("ERROR : $0 : No SAM/BAM file provided at step $stepName\n",0) ;
+}
+else
+{
+    my $duplicatesMetrics = $readGroup.".metrics";
+    $samFileOut = $newDir."/"."$readGroup".".PICARDTOOLSMARKDUPLICATES.bam";                              # name for the output file of picardtools markduplicates sam
+    $softParameters = toolbox::extractHashSoft($optionRef,"picardToolsMarkDuplicates");                           # recovery of specific parameters of picard markduplicates sam
+    picardTools::picardToolsMarkDuplicates($samFileIn,$samFileOut,$duplicatesMetrics,$softParameters); 
+}

@@ -1,10 +1,8 @@
 package pairing;
 
-
-
 ###################################################################################################################################
 #
-# Copyright 2014 IRD-CIRAD
+# Copyright 2014-2015 IRD-CIRAD-INRA-ADNid
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -25,19 +23,21 @@ package pairing;
 # You should have received a copy of the CeCILL-C license with this program.
 #If not see <http://www.cecill.info/licences/Licence_CeCILL-C_V1-en.txt>
 #
-# Intellectual property belongs to IRD, CIRAD and South Green developpement plateform
-# Written by Cecile Monat, Christine Tranchant, Ayite Kougbeadjo, Cedric Farcy, Mawusse Agbessi, Marilyne Summo, and Francois Sabot
+# Intellectual property belongs to IRD, CIRAD and South Green developpement plateform for all versions also for ADNid for v2 and v3 and INRA for v3
+# Version 1 written by Cecile Monat, Ayite Kougbeadjo, Christine Tranchant, Cedric Farcy, Mawusse Agbessi, Maryline Summo, and Francois Sabot
+# Version 2 written by Cecile Monat, Christine Tranchant, Cedric Farcy, Enrique Ortega-Abboud, Julie Orjuela-Bouniol, Sebastien Ravel, Souhila Amanzougarene, and Francois Sabot
+# Version 3 written by Cecile Monat, Christine Tranchant, Cedric Farcy, Maryline Summo, Julie Orjuela-Bouniol, Sebastien Ravel, Gautier Sarah, and Francois Sabot
 #
 ###################################################################################################################################
-
-
-
 
 use strict;
 use warnings;
 use localConfig;
 use toolbox;
 
+#For gz files
+use IO::Compress::Gzip qw(gzip $GzipError);
+use IO::Uncompress::Gunzip qw(gunzip $GunzipError);
 
 #########################################
 #pairRecognition
@@ -84,7 +84,9 @@ sub pairRecognition
 	}
 	
 	# If the file is a fastq one:
-	my $firstLineComplete=`head -n 1 $currentFile`;		#Fetching the first line to obtain the ID sequence 
+	my $firstLineComplete=`head -n 1 $currentFile`;		#Fetching the first line to obtain the ID sequence
+	#if the file is a gz Compressed file
+	$firstLineComplete = `zcat $currentFile | head -n 1` if ($currentFile =~ m/gz$/);
 	chomp $firstLineComplete;
 	my $namingConvention;		#Infos for the type of modification
 	
@@ -93,12 +95,12 @@ sub pairRecognition
 	#Picking up the name of the pair and its coding convention 
 	my $sequenceName=$firstLineComplete; 
 	$sequenceName =~ s/\/.$// and $namingConvention = 1; # old agreement /1 /2
-	$sequenceName =~ s/\s\d:\w:\d:\w+$// and $namingConvention = 2; # new agreement 1:N:[A-Z]1 to 10
+	$sequenceName =~ s/\s\d:\w:\d:\w*$// and $namingConvention = 2; # new agreement 1:N:[A-Z]1 to 10
 	
 	#Picking up the strand of the current mate of the pair 
 	my $typeOfStrand=$firstLineComplete;
 	$typeOfStrand =~ s/.+\/(.)$/$1/ if $namingConvention == 1;
-	$typeOfStrand =~ s/.+\s(\d:\w:\d:\w+)$/$1/ if $namingConvention == 2;
+	$typeOfStrand =~ s/.+\s(\d:\w:\d:\w*)$/$1/ if $namingConvention == 2;
 	
 	#Converting the end of Line in forward and reverse
 	my $nameOfStrand = "unknown"; # May correspond to the single sequence
@@ -150,10 +152,10 @@ sub createDirPerCouple
 		return 0;
 	    }
 	    #Everything is Ok, we copy the files in the correct place and remove the files from their original place
-	    my $forwardCopyCommand="cp $forwardFile ".$ReadGroup."/. && rm -Rf $forwardFile"; # removing will be effective ONLY if copy is ok
-	    toolbox::run($forwardCopyCommand);
-	    my $reverseCopyCommand="cp $reverseFile ".$ReadGroup."/. && rm -Rf $reverseFile" if $reverseFile;#reverse file may be absent
-	    toolbox::run($reverseCopyCommand) if $reverseFile;
+	    my $forwardCopyCommand="mv $forwardFile ".$ReadGroup."/."; # removing will be effective ONLY if copy is ok
+	    toolbox::run($forwardCopyCommand,"noprint");
+	    my $reverseCopyCommand="mv $reverseFile ".$ReadGroup."/." if $reverseFile;#reverse file may be absent
+	    toolbox::run($reverseCopyCommand,"noprint") if $reverseFile;
 	}
     }
     return 1;
@@ -187,13 +189,29 @@ sub repairing
     my $singleFileOut=$singleDir.$readGroup."Single.fastq";
 
     #Opening infiles
-    open(FOR, "<", $forwardFile) or toolbox::exportLog("ERROR: pairing::repairing : Can't open the file $forwardFile $!\n",0);
-    open(REV, "<", $reverseFile) or toolbox::exportLog("ERROR: pairing::repairing : Can't open the file $reverseFile $!\n",0);
+    open(my $forwardIn, "<", $forwardFile) or toolbox::exportLog("ERROR: pairing::repairing : Can't open the file $forwardFile $!\n",0);
+    open(my $reverseIn, "<", $reverseFile) or toolbox::exportLog("ERROR: pairing::repairing : Can't open the file $reverseFile $!\n",0);
     
     #Opening outfiles
-    open(MATEF, ">",$forwardFileOut) or toolbox::exportLog("ERROR: pairing::repairing : Can't open the file $forwardFileOut $!\n",0);
-    open(MATER, ">",$reverseFileOut) or toolbox::exportLog("ERROR: pairing::repairing : Can't open the file $reverseFileOut $!\n",0);
-    open(SINGLE,">",$singleFileOut) or toolbox::exportLog("ERROR: pairing::repairing : Can't open the file $singleFileOut $!\n",0);
+    open(my $mateForward, ">",$forwardFileOut) or toolbox::exportLog("ERROR: pairing::repairing : Can't open the file $forwardFileOut $!\n",0);
+    open(my $mateReverse, ">",$reverseFileOut) or toolbox::exportLog("ERROR: pairing::repairing : Can't open the file $reverseFileOut $!\n",0);
+    open(my $single,">",$singleFileOut) or toolbox::exportLog("ERROR: pairing::repairing : Can't open the file $singleFileOut $!\n",0);
+      
+        
+    #If input files are gzipped
+    if($forwardFile =~ m/\.gz$/)
+    {
+	#Transforming the output flux in a compressed gz format
+	$mateForward = new IO::Compress::Gzip $mateForward or toolbox::exportLog("ERROR: pairing::repairing : Can't create the gz file $mateForward : $GzipError $!\n",0);
+	$mateForward->autoflush(1);
+	$mateReverse = new IO::Compress::Gzip $mateReverse or toolbox::exportLog("ERROR: pairing::repairing : Can't create the gz file $mateReverse : $GzipError $!\n",0);
+	$mateReverse->autoflush(1);
+	$single = new IO::Compress::Gzip $single or toolbox::exportLog("ERROR: pairing::repairing : Can't create the gz file $single : $GzipError $!\n",0);
+	$single->autoflush(1);
+	#Decompressing in input gz flux
+	$forwardIn = new IO::Uncompress::Gunzip $forwardIn or toolbox::exportLog("ERROR: pairing::repairing : Can't open the gz file $forwardIn : $GzipError $!\n",0);
+	$reverseIn = new IO::Uncompress::Gunzip $reverseIn or toolbox::exportLog("ERROR: pairing::repairing : Can't open the gz file $reverseIn : $GzipError $!\n",0);
+    }
     
     #Creating counters
     my $pairedSequences=0;
@@ -203,45 +221,45 @@ sub repairing
     my %forwardSequences;
     
     #Reading forward input file
-    while (<FOR>)		# for each line of the file
+    while (<$forwardIn>)		# for each line of the file
     {
 	my $line = $_;		# recovery of sequence's name line
 	chomp $line;
         next if ($line =~ m/^$/);		# next line if the line is empty
         my $next = $line."\n";
 	$line =~ s/\/\d$//;		# Removing the ending /1 or /2 if the file is encoded in Illumina 1.3-1.8
-        $line =~ s/\s\d:\w:\d:\w+$//;		#Removing the ending 1:N:1234 or analog if the file is encoded in Illumina 1.9+
-	$next .= <FOR>;		# add the sequence line to the "next" variable
-	$next .= <FOR>;		# add the informations line to the "next" variable
-	$next .= <FOR>;		# add the quality line to the "next" variable
+        $line =~ s/\s\d:\w:\d:\w*$//;		#Removing the ending 1:N:1234 or analog if the file is encoded in Illumina 1.9+
+	$next .= <$forwardIn>;		# add the sequence line to the "next" variable
+	$next .= <$forwardIn>;		# add the informations line to the "next" variable
+	$next .= <$forwardIn>;		# add the quality line to the "next" variable
 	$forwardSequences{$line}=$next;		# hash listing forward sequences{name of the current sequence}= lines of sequences, infos and quality
     }
 
     #Comparing with the reverse seq ID
-    while (<REV>)		# for each line of the file
+    while (<$reverseIn>)		# for each line of the file
     {
 	my $line = $_;		# recovery of sequence's name line
 	chomp $line;
 	next if ($line =~ m/^$/);		# next line if the line is empty
 	my $next = $line."\n";
 	$line =~ s/\/\d$//;		# Removing the ending /1 or /2 if the file is encoded in Illumina 1.3-1.8
-	$line =~ s/\s\d:\w:\d:\w+$//;		#Removing the ending 1:N:1234 or analog if the file is encoded in Illumina 1.9+
-	$next .= <REV>;		# add the sequence line to the "next" variable
-	$next .= <REV>;		# add the informations line to the "next" variable
-	$next .= <REV>;		# add the quality line to the "next" variable
+	$line =~ s/\s\d:\w:\d:\w*$//;		#Removing the ending 1:N:1234 or analog if the file is encoded in Illumina 1.9+
+	$next .= <$reverseIn>;		# add the sequence line to the "next" variable
+	$next .= <$reverseIn>;		# add the informations line to the "next" variable
+	$next .= <$reverseIn>;		# add the quality line to the "next" variable
 	if (exists $forwardSequences{$line})		# if it exists a key of the current sequence in the hash of forward sequence
 	{
 	    my $out = $forwardSequences{$line};
-	    print MATEF $out;		# print in the forward file the coorespondante sequence has the current sequence
+	    print $mateForward $out;		# print in the forward file the coorespondante sequence has the current sequence
 	    my $out2 = $next;
-	    print MATER $out2;		# print in the reverse file the current sequence
+	    print $mateReverse $out2;		# print in the reverse file the current sequence
 	    delete $forwardSequences{$line}; # To save memory and to conserve only the singles
 	    $pairedSequences++; #Increment the number of pairs
 	}
 	else		# if the current sequence is not listed in the hash of forward sequence, that means it is a single one
 	{
 	    my $out2 = $next;
-	    print SINGLE $out2;		# print in the single file the current sequence
+	    print $single $out2;		# print in the single file the current sequence
 	    $singleSequences++;#Increment the number of single sequences
 	}
     }
@@ -249,7 +267,7 @@ sub repairing
     foreach my $remainingNames (keys %forwardSequences)		# after the comparison of all the reverse sequences, if it remains some forward sequence, that mean it is a single one
     {
         my $out = $forwardSequences{$remainingNames};
-        print SINGLE $out;		# print in the single file the current sequence
+        print $single $out;		# print in the single file the current sequence
         $singleSequences++;#Increment the number of single sequences
     }
 
@@ -260,11 +278,11 @@ sub repairing
     }
     
     #Closing files
-    close MATEF;
-    close MATER;
-    close SINGLE;
-    close FOR;
-    close REV;
+    close $mateForward;
+    close $mateReverse;
+    close $single;
+    close $forwardIn;
+    close $reverseIn;
     
     #Creation of the output
     my $outlog="INFOS: pairing::repairing : ".$pairedSequences." pairs were recovered (".($pairedSequences*2)." sequences), and ".$singleSequences." singles were extracted\n";
@@ -281,25 +299,17 @@ sub extractName
     my ($file)=@_;		# recovery of informations
     chomp $file; 
 
-    my @path=split /\//, $file;		# split the path of the file by "/"
+    my $name=`basename $file` or toolbox::exportLog("ERROR : $0 : pairing::extractName cannot work on $file name\n",0);		# recovery of the last name present in the path, normally the name of the file
 
-    my $name=$path[$#path];		# recovery of the last name present in the path, normally the name of the file
-
+    chomp $name;
+    
     my @listName=split /\./, $name; #Separate in a list the filename and its format (ex file1.fastq is separated in file1 and fastq)
 
-    pop @listName if (scalar @listName > 1); #Will remove the last value of the list ONLY if there are more than one. ex: "file.fasta" will pop, but not "file"
-    
-    my $fileWithoutFormat = join ('.',@listName); #Will reconstitute the original name without the format. Ex, the file.one.fasta will be recovered as file.one
+    my $shortName = shift @listName ;#pick up what is before the first "."
 
-    
-    my $shortName=$fileWithoutFormat;#allows removing of format (fastq) and of all "." remaining in the name.
-
-    my $readGroup=$fileWithoutFormat; #Picking up the readGroup name as the returning of the previous line
-
-    $readGroup =~ s/\.[A-Z]+//; # Removing infos from names such as .CUTADAPT. Eg file_3.CUTADAPT.fastq is now file_3 
-    $readGroup =~ s/(^.*)_\d$/$1/;#Check if the file is named on the type readGroup_1 or even only readGroup
-    
-   
+    my $readGroup=$shortName; #Picking up the readGroup name as the returning of the previous line
+    $readGroup =~ s/_.*$//; # Removing what is after any "_" 
+       
     #cleaning name
     $shortName=~ s/ /_/g;#removing spaces
     $shortName=~ s/[é|è|ê]/e/g;#removing non utf8 accents from e
@@ -351,6 +361,7 @@ It takes two arguments: the hash of pair (and single) informations, the name of 
 This module recognize pair sequences. After the cleaning stage, some pair files does not contain the same number of sequences anymore, this module extract the new single sequences from the pair files to
 get real pair files again.
 It takes three arguments: the forward file, the reverse file, the name of the output directory
+The FASTQ files can be in plain format or in gz compressed fastq format
 
 
 

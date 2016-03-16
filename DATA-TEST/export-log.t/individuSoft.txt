@@ -1,4 +1,0 @@
-RC1
-fastqc
-bwa
-gatk

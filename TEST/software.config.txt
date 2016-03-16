@@ -12,12 +12,7 @@ $cutadapt
 --overlap=7
 
 #2nd program config
-$samtools view single
--h
--b
--F=0x04
-
-$samtools view pair
+$samtools view 
 -h
 -b
 -F=0x02
@@ -64,17 +59,14 @@ $GATK gatkHaplotypeCaller
 -T=HaplotypeCaller
 
 
-$picardTools sortsam pair
+$picardTools sortsam 
 SORT_ORDER=coordinate
 VALIDATION_STRINGENCY=SILENT
-
-$picardTools sortsam single
--SORT_ORDER=coordinate
 
 $picardTools MarkDuplicates
 VALIDATION_STRINGENCY=SILENT
 
-$tophat tophatRun
+$tophat2
 -i=30
 -I=20000
 -a=8
@@ -82,10 +74,8 @@ $tophat tophatRun
 --no-coverage-search
 -g=10
 --bowtie-n
---library-type
-fr-unstranded
+--library-type fr-unstranded
 --microexon-search
 
 $picardTools createSequenceDictionary
 no_option
-

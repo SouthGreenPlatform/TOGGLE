@@ -1,44 +1,44 @@
 
-[2015-05-15 14:32:35] Beginning TopHat run (v2.0.14)
+[2015-05-29 09:36:00] Beginning TopHat run (v2.0.14)
 -----------------------------------------------
-[2015-05-15 14:32:35] Checking for Bowtie
-		  Bowtie version:	 2.2.4.0
-[2015-05-15 14:32:35] Checking for Bowtie index files (genome)..
-[2015-05-15 14:32:35] Checking for reference FASTA file
-[2015-05-15 14:32:35] Generating SAM header for ../referenceRNASeq
-[2015-05-15 14:32:35] Reading known junctions from GTF file
-[2015-05-15 14:32:35] Preparing reads
+[2015-05-29 09:36:00] Checking for Bowtie
+		  Bowtie version:	 2.2.5.0
+[2015-05-29 09:36:00] Checking for Bowtie index files (genome)..
+[2015-05-29 09:36:00] Checking for reference FASTA file
+[2015-05-29 09:36:00] Generating SAM header for ../referenceRNASeq
+[2015-05-29 09:36:00] Reading known junctions from GTF file
+[2015-05-29 09:36:01] Preparing reads
 	 left reads: min. length=49, max. length=118, 1000 kept reads (0 discarded)
 	right reads: min. length=35, max. length=118, 1000 kept reads (0 discarded)
-[2015-05-15 14:32:35] Building transcriptome data files ../tophat/tmp/referenceRNASeq
-[2015-05-15 14:32:36] Building Bowtie index from referenceRNASeq.fa
-[2015-05-15 14:32:39] Mapping left_kept_reads to transcriptome referenceRNASeq with Bowtie2 
-[2015-05-15 14:32:39] Mapping right_kept_reads to transcriptome referenceRNASeq with Bowtie2 
-[2015-05-15 14:32:40] Resuming TopHat pipeline with unmapped reads
-[2015-05-15 14:32:40] Mapping left_kept_reads.m2g_um to genome referenceRNASeq with Bowtie2 
-[2015-05-15 14:32:40] Mapping left_kept_reads.m2g_um_seg1 to genome referenceRNASeq with Bowtie2 (1/4)
-[2015-05-15 14:32:40] Mapping left_kept_reads.m2g_um_seg2 to genome referenceRNASeq with Bowtie2 (2/4)
-[2015-05-15 14:32:40] Mapping left_kept_reads.m2g_um_seg3 to genome referenceRNASeq with Bowtie2 (3/4)
-[2015-05-15 14:32:40] Mapping left_kept_reads.m2g_um_seg4 to genome referenceRNASeq with Bowtie2 (4/4)
-[2015-05-15 14:32:40] Mapping right_kept_reads.m2g_um to genome referenceRNASeq with Bowtie2 
-[2015-05-15 14:32:41] Mapping right_kept_reads.m2g_um_seg1 to genome referenceRNASeq with Bowtie2 (1/4)
-[2015-05-15 14:32:41] Mapping right_kept_reads.m2g_um_seg2 to genome referenceRNASeq with Bowtie2 (2/4)
-[2015-05-15 14:32:41] Mapping right_kept_reads.m2g_um_seg3 to genome referenceRNASeq with Bowtie2 (3/4)
-[2015-05-15 14:32:41] Mapping right_kept_reads.m2g_um_seg4 to genome referenceRNASeq with Bowtie2 (4/4)
-[2015-05-15 14:32:41] Searching for junctions via segment mapping
-[2015-05-15 14:32:45] Retrieving sequences for splices
-[2015-05-15 14:32:47] Indexing splices
-[2015-05-15 14:32:49] Mapping left_kept_reads.m2g_um_seg1 to genome segment_juncs with Bowtie2 (1/4)
-[2015-05-15 14:32:49] Mapping left_kept_reads.m2g_um_seg2 to genome segment_juncs with Bowtie2 (2/4)
-[2015-05-15 14:32:49] Mapping left_kept_reads.m2g_um_seg3 to genome segment_juncs with Bowtie2 (3/4)
-[2015-05-15 14:32:49] Mapping left_kept_reads.m2g_um_seg4 to genome segment_juncs with Bowtie2 (4/4)
-[2015-05-15 14:32:49] Joining segment hits
-[2015-05-15 14:32:52] Mapping right_kept_reads.m2g_um_seg1 to genome segment_juncs with Bowtie2 (1/4)
-[2015-05-15 14:32:52] Mapping right_kept_reads.m2g_um_seg2 to genome segment_juncs with Bowtie2 (2/4)
-[2015-05-15 14:32:52] Mapping right_kept_reads.m2g_um_seg3 to genome segment_juncs with Bowtie2 (3/4)
-[2015-05-15 14:32:53] Mapping right_kept_reads.m2g_um_seg4 to genome segment_juncs with Bowtie2 (4/4)
-[2015-05-15 14:32:53] Joining segment hits
-[2015-05-15 14:32:56] Reporting output tracks
+[2015-05-29 09:36:01] Building transcriptome data files ../tophat/tmp/referenceRNASeq
+[2015-05-29 09:36:01] Building Bowtie index from referenceRNASeq.fa
+[2015-05-29 09:36:04] Mapping left_kept_reads to transcriptome referenceRNASeq with Bowtie2 
+[2015-05-29 09:36:04] Mapping right_kept_reads to transcriptome referenceRNASeq with Bowtie2 
+[2015-05-29 09:36:04] Resuming TopHat pipeline with unmapped reads
+[2015-05-29 09:36:05] Mapping left_kept_reads.m2g_um to genome referenceRNASeq with Bowtie2 
+[2015-05-29 09:36:05] Mapping left_kept_reads.m2g_um_seg1 to genome referenceRNASeq with Bowtie2 (1/4)
+[2015-05-29 09:36:05] Mapping left_kept_reads.m2g_um_seg2 to genome referenceRNASeq with Bowtie2 (2/4)
+[2015-05-29 09:36:05] Mapping left_kept_reads.m2g_um_seg3 to genome referenceRNASeq with Bowtie2 (3/4)
+[2015-05-29 09:36:05] Mapping left_kept_reads.m2g_um_seg4 to genome referenceRNASeq with Bowtie2 (4/4)
+[2015-05-29 09:36:05] Mapping right_kept_reads.m2g_um to genome referenceRNASeq with Bowtie2 
+[2015-05-29 09:36:06] Mapping right_kept_reads.m2g_um_seg1 to genome referenceRNASeq with Bowtie2 (1/4)
+[2015-05-29 09:36:06] Mapping right_kept_reads.m2g_um_seg2 to genome referenceRNASeq with Bowtie2 (2/4)
+[2015-05-29 09:36:06] Mapping right_kept_reads.m2g_um_seg3 to genome referenceRNASeq with Bowtie2 (3/4)
+[2015-05-29 09:36:06] Mapping right_kept_reads.m2g_um_seg4 to genome referenceRNASeq with Bowtie2 (4/4)
+[2015-05-29 09:36:06] Searching for junctions via segment mapping
+[2015-05-29 09:36:09] Retrieving sequences for splices
+[2015-05-29 09:36:12] Indexing splices
+[2015-05-29 09:36:13] Mapping left_kept_reads.m2g_um_seg1 to genome segment_juncs with Bowtie2 (1/4)
+[2015-05-29 09:36:13] Mapping left_kept_reads.m2g_um_seg2 to genome segment_juncs with Bowtie2 (2/4)
+[2015-05-29 09:36:14] Mapping left_kept_reads.m2g_um_seg3 to genome segment_juncs with Bowtie2 (3/4)
+[2015-05-29 09:36:14] Mapping left_kept_reads.m2g_um_seg4 to genome segment_juncs with Bowtie2 (4/4)
+[2015-05-29 09:36:14] Joining segment hits
+[2015-05-29 09:36:17] Mapping right_kept_reads.m2g_um_seg1 to genome segment_juncs with Bowtie2 (1/4)
+[2015-05-29 09:36:17] Mapping right_kept_reads.m2g_um_seg2 to genome segment_juncs with Bowtie2 (2/4)
+[2015-05-29 09:36:17] Mapping right_kept_reads.m2g_um_seg3 to genome segment_juncs with Bowtie2 (3/4)
+[2015-05-29 09:36:17] Mapping right_kept_reads.m2g_um_seg4 to genome segment_juncs with Bowtie2 (4/4)
+[2015-05-29 09:36:17] Joining segment hits
+[2015-05-29 09:36:20] Reporting output tracks
 -----------------------------------------------
-[2015-05-15 14:32:59] A summary of the alignment counts can be found in ../tophat/align_summary.txt
-[2015-05-15 14:32:59] Run complete: 00:00:23 elapsed
+[2015-05-29 09:36:23] A summary of the alignment counts can be found in ../tophat/align_summary.txt
+[2015-05-29 09:36:23] Run complete: 00:00:22 elapsed

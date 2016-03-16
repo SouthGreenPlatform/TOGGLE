@@ -1,8 +1,8 @@
-#!/usr/bin/perl -w
+#!/usr/bin/perl
 
 ###################################################################################################################################
 #
-# Copyright 2014 IRD-CIRAD
+# Copyright 2014-2015 IRD-CIRAD-INRA-ADNid
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,16 +23,17 @@
 # You should have received a copy of the CeCILL-C license with this program.
 #If not see <http://www.cecill.info/licences/Licence_CeCILL-C_V1-en.txt>
 #
-# Intellectual property belongs to IRD, CIRAD and South Green developpement plateform
-# Written by Cecile Monat, Christine Tranchant, Ayite Kougbeadjo, Cedric Farcy, Mawusse Agbessi, Marilyne Summo, and Francois Sabot
+# Intellectual property belongs to IRD, CIRAD and South Green developpement plateform for all versions also for ADNid for v2 and v3 and INRA for v3
+# Version 1 written by Cecile Monat, Ayite Kougbeadjo, Christine Tranchant, Cedric Farcy, Mawusse Agbessi, Maryline Summo, and Francois Sabot
+# Version 2 written by Cecile Monat, Christine Tranchant, Cedric Farcy, Enrique Ortega-Abboud, Julie Orjuela-Bouniol, Sebastien Ravel, Souhila Amanzougarene, and Francois Sabot
+# Version 3 written by Cecile Monat, Christine Tranchant, Cedric Farcy, Maryline Summo, Julie Orjuela-Bouniol, Sebastien Ravel, Gautier Sarah, and Francois Sabot
 #
 ###################################################################################################################################
 
-
 use strict;
+use warnings;
 
 #Will test if tophat works correctly
-use warnings;
 use Test::More 'no_plan'; #Number of tests, to modify if new tests implemented. Can be changed as 'no_plan' instead of tests=>11 .
 use Test::Deep;
 use lib qw(../Modules/);
@@ -94,7 +95,7 @@ use tophat;
 ################################################################################################
 my %optionsHachees = ();        # Hash containing informations
 my $optionHachees = \%optionsHachees;                           # Ref of the hash
-my $expectedIndexPrefix=$testingDir."/referenceRNASeq";
+my $expectedIndexPrefix=$testingDir."/referenceRNASeq.fa";
 is(tophat::bowtieBuild($fastaRef,$optionHachees),$expectedIndexPrefix, 'OK for bowtieBuild RUNNING');
 
 ###Checking the correct structure for the output file using md5sum
@@ -205,8 +206,8 @@ is(tophat::tophat2($testingDir, $expectedIndexPrefix, $fastqFile1, $fastqFile2, 
 #is_deeply(@outPut,\@expectedOutput,'Test for the output files produced by tophat');
 
 ##Test for correct file using md5sum
-$expectedMD5sum="2ae6c0bfe4d379ff1f2449a4c9cfcac8";
-$observedMD5sum=`md5sum $testingDir/accepted_hits.bam`;# structure of the test file
+$expectedMD5sum="6b940bcc30ca032a45b7451e8dbdbba9";
+$observedMD5sum=`md5sum $testingDir/RNASeq.accepted_hits.bam`;# structure of the test file
 @withoutName = split (" ", $observedMD5sum);     # to separate the structure and the name of the test file
 $observedMD5sum = $withoutName[0];       # just to have the md5sum result
 is($observedMD5sum,$expectedMD5sum,'Ok for the content of the tophat bam');
