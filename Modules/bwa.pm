@@ -2,7 +2,7 @@ package bwa;
 
 ###################################################################################################################################
 #
-# Copyright 2014-2015 IRD-CIRAD-INRA-ADNid
+# Copyright 2014-2016 IRD-CIRAD-INRA-ADNid
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -29,7 +29,6 @@ package bwa;
 # Version 3 written by Cecile Monat, Christine Tranchant, Cedric Farcy, Maryline Summo, Julie Orjuela-Bouniol, Sebastien Ravel, Gautier Sarah, and Francois Sabot
 #
 ###################################################################################################################################
-
 use strict;
 use warnings;
 use localConfig;

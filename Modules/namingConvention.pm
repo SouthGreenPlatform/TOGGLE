@@ -2,7 +2,7 @@ package namingConvention;
 
 ###################################################################################################################################
 #
-# Copyright 2014-2015 IRD-CIRAD-INRA-ADNid
+# Copyright 2014-2016 IRD-CIRAD-INRA-ADNid
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -27,11 +27,6 @@ package namingConvention;
 # Version 1 written by Cecile Monat, Ayite Kougbeadjo, Christine Tranchant, Cedric Farcy, Mawusse Agbessi, Maryline Summo, and Francois Sabot
 # Version 2 written by Cecile Monat, Christine Tranchant, Cedric Farcy, Enrique Ortega-Abboud, Julie Orjuela-Bouniol, Sebastien Ravel, Souhila Amanzougarene, and Francois Sabot
 # Version 3 written by Cecile Monat, Christine Tranchant, Cedric Farcy, Maryline Summo, Julie Orjuela-Bouniol, Sebastien Ravel, Gautier Sarah, and Francois Sabot
-#
-###################################################################################################################################
-###################################################################################################################################
-#
-# This package will change the names of softwares to be coherent through the toggle hashes.
 #
 ###################################################################################################################################
 
