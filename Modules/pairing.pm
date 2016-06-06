@@ -95,12 +95,12 @@ sub pairRecognition
 	#Picking up the name of the pair and its coding convention 
 	my $sequenceName=$firstLineComplete; 
 	$sequenceName =~ s/\/.$// and $namingConvention = 1; # old agreement /1 /2
-	$sequenceName =~ s/\s\d:\w:\d:\w*$// and $namingConvention = 2; # new agreement 1:N:[A-Z]1 to 10
+	$sequenceName =~ s/\s\d:\w:\d:.*$// and $namingConvention = 2; # new agreement 1:N:[A-Z]1 to 10
 	
 	#Picking up the strand of the current mate of the pair 
 	my $typeOfStrand=$firstLineComplete;
 	$typeOfStrand =~ s/.+\/(.)$/$1/ if $namingConvention == 1;
-	$typeOfStrand =~ s/.+\s(\d:\w:\d:\w*)$/$1/ if $namingConvention == 2;
+	$typeOfStrand =~ s/.+\s(\d:\w:\d:.*)$/$1/ if $namingConvention == 2;
 	
 	#Converting the end of Line in forward and reverse
 	my $nameOfStrand = "unknown"; # May correspond to the single sequence
