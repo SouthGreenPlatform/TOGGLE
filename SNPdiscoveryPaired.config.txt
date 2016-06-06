@@ -27,7 +27,7 @@ $cleaner
 $cutadapt
 -O=10
 -m=35
--q=20
+-q=20,20
 --overlap=7
 # Adaptator1 is removed in the forward (-b) and reverse (-B) reads (5' and 3' position)
 -b ADAPTATOR1REVERSE -B ADAPTATOR1REVERSE 
