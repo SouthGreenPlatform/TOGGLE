@@ -30,8 +30,10 @@ foreach my $file (@{$fileList}) #Checking the type of files that must be FASTQ o
 # fastqc::execution
 ##########################################
 
+$softParameters = toolbox::extractHashSoft($optionRef, $stepName);                          # recovery of specific parameters of FatsQC
+
 foreach my $file (@{$fileList})
 {
-    fastqc::execution($file,$newDir);                                                            # run fastQC program on current file
+    fastqc::execution($file,$newDir,$softParameters);                                       # run fastQC program on current file
 }
 
