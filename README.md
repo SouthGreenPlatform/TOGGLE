@@ -64,7 +64,7 @@ Ortega-Abboud, Souhila Amanzougarene, Sébastien Ravel, Mawussé Agbessi, Julie 
 * [Perl 5.16](https://www.perl.org/)
 * [java 1.7](https://www.java.com/fr/)
 * [BWA 0.7.2](http://bio-bwa.sourceforge.net/)
-* [SAMtools 0.1.18](http://samtools.sourceforge.net/)
+* [SAMtools 1.1](http://samtools.sourceforge.net/)
 * [picardTools 1.63](http://broadinstitute.github.io/picard/)
 * [gatk 3.3](https://www.broadinstitute.org/gatk/)
 * [fastQC v0.10.1](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
