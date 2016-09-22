@@ -1,23 +1,16 @@
 $order
-1=fastqc
-2=cutadapt
-3=bwaAln
-4=bwaSamse
-5=picardToolsSortSam
-6=samtoolsflagstat
-7=samtoolsview
-8=samToolsIndex
-9=gatkRealignerTargetCreator
-10=gatkIndelRealigner
-11=picardToolsMarkDuplicates
+1=samtoolsView
+2=samToolsIndex
+3=picardToolsSortSam
+4=gatkRealignerTargetCreator
+4=gatkIndelRealigner
+6=picardToolsMarkDuplicates
 1000=gatkHaplotypeCaller
 1001=gatkVariantFiltration
 1002=gatkSelectVariants
 
 $cleaner
-3
-4
-9
+
 
 #PUT YOUR OWN SGE CONFIGURATION HERE
 #$sge
@@ -25,30 +18,16 @@ $cleaner
 #-b Y
 #-V
 
-$cutadapt
--O=10
--m=35
--q=20
---overlap=7
-# Adaptator1 is removed in the forward (-b) read (5' and 3' position)
--b ADAPTATOR1REVERSE
-# Same traitement is done for the forward adaptator sequence
--b ADAPTATOR1FORWARD
-
-$bwa aln
--n=5
-
-$bwa samse
+$samToolsView
+-h
+-b
+-S
+-f=0x02
 
 $picardToolsSortSam
 SORT_ORDER=coordinate
 VALIDATION_STRINGENCY=SILENT
 CREATE_INDEX=TRUE
-
-$samToolsView
--h
--b
--F=4
 
 $gatkRealignerTargetCreator
 -T=RealignerTargetCreator

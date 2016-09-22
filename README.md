@@ -3,12 +3,18 @@ TOGGLE : Toolbox for generic NGS analyses
 
 ![TOGGLE Logo](toggleLogo.png)
 
-TOGGLE (TOolbox for Generic nGs anaLysEs) is a suite of 10 packages and more than 110 modules able to manage a large set of NGS softwares
+Dear Biologist, have you ever dream of using the whole power of those numerous NGS tools that your bioinformatician colleagues use through this awful list of command line ?
+
+Dear Bioinformatician, have you ever guess how to design really fastly a new NGS pipeline without having to retype again dozens of code lines to readapt your scripts or starting from scratch ?
+
+**So, be Happy ! TOGGLE is for you !!**
+
+TOGGLE (TOolbox for Generic nGs anaLysEs) is a suite of 19 packages and more than 110 modules able to manage a large set of NGS softwares
 and utilities to easily design pipelines able to handle hundreds of samples. Moreover, TOGGLE offers an easy way to manipulate the various
 options of the different softwares through the pipelines in using a single basic configuration file, that can be changed for each assay without
 having to change the code itself.
 
-Users can also create their own pipeline through an easy and user-friendly approach. The pipelines can starts from Fastq (plain or gunzipped), SAM, BAM or VCF (plain of gunzipped) files, with parallel and global analyses. Samples pipelines are provided for SNP discovery and RNAseq counts.
+Users can also create their own pipeline through an easy and user-friendly approach. The pipelines can start from Fastq (plain or gzipped), SAM, BAM or VCF (plain or gzipped) files, with parallel and global analyses. Samples pipelines are provided for SNP discovery and RNAseq counts.
 
 The system is able to detect parallel/scheduling launching and to manage large amount of samples on large cluster machines.
 
@@ -41,6 +47,10 @@ Ortega-Abboud, Souhila Amanzougarene, Sébastien Ravel, Mawussé Agbessi, Julie 
 
 [You can find a detailed MANUAL here][manualLink]
 
+## KNOWN ISSUES
+
+[You can find detailed known issues][knownIssues]
+
 ## Release Notes
 
 [Current Release Notes][releaseLink]
@@ -64,7 +74,7 @@ Ortega-Abboud, Souhila Amanzougarene, Sébastien Ravel, Mawussé Agbessi, Julie 
 * [Perl 5.16](https://www.perl.org/)
 * [java 1.7](https://www.java.com/fr/)
 * [BWA 0.7.2](http://bio-bwa.sourceforge.net/)
-* [SAMtools 1.1](http://samtools.sourceforge.net/)
+* [SAMtools 0.1.18](http://samtools.sourceforge.net/)
 * [picardTools 1.63](http://broadinstitute.github.io/picard/)
 * [gatk 3.3](https://www.broadinstitute.org/gatk/)
 * [fastQC v0.10.1](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
@@ -75,7 +85,7 @@ Ortega-Abboud, Souhila Amanzougarene, Sébastien Ravel, Mawussé Agbessi, Julie 
 
 #### Bioinformatics tools included
 
-#####BWA (http://bio-bwa.sourceforge.net/)
+##### BWA (http://bio-bwa.sourceforge.net/)
 
 - bwaAln
 - bwaSampe
@@ -83,7 +93,7 @@ Ortega-Abboud, Souhila Amanzougarene, Sébastien Ravel, Mawussé Agbessi, Julie 
 - bwaIndex
 - bwaMem
 
-#####SamTools (http://samtools.sourceforge.net/)
+##### SamTools (http://samtools.sourceforge.net/)
 
 - samToolsFaidx
 - samToolsIndex
@@ -96,7 +106,7 @@ Ortega-Abboud, Souhila Amanzougarene, Sébastien Ravel, Mawussé Agbessi, Julie 
 - samToolsFlagstat
 - samToolsMpileUp
 
-#####PicardTools (http://broadinstitute.github.io/picard/)
+##### PicardTools (http://broadinstitute.github.io/picard/)
 
 - picardToolsMarkDuplicates
 - picardToolsCreateSequenceDictionary
@@ -107,7 +117,7 @@ Ortega-Abboud, Souhila Amanzougarene, Sébastien Ravel, Mawussé Agbessi, Julie 
 - picardToolsSamFormatConverter
 
 
-#####Gatk (https://www.broadinstitute.org/gatk/)
+##### GATK (https://www.broadinstitute.org/gatk/)
 
 - gatkBaseRecalibrator
 - gatkRealignerTargetCreator
@@ -120,25 +130,25 @@ Ortega-Abboud, Souhila Amanzougarene, Sébastien Ravel, Mawussé Agbessi, Julie 
 - gatkBaseRecalibrator
 - gatkPrintReads
 
-#####Fastqc (http://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
+##### Fastqc (http://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 
 - fastqc
 
-#####FastxToolkit (http://hannonlab.cshl.edu/fastx_toolkit/)
+##### FastxToolkit (http://hannonlab.cshl.edu/fastx_toolkit/)
 
 - fastxTrimmer
 
-#####Tophat (https://ccb.jhu.edu/software/tophat/index.shtml)
+##### Tophat (https://ccb.jhu.edu/software/tophat/index.shtml)
 
 - bowtiebuild
 - bowtie2build
 - tophat2
 
-#####Snpeff (http://snpeff.sourceforge.net/)
+##### Snpeff (http://snpeff.sourceforge.net/)
 
 - snpeffAnnotation
 
-#####Cutadapt (https://pypi.python.org/pypi/cutadapt)
+##### Cutadapt (https://pypi.python.org/pypi/cutadapt)
 
 - cutadapt
 
@@ -150,4 +160,6 @@ Ortega-Abboud, Souhila Amanzougarene, Sébastien Ravel, Mawussé Agbessi, Julie 
 [paperLink]:http://www.biomedcentral.com/1471-2105/16/374
 [installLink]:https://github.com/SouthGreenPlatform/TOGGLE/blob/master/INSTALL.md
 [manualLink]:https://github.com/SouthGreenPlatform/TOGGLE/blob/master/MANUAL.md
+[knownIssues]:https://github.com/SouthGreenPlatform/TOGGLE-DEV/blob/master/KnownIssues.md
 [releaseLink]:https://github.com/SouthGreenPlatform/TOGGLE/blob/master/ReleaseNotes.md
+

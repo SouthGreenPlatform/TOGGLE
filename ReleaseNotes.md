@@ -1,6 +1,13 @@
 
 # Versions Notes
 
+## Release 0.3.1, xxth of xxx, 2016
+
+### Functions
+
+- Adding the MPRUN and LSF Scheduling system (through bash script launching)
+- Adding the possibility to add ENV variables
+
 ## Release 0.3, the 16th of March, 2016
 
 ### Modules

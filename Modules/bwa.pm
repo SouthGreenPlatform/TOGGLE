@@ -29,6 +29,7 @@ package bwa;
 # Version 3 written by Cecile Monat, Christine Tranchant, Cedric Farcy, Maryline Summo, Julie Orjuela-Bouniol, Sebastien Ravel, Gautier Sarah, and Francois Sabot
 #
 ###################################################################################################################################
+
 use strict;
 use warnings;
 use localConfig;

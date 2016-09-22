@@ -30,85 +30,132 @@
 #
 ###################################################################################################################################
 
+#Will test if Cutadapt works correctly
 use strict;
 use warnings;
-
-use Test::More tests => 5;
+use Test::More 'no_plan'; #Number of tests, to modify if new tests implemented. Can be changed as 'no_plan' instead of tests=>11 .
+use Test::Deep;
+use Data::Dumper;
 use lib qw(../Modules/);
 
 
 ########################################
-#use of cutadapt module ok
+#Test of the use of cutadapt modules
 ########################################
-use_ok('toolbox') or exit;                                                                          # Check if toolbox is usable
-use_ok('cutadapt') or exit;                                                                         # Check if cutadapt is usable
-can_ok('cutadapt','execution');                                                                     # Check if cutadapt::execution is find
+use_ok('toolbox') or exit;
+use_ok('cutadapt') or exit;
+
+can_ok('cutadapt','execution');
 
 use toolbox;
 use cutadapt;
 
+my $expectedData="../../DATA/expectedData/";
 
 #########################################
 #Remove files and directory created by previous test
 #########################################
 my $testingDir="../DATA-TEST/cutadaptTestDir";
-my $cleaningCmd="rm -Rf $testingDir"; 
-system ($cleaningCmd) and die ("ERROR: $0 : Cannot remove the previous test directory with the command $cleaningCmd \n$!\n");
+my $creatingDirCom="rm -Rf $testingDir ; mkdir -p $testingDir";                                    #Allows to have a working directory for the tests
+system($creatingDirCom) and die ("ERROR: $0 : Cannot execute the command $creatingDirCom\n$!\n");
 
-my $expectedData="../../DATA/expectedData/";
-
-########################################
-#Creation of test directory
-########################################
-my $makeDirCmd = "mkdir $testingDir";
-system ($makeDirCmd) and die ("ERROR: $0 : Cannot create the new directory with the command $makeDirCmd\n$!\n");
 chdir $testingDir or die ("ERROR: $0 : Cannot go into the new directory with the command \"chdir $testingDir\"\n$!\n");
+
 
 #######################################
 #Creating the IndividuSoft.txt file
 #######################################
-my $creatingCmd="echo \"cutadapt\nTEST\" > individuSoft.txt";
-system($creatingCmd) and die ("ERROR: $0 : Cannot create the individuSoft.txt file with the command $creatingCmd\n$!\n");
+my $creatingCommand="echo \"cutadapt\nTEST\" > individuSoft.txt";
+system($creatingCommand) and die ("ERROR: $0: Cannot create the individuSoft.txt file with the command $creatingCommand \n$!\n");
+
 
 #######################################
 #Cleaning the logs for the test
 #######################################
-$cleaningCmd="rm -Rf fastqc_TEST_log.*";
-system($cleaningCmd) and die ("ERROR: $0 : Cannot remove the previous log files with the command $cleaningCmd \n$!\n");
+my $cleaningCommand="rm -Rf cutadapt_TEST_log.*";
+system($cleaningCommand) and die ("ERROR: $0: Cannot clean the previous log files for this test with the command $cleaningCommand \n$!\n");
+
 
 ########################################
-#Input files
+##### cutadapt::execution Single
 ########################################
-my $fastqFile = "RC3_2.fastq";                      # fastq file for test
-my $originalFastqFile = $expectedData."RC3_2.fastq";     # fastq file
-my $lnCmd = "ln -s $originalFastqFile .";          # command to copy the original fastq file into the test directory
-system ($lnCmd) and die ("ERROR: $0 : Cannot copy the file $originalFastqFile in the test directory with the command $lnCmd\n$!\n");    # RUN the copy command
 
-my $adaptatorFile = "adaptators.txt";                         # adaptator file for test
-my $originalAdaptatorFile = $expectedData.$adaptatorFile;     # adaptator file
-$lnCmd = "ln -s $originalAdaptatorFile .";             # command to copy the original adaptator file into the test directory
-system ($lnCmd) and die ("ERROR: $0 : Cannot copy the file $originalAdaptatorFile in the test directory with the command $lnCmd\n$!\n");    # RUN the copy command
+# input file
+my $fastqFile = $expectedData."RC3_2.fastq";     		# fastq file
 
-my $fileOut = "RC3_2.CUTADAPT.fastq";                                                  # Output file without adaptators sequences
-######################
+# output file
+my $fastqFileOut = "RC3_2.CUTADAPT.fastq";                   # Output file without adaptators sequences
 
-
-
-
-### Test of cutadapt::exec ###
+# execution test
 my %optionsHachees = (
-                    "-O" => 10,
-                    "-m" => 35,
-                    "-q" => 20,
-                    "--overlap" => 7
-);        # Hash containing informations
+						"-O" => 10,
+						"-m" => 35,
+						"-q" => "20",
+						"--overlap" => 7,
+						"-b" => "GATCGGAAGAGCACACGTCTGAACTCCAGTCACATCACGATCTCGTATGCCGTCTTCTGCTTG -b GTTCGTCTTCTGCCGTATGCTCTAGCACTACACTGACCTCAAGTCTGCACACGAGAAGGCTAG",	
+					);        # Hash containing informations
 my $optionsHachees = \%optionsHachees;   
-is ((cutadapt::execution($fastqFile,$fileOut,undef, undef, $optionsHachees)),1, 'cutadapt::execution');                      # TEST IF FONCTION WORKS
-my $md5sumOfRefOut = "3275afc598641cd5ed97ab21d371194b";                                            # structure of the ref file for checking
-my $md5sumOfFileOut = `md5sum $fileOut`;                                                            # structure of the test file for checking
-my @nameless = split (" ", $md5sumOfFileOut);                                                       # to separate the structure and the name of file
-$md5sumOfFileOut = $nameless[0];                                                                    # just to have the md5sum result
-is_deeply ($md5sumOfFileOut, $md5sumOfRefOut, "cutadapt::execution... Cutadapt out file checkout");                             # TEST IF THE STRUCTURE OF THE FILE OUT IS GOOD
+is ((cutadapt::execution($fastqFile,$fastqFileOut,undef, undef, $optionsHachees)),1, 'cutadapt::execution Single');    # TEST IF FONCTION WORKS
+
+# expected output test
+my $observedOutput = `ls`;
+my @observedOutput = split /\n/,$observedOutput;
+my @expectedOutput = ('cutadapt_TEST_log.e','cutadapt_TEST_log.o','individuSoft.txt','RC3_2.CUTADAPT.fastq');
+
+is_deeply(\@observedOutput,\@expectedOutput,'cutadapt::execution Single - output list');
+
+# expected content test
+my $expectedMD5sum = "5a74f7c91eb01b46c4002a584d48bf6f";                                            # structure of the ref file for checking
+my $observedMD5sum = `md5sum $fastqFileOut`;                                                        # structure of the test file for checking
+my @withoutName = split (" ", $observedMD5sum);                                                     # to separate the structure and the name of file
+$observedMD5sum = $withoutName[0];     										                        # just to have the md5sum result
+is($observedMD5sum, $expectedMD5sum, "cutadapt::execution Single - output content");               # TEST IF THE STRUCTURE OF THE FILE OUT IS GOOD
+##############################
+
+########################################
+##### cutadapt::execution Paired
+########################################
+
+# input file
+my $fastqFile1 = $expectedData."RC3_1.fastq";     		# fastq file
+my $fastqFile2 = $expectedData."RC3_2.fastq";     		# fastq file
+
+# output file
+my $fastqFileOut1 = "RC3_1.CUTADAPT.fastq";                   # Output file without adaptators sequences
+my $fastqFileOut2 = "RC3_2.CUTADAPT.fastq";                   # Output file without adaptators sequences
+
+# execution test
+%optionsHachees = (
+						"-O" => 10,
+						"-m" => 35,
+						"-q" => "20,20",
+						"--overlap" => 7,
+						"-b" => "GATCGGAAGAGCACACGTCTGAACTCCAGTCACATCACGATCTCGTATGCCGTCTTCTGCTTG -b GTTCGTCTTCTGCCGTATGCTCTAGCACTACACTGACCTCAAGTCTGCACACGAGAAGGCTAG",
+						"-B" => "GATCGGAAGAGCACACGTCTGAACTCCAGTCACATCACGATCTCGTATGCCGTCTTCTGCTTG -B GTTCGTCTTCTGCCGTATGCTCTAGCACTACACTGACCTCAAGTCTGCACACGAGAAGGCTAG"	
+					);          # Hash containing informations
+my $optionsHachees = \%optionsHachees;   
+is ((cutadapt::execution($fastqFile1,$fastqFileOut1, $fastqFile2, $fastqFileOut2, $optionsHachees)),1, 'cutadapt::execution Paired');    # TEST IF FONCTION WORKS
+
+# expected output test
+$observedOutput = `ls`;
+@observedOutput = split /\n/,$observedOutput;
+@expectedOutput = ('cutadapt_TEST_log.e','cutadapt_TEST_log.o','individuSoft.txt','RC3_1.CUTADAPT.fastq','RC3_2.CUTADAPT.fastq');
+
+is_deeply(\@observedOutput,\@expectedOutput,'cutadapt::execution Paired - output list');
+
+# expected content test
+$expectedMD5sum = "9055c369fed4d016212caca9d750f6b6";                                            # structure of the ref file for checking
+$observedMD5sum = `md5sum $fastqFileOut1`;                                                        # structure of the test file for checking
+@withoutName = split (" ", $observedMD5sum);                                                     # to separate the structure and the name of file
+$observedMD5sum = $withoutName[0];     										                        # just to have the md5sum result
+is($observedMD5sum, $expectedMD5sum, "cutadapt::execution Paired - output content file 1");               # TEST IF THE STRUCTURE OF THE FILE OUT IS GOOD
+
+# expected content test
+$expectedMD5sum = "548103973bb70ca479b08e529d05bdcb";                                            # structure of the ref file for checking
+$observedMD5sum = `md5sum $fastqFileOut2`;                                                        # structure of the test file for checking
+@withoutName = split (" ", $observedMD5sum);                                                     # to separate the structure and the name of file
+$observedMD5sum = $withoutName[0];     										                        # just to have the md5sum result
+is($observedMD5sum, $expectedMD5sum, "cutadapt::execution Paired - output content file 2");  
 ##############################
 
 exit;

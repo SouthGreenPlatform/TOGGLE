@@ -38,7 +38,7 @@ use Data::Dumper;
 
 
 
-sub execution
+sub cufflinks
 {
 
     my ($cuffliksDirOut, $bamFileIn,$annotGffFile,$optionsHachees)=@_;

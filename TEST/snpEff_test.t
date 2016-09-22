@@ -30,14 +30,38 @@
 #
 ###################################################################################################################################
 
-use strict;
-
 #Will test if snpeff works correctly
+use strict;
 use warnings;
 use Test::More 'no_plan'; #Number of tests, to modify if new tests implemented. Can be changed as 'no_plan' instead of tests=>11 .
 use Test::Deep;
-use lib qw(../Modules/);
 use Data::Dumper;
+use lib qw(../Modules/);
+
+
+########################################
+#Test of the use of snpeff modules
+########################################
+use_ok('toolbox') or exit;
+use_ok('snpeff') or exit;
+
+can_ok('snpeff','dbCreator');
+can_ok('snpeff','snpeffAnnotation');
+
+use toolbox;
+use snpeff;
+
+my $expectedData="../../DATA/expectedData/";
+
+#########################################
+#Remove files and directory created by previous test
+#########################################
+my $testingDir="../DATA-TEST/snpeffTestDir";
+my $creatingDirCom="rm -Rf $testingDir ; mkdir -p $testingDir";                                    #Allows to have a working directory for the tests
+system($creatingDirCom) and die ("ERROR: $0 : Cannot execute the command $creatingDirCom\n$!\n");
+
+chdir $testingDir or die ("ERROR: $0 : Cannot go into the new directory with the command \"chdir $testingDir\"\n$!\n");
+
 
 #######################################
 #Creating the IndividuSoft.txt file
@@ -52,35 +76,13 @@ system($creatingCommand) and die ("ERROR: $0: Cannot create the individuSoft.txt
 my $cleaningCommand="rm -Rf snpeff_TEST_log.*";
 system($cleaningCommand) and die ("ERROR: $0: Cannot clean the previous log files for this test with the command $cleaningCommand \n$!\n");
 
-#########################################
-#Remove the files and directory created by the previous test
-#########################################
-$cleaningCommand="rm -Rf ../DATA-TEST/snpeffTestDir";
-system($cleaningCommand) and die ("ERROR: $0 : Cannot remove the previous test dir with the command $cleaningCommand \n$!\n");
 
-########################################
-#Creation of test directory
-########################################
-my $testingDir="../DATA-TEST/snpeffTestDir";
-my $makeDirCom = "mkdir $testingDir";
-system ($makeDirCom) and die ("ERROR: $0 : Cannot create the new directory with the command $makeDirCom\n$!\n");
 
-########################################
-#use of snpeff module ok
-########################################
-use_ok('toolbox') or exit;
-use_ok('snpeff') or exit;
-can_ok( 'snpeff','snpeffAnnotation');
-can_ok( 'snpeff', 'dbCreator');
-
-use toolbox;
-use snpeff;
-
-toolbox::readFileConf("software.config.txt");
 
 ########################################
 #Picking up data for tests
 ########################################
+
 my $database="Osa1"; #need a currently formatted db for snpEff, in the test DATA-TEST/data folder
 my $nonAnnotatedVcf="../DATA/expectedData/nonAnnotated.vcf"; #name of the original vcf file
 my $annotatedVcf="../DATA/expectedData/annotated.vcf"; #expected file

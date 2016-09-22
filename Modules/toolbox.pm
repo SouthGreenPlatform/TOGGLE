@@ -402,25 +402,25 @@ sub readDir
 #
 # The list of files (table) is returned. 
 ################################################################################################
-sub readDir2
-{
-    toolbox::exportLog("ERROR: toolbox::readDir2 : should get at one argument at least\n",0) if (@_ < 1 );
-    
-    my ($dir)= shift @_;
-    
-    # if the part of name is given in the second argument, search for files directory/part_of_name*
-    # else search for all files directory/*
-    my $path = defined ($_[0]) ? $dir.'/'.$_[0].'*' : $dir."/*";
-    
-    # ls command
-    my $file=`ls $path` or toolbox::exportLog("ERROR: toolbox::readDir : Can't open the directory $path\n$!\n",0);
-    chomp $file;
-    
-    # split the list into a table returned after
-    my @fileList = split /\n/, $file; 
-    return(\@fileList);
-
-}
+#sub readDir2
+#{
+#    toolbox::exportLog("ERROR: toolbox::readDir2 : should get at one argument at least\n",0) if (@_ < 1 );
+#    
+#    my ($dir)= shift @_;
+#    
+#    # if the part of name is given in the second argument, search for files directory/part_of_name*
+#    # else search for all files directory/*
+#    my $path = defined ($_[0]) ? $dir.'/'.$_[0].'*' : $dir."/*";
+#    
+#    # ls command
+#    my $file=`ls $path` or toolbox::exportLog("ERROR: toolbox::readDir : Can't open the directory $path\n$!\n",0);
+#    chomp $file;
+#    
+#    # split the list into a table returned after
+#    my @fileList = split /\n/, $file; 
+#    return(\@fileList);
+#
+#}
 #########################################
 # END sub toolbox::readDir2
 #########################################
@@ -553,32 +553,44 @@ sub readFileConf
 # 	- a hash of hash (reference) with the software name as key, then the option as key and 
 #         the value as element
 #       - separator used to separate an option from its value (\t, =)
+#	- concatenator used to concatenate each option/value couples
 #
-# ex : my $optionLine=toolbox::extractOptions($configInfos->{"BWA aln"}," ");
+# ex : my $optionLine=toolbox::extractOptions($configInfos->{"BWA aln"}," "," ");
 #
 # Returns the list of options for a software given. 
 ################################################################################################
 sub extractOptions
 {
     ##Getting the two parameters, the options hash and the option-value separator
-    my($optionsHashees,$separateur)=@_;
+    my($optionsHashees,$separateur,$concatenator)=@_;
+    
+    # The concatenation of option is classically a space (eg -b 1 -c2), but sometimes we may need to put them one per line (eg
+    # export TOTO=$TOTO:/my/new/path
+    # export PATH=$PATH:/my/second/path)
+    $concatenator = " " unless $concatenator;
+    
+    #The separator between option and its value is generally a space but can also be an equal (as in INPUT=/my/file for picardTools) sign.
+    $separateur=" " unless $separateur;
     
     if ($optionsHashees)			# the option hash isn't empty/is defined => options are extracted
     {
 	my %options=%{$optionsHashees};
 	my $option=" ";
-	$separateur=" " unless $separateur; 	## if no separator is given, set it as a single space
+	 	## if no separator is given, set it as a single space
 	try
 	{                               
 	    foreach my $cle (keys %options)
 	    {
 		if ($options{$cle} eq 'NA') 	## The option has no value  => no print $options{$cle}
 		{
-		    $option=$option.$cle.$separateur." ";
+		    $option=$option.$cle.$separateur.$concatenator;
 		}
 		else				## The option has value  => print $options{$cle}
 		{
-		    $option=$option.$cle.$separateur.$options{$cle}." ";
+		    $option=$option.$cle.$separateur.$options{$cle}.$concatenator;
+		    
+		    #if option is of type -l mem_free=10G
+		    $option=~ s/ =/=/g;
 		}
 	    }
 	    return $option;
@@ -703,50 +715,26 @@ sub checkNumberLines
 sub checkFormatFastq
 {
     
-    my $notOk = 0;                                                      # counter of error(s)
-    my ($fileToTest) = @_;                                              # recovery of file to test
-    my $readOk = readFile($fileToTest);                                 # check if the file to test is readable
-
-    #The test of number of lines is too slow for large files
-    
-    #my $nbLines = toolbox::checkNumberLines(@_);                    # calculing number lines in file
-    #my $modulo = ($nbLines % 4);
-    #my $even   = ($nbLines % 2);
-    #
-    #if ( ($nbLines>0) and ($modulo==0) and ($even==0) )                # testing if the number of lines is a multiple of 4
-    #{
-    #    #print "$nbLines is a multiple of 4\n";
-    #}
-    #else {
-    #    toolbox::exportLog("ERROR: toolbox::checkFormatFastq : Number of lines is not a multiple of 4 in file $fileToTest.\n",0);
-    #    return 0;
-    #}
-                                                                        # open and traite the file if the number of lines is a multiple of 4
-									
+    my $notOk = 0;                  # counter of error(s)
+    my ($fileToTest) = @_;          # recovery of file to test
+ 
     #Checking the beginning and end structure
     my ($beginLines, $endLines);
     if ($fileToTest =~ m/gz$/)
-	{ # The file is in gzipped format
+    { # The file is in gzipped format
 	#using zcat command for head and tail
 	$beginLines = `zcat $fileToTest | head -n 4`;
 	$endLines = `zcat $fileToTest | tail -n 4`;
-	 }
+    }
     else
-	{
+    {
 	$beginLines = `head -n 4 $fileToTest`;
 	$endLines = `tail -n 4 $fileToTest`;
-	}
+    }
     chomp $beginLines;
     chomp $endLines;
-    
-    my $valid=1;
-    
-    if ($beginLines !~ m/^@/ and $endLines !~ m/^@/)
-    {
-	$valid = 0; # The file is not containing a 4 lines sequence in FASTQ format
-    }
-    
-    if ($valid == 0)
+
+    if ($beginLines !~ m/^@/ and $endLines !~ m/^@/) # The file is not containing a 4 lines sequence in FASTQ format
     {
 	toolbox::exportLog("ERROR: toolbox::checkFormatFastq : Number of lines is not a multiple of 4 in file $fileToTest, thus not a FASTQ file.\n",0);
     }
@@ -761,9 +749,9 @@ sub checkFormatFastq
     
     #If $fileToTest is in gzip format
     if($fileToTest =~ m/\.gz$/)
-	{
+    {
 	$inputHandle = new IO::Uncompress::Gunzip $inputHandle or toolbox::exportLog("ERROR: toolbox::checkFormatFastq : Cannot open the gz file $fileToTest: $GunzipError\n",0);
-	}	
+    }	
     
     while ((my $line = <$inputHandle>))                                           # scanning file and stocking in an array the four lines of a read.
     {
@@ -799,7 +787,7 @@ sub checkFormatFastq
                     $notOk++;                                           # one error occured, so count it
                 }
                 
-                elsif ( (($idLine=~m/^\@.*/) or ($idLine=~m/^\>.*/) ) and ($plusLine=~m/^\+$/) )   # if ID ligne is not empty and it starts by "@" or ">" and the
+                elsif ( (($idLine=~m/^\@.*/) or ($idLine=~m/^\>.*/) ) and ($plusLine=~m/^\+/) )   # if ID ligne is not empty and it starts by "@" or ">" and the
                 # plus line has a "+", the block of four lines ($i to $i+3) is traited.
                 {
                     if ( length($fastaLine) == length($qualityLine) )   # comparing the fasta line and the quality line lengths.
@@ -845,7 +833,6 @@ sub checkFormatFastq
     else                                						# if one or some error(s) occured on the file, the fastq format is not right.
     {
         toolbox::exportLog("ERROR: toolbox::checkFormatFastq : Invalid FASTQ requirements in file $fileToTest.\n",0);
-	return 0;
     }
     
     close $inputHandle;
@@ -1197,41 +1184,41 @@ sub checkVcfFormat
 #	- the name of the server that contains the initial data 
 # Returns the path of the directory created on the scratch space (local) and the node name that contains the data transfered
 ################################################################################################
-sub transferDirectoryFromMasterToNode
-{
-    my ($localDir,$master) = @_;
-								    ###########################################################################
-    $master = 'nas2' if (not defined $master or $master eq '');     #######SUPPOSE QUE LES DONNEES SONT TOUJOURS DANS NAS2 (donc pas /teams) - AJOUTER DANS fichier configuration?
-								    ###########################################################################
-    # get the SGE user name
-    my $SGE_User = `echo \$USER` or toolbox::exportLog("ERROR: toolbox::transferDirectoryFromMasterToNode : The SGE USER isn't defined\n",0);
-    chomp($SGE_User);
-    ##DEBUG exportLog("INFOS: toolbox::transferDirectoryFromMasterToNode : SGE USER $SGE_User\n",1);
-    
-    # get the SGE node on what the script is running
-    my $SGE_Node = `echo \$HOSTNAME` or toolbox::exportLog("ERROR: toolbox::transferDirectoryFromMasterToNode : The SGE node isn't defined\n",0);
-    chomp($SGE_Node);
-    ##DEBUG exportLog("INFOS: toolbox::transferDirectoryFromMasterToNode : SGE NODE $SGE_Node\n",1);
-    
-    # get the SGE job id
-    my $SGE_JobId = `echo \$JOB_ID` or toolbox::exportLog("ERROR: toolbox::transferDirectoryFromMasterToNode : The SGE id isn't defined\n",0);
-    chomp($SGE_JobId);
-    ##DEBUG exportLog("DEBUG INFOS: toolbox::transferDirectoryFromMasterToNode : SGE JOB ID $SGE_JobId\n",1);
-    
-    # Creating local tmp folder according this convention : /scratch/$user-$jobid-$sge_task_id
-    my $tmpDir = "/scratch/".$SGE_User."-".$SGE_JobId."/";
-    toolbox::makeDir($tmpDir) if (not existsDir($tmpDir,0));      # Creation of the tempory directory
-    ##DEBUG exportLog("DEBUG INFOS: toolbox::transferDirectoryFromMasterToNode : SGE JOB ID $SGE_JobId\n",1);
-
-    # Copy the data from the master server to the local scrtatch space
-    my $cmd="scp -r $SGE_User\@$master:$localDir $tmpDir";
-    toolbox::run($cmd);
-    
-    # Extract the name of the directory and return the complete local directory name and the node name
-    my ($file,$path)=toolbox::extractPath($localDir);
-    return($tmpDir.$file,$SGE_Node);
-
-}
+#sub transferDirectoryFromMasterToNode
+#{
+#    my ($localDir,$master) = @_;
+#								    ###########################################################################
+#    $master = 'nas2' if (not defined $master or $master eq '');     #######SUPPOSE QUE LES DONNEES SONT TOUJOURS DANS NAS2 (donc pas /teams) - AJOUTER DANS fichier configuration?
+#								    ###########################################################################
+#    # get the SGE user name
+#    my $SGE_User = `echo \$USER` or toolbox::exportLog("ERROR: toolbox::transferDirectoryFromMasterToNode : The SGE USER isn't defined\n",0);
+#    chomp($SGE_User);
+#    ##DEBUG exportLog("INFOS: toolbox::transferDirectoryFromMasterToNode : SGE USER $SGE_User\n",1);
+#    
+#    # get the SGE node on what the script is running
+#    my $SGE_Node = `echo \$HOSTNAME` or toolbox::exportLog("ERROR: toolbox::transferDirectoryFromMasterToNode : The SGE node isn't defined\n",0);
+#    chomp($SGE_Node);
+#    ##DEBUG exportLog("INFOS: toolbox::transferDirectoryFromMasterToNode : SGE NODE $SGE_Node\n",1);
+#    
+#    # get the SGE job id
+#    my $SGE_JobId = `echo \$JOB_ID` or toolbox::exportLog("ERROR: toolbox::transferDirectoryFromMasterToNode : The SGE id isn't defined\n",0);
+#    chomp($SGE_JobId);
+#    ##DEBUG exportLog("DEBUG INFOS: toolbox::transferDirectoryFromMasterToNode : SGE JOB ID $SGE_JobId\n",1);
+#    
+#    # Creating local tmp folder according this convention : /scratch/$user-$jobid-$sge_task_id
+#    my $tmpDir = "/scratch/".$SGE_User."-".$SGE_JobId."/";
+#    toolbox::makeDir($tmpDir) if (not existsDir($tmpDir,0));      # Creation of the tempory directory
+#    ##DEBUG exportLog("DEBUG INFOS: toolbox::transferDirectoryFromMasterToNode : SGE JOB ID $SGE_JobId\n",1);
+#
+#    # Copy the data from the master server to the local scrtatch space
+#    my $cmd="scp -r $SGE_User\@$master:$localDir $tmpDir";
+#    toolbox::run($cmd);
+#    
+#    # Extract the name of the directory and return the complete local directory name and the node name
+#    my ($file,$path)=toolbox::extractPath($localDir);
+#    return($tmpDir.$file,$SGE_Node);
+#
+#}
 ################################################################################################
 # END sub transferDirectoryFromMasterToNode
 ################################################################################################
@@ -1251,30 +1238,30 @@ sub transferDirectoryFromMasterToNode
 #         transferring from the local space to the master server. By default equal to 1 (Data removing)
 # No parameter returned 
 ################################################################################################
-sub transferDirectoryFromNodeToMaster
-{
-    
-    my ($localDir,$distantDir,$erase,$master) = @_;
-								###########################################################################
-    $master = 'nas2' if (not defined $master or $master eq ''); #######SUPPOSE QUE LES DONNEES SONT TOUJOURS DANS NAS2 (donc pas /teams) - AJOUTER DANS fichier configuration?
-								###########################################################################
-    
-    $erase=1 if (not defined $erase);					
-    
-     # get the SGE user name
-    my $SGE_User = `echo \$USER` or toolbox::exportLog("ERROR: toolbox::transferDirectoryFromMasterToNode : The SGE USER isn't defined\n",0);
-    chomp($SGE_User);
-    ##DEBUG exportLog("INFOS: toolbox::transferDirectoryFromMasterToNode : SGE USER $SGE_User $erase $master\n",1);
-    
-    # Data transferring from the local directory to the distant directory of the master
-    my $cmd="scp -r $localDir $SGE_User\@$master:$distantDir";
-    toolbox::run($cmd);
-    
-    # Removing of the local data directory if $erase equal to 1
-    $cmd="rm -rf $localDir";
-    toolbox::run($cmd) if ($erase);   
-    
-}
+#sub transferDirectoryFromNodeToMaster
+#{
+#    
+#    my ($localDir,$distantDir,$erase,$master) = @_;
+#								###########################################################################
+#    $master = 'nas2' if (not defined $master or $master eq ''); #######SUPPOSE QUE LES DONNEES SONT TOUJOURS DANS NAS2 (donc pas /teams) - AJOUTER DANS fichier configuration?
+#								###########################################################################
+#    
+#    $erase=1 if (not defined $erase);					
+#    
+#     # get the SGE user name
+#    my $SGE_User = `echo \$USER` or toolbox::exportLog("ERROR: toolbox::transferDirectoryFromMasterToNode : The SGE USER isn't defined\n",0);
+#    chomp($SGE_User);
+#    ##DEBUG exportLog("INFOS: toolbox::transferDirectoryFromMasterToNode : SGE USER $SGE_User $erase $master\n",1);
+#    
+#    # Data transferring from the local directory to the distant directory of the master
+#    my $cmd="scp -r $localDir $SGE_User\@$master:$distantDir";
+#    toolbox::run($cmd);
+#    
+#    # Removing of the local data directory if $erase equal to 1
+#    $cmd="rm -rf $localDir";
+#    toolbox::run($cmd) if ($erase);   
+#    
+#}
 ################################################################################################
 # END sub transferDirectoryFromNodeToMaster 
 ################################################################################################
@@ -1572,13 +1559,13 @@ C<toolbox::readFileConf('/data/projet/chloro/software.config');>
 =head3 toolbox::extractOptions()
 
 This function extracts the options/values for a software given (from a hash of hash) and return them as a string. One argument is required :
-a hash of hash (reference) with the software name as key, then the option as key and the value as element. A second optional parameter can be used,
-it corresponds to the type of separators  used to separate an option from its value (space by default)
+a hash of hash (reference) with the software name as key, then the option as key and the value as element. A second optional parameter can be used,as type of separators used to separate an option from its value (space by default)
+The third (optional) value is the way to concatenate the different options together (space by default)
 
 Returns a string
 
 Example : 
-C<my $optionLine=toolbox::extractOptions($configInfos->{"BWA aln"}," ");>
+C<my $optionLine=toolbox::extractOptions($configInfos->{"BWA aln"}," ", " ");>
 
 
 =head3 toolbox::extractName()

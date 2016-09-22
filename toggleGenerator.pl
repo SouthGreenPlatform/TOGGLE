@@ -88,7 +88,7 @@ my @logPathInfos;
 foreach my $inputParameters (keys %param)
 {
   my ($newPath,$log)=toolbox::relativeToAbsolutePath($param{$inputParameters});
-  die ("ERROR: $0 : An empty parameter has been given!\n") if ($newPath eq 0);
+  toolbox::exportLog("ERROR: $0 : An empty parameter has been given!\n",0) if ($newPath eq 0);
   $param{$inputParameters}=$newPath;
   push @logPathInfos,$log;
 }
@@ -113,7 +113,7 @@ if (not -d $outputDir) #if the output folder is not existing yet
 {
     #creating the output folder
     my $createOutputDirCommand = "mkdir -p $outputDir";
-    system ("$createOutputDirCommand") and die ("\nERROR: $0 : cannot create the output folder $outputDir: $!\nExiting...\n");
+    system ("$createOutputDirCommand") and toolbox::exportLog("\nERROR: $0 : cannot create the output folder $outputDir: $!\nExiting...\n",0);
 }
 
 chdir $outputDir;
@@ -124,7 +124,7 @@ my $lsOutputDir = `ls`;
 chomp $lsOutputDir;
 if ($lsOutputDir ne "") # The folder is not empty
 {
-  die ("\nERROR: $0 : The output directory $outputDir is not empty, TOGGLE will not continue\nPlease provide an empty directory for outputting results.\n\nExiting...\n\n");
+  toolbox::exportLog("\nERROR: $0 : The output directory $outputDir is not empty, TOGGLE will not continue\nPlease provide an empty directory for outputting results.\n\nExiting...\n\n",0);
 }
 
 my $infosFile = "individuSoft.txt";
@@ -140,15 +140,41 @@ my $date="$mois_jour-$mois-$an-$h"."_"."$min";
 
 
 #my $infosFile = "$pathIndividu[1]/individuSoft.txt";
-open (F1, ">",$infosFile) or die ("$0 : open error of $infosFile .... $!\n");
+open (F1, ">",$infosFile) or toolbox::exportLog("$0 : open error of $infosFile .... $!\n",0);
 print F1 "GLOBAL\n";
 print F1 "ANALYSIS_$date\n";
 
-toolbox::exportLog("#########################################\nINFOS: TOGGLE analysis start \n#########################################\n",1);;
+toolbox::exportLog("#########################################\nINFOS: TOGGLE analysis starts \n#########################################\n",1);;
 toolbox::exportLog("INFOS: $0 : Command line : $cmd_line\n",1);
 toolbox::exportLog("INFOS: Your output folder is $outputDir\n",1);
 
-toolbox::exportLog("#########################################\nINFOS: Data checking \n#########################################\n",1);
+##########################################
+# Printing software configurations
+########################################
+
+toolbox::exportLog("#########################################\nINFOS: Software version/location \n#########################################\n",1);
+open (my $fhConfig, "<", "$toggle/Modules/localConfig.pm");
+while (my $line = <$fhConfig>)
+{
+  chomp $line;
+  chop $line; #Remove the last character, ie ";"
+  next unless $line =~ m/^our \$/;
+  my ($soft,$value) = split /=/, $line;
+  $soft =~ s/our| |\$//g;
+  if (defined $value)
+  {
+    $value =~ s/\"//g;
+    $value =~ s/\w+ |\$|-//g unless $soft =~ m/java|toggle/i;
+    $value =~ s/^ //; 
+  }
+  else
+  {
+    $value = "NOT DEFINED";
+  }
+  toolbox::exportLog("$soft : $value",1);
+}
+
+toolbox::exportLog("\n#########################################\nINFOS: Data checking \n#########################################\n",1);
 toolbox::checkFile($fileConf);                              # check if this file exists
 toolbox::existsDir($initialDir);                            # check if this directory exists
 toolbox::checkFile($refFastaFile);                          #Retriving the configuration
@@ -294,7 +320,7 @@ my $referenceShortName = $refFastaFile;
 my $shortRefFileName = toolbox::extractName($refFastaFile); #We have only the reference name, not the full path
 $referenceShortName =~ s/\.\w+$//; #Ref can finish with .fa or .fasta, and we need also .dict file
 my $refLsCommand = " ls ".$referenceShortName.".*";
-my $refLsResults = `$refLsCommand` or die ("ERROR : $0 : Cannot obtain the list of reference associated files with the command $refLsCommand: $!\n");
+my $refLsResults = `$refLsCommand` or toolbox::exportLog("ERROR : $0 : Cannot obtain the list of reference associated files with the command $refLsCommand: $!\n",0);
 chomp $refLsResults;
 #Creating a reference Folder in the $outputDir
 my $refDir = $outputDir."/referenceFiles";
@@ -406,7 +432,7 @@ if ($orderBefore1000)
         ##DEBUG        toolbox::exportLog("INFOS: $0 : Parallel job",2);
         
         $jobList = $jobList.$jobOutput."|";
-        my $baseNameDir=`basename $currentDir` or die("\nERROR : $0 : Cannot pickup the basename for $currentDir: $!\n");
+        my $baseNameDir=`basename $currentDir` or toolbox::exportLog("\nERROR : $0 : Cannot pickup the basename for $currentDir: $!\n",0);
         chomp $baseNameDir;
         $jobHash{$baseNameDir}=$jobOutput;
     }

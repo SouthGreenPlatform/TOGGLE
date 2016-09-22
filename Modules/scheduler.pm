@@ -1,6 +1,5 @@
 package scheduler;
 
-
 ###################################################################################################################################
 #
 # Copyright 2014-2016 IRD-CIRAD-INRA-ADNid
@@ -69,6 +68,7 @@ sub launcher { #Global function for launching, will recover the command to be la
         case ($hashCapability->{"sge"} && defined $$configInfo{"sge"}){$runOutput = &sgeRun} #For SGE running
         case ($hashCapability->{"slurm"} && defined $$configInfo{"slurm"}){$runOutput = &slurmRun} #For SLURM running
 	case ($hashCapability->{"mprun"} && defined $$configInfo{"mprun"}){$runOutput = &mprunRun} #For mprun running
+	case ($hashCapability->{"lsf"} && defined $$configInfo{"lsf"}){$runOutput = &lsfRun} #For lsf running
         
         #If no scheduler available or configurated in the config info file, let's run it in a normal way
         else {$runOutput = &normalRun};
@@ -76,10 +76,12 @@ sub launcher { #Global function for launching, will recover the command to be la
     
     ##DEBUG    toolbox::exportLog("WARNING : scheduler : run output is $runOutput",2);
     
-    if ($runOutput == 0 && $requirement == 0) {#The job has to succeed either it will kill all other jobs
+    if ($runOutput == 0 && $requirement == 0)
+    {
+	#The job has to succeed either it will kill all other jobs
         toolbox::exportLog("ERROR: scheduler::launcher on $sample: ".$commandLine."\nThe job cannot be achieved and is mandatory, thus the whole analysis is stop\n",0);
     
-    return 0;
+	return 0;
     }
     
     return $runOutput;
@@ -100,6 +102,10 @@ sub checkingCapability { #Will test the capacity of launching using various sche
     #mprun test
     $capabilityValue{"mprun"}=`ccc_mprun -h 2>&1 | grep usage`; #Will provide a not-empty output if mprun is installed
     chomp $capabilityValue{"mprun"};
+    
+    #lsf test
+    $capabilityValue{"lsf"}=`bsub -h 2>&1 | grep -i Synopsis`; #Will provide a not-empty output if lsf is installed
+    chomp $capabilityValue{"lsf"};
     
     
     #Returning infos as a reference
@@ -212,13 +218,17 @@ sub slurmRun
     my $slurmOptionsHash=toolbox::extractHashSoft($configInfo,"slurm");
     my $slurmOptions=toolbox::extractOptions($slurmOptionsHash);
     
+     #Picking up ENV variable
+    my $envOptionsHash=toolbox::extractHashSoft($configInfo,"env");
+    my $envOptions=toolbox::extractOptions($envOptionsHash,"=","\n");
+    
     #Adding slurm options
     my $launcherCommand = "sbatch ".$slurmOptions;
     my $date =`date +%Y_%m_%d_%H_%M_%S`;
     chomp $date;
     #Creating the bash script for slurm to launch the command
     my $scriptName="~/slurmScript_".$date.".sh";
-    my $bashScriptCreationCommand= "echo \"#!/bin/bash\n".$commandLine."\nexit 0;\" | cat - > $scriptName && chmod 777 $scriptName";
+    my $bashScriptCreationCommand= "echo \"#!/bin/bash\n".$envOptions."\n".$commandLine."\nexit 0;\" | cat - > $scriptName && chmod 777 $scriptName";
     toolbox::run($bashScriptCreationCommand);
     ##DEBUG toolbox::exportLog("INFOS : $0 : Created the slurm bash file",1);
     $launcherCommand.=" $scriptName";
@@ -285,13 +295,17 @@ sub mprunRun
     my $msubOptionsHash=toolbox::extractHashSoft($configInfo,"mprun");
     my $msubOptions=toolbox::extractOptions($msubOptionsHash);
     
+    #Picking up ENV variable
+    my $envOptionsHash=toolbox::extractHashSoft($configInfo,"env");
+    my $envOptions=toolbox::extractOptions($envOptionsHash,"=","\n");
+    
     #Adding slurm options
     my $launcherCommand = "ccc_msub ".$msubOptions;
     #Creating the bash script for slurm to launch the command
     my $date =`date +%Y_%m_%d_%H_%M_%S`;
     chomp $date;
-    my $scriptName="~/msubScript_".$date.".sh";
-    my $bashScriptCreationCommand= "echo \"#!/bin/bash\n".$commandLine."\nexit 0;\" | cat - > $scriptName && chmod 777 $scriptName";
+    my $scriptName="msubScript_".$date.".sh";
+    my $bashScriptCreationCommand= "echo \"#!/bin/bash\n".$envOptions."\n".$commandLine."\nexit 0;\" | cat - > $scriptName && chmod 777 $scriptName";
     toolbox::run($bashScriptCreationCommand);
     ##DEBUG toolbox::exportLog("INFOS : $0 : Created the slurm bash file",1);
     $launcherCommand.=" $scriptName";
@@ -352,6 +366,86 @@ sub mprunRun
     return $currentJID;
 }
 
+sub lsfRun{ #for LSF cluster, running using bsub
+    
+    my $bsubOptionsHash=toolbox::extractHashSoft($configInfo,"lsf");
+    my $bsubOptions=toolbox::extractOptions($bsubOptionsHash);
+    
+    #Picking up ENV variable
+    my $envOptionsHash=toolbox::extractHashSoft($configInfo,"env");
+    my $envOptions=toolbox::extractOptions($envOptionsHash,"=","\n");
+    
+    #Adding slurm options
+    my $launcherCommand = "bsub ".$bsubOptions;
+    #Creating the bash script for slurm to launch the command
+    my $date =`date +%Y_%m_%d_%H_%M_%S`;
+    chomp $date;
+    my $scriptName="bsubScript_".$date.".sh";
+    my $bashScriptCreationCommand= "echo \"#!/bin/bash\n".$envOptions."\n".$commandLine."\nexit 0;\" | cat - > $scriptName && chmod 777 $scriptName";
+    toolbox::run($bashScriptCreationCommand);
+    ##DEBUG toolbox::exportLog("INFOS : $0 : Created the slurm bash file",1);
+    $launcherCommand.=" $scriptName";
+    $launcherCommand =~ s/ +/ /g; #Replace multiple spaces by a single one, to have a better view...
+    ##DEBUG toolbox::exportLog($launcherCommand,2);
+    my $currentJID = `$launcherCommand`;
+    
+    if ($!) #There are errors in the launching...
+    {
+        warn ("WARNING : $0 : Cannot launch the job for $sample: $!\n");
+        $currentJID = "";
+    }
+        
+    #Parsing infos and informing logs
+    chomp $currentJID;
+    
+    unless ($currentJID) #The job has no output in STDOUT, ie there is a problem...
+    {
+        return 0; #Returning to launcher subprogram the error type
+    }
+    
+    toolbox::exportLog("INFOS: $0 : Correctly launched for $sample in bsub mode through the command:\n\t$launcherCommand\n",1);
+    ## DEBUG toolbox::exportLog("INFOS: $0 : Output for the command is $currentJID\n\n",1);
+    
+    #Format: Submitted Batch Session 3223145
+    #Changing queue from '' to normal
+    #Changing application from '' to user
+    #Changing memory request to 4G	
+    #Job <21773> is submitted to queue <normal>.
+    my @infosList=split /<|>/, $currentJID; 
+    $currentJID = $infosList[1];
+    
+    ##THIS PART IS ONLY FOR DEBUGGING  -  MUST STAY COMMENTED OR MAY PROVOKE TROUBLES!!
+
+    #my $runningNodeCommand="bjobs $currentJID";
+    #my $runningNode="x";
+    #my $trying=0;
+    #while ($runningNode ne "RUN") #If the job is not yet launched or already finished
+    #{
+    #    sleep 3;#Waiting for the job to be launched
+    #    $runningNode=`$runningNodeCommand`;
+    #    chomp $runningNode;
+    #    $runningNode = "x" unless $runningNode; #if empty variable, problem after...
+    #    if ($runningNode !~ /\s+R\s+/)
+    #    {# not running yet
+    #        $trying++;
+    #        if ($trying == 5)
+    #        {
+    #            #We already tryed to pick up the node infos 5 times, let's stop
+    #            $runningNode = "still unknown (either not running, or already finished)";
+    #            ## DEBUG toolbox::exportLog("WARNING : $0 : Cannot pickup the running node for the job $currentJID: $!\n",2);
+    #            last;
+    #        }
+    #        next;
+    #    }
+    #    my @runningFields = split /\s+/,$runningNode; #To obtain the correct field
+    #    $runningNode = $runningFields[8];
+    #}
+    ## DEBUG toolbox::exportLog("INFOS: $0 : Running node for job $currentJID is $runningNode\n\n",1);
+    
+    #Provide the job ID
+    return $currentJID;
+}
+
 ##################################
 #
 #WAITING for schedulers ONLY!
@@ -372,6 +466,7 @@ sub waiter
         case ($hashCapability->{"sge"} && defined $$configInfo{"sge"}){$stopWaiting = &sgeWait} #For SGE running
         case ($hashCapability->{"slurm"} && defined $$configInfo{"slurm"}){$stopWaiting = &slurmWait} #For SLURM running
 	case ($hashCapability->{"mprun"} && defined $$configInfo{"mprun"}){$stopWaiting = &mprunWait} #For mprun running
+	case ($hashCapability->{"lsf"} && defined $$configInfo{"lsf"}){$stopWaiting = &lsfWait} #For lsf running
 
     }
     return $stopWaiting;
@@ -570,7 +665,7 @@ Individual\tJobID\tExitStatus
       }
       my @fields = split /\s+/, $macctOutput;
 
-      if ($$macctOutput=~ m/COMPLETED/) #No errors
+      if ($macctOutput=~ m/COMPLETED/) #No errors
       {
 	$outputLine = "$individual\t$jobHash{$individual}\tNormal";
       }
@@ -594,6 +689,71 @@ Individual\tJobID\tExitStatus
     return 1;
 }
 
+sub lsfWait
+{
+    
+    my $nbRunningJobs = 1;
+    my @jobsInError=();
+    
+    ##Waiting for jobs to finish
+    while ($nbRunningJobs)
+    {  
+      #Picking up the number of currently running jobs
+      my $bjobsQueueCommand = "bjobs -u \$USER | egrep -c \"$jobList\"";
+      #Looks like
+	#~$ bjobs
+	#JOBID USER STAT QUEUE FROM_HOST EXEC_HOST JOB_NAME SUBMIT_TIME
+	#21773 rdkassa RUN normal rddor-rdkas rddoridt51 *e_test.sh Apr 7 14:19
+      $nbRunningJobs = `$bjobsQueueCommand`;
+      chomp $nbRunningJobs;
+      sleep 50;
+    }
+    
+    #Compiling infos about sge jobs: jobID, node number, exit status
+    sleep 25;#Needed for bacct to register infos...
+    toolbox::exportLog("\n#########################################\nJOBS SUMMARY\n#########################################
+\n---------------------------------------------------------
+Individual\tJobID\tExitStatus
+---------------------------------------------------------",1);
+    
+    foreach my $individual (sort {$a cmp $b} keys %jobHash)
+    {
+      my $bacctCommand = "bacct ".$jobHash{$individual}."|grep \"Total number of done jobs:\"";
+      my $bacctOutput = `$bacctCommand`;
+      my $outputLine;
+      chomp $bacctOutput;
+      if ($bacctOutput =~ "-bash: bacct" or $bacctOutput =~ "installed")
+      {
+        #IF bacct cannot be run on the node
+        $outputLine = "$individual\t$jobHash{$individual}\tNA\tNA\n";
+        toolbox::exportLog($outputLine,1);
+        next;
+      }
+      my @fields = split /\s+/, $bacctOutput;
+
+      if ($bacctOutput=~ m/Total number of done jobs:\s*1\s*Total number of exited jobs:\s*0\s*/) #No errors
+      {
+	$outputLine = "$individual\t$jobHash{$individual}\tNormal";
+      }
+      else
+      {
+	push @jobsInError, $individual;
+	$outputLine = "$individual\t$jobHash{$individual}\tError";
+      }
+
+      
+      toolbox::exportLog($outputLine,1);
+      
+    }
+    toolbox::exportLog("---------------------------------------------------------\n",1);#To have a better table presentation
+  
+    if (scalar @jobsInError)
+    {
+	#at least one job has failed
+	return \@jobsInError;
+    }
+    return 1;
+}
 1;
 
 =head1 NAME

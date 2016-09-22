@@ -64,9 +64,10 @@ while (<LOCALCONFIG>)
 	{
 		chop $_;
 		my @line = split ("our ", $_);
-		$line[1] =~ s/\s=\s/=/g;
+		$line[1] =~ s/\s=\s/=/g; # remove space $java = "/....";
+		$line[1] =~ s/;\s*$//g; # remove ;\s in the end line
 		@line = split("=", $line[1]);
-		$line[1]=~s/"//g;
+		$line[1]=~s/"//g if defined $line[1];
 		$dictLocation{$line[0]} = $line[1];
 	}
 }
@@ -143,10 +144,13 @@ is($line,"cutadapt: error: At least one parameter needed: name of a FASTA or FAS
 # Testing the correct location of java
 ######################################
 
-`$java 1> /tmp/out.txt`;#We works with the STDERR output
+#Be careful, we redirect only the STDIN, some java send it in STDOUT
+`$java 2>/tmp/out.txt`;#We works with the STDERR output
 open(OUT,"<", "/tmp/out.txt");
 while (<OUT>) {
     $line=$_;
+    next unless $line =~ /java \[-options\] class/;
+    $line =~ s/Syntaxe /Usage/; # For French locale usage
     last; 
 }
 close OUT;
@@ -235,7 +239,7 @@ close OUT;
 unlink("/tmp/out.txt");
 
 is($line,"No input sequence or sequence file specified!
-Bowtie 2 version 2.2.5 by Ben Langmead (langmea\@cs.jhu.edu, www.cs.jhu.edu/~langmea)","Test for bowtie2-build location");
+Bowtie 2 version 2.2.9 by Ben Langmead (langmea\@cs.jhu.edu, www.cs.jhu.edu/~langmea)","Test for bowtie2-build location");
 
 ######################################
 # Testing the correct location of tophat2

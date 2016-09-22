@@ -30,13 +30,14 @@
 #
 ###################################################################################################################################
 
+#Will test if bwa works correctly
 use strict;
 use warnings;
-
 use Test::More 'no_plan'; #Number of tests, to modify if new tests implemented. Can be changed as 'no_plan' instead of tests=>11 .
 use Test::Deep;
-use lib qw(../Modules/);
 use Data::Dumper;
+use lib qw(../Modules/);
+
 
 ########################################
 #use of bwa module ok
@@ -52,168 +53,255 @@ can_ok('bwa','bwaMem');
 use toolbox;
 use bwa;
 
-my $configInfos = toolbox::readFileConf("software.config.txt");
+my $expectedData="../../DATA/expectedData/";
+#my $configInfos = toolbox::readFileConf("software.config.txt");
 
 #########################################
 #Remove files and directory created by previous test
 #########################################
 my $testingDir="../DATA-TEST/bwaTestDir";
-my $cleaningCmd="rm -Rf $testingDir"; 
-system ($cleaningCmd) and die ("ERROR: $0 : Cannot remove the previous test directory with the command $cleaningCmd \n$!\n");
+my $creatingDirCom="rm -Rf $testingDir ; mkdir -p $testingDir";                                    #Allows to have a working directory for the tests
+system($creatingDirCom) and die ("ERROR: $0 : Cannot execute the command $creatingDirCom\n$!\n");
 
-my $expectedData="../../DATA/expectedData/";
-
-########################################
-#Creation of test directory
-########################################
-my $makeDirCmd = "mkdir $testingDir";
-system ($makeDirCmd) and die ("ERROR: $0 : Cannot create the new directory with the command $makeDirCmd\n$!\n");
 chdir $testingDir or die ("ERROR: $0 : Cannot go into the new directory with the command \"chdir $testingDir\"\n$!\n");
+
 
 #######################################
 #Creating the IndividuSoft.txt file
 #######################################
-my $creatingCmd="echo \"bwa\nTEST\" > individuSoft.txt";
-system($creatingCmd) and die ("ERROR: $0 : Cannot create the individuSoft.txt file with the command $creatingCmd\n$!\n");
+my $creatingCommand="echo \"bwa\nTEST\" > individuSoft.txt";
+system($creatingCommand) and die ("ERROR: $0: Cannot create the individuSoft.txt file with the command $creatingCommand \n$!\n");
+
 
 #######################################
 #Cleaning the logs for the test
 #######################################
-$cleaningCmd="rm -Rf bwa_TEST_log.*";
-system($cleaningCmd) and die ("ERROR: $0 : Cannot remove the previous log files with the command $cleaningCmd \n$!\n");
+my $cleaningCommand="rm -Rf bwa_TEST_log.*";
+system($cleaningCommand) and die ("ERROR: $0: Cannot clean the previous log files for this test with the command $cleaningCommand \n$!\n");
 
-########################################
-#Picking up data for tests
-########################################
+
+##########################################
+##### bwa::index
+##########################################
+
+
+# input file
 my $fastaRef="Reference.fasta";
+
 my $originalFastaRef=$expectedData."/Reference.fasta";
-my $lnCmd="ln -s $originalFastaRef .";
-system($lnCmd) and die ("ERROR: $0 : Cannot copy the Reference for test with the Command $lnCmd \n$!\n");
+my $copyCmd= "cp $originalFastaRef $fastaRef";           # command to copy the original fasta file into the test directory
+system ($copyCmd) and die ("ERROR: $0 : Cannot link the file $originalFastaRef in the test directory with the command $copyCmd\n$!\n");    # RUN the copy command
 
-my $fastqFile1="RC3_1.REPAIRING.fastq";
-my $originalFastqFile1=$expectedData."/".$fastqFile1;
-$lnCmd="ln -s $originalFastqFile1 .";
-system($lnCmd) and die ("ERROR: $0 : Cannot copy the Fastq file $fastqFile1 for test with the command $lnCmd \n$!\n");    #The sequences are copied for testing
+# output file
+my $fastaRefBWT="Reference.fasta.bwt";
+my $fastaRefPAC="Reference.fasta.pac";
+my $fastaRefANN="Reference.fasta.ann";
+my $fastaRefAMB="Reference.fasta.amb";
+my $fastaRefSA="Reference.fasta.sa";
 
-my $fastqFile2="RC3_2.REPAIRING.fastq";
-my $originalFastqFile2=$expectedData."/".$fastqFile2;
-$lnCmd="ln -s $originalFastqFile2 .";
-system($lnCmd) and die ("ERROR: $0 : Cannot copy the Fastq file $fastqFile2 for test with the command $lnCmd \n$!\n");    #The sequences are copied for testing
+# execution test
+my %optionsHachees = (
+			"-a" => "is",
+			);        # Hash containing informations
+my $optionsHachees = \%optionsHachees;  
 
+is(bwa::bwaIndex($fastaRef,$optionsHachees),1,'bwa::bwaIndex - running');
+
+# expected output test
+#Check if files created
+my @expectedOutput = ("bwa_TEST_log.e","bwa_TEST_log.o","individuSoft.txt","Reference.fasta","Reference.fasta.amb","Reference.fasta.ann","Reference.fasta.bwt","Reference.fasta.pac","Reference.fasta.sa");
+my $observedOutput = `ls`;
+my @observedOutput = split /\n/,$observedOutput;
+is_deeply(\@observedOutput,\@expectedOutput,'bwa::bwaIndex - Filetree created');
+
+
+# expected content test $fastaRefBWT
+my $expectedMD5sum = "e4fdc0af9540ee8365e7e324fc5c0cc3";                                            # structure of the ref file for checking
+my $observedMD5sum = `md5sum $fastaRefBWT`;                                                        # structure of the test file for checking
+my @withoutName = split (" ", $observedMD5sum);                                                     # to separate the structure and the name of file
+$observedMD5sum = $withoutName[0];     										                        # just to have the md5sum result
+is($observedMD5sum, $expectedMD5sum, "bwa::index - output content file BWT");               # TEST IF THE STRUCTURE OF THE FILE OUT IS GOOD
+
+# expected content test $fastaRefPAC
+$expectedMD5sum = "03454e7242900c436d9d7126f492e4d5";                                            # structure of the ref file for checking
+$observedMD5sum = `md5sum $fastaRefPAC`;                                                        # structure of the test file for checking
+@withoutName = split (" ", $observedMD5sum);                                                     # to separate the structure and the name of file
+$observedMD5sum = $withoutName[0];     										                        # just to have the md5sum result
+is($observedMD5sum, $expectedMD5sum, "bwa::index - output content file PAC");               # TEST IF THE STRUCTURE OF THE FILE OUT IS GOOD
+
+# expected content test $fastaRefANN
+$expectedMD5sum = "a51b6a5152f51b13833a40fe609474ea";                                            # structure of the ref file for checking
+$observedMD5sum = `md5sum $fastaRefANN`;                                                        # structure of the test file for checking
+@withoutName = split (" ", $observedMD5sum);                                                     # to separate the structure and the name of file
+$observedMD5sum = $withoutName[0];     										                        # just to have the md5sum result
+is($observedMD5sum, $expectedMD5sum, "bwa::index - output content file ANN");               # TEST IF THE STRUCTURE OF THE FILE OUT IS GOOD
+
+# expected content test $fastaRefAMB
+$expectedMD5sum = "b86728bb71903f8641530e61e9687b59";                                            # structure of the ref file for checking
+$observedMD5sum = `md5sum $fastaRefAMB`;                                                        # structure of the test file for checking
+@withoutName = split (" ", $observedMD5sum);                                                     # to separate the structure and the name of file
+$observedMD5sum = $withoutName[0];     										                        # just to have the md5sum result
+is($observedMD5sum, $expectedMD5sum, "bwa::index - output content file AMB");               # TEST IF THE STRUCTURE OF THE FILE OUT IS GOOD
+
+# expected content test $fastaRefSA
+$expectedMD5sum = "9243bf066de0cc18aa0d3813f174cae8";                                            # structure of the ref file for checking
+$observedMD5sum = `md5sum $fastaRefSA`;                                                        # structure of the test file for checking
+@withoutName = split (" ", $observedMD5sum);                                                     # to separate the structure and the name of file
+$observedMD5sum = $withoutName[0];     										                        # just to have the md5sum result
+is($observedMD5sum, $expectedMD5sum, "bwa::index - output content file SA");               # TEST IF THE STRUCTURE OF THE FILE OUT IS GOOD
+
+
+##########################################
+##### bwa::bwaAln
+##########################################
+
+# input file
+my $forwardFastq=$expectedData."RC3_1.REPAIRING.fastq";
+my $reverseFastq=$expectedData."RC3_2.REPAIRING.fastq";
+
+# output file
 my $forwardSaiFileIn="RC3_1.BWAALN.sai";
 my $reverseSaiFileIn="RC3_2.BWAALN.sai";
-my $sampeFileOut="RC3.BWASAMPE.sam";
 
-#######################################################################################################
-####Test for bwa index running
-#######################################################################################################
-##Test for running
-my $optionsHachees=$configInfos->{'BWA index'};
-is(bwa::bwaIndex($fastaRef,$optionsHachees),1,'bwa::bwaIndex... running');
-###Verify if output are correct for bwa index
-my @expectedOutput=('./bwa_TEST_log.e','./bwa_TEST_log.o','./individuSoft.txt','./RC3_1.REPAIRING.fastq','./RC3_2.REPAIRING.fastq','./Reference.fasta','./Reference.fasta.amb','./Reference.fasta.ann','./Reference.fasta.bwt','./Reference.fasta.pac','./Reference.fasta.sa');
-my @observedOutput=toolbox::readDir(".");
+# execution test
+%optionsHachees = (
+			"-n" => 5,
+			"-o" => 1,
+			);        # Hash containing informations
+$optionsHachees = \%optionsHachees;
 
-is_deeply(@observedOutput,\@expectedOutput,'bwa::bwaIndex');
+is (bwa::bwaAln($fastaRef,$forwardFastq,$forwardSaiFileIn,$optionsHachees),'1',"bwa::bwaAln - Test for bwa Aln running for forward");
+is (bwa::bwaAln($fastaRef,$reverseFastq,$reverseSaiFileIn,$optionsHachees),'1',"bwa::bwaAln - Test for bwa Aln running for reverse");
 
-###Test for correct file value of bwa index using a md5sum file control -  work through the different bwa versions
-my $expectedMD5sum='b86728bb71903f8641530e61e9687b59  Reference.fasta.amb
-a51b6a5152f51b13833a40fe609474ea  Reference.fasta.ann
-e4fdc0af9540ee8365e7e324fc5c0cc3  Reference.fasta.bwt
-03454e7242900c436d9d7126f492e4d5  Reference.fasta.pac
-9243bf066de0cc18aa0d3813f174cae8  Reference.fasta.sa
-'; #Expected values for the files produced by the bwa index
-my $observedMD5sum=`md5sum Reference.fasta.*`;#md5sum values observed for the current files produced
-is($observedMD5sum,$expectedMD5sum,'bwa::bwaIndex... Test for the content of the bwa index output');
+# expected output test
+#Check if files created
+@expectedOutput = ("bwa_TEST_log.e","bwa_TEST_log.o","individuSoft.txt","RC3_1.BWAALN.sai","RC3_2.BWAALN.sai","Reference.fasta","Reference.fasta.amb","Reference.fasta.ann","Reference.fasta.bwt","Reference.fasta.pac","Reference.fasta.sa");
+$observedOutput = `ls`;
+@observedOutput = split /\n/,$observedOutput;
+is_deeply(\@observedOutput,\@expectedOutput,'bwa::aln - Files created');
 
-#######################################################################################################
-###Test for bwa Aln running
-#######################################################################################################
+# expected content test $forwardSaiFileIn
+#$expectedMD5sum = "8b6a2da9c90bd105f8b55bf3867e7f64";                                            # structure of the ref file for checking
+#$observedMD5sum = `md5sum $forwardSaiFileIn`;                                                        # structure of the test file for checking
+#@withoutName = split (" ", $observedMD5sum);                                                     # to separate the structure and the name of file
+#$observedMD5sum = $withoutName[0];     										                        # just to have the md5sum result
+ok((-s $forwardSaiFileIn)>0, "bwa::aln - output content file sai forward");               # TEST IF THE STRUCTURE OF THE FILE OUT IS GOOD
 
-$optionsHachees=$configInfos->{'BWA aln'};
-is (bwa::bwaAln($fastaRef,$fastqFile1,$forwardSaiFileIn,$optionsHachees),'1',"bwa::bwaAln... Test for bwa Aln running for forward");
-is (bwa::bwaAln($fastaRef,$fastqFile2,$reverseSaiFileIn,$optionsHachees),'1',"bwa::bwaAln... Test for bwa Aln running for reverse");
+# expected content test $reverseSaiFileIn
+ok((-s $reverseSaiFileIn)>0, "bwa::aln - output content file sai forward");               # TEST IF THE STRUCTURE OF THE FILE OUT IS GOOD
 
-###Verify if output are correct for bwa Aln
-@expectedOutput=('./bwa_TEST_log.e','./bwa_TEST_log.o','./individuSoft.txt','./RC3_1.BWAALN.sai','./RC3_1.REPAIRING.fastq','./RC3_2.BWAALN.sai','./RC3_2.REPAIRING.fastq','./Reference.fasta','./Reference.fasta.amb','./Reference.fasta.ann','./Reference.fasta.bwt','./Reference.fasta.pac','./Reference.fasta.sa');
-@observedOutput=toolbox::readDir(".");
+##########################################
+##### bwa::sampe
+##########################################
 
-is_deeply(@observedOutput,\@expectedOutput,'bwa::bwaAln... Test for bwa aln output files');
-exit;
+# output file
+my $samFileOut="RC3.BWASAMPE.sam";
+my $readGroupLine="RC3";
 
-###Test for correct file value of bwa aln using a md5sum - BE CAREFUL, the sum changes based on the version of BWA!!
-TODO: {
-    local $TODO = "The file structure depends of the version of BWA in use. Here, tested for bwa 0.7.9a";
-    
-    $expectedMD5sum ='1be54c4d8d37870cbd78d93cee30b26f  RC3_1.BWAALN.sai
-53ae4174a5bd3cdf2958a59614cf0eb1  RC3_2.BWAALN.sai
-';
-    $observedMD5sum=`md5sum *.sai`;#md5sum values observed for the current files produced
-    is($observedMD5sum,$expectedMD5sum,'bwa::bwaAln... est for the content of the bwa aln output');
-}
+# execution test
+is(bwa::bwaSampe($samFileOut,$fastaRef,$forwardSaiFileIn,$reverseSaiFileIn,$forwardFastq,$reverseFastq,$readGroupLine),'1',"bwa::sampe - Test for bwa sampe running");
 
-########################################################################################################
-####Test for bwa sampe
-#######################################################################################################
-is(bwa::bwaSampe($sampeFileOut,$fastaRef,$forwardSaiFileIn,$reverseSaiFileIn,$fastqFile1,$fastqFile2,"RC3"),'1',"bwa::bwaSampe... Test for bwa sampe running");
-####Verify if output are correct for sampe
-@expectedOutput=('./bwa_TEST_log.e','./bwa_TEST_log.o','./individuSoft.txt','./RC3_1.BWAALN.sai','./RC3_1.REPAIRING.fastq','./RC3_2.BWAALN.sai','./RC3_2.REPAIRING.fastq','./RC3.BWASAMPE.sam','./Reference.fasta','./Reference.fasta.amb','./Reference.fasta.ann','./Reference.fasta.bwt','./Reference.fasta.pac','./Reference.fasta.sa');
-@observedOutput=toolbox::readDir($testingDir);
-is_deeply(@observedOutput,\@expectedOutput,'bwa::bwaSampe... Test for Output file ok for bwa sampe');
+# expected output test
+#Check if files created
+@expectedOutput = ("bwa_TEST_log.e","bwa_TEST_log.o","individuSoft.txt","RC3_1.BWAALN.sai","RC3_2.BWAALN.sai","RC3.BWASAMPE.sam","Reference.fasta","Reference.fasta.amb","Reference.fasta.ann","Reference.fasta.bwt","Reference.fasta.pac","Reference.fasta.sa");
+$observedOutput = `ls`;
+@observedOutput = split /\n/,$observedOutput;
+is_deeply(\@observedOutput,\@expectedOutput,'bwa::sampe - Files created');
 
+
+# expected content test $samFileOut
+my $expectedLineNumber = "2947 $samFileOut";                                            # structure of the ref file for checking
+my $observedLineNumber = `wc -l $samFileOut`;                                                        # structure of the test file for checking
+chomp $observedLineNumber;                                                     # to separate the structure and the name of file
+is($observedLineNumber, $expectedLineNumber, "bwa::sampe - output content file sam");               # TEST IF THE STRUCTURE OF THE FILE OUT IS GOOD
 
 ###Test for correct file value of bwa sampe
 #GREP command result
-my $grepResult=`grep -c "XT:A:U" RC3.BWASAMPE.sam`;
+my $grepResult=`grep -c "XT:A:U" $samFileOut`;
 chomp $grepResult;
-is($grepResult,1704,'Test for the result of bwa sampe');
+is($grepResult,1699,'bwa::sampe - output grep in file sam');
 
 
-####################################################################################################################
-#####Test for bwa Samse
-########################################################################################################
-my $fastqFile="RC3.REPAIRING.fastq";
-my $originalFastqFile=$expectedData."/".$fastqFile;
+##########################################
+##### bwa::samse
+##########################################
 
-$lnCmd="ln -s $originalFastqFile .";
-system($lnCmd) and die ("ERROR: $0 : Cannot copy the Fastq file $fastqFile for test with the command $lnCmd \n$!\n");    #The sequences are copied for testing
+# input file
+my $fastqFile=$expectedData."RC3.REPAIRING.fastq";
 
+# output files
 my $singleSaiFileIn="RC3.BWAALN.sai";
 my $samseFileOut="RC3.BWASAMSE.sam";
 
-is (bwa::bwaAln($fastaRef,$fastqFile,$singleSaiFileIn,$optionsHachees),'1',"bwa::bwaAln... Test for bwa Aln running for single");
-is (bwa::bwaSamse($samseFileOut,$fastaRef,$singleSaiFileIn,$fastqFile,"RC3"),'1',"bwa::bwaSamse... Test for bwa samse running");
+is (bwa::bwaAln($fastaRef,$fastqFile,$singleSaiFileIn,$optionsHachees),'1',"bwa::aln - Test for bwa Aln running for single");
+is (bwa::bwaSamse($samseFileOut,$fastaRef,$singleSaiFileIn,$fastqFile,$readGroupLine),'1',"bwa::samse - Test for bwa samse running");
 
-####Verify if output are correct for samse
-@expectedOutput=('./bwa_TEST_log.e','./bwa_TEST_log.o','./individuSoft.txt','./RC3_1.BWAALN.sai','./RC3_1.REPAIRING.fastq','./RC3_2.BWAALN.sai','./RC3_2.REPAIRING.fastq','./RC3.BWAALN.sai','./RC3.BWASAMPE.sam','./RC3.BWASAMSE.sam','./RC3.REPAIRING.fastq','./Reference.fasta','./Reference.fasta.amb','./Reference.fasta.ann','./Reference.fasta.bwt','./Reference.fasta.pac','./Reference.fasta.sa');
-@observedOutput=toolbox::readDir(".");
+# expected output test
+#Check if files created
+@expectedOutput = ("bwa_TEST_log.e","bwa_TEST_log.o","individuSoft.txt","RC3_1.BWAALN.sai","RC3_2.BWAALN.sai","RC3.BWAALN.sai","RC3.BWASAMPE.sam","RC3.BWASAMSE.sam","Reference.fasta","Reference.fasta.amb","Reference.fasta.ann","Reference.fasta.bwt","Reference.fasta.pac","Reference.fasta.sa");
+$observedOutput = `ls`;
+@observedOutput = split /\n/,$observedOutput;
+is_deeply(\@observedOutput,\@expectedOutput,'bwa::samse - Files created');
 
-is_deeply(\@expectedOutput,@observedOutput,'Test for bwa samse output files');
+
+# expected content test $singleSaiFileIn
+ok((-s $singleSaiFileIn)>0, "bwa::aln - output content file sai forward");               # TEST IF THE STRUCTURE OF THE FILE OUT IS GOOD
+
+# expected content test $samseFileOut
+$expectedLineNumber = "954 $samseFileOut";                                            # structure of the ref file for checking
+$observedLineNumber = `wc -l $samseFileOut`;                                                        # structure of the test file for checking
+chomp $observedLineNumber;     										                        # just to have the md5sum result
+is($observedLineNumber, $expectedLineNumber, "bwa::samse - output content file sam");               # TEST IF THE STRUCTURE OF THE FILE OUT IS GOOD
 
 ####Test for correct file value of bwa samse - 
-$grepResult= `grep -c "XT:A:U" RC3.BWASAMSE.sam`;
+$grepResult= `grep -c "XT:A:U" $samseFileOut`;
 chomp $grepResult;
-is($grepResult,1,'bwa::bwaSamse... Test for the content result of bwa samse');
+is($grepResult,1,'bwa::samse - output grep in file sam');
 
+##########################################
+##### bwa::mem single
+##########################################
 
-########################################################################################################
-#####Test for bwa mem single
-########################################################################################################
+#output files
+$samFileOut="RC3.BWAMEM.sam";
 
 ##Running test
-is (bwa::bwaMem($samseFileOut,$fastaRef,$fastqFile1,"","truc"),'1',"bwa::bwaMem... Test for bwa mem running single");
+is (bwa::bwaMem($samFileOut,$fastaRef,$forwardFastq,undef,$readGroupLine),'1',"bwa::bwaMem - Test for bwa mem running single");
+
 
 ###Verify if output are correct for mem single
-@expectedOutput=('./bwa_TEST_log.e','./bwa_TEST_log.o','./individuSoft.txt','./RC3_1.REPAIRING.fastq','./RC3_2.REPAIRING.fastq','./RC3.BWASAMPE.sam','./Reference.fasta','./Reference.fasta.amb','./Reference.fasta.ann','./Reference.fasta.bwt','./Reference.fasta.pac','./Reference.fasta.sa');
-my @outPut=toolbox::readDir(".");
-is_deeply(@outPut,\@expectedOutput,'bwa::bwaMem... Test for bwa mem single output files');
+@expectedOutput = ("bwa_TEST_log.e","bwa_TEST_log.o","individuSoft.txt","RC3_1.BWAALN.sai","RC3_2.BWAALN.sai","RC3.BWAALN.sai","RC3.BWAMEM.sam","RC3.BWASAMPE.sam","RC3.BWASAMSE.sam","Reference.fasta","Reference.fasta.amb","Reference.fasta.ann","Reference.fasta.bwt","Reference.fasta.pac","Reference.fasta.sa");
+$observedOutput = `ls`;
+@observedOutput = split /\n/,$observedOutput;
+is_deeply(\@observedOutput,\@expectedOutput,'bwa::mem Single - Files created');
 
 ##Output value test
-$grepResult= `grep -c 'LOC' RC3.BWASAMPE.sam`;
+$grepResult= `grep -c 'XT:A:U' $samFileOut`;
 chomp $grepResult;
-is($grepResult,717,'bwa::bwaMem... Test for the result of bwa mem single');
+is($grepResult,0,'bwa::mem - Test for the result of bwa mem single');
+
+##########################################
+##### bwa::mem single
+##########################################
+
+#output files
+$samFileOut="RC3.BWAMEMPaired.sam";
+
+##Running test
+is (bwa::bwaMem($samFileOut,$fastaRef,$forwardFastq,$reverseFastq,$readGroupLine),'1',"bwa::mem - Test for bwa mem running paired");
+
+
+###Verify if output are correct for mem single
+@expectedOutput = ("bwa_TEST_log.e","bwa_TEST_log.o","individuSoft.txt","RC3_1.BWAALN.sai","RC3_2.BWAALN.sai","RC3.BWAALN.sai","RC3.BWAMEMPaired.sam","RC3.BWAMEM.sam","RC3.BWASAMPE.sam","RC3.BWASAMSE.sam","Reference.fasta","Reference.fasta.amb","Reference.fasta.ann","Reference.fasta.bwt","Reference.fasta.pac","Reference.fasta.sa");
+$observedOutput = `ls`;
+@observedOutput = split /\n/,$observedOutput;
+is_deeply(\@observedOutput,\@expectedOutput,'bwa::mem Paired - Files created');
+
+##Output value test
+$grepResult= `grep -c 'XT:A:U' $samFileOut`;
+chomp $grepResult;
+is($grepResult,0,'bwa::mem - Test for the result of bwa mem paired');
 
 exit;
 
-### ADD BWA MEM PAIRED TEST
 

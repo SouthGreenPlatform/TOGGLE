@@ -46,9 +46,17 @@ use_ok('onTheFly');
 can_ok('onTheFly','checkOrder');
 can_ok('onTheFly','generateScript');
 can_ok('onTheFly','indexCreator');
+can_ok('onTheFly','generateGraphviz');
 
 use onTheFly;
 
+#########################################
+#Remove the files and directory created by the previous test
+#########################################
+my $testingDir="../DATA-TEST/onTheFlyTestDir";
+my $rmDirCommand="rm -Rf $testingDir; mkdir $testingDir"; 
+system ("$rmDirCommand") and die ("ERROR: $0 : Cannot remove the previous test directory with the command $rmDirCommand \n$!\n");
+chdir $testingDir or die ("ERROR: $0 : Cannot create $testingDir\n$!\n");
 
 #######################################
 #Creating the IndividuSoft.txt file
@@ -64,26 +72,11 @@ my $cleaningCommand="rm -Rf onTheFly_TEST_log.*";
 system($cleaningCommand) and die ("ERROR: $0: Cannot clean the previous log files for this test with the command $cleaningCommand \n$!\n");
 
 
-
-#########################################
-#Remove the files and directory created by the previous test
-#########################################
-my $testingDir="../DATA-TEST/onTheFlyTestDir";
-$cleaningCommand="rm -Rf ../DATA-TEST/$testingDir"; 
-system ("rm -Rf $testingDir") and die ("ERROR: $0 : Cannot remove the previous test directory with the command $cleaningCommand \n$!\n");
-
-
-########################################
-#Creation of test directory
-########################################
-my $makeDirCom = "mkdir $testingDir";
-system ($makeDirCom) and die ("ERROR: $0 : Cannot create the new directory with the command $makeDirCom\n$!\n");
-
 ########################################
 #Creation of test files
 ########################################
-my $originalFastaRef="../DATA/expectedData/Reference.fasta";
-my $fastaRef="$testingDir/Reference.fasta";
+my $originalFastaRef="../../DATA/expectedData/Reference.fasta";
+my $fastaRef="Reference.fasta";
 my $refCopyCom="cp $originalFastaRef $fastaRef";
 system($refCopyCom) and die ("ERROR: $0 : Cannot copy the Reference for test with the command $refCopyCom \n$!\n");
   #Now we have a ref to be tested
@@ -97,14 +90,14 @@ system($refCopyCom) and die ("ERROR: $0 : Cannot copy the Reference for test wit
 my $hashOrderOk =   {
                         "order"=>   {
                                         "1" => "bwaSampe",
-                                        "2" => "samtoolsView",
-                                        "3" => "samtoolsSort"
+                                        "2" => "samToolsView",
+                                        "3" => "samToolsSort"
                                     }
                     };
 
 my @output = onTheFly::checkOrder($hashOrderOk);
 my @expected=('1','3');
-is_deeply(\@output,\@expected,'Test for correct pipeline onTheFly::checkOrder');
+is_deeply(\@output,\@expected,'onTheFly::checkOrder - normal order');
 
 #testi;ng the uncorrect rendering TEST Ok in dev, but die so cannot be tested...
 #Adding a configHash
@@ -122,27 +115,27 @@ my $hashOrderNAOk =   {
                         "order"=>   {
                                         "1" => "fastqc",
                                         "2" => "bwaSampe",
-                                        "3" => "samtoolsView",
-                                        "4" => "samtoolsSort"
+                                        "3" => "samToolsView",
+                                        "4" => "samToolsSort"
                                     }
                     };
 
 @output = onTheFly::checkOrder($hashOrderNAOk);
 @expected=('1','4');
-is_deeply(\@output,\@expected,'Test for correct pipeline with \'dead-end\' software beginning onTheFly::checkOrder');
+is_deeply(\@output,\@expected,'onTheFly::checkOrder - dead-end beginning');
 
 #Testing for dead-end program in the middle
 my $hashOrderNAOkBis =   {
                         "order"=>   {
                                         "3" => "fastqc",
                                         "1" => "bwaSampe",
-                                        "2" => "samtoolsView",
-                                        "4" => "samtoolsSort"
+                                        "2" => "samToolsView",
+                                        "4" => "samToolsSort"
                                     }
                     };
 @output = onTheFly::checkOrder($hashOrderNAOkBis);
 @expected=('1','4');
-is_deeply(\@output,\@expected,'Test for correct pipeline with \'dead-end\' software in the middle onTheFly::checkOrder');
+is_deeply(\@output,\@expected,'onTheFly::checkOrder - dead-end intermediate');
 
 #testing the single program
 my $hashOrderSingle =   {
@@ -152,21 +145,21 @@ my $hashOrderSingle =   {
                     };
 @output = onTheFly::checkOrder($hashOrderSingle);
 @expected=('3','3');
-is_deeply(\@output,\@expected,'Test for correct pipeline with a single software onTheFly::checkOrder');
+is_deeply(\@output,\@expected,'onTheFly::checkOrder - Single software');
 
 
 #testing multiple call of the same program
 my $hashOrderMultiple =   {
                         "order"=>   {
                                         "1" => "bwaSampe",
-                                        "2" => "samtoolsView",
-                                        "3" => "samtoolsSort",
-                                        "4" => "samtoolsView"
+                                        "2" => "samToolsView",
+                                        "3" => "samToolsSort",
+                                        "4" => "samToolsView"
                                     }
                     };
 @output = onTheFly::checkOrder($hashOrderMultiple);
 @expected=('1','4');
-is_deeply(\@output,\@expected,'Test for correct pipeline with multiple call of the same software onTheFly::checkOrder');
+is_deeply(\@output,\@expected,'onTheFly::checkOrder - multiple calls of the same software');
 
 ########################################
 #generateScript test
@@ -174,14 +167,31 @@ is_deeply(\@output,\@expected,'Test for correct pipeline with multiple call of t
 
 #testing the correct rendering
 #Adding a configHash
-my $hashConf =   {
-                        "order"=>   {
-                                        "1" => "bwaAln",
-                                        "2" => "bwaSampe",
-                                        "3" => "samtoolsView"
-                                    }
-                    };
-is (onTheFly::generateScript($hashConf,"$testingDir/ToggleBzzz.pl"),'1','Test for correct pipeline onTheFly::generateScript');
+my $hashConf =  {
+                "1" => "bwaAln",
+                "2" => "bwaSampe",
+                "3" => "samToolsView"
+                };
+#output file
+my $outputScript = "toggleBzzz.pl";
+
+#execution test
+is (onTheFly::generateScript($hashConf,$outputScript),'1','onTheFly::generateScript');
+
+# expected output test
+my $observedOutput = `ls`;
+my @observedOutput = split /\n/,$observedOutput;
+my @expectedOutput = ('individuSoft.txt','onTheFly_TEST_log.e','onTheFly_TEST_log.o','Reference.fasta','toggleBzzz.pl');
+#
+is_deeply(\@observedOutput,\@expectedOutput,'onTheFly::generateScript - output list');
+
+# expected content test
+
+my $expectedMD5sum="6a9353df34a395fd57a2a4a424898103";
+my $observedMD5sum=`md5sum $outputScript`;# structure of the test file
+my @withoutName = split (" ", $observedMD5sum);     # to separate the structure and the name of the test file
+$observedMD5sum = $withoutName[0];       # just to have the md5sum result
+is($observedMD5sum,$expectedMD5sum,'onTheFly::generateScript - output structure');
 
 ########################################
 #indexCreator test
@@ -193,13 +203,46 @@ $hashConf =   {
                         "order"=>   {
                                         "1" => "bwaSampe",
                                         "2" => "gatkHaplotypeCaller",
-                                        "3" => "samtoolsSort"
+                                        "3" => "samToolsSort"
                                     }
                     };
-is (onTheFly::indexCreator($hashConf,$fastaRef),'1','Test for correct onTheFly::indexCreator running');
+is (onTheFly::indexCreator($hashConf,$fastaRef),'1','onTheFly::indexCreator - creation');
+
+# expected output test
+$observedOutput = `ls`;
+@observedOutput = split /\n/,$observedOutput;
+@expectedOutput = ('individuSoft.txt','onTheFly_TEST_log.e','onTheFly_TEST_log.o','Reference.dict','Reference.fasta','Reference.fasta.amb','Reference.fasta.ann','Reference.fasta.bwt','Reference.fasta.fai','Reference.fasta.pac','Reference.fasta.sa','toggleBzzz.pl');
+#
+is_deeply(\@observedOutput,\@expectedOutput,'onTheFly::indexCreator - output list');
+
+# expected content test
+
+$expectedMD5sum="4b9a4431e72c9db7e5c1f2153eba9fe7";
+$observedMD5sum=`md5sum $fastaRef.fai`;# structure of the test file
+@withoutName = split (" ", $observedMD5sum);     # to separate the structure and the name of the test file
+$observedMD5sum = $withoutName[0];       # just to have the md5sum result
+#is($observedMD5sum,$expectedMD5sum,'onTheFly::generateScript - output structure');
 
 #Testing if creating in case of existing refs.
-is (onTheFly::indexCreator($hashConf,$fastaRef),'1','Test for not recreating the ref index for onTheFly::indexCreator running');
+#Input file
+my $initialModifDate = `stat -c %y Reference.fasta.pac`; #type such as 2016-05-11 15:49:19.696893241 +0200
+chomp $initialModifDate;
+
+#execution test
+is (onTheFly::indexCreator($hashConf,$fastaRef),'1','onTheFly::indexCreator no creation');
+
+# expected output test
+$observedOutput = `ls`;
+@observedOutput = split /\n/,$observedOutput;
+@expectedOutput = ('individuSoft.txt','onTheFly_TEST_log.e','onTheFly_TEST_log.o','Reference.dict','Reference.fasta','Reference.fasta.amb','Reference.fasta.ann','Reference.fasta.bwt','Reference.fasta.fai','Reference.fasta.pac','Reference.fasta.sa','toggleBzzz.pl');
+#
+is_deeply(\@observedOutput,\@expectedOutput,'onTheFly::indexCreator no creation - output list');
+
+# expected content test
+$observedOutput = `stat -c %y Reference.fasta.pac`;
+chomp $observedOutput;
+is($observedOutput,$initialModifDate,'onTheFly::indexCreator no creation - output structure');
+
 
 #Testing fro re-creating forced of index
 $hashConf =   {
@@ -208,5 +251,48 @@ $hashConf =   {
                                         "2" => "gatkHaplotypeCaller",
                                         "3" => "bwaIndex"
                                     }
-                    };
-is (onTheFly::indexCreator($hashConf,$fastaRef),'1','Test for forced recreating the ref index for onTheFly::indexCreator running');
+                      };
+#execution test
+is (onTheFly::indexCreator($hashConf,$fastaRef),'1','onTheFly::indexCreator forcing creation');
+
+# expected output test
+$observedOutput = `ls`;
+@observedOutput = split /\n/,$observedOutput;
+@expectedOutput = ('individuSoft.txt','onTheFly_TEST_log.e','onTheFly_TEST_log.o','Reference.dict','Reference.fasta','Reference.fasta.amb','Reference.fasta.ann','Reference.fasta.bwt','Reference.fasta.fai','Reference.fasta.pac','Reference.fasta.sa','toggleBzzz.pl');
+#
+is_deeply(\@observedOutput,\@expectedOutput,'onTheFly::indexCreator forcing creation - output list');
+
+# expected content test
+$observedOutput = `stat -c %y Reference.fasta.pac`;
+chomp $observedOutput;
+isnt($observedOutput,$initialModifDate,'onTheFly::indexCreator forcing creation - output structure');
+
+
+########################################
+#generateGraphviz test
+#######################################
+
+#Generating normal hash for order
+$hashConf = {
+            "1" => "bwaSampe",
+            "2" => "gatkHaplotypeCaller",
+            "3" => "bwaIndex"
+            };
+
+#execution test
+is (onTheFly::generateGraphviz($hashConf,$toggle."/DATA-TEST/onTheFlyTestDir"),'1','onTheFly::generateGraphviz');
+
+# expected output test
+$observedOutput = `ls`;
+@observedOutput = split /\n/,$observedOutput;
+@expectedOutput = ('individuSoft.txt','onTheFly_TEST_log.e','onTheFly_TEST_log.o','Reference.dict','Reference.fasta','Reference.fasta.amb','Reference.fasta.ann','Reference.fasta.bwt','Reference.fasta.fai','Reference.fasta.pac','Reference.fasta.sa','toggleBzzz.pl','togglePipeline.dot');
+#
+is_deeply(\@observedOutput,\@expectedOutput,'onTheFly::generateGraphviz - output list');
+
+# expected content test
+
+$expectedMD5sum="14";
+$observedMD5sum=`wc -l togglePipeline.dot`;# structure of the test file
+@withoutName = split (" ", $observedMD5sum);     # to separate the structure and the name of the test file
+$observedMD5sum = $withoutName[0];       # just to have the md5sum result
+is($observedMD5sum,$expectedMD5sum,'onTheFly::generateGraphviz - output structure');

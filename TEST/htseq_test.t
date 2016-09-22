@@ -30,14 +30,38 @@
 #
 ###################################################################################################################################
 
-use strict;
 
-#Will test if tophat works correctly
+
+#Will test if htseq works correctly
+use strict;
 use warnings;
 use Test::More 'no_plan'; #Number of tests, to modify if new tests implemented. Can be changed as 'no_plan' instead of tests=>11 .
 use Test::Deep;
-use lib qw(../Modules/);
 use Data::Dumper;
+use lib qw(../Modules/);
+
+########################################
+#use of module ok
+########################################
+use_ok('toolbox') or exit;
+use_ok('HTSeq') or exit;
+can_ok( 'HTSeq','htseqCount');
+
+use toolbox;
+use HTSeq;
+
+my $expectedData="../../DATA/expectedData/";
+
+
+#########################################
+#Remove files and directory created by previous test
+#########################################
+my $testingDir="../DATA-TEST/htseqTestDir";
+my $creatingDirCom="rm -Rf $testingDir ; mkdir -p $testingDir";                                    #Allows to have a working directory for the tests
+system($creatingDirCom) and die ("ERROR: $0 : Cannot execute the command $creatingDirCom\n$!\n");
+
+chdir $testingDir or die ("ERROR: $0 : Cannot go into the new directory with the command \"chdir $testingDir\"\n$!\n");
+
 
 #######################################
 #Creating the IndividuSoft.txt file
@@ -52,47 +76,97 @@ system($creatingCommand) and die ("ERROR: $0: Cannot create the individuSoft.txt
 my $cleaningCommand="rm -rf htseq_TEST_log.*";
 system($cleaningCommand) and die ("ERROR: $0: Cannot clean the previous log files for this test with the command $cleaningCommand \n$!\n");
 
-########################################
-#initialisation and setting configs
-########################################
-my $testingDir="../DATA-TEST/htseqTestDir";
-my $creatingDirCom="rm -rf $testingDir ; mkdir -p $testingDir";                                    #Allows to have a working directory for the tests
-system($creatingDirCom) and die ("ERROR: $0 : Cannot execute the command $creatingDirCom\n$!\n");
 
-my $originalBam="../DATA/expectedData/tophat/accepted_hits.SAMTOOLSSORT.bam";
-my $bam="$testingDir/accepted_hits.SAMTOOLSSORT.bam";
-my $bamCopyCom="cp $originalBam $bam";
-system($bamCopyCom) and die ("ERROR: $0 : Cannot copy the bam file $originalBam with the command $bamCopyCom\n$!\n");     #Now we have a bam to be tested
 
-my $OriginalGffRef="../DATA/expectedData/referenceRNASeq.gff3";
-my $gffRef="$testingDir/referenceRNASeq.gff3";
-my $gffCopyCom="cp $OriginalGffRef $gffRef";
-system($gffCopyCom) and die ("ERROR: $0 : Cannot copy the gff Reference $OriginalGffRef with the command $gffCopyCom\n$!\n");     #Now we have a gff to be tested
 
-########################################
-#use of module ok
-########################################
-use_ok('toolbox') or exit;
-use_ok('HTSeq') or exit;
-can_ok( 'HTSeq','htseqCount');
-
-use toolbox;
-use HTSeq;
 
 
 ########################################
-#HTSeq::htseqCount
+#HTSeq::htseqCount bam file
 ########################################
-my %optionsHachees = ("-r" => "name", "-s" => "no", "-t" => "mRNA",  "-m" => "union",  "-i" => "ID",  "-f" => "bam");        # Hash containing informations
+
+# input file
+my $bamIni=$expectedData."/accepted_hits.SAMTOOLSSORT.bam";
+my $bam="accepted_hits.SAMTOOLSSORT.bam";
+my $gffRef=$expectedData."referenceRNASeq.gff3";
+
+#copy fasta reference into test directory where the index will be created
+my $copyCommand="cp $bamIni .";
+system ($copyCommand) and die "ERROR: $0: Cannot copy the bam file with the command $copyCommand \n$!\n";
+
+
+#htseq option
+my %optionsHachees = (
+                      "-r" => "name",
+                      "-s" => "no",
+                      "-t" => "mRNA",
+                      "-m" => "union",
+                      "-i" => "ID",
+                      );       
+
 my $optionHachees = \%optionsHachees;                           # Ref of the hash
 
-my $htseqcountFile=$testingDir."/accepted_hits.HTSEQCOUNT.txt";
-is(HTSeq::htseqCount($bam, $htseqcountFile,$gffRef, $optionHachees),1,'OK for htseqCount RUNNING');
+#outputfile
+my $htseqcountFile="accepted_hits.HTSEQCOUNT.txt";
+is(HTSeq::htseqCount($bam, $htseqcountFile,$gffRef, $optionHachees),1,'HTSeq::htseqCount (bam file)');
 
+# expected output test
+my $observedOutput = `ls`;
+my @observedOutput = split /\n/,$observedOutput;
+my @expectedOutput = ('accepted_hits.HTSEQCOUNT.txt','accepted_hits.SAMTOOLSSORT.bam','accepted_hits.SAMTOOLSSORT.sam','htseq_TEST_log.e','htseq_TEST_log.o','individuSoft.txt');
 
-##Test for correct file using md5sum
-my $expectedMD5sum="d2c759b28024b0f51d8feeaa65d31205";
+is_deeply(\@observedOutput,\@expectedOutput,'HTSeq::htseqCount - output list');
+
+# expected content test
+my $expectedMD5sum="02dbd2343614fba7a9e7535e92ff0f38";
 my $observedMD5sum=`md5sum $htseqcountFile`;# structure of the test file
 my @withoutName = split (" ", $observedMD5sum);     # to separate the structure and the name of the test file
 $observedMD5sum = $withoutName[0];       # just to have the md5sum result
-is($observedMD5sum,$expectedMD5sum,'Ok for the content of the file generated by htseq-count');
+is($observedMD5sum,$expectedMD5sum,'HTSeq::htseqCount - output content');
+
+
+
+########################################
+#HTSeq::htseqCount sam file
+########################################
+
+#input file
+my $samIni=$expectedData."/accepted_hits.SAMTOOLSSORT.sam";
+my $sam="accepted_hits.SAMTOOLSSORT.sam";
+
+#copy fasta reference into test directory where the index will be created
+my $rmCommand="rm $bam $sam";
+system ($rmCommand) and die "ERROR: $0: Cannot remove bam and sam files generated precedently with the command $rmCommand \n$!\n";
+
+#copy fasta reference into test directory where the index will be created
+$copyCommand="cp $samIni .";
+system ($copyCommand) and die "ERROR: $0: Cannot copy the refence file with the command $copyCommand \n$!\n";
+
+#htseq option
+%optionsHachees = (
+                      "-r" => "name",
+                      "-s" => "no",
+                      "-t" => "mRNA",
+                      "-m" => "union",
+                      "-i" => "ID",
+                      );       
+
+$optionHachees = \%optionsHachees;                           # Ref of the hash
+
+#outputfile
+$htseqcountFile="accepted_hits.SAM-HTSEQCOUNT.txt";
+is(HTSeq::htseqCount($sam, $htseqcountFile,$gffRef, $optionHachees),1,'HTSeq::htseqCount (sam file)');
+
+# expected output test
+$observedOutput = `ls`;
+@observedOutput = split /\n/,$observedOutput;
+@expectedOutput = ('accepted_hits.HTSEQCOUNT.txt','accepted_hits.SAM-HTSEQCOUNT.txt','accepted_hits.SAMTOOLSSORT.sam','htseq_TEST_log.e','htseq_TEST_log.o','individuSoft.txt');
+
+is_deeply(\@observedOutput,\@expectedOutput,'HTSeq::htseqCount - output list');
+
+# expected content test
+$expectedMD5sum="02dbd2343614fba7a9e7535e92ff0f38";
+$observedMD5sum=`md5sum $htseqcountFile`;# structure of the test file
+@withoutName = split (" ", $observedMD5sum);     # to separate the structure and the name of the test file
+$observedMD5sum = $withoutName[0];       # just to have the md5sum result
+is($observedMD5sum,$expectedMD5sum,'HTSeq::htseqCount - output content');

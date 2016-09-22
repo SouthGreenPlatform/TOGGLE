@@ -43,7 +43,7 @@ sub gatkBaseRecalibrator
     if ((toolbox::checkSamOrBamFormat($bamToRecalibrate)==2) and (toolbox::sizeFile($refFastaFileIn)==1) and (toolbox::sizeFile($bamToRecalibrate)==1))     # check if files exists and arn't empty and stop else
     {
         my $options=toolbox::extractOptions($optionsHachees);       # extraction of options parameters
-        print $options,"\n";
+        #print $options,"\n";
         if ($options !~ m/-T/) # The type of walker is not informed in the options
         {
             $options .= " -T BaseRecalibrator";

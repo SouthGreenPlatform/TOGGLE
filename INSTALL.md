@@ -37,7 +37,7 @@ $chmod 755 *pl
 
 * Test the pipeline with the test data
 
-Add the correct adaptator sequences in the file SNPdiscoveryPaired.config.txt
+Modify the path of adaptator file in the file SNPdiscoveryPaired.config.txt
 
 ````
 $cutadapt
@@ -46,10 +46,9 @@ $cutadapt
 -q=20
 --overlap=7
 -u=8
-# Adaptator1 is removed in the forward (-b) and reverse (-B) reads (5' and 3' position)
--b ADAPTATOR1REVERSE -B ADAPTATOR1REVERSE 
-# Same traitement is done for the forward adaptator sequence
--b ADAPTATOR1FORWARD -B ADAPTATOR1FORWARD
+#If you have a specific adaptator file, please indicate here. 
+-adaptatorFile=/path/to/adaptator.txt
+````
 
 ````
 $cd /pathToToggle

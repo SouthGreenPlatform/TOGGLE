@@ -46,7 +46,7 @@ our $toggle="/path/to/toggleFolder";
 our $java = "/path/to/java -Xmx12g -jar";
 
 our $bwa = "/path/to/bwa";
-our $picard = "$java /path/to/picard_tools/";
+our $picard = "$java /path/to/picard_tools/picard.jar";
 
 our $samtools = "/path/to/samtools";
 our $GATK = "$java -Xmx12g -jar /path/to/GenomeAnalysisTK.jar";
@@ -66,10 +66,10 @@ our $tophat2="/path/to/tophat2";
 our $bowtie2Build="/path/to/bowtie2-build";
 
 #path for bowtie-build
-our $bowtieBuild="/path/to//bowtie-build";
+our $bowtieBuild="/path/to/bowtie-build";
 
 #path for htseqcount
-our $htseqcount = "/path/to//htseq-count";
+our $htseqcount = "/path/to/htseq-count";
 
 #path for Cufflinks
 our $cufflinks = "/path/to/cufflinks";

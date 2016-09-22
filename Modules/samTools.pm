@@ -170,7 +170,7 @@ sub samToolsSort
           {
                $options=toolbox::extractOptions($optionsHachees);
           }
-          my $command=$samtools." sort ".$options." ".$bamFileIn." ".$bamFileOut;
+          my $command=$samtools." sort ".$options." ".$bamFileIn." -o ".$bamFileOut;
           
           #Execute command
           if(toolbox::run($command)==1)
@@ -228,13 +228,13 @@ sub samToolsMerge
                }
                else                                                   #The file is not a BAM
                {                                                      
-                    toolbox::exportLog("ERROR: samTools::samToolsDepth : The file $putativeBam is not a BAM file\n",0);
+                    toolbox::exportLog("ERROR: samTools::samToolsMerge : The file $putativeBam is not a BAM file\n",0);
                     return 0;  
                }
           }
           else #The file does not exist
           {
-               toolbox::exportLog("ERROR: samTools::samToolsDepth : The file $putativeBam does not exist\n",0);
+               toolbox::exportLog("ERROR: samTools::samToolsMerge : The file $putativeBam does not exist\n",0);
                return 0;
           }
      }

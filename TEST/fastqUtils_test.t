@@ -46,11 +46,18 @@ use toolbox;
 use_ok('fastqUtils');
 can_ok('fastqUtils','changeEncode');
 can_ok('fastqUtils','checkEncodeByASCIIcontrol');
-#can_ok('fastqUtils','checkNumberByWC');
 can_ok('fastqUtils','convertLinePHRED33ToPHRED64');
 can_ok('fastqUtils','convertLinePHRED64ToPHRED33');
 
 use fastqUtils;
+
+########################################
+#initialisation and setting configs
+########################################
+my $testingDir="../DATA-TEST/fastqUtilsTestDir";
+my $creatingDirCom="rm -Rf $testingDir ; mkdir -p $testingDir";                                    #Allows to have a working directory for the tests
+system($creatingDirCom) and die ("ERROR: $0 : Cannot execute the command $creatingDirCom\n$!\n");
+chdir $testingDir or die("ERROR: $0 : Cannot change dir to $testingDir\n$!\n");
 
 #######################################
 #Creating the IndividuSoft.txt file
@@ -64,102 +71,93 @@ system($creatingCommand) and die ("ERROR: $0: Cannot create the individuSoft.txt
 my $cleaningCommand="rm -Rf fastqUtils_TEST_log.*";
 system($cleaningCommand) and die ("ERROR: $0: Cannot clean the previous log files for this test with the command $cleaningCommand \n$!\n");
 
-########################################
-#initialisation and setting configs
-########################################
-my $testingDir="../DATA-TEST/fastqUtilsTestDir";
-my $creatingDirCom="rm -Rf $testingDir ; mkdir -p $testingDir";                                    #Allows to have a working directory for the tests
-system($creatingDirCom) and die ("ERROR: $0 : Cannot execute the command $creatingDirCom\n$!\n");
+;
 
 
 ########################################
 #Input files
 ########################################
-my $originalFastaRef="../DATA/expectedData/Reference.fasta";
-my $fastaRef="$testingDir/Reference.fasta";
-my $refCopyCom="cp $originalFastaRef $fastaRef";
-system($refCopyCom) and die ("ERROR: $0 : Cannot copy the Reference for test with the command $refCopyCom \n$!\n");
+my $expectedData="../../DATA/expectedData/";
 
-my $originalFastqFile1="../DATA/expectedData/RC3_1.fastq";
-my $originalFastqFile2="../DATA/expectedData/RC3_2.fastq";
-my $fastqFile1="$testingDir/RC3_1.fastq";
-my $fastqFile2="$testingDir/RC3_2.fastq";
-my $seqCopyCom="cp $originalFastqFile1 $fastqFile1";
-system($seqCopyCom) and die ("ERROR: $0 : Cannot copy the file $originalFastqFile1 for test with the command $seqCopyCom \n$!\n");    #The sequences are copied for testing
-$seqCopyCom="cp $originalFastqFile2 $fastqFile2";
-system($seqCopyCom) and die ("ERROR: $0 : Cannot copy the file $originalFastqFile2 for test with the command $seqCopyCom \n$!\n");    #The sequences are copied for testing
-
-
-
-#########################################
-#Sequence count test
-#########################################
-#checkNumberByWC test with a fastq file
-#my $count = fastqUtils::checkNumberByWC($fastqFile1);
-#is($count,'1000',"Test for checkNumberByWC... $fastqFile1");
-
-#$count = fastqUtils::checkNumberByWC($fastqFile2);
-#is($count,'1000',"Test for checkNumberByWC... $fastqFile2");
-
-
-#########################################
-# Encode conversion test
-#########################################
-
-#########################################
-# General mode, ie for a complete file, using changeEncode
-#########################################
 #Correct files for verifying the outputs
-my $CorrectPHRED33file="../DATA/expectedData/RC1_1.fastq";
-my $CorrectPHRED64file="../DATA/expectedData/RC1_1.ILLUMINA.fastq";
+my $CorrectPHRED33file=$expectedData."RC1_1.fastq";
+my $CorrectPHRED64file=$expectedData."RC1_1.ILLUMINA.fastq";
+
+
+#########################################
+# changeEncode
+#########################################
+
 #generate Test data file
-my $fastqFileOut33 = "$testingDir/RC1_1.SANGER.fastq";
+my $fastqFileOut33 = "RC1_1.SANGER.fastq";
+my $fastqFileOut64 = "RC1_1.ILLUMINA.fastq";
+
 my $formatInit = 64;
 my $formatOut = 33;
-is (fastqUtils::changeEncode($CorrectPHRED64file,$fastqFileOut33,$formatInit,$formatOut),'1','Test for changeEncode 64 to 33 running'); # Will verify that the changeEncode will run correctly from 64 to 33 on a file
-#Testing the output content
 
+#execution test 64 to 33
+is (fastqUtils::changeEncode($CorrectPHRED64file,$fastqFileOut33,$formatInit,$formatOut),'1','fastqUtils::changeEncode 64 to 33');
+
+# expected output test
+my $observedOutput = `ls`;
+my @observedOutput = split /\n/,$observedOutput;
+my @expectedOutput = ('fastqUtils_TEST_log.e','fastqUtils_TEST_log.o','individuSoft.txt','RC1_1.SANGER.fastq');
+
+is_deeply(\@observedOutput,\@expectedOutput,'fastqUtils::changeEncode 64 to 33 - output list');
+
+# expected content test
 my $diffResult = `diff $CorrectPHRED33file $fastqFileOut33`;
 chomp $diffResult;
-is ($diffResult,'','Test for changeEncode 64 to 33 output content');
+is ($diffResult,'','fastqUtils::changeEncode 64 to 33 - output structure');
 
 
-my $fastqFileOut64 = "$testingDir/RC1_1.ILLUMINA.fastq";
 $formatInit = 33;
 $formatOut = 64;
-#Testing the running for 33 to 64
-is (fastqUtils::changeEncode($fastqFileOut33,$fastqFileOut64,$formatInit,$formatOut),'1','Test for changeEncode 64 to 33 running'); # Will verify that the changeEncode will run correctly from 33 to 64 on a file
-#Testing the output content
+#execution test 33 to 64
+is (fastqUtils::changeEncode($fastqFileOut33,$fastqFileOut64,$formatInit,$formatOut),'1','fastqUtils::changeEncode 33 to 64');
+
+# expected output test
+$observedOutput = `ls`;
+@observedOutput = split /\n/,$observedOutput;
+@expectedOutput = ('fastqUtils_TEST_log.e','fastqUtils_TEST_log.o','individuSoft.txt','RC1_1.ILLUMINA.fastq','RC1_1.SANGER.fastq');
+
+is_deeply(\@observedOutput,\@expectedOutput,'fastqUtils::changeEncode 33 to 64 - output list');
+
+# expected content test
 my $diffResult2 = `diff $CorrectPHRED64file $fastqFileOut64`;
 chomp $diffResult2;
-is ($diffResult2,'','Test for changeEncode 33 to 64 output content');
+is ($diffResult2,'','fastqUtils::changeEncode 33 to 64 - output content');
+
 
 
 
 #########################################
-# Line by Line mode, using the convertLinePHRED64ToPHRED33 and convertLinePHRED33ToPHRED64
+# convertLinePHRED64ToPHRED33
 #########################################
-#Generic values for encoding in 64 and 33
+#input/output data
 my $PHRED64Data="dddd`ddddd`dd\\dd^bbdaa`b\\dddd`abdbTbaYabBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
 my $PHRED33Data="EEEEAEEEEEAEE=EE?CCEBBAC=EEEEABCEC5CB:BC####################################";
 
-#For PHRED64 to PHRED33
-is (fastqUtils::convertLinePHRED64ToPHRED33($PHRED64Data),$PHRED33Data,'Test for changing encoding in PHRED64 to PHRED33'); # Will verify that the re-encoded quality from 64 to 33 if correct
+#execution test
+is (fastqUtils::convertLinePHRED64ToPHRED33($PHRED64Data),$PHRED33Data,'fastqUtils::convertLinePHRED64ToPHRED33'); # Will verify that the re-encoded quality from 64 to 33 if correct
+
+#########################################
+# convertLinePHRED64ToPHRED33
+#####################################
 
 #For PHRED33 to PHRED64
-is (fastqUtils::convertLinePHRED33ToPHRED64($PHRED33Data),$PHRED64Data,'Test for changing encoding in PHRED33 to PHRED64'); # Will verify that the re-encoded quality from 33 to 64 if correct
+is (fastqUtils::convertLinePHRED33ToPHRED64($PHRED33Data),$PHRED64Data,'fastqUtils::convertLinePHRED33ToPHRED64'); # Will verify that the re-encoded quality from 33 to 64 if correct
+
 
 #########################################
-# Encode check test general
+# fastqUtils::checkEncodeByASCIIcontrol
 #########################################
 
-#checkEncodeByASCIIcontrol test with a fastq file
-is (fastqUtils::checkEncodeByASCIIcontrol($fastqFileOut33),'1','Test for checkEncode on a correct file'); # Will verify that the file is a correct PHRED33 encoded one
-is (fastqUtils::checkEncodeByASCIIcontrol($fastqFileOut64),'0','Test for checkEncode on a non correct file');# Will verify that the file is not a correct PHRED33 encoded one
+# Will verify that the file is a correct PHRED33 encoded one
+is (fastqUtils::checkEncodeByASCIIcontrol($fastqFileOut33),'1','fastqUtils::checkEncode - positive test'); 
 
-#########################################
-# Cleaning
-#########################################
-$cleaningCommand="rm -Rf $testingDir/* individuSoft.txt fastqUtils_TEST_log.* && rm -Rf $testingDir";
-system ($cleaningCommand) and die ("ERROR: $0: Cannot erase the testing files with the command $cleaningCommand \n$!\n");
+# Will verify that the file is not a correct PHRED33 encoded one
+is (fastqUtils::checkEncodeByASCIIcontrol($fastqFileOut64),'0','fastqUtils::checkEncode - negative test');
 
+exit;
+__END__

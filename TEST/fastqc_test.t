@@ -43,29 +43,22 @@ use lib qw(../Modules/);
 ########################################
 #use of fastqc module ok
 ########################################
-use_ok('toolbox');
 use_ok('fastqc');
 can_ok('fastqc','execution');
 
-use toolbox;
 use fastqc;
 
+my $expectedData="../../DATA/expectedData/";
 
 #########################################
 #Remove files and directory created by previous test
 #########################################
 my $testingDir="../DATA-TEST/fastqcTestDir";
-my $cleaningCmd="rm -Rf $testingDir"; 
-system ($cleaningCmd) and die ("ERROR: $0 : Cannot remove the previous test directory with the command $cleaningCmd \n$!\n");
+my $cleaningCmd="rm -Rf $testingDir && mkdir $testingDir"; 
+system ($cleaningCmd) and die ("ERROR: $0 : Cannot clean or create the test directory with the command $cleaningCmd \n$!\n");
 
-my $expectedData="../../DATA/expectedData/";
-
-########################################
-#Creation of test directory
-########################################
-my $makeDirCmd = "mkdir $testingDir";
-system ($makeDirCmd) and die ("ERROR: $0 : Cannot create the new directory with the command $makeDirCmd\n$!\n");
 chdir $testingDir or die ("ERROR: $0 : Cannot go into the new directory with the command \"chdir $testingDir\"\n$!\n");
+
 
 #######################################
 #Creating the IndividuSoft.txt file
@@ -79,25 +72,28 @@ system($creatingCmd) and die ("ERROR: $0 : Cannot create the individuSoft.txt fi
 $cleaningCmd="rm -Rf fastqc_TEST_log.*";
 system($cleaningCmd) and die ("ERROR: $0 : Cannot remove the previous log files with the command $cleaningCmd \n$!\n");
 
-########################################
-#Input files
-########################################
-my $fastqcFile = "RC3_2.fastq";                             # fastq file for test
-my $originalFastqcFile = $expectedData."RC3_2.fastq";     # fastq file 
-my $lnCmd = "ln -s $originalFastqcFile .";           # command to copy the original fastq file into the test directory
-system ($lnCmd) and die ("ERROR: $0 : Cannot link the  fastq file $originalFastqcFile in the test directory with the command $lnCmd\n$!\n");    # RUN the copy command
+##########################################
+#Fastqc::execution test
+##########################################
 
-##########################################
-#Fastqc exec test
-##########################################
+# input file
+my $fastqFile = "RC3_2.fastq";
+my $fastqPath = $expectedData.$fastqFile;      
 my $fastqcDir = "fastqcOut";
-$makeDirCmd = "mkdir $fastqcDir";
+my $makeDirCmd = "mkdir $fastqcDir";
 system ($makeDirCmd) and die ("ERROR: $0 : Cannot create the new directory with the command $makeDirCmd\n$!\n");
-is(fastqc::execution($fastqcFile,$fastqcDir),1,'fastqc::execution');     # test if fastqc::execution works
 
-my @expectedOutput = ('fastqcOut/RC3_2_fastqc.zip');
+# execution test
+is(fastqc::execution($fastqPath,$fastqcDir),1,'fastqc::execution');     
 
-my @observedOutput = toolbox::readDir($fastqcDir);
-##DEBUG print "ICI :\n"; print Dumper(@observedOutput);
-is_deeply(@observedOutput,\@expectedOutput,'fastqc::execution');        # test if the observed output of fastqc::execution is ok
+# expected output test
+my $expectedOutput = 'fastqcOut/RC3_2_fastqc.zip';
+my $observedOutput = `ls $fastqcDir`;
+chomp($observedOutput);
+$observedOutput = $fastqcDir."/".$observedOutput;
+is($observedOutput,$expectedOutput,'fastqc::execution - output list'); 
 
+# expected content test
+my $observedContent=`unzip -l $observedOutput | tail -n1`;
+my $validContent = ( $observedContent =~ m/19 files/);
+is($validContent,1,'fastqc::execution - output content');

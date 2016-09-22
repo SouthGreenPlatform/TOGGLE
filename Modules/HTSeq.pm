@@ -37,6 +37,8 @@ use localConfig;
 use toolbox;
 use Data::Dumper;
 
+use lib qw(../Modules/);
+use pairing;
 
 
 sub htseqCount
@@ -53,23 +55,26 @@ sub htseqCount
         
         # Verify if $bamFileIn is a bam or sam
         if ($bamFileIn =~ m/.sam$/) # if the file type is sam
-            {
-                $command="$htseqcount $options $bamFileIn $annotGffFile > $htseqFileOut"; ## Command initialization
-            }
+        {
+            $command="$htseqcount $options $bamFileIn $annotGffFile > $htseqFileOut"; ## Command initialization
+        }
         if ($bamFileIn =~ m/.bam$/) # if the file type is bam, samtools view is used. HTseq-count does not count reads if bam is used.
+        {
+            my $bamFileOut=$bamFileIn;
+            $bamFileOut =~ s/.bam/.sam/g;
+            
+            #$command=samTools::samToolsView($bamFileIn,$bamFileOut, XX?); # pbm avec $optionsHachees
+            $command="samtools view -h  $bamFileIn -o $bamFileOut"; ## Command initialization to samtools view
+            if (toolbox::run($command)==1)
             {
-                #$command=samTools::samToolsView($bamFileIn,$bamFileOut, XX?); # pbm avec $optionsHachees
-                $command="samtools view -h  $bamFileIn"; ## Command initialization to samtools view
-                if (toolbox::run($command)==1)
-                {
-                    toolbox::exportLog("INFOS: samTools::samToolsView : correctly done\n",1);
-                    $command="$htseqcount $options $bamFileIn $annotGffFile > $htseqFileOut" ;
-                }
-                else
-                {
-                    toolbox::exportLog("ERROR: samTools::samToolsView : ABORTED\n",0);
-                }
+                toolbox::exportLog("INFOS: samTools::samToolsView : correctly done\n",1);
+                $command="$htseqcount $options $bamFileOut $annotGffFile > $htseqFileOut" ;
             }
+            else
+            {
+                toolbox::exportLog("ERROR: samTools::samToolsView : ABORTED\n",0);
+            }
+        }
         # Command is executed with the run function (package toolbox)
         if (toolbox::run($command)==1)
         {

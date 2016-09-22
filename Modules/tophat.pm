@@ -118,10 +118,7 @@ sub bowtie2Build
 
 
 ################################################################################################
-# sub bowtie2Build : builds a Bowtie index from a set of DNA sequences. 
-################################################################################################
-# arguments : fasta file to index and options used for bowtie2Build running
-# Returns prefixname of the database created  (1 if the execution is correctly done else 0)
+# sub tophat2  : realize mapping with tophat 
 ################################################################################################
 sub tophat2
 {
@@ -144,7 +141,7 @@ sub tophat2
 	    my ($fileName,$readGroup) = pairing::extractName($forwardFastqFileIn); 
 	    my $fileList=toolbox::readDir($tophatDirOut);
 	    my @fileList=@$fileList;
-	    toolbox::exportLog("DEBUG: tophat : @fileList\n",1);
+	    ## DEBUG toolbox::exportLog("DEBUG: tophat : @fileList\n",1);
 	    for (my $i=0; $i<=$#fileList;$i ++)
 	    {
 		next if ($fileList[$i] eq '');

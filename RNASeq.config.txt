@@ -44,7 +44,6 @@ $htseqcount
 -t=mRNA
 -m=union
 -i=ID
--f=bam
 
 $picardToolsSortSam
 SORT_ORDER=coordinate
