@@ -133,7 +133,7 @@ my $fastqFileOut2 = "RC3_2.CUTADAPT.fastq";                   # Output file with
 						"-b" => "GATCGGAAGAGCACACGTCTGAACTCCAGTCACATCACGATCTCGTATGCCGTCTTCTGCTTG -b GTTCGTCTTCTGCCGTATGCTCTAGCACTACACTGACCTCAAGTCTGCACACGAGAAGGCTAG",
 						"-B" => "GATCGGAAGAGCACACGTCTGAACTCCAGTCACATCACGATCTCGTATGCCGTCTTCTGCTTG -B GTTCGTCTTCTGCCGTATGCTCTAGCACTACACTGACCTCAAGTCTGCACACGAGAAGGCTAG"	
 					);          # Hash containing informations
-my $optionsHachees = \%optionsHachees;   
+$optionsHachees = \%optionsHachees;   
 is ((cutadapt::execution($fastqFile1,$fastqFileOut1, $fastqFile2, $fastqFileOut2, $optionsHachees)),1, 'cutadapt::execution Paired');    # TEST IF FONCTION WORKS
 
 # expected output test
