@@ -86,7 +86,7 @@ my $fastqFile = $expectedData."RC3_1.fastq";
 my $fastqFileOut = "RC3_1.FASTXTRIMMER.fastq";  
 
 # execution test
-my %optionsHachees = ("-f" => "8");                             # Hash containing informations
+my %optionsHachees = ("-f" => "8", "-Q33" => "");                             # Hash containing informations
 my $optionHachees = \%optionsHachees;                           # Ref of the hash
 
 is(fastxToolkit::fastxTrimmer($fastqFile, $fastqFileOut, $optionHachees),1, 'fastxToolkit::fastxTrimmer');
