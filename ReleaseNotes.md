@@ -1,7 +1,7 @@
 
 # Versions Notes
 
-## Release 0.3.1, xxth of xxx, 2016
+## Release 0.3.1, the 22th of September, 2016
 
 ### Functions
 
