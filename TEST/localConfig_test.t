@@ -75,23 +75,38 @@ close LOCALCONFIG;
 
 
 # Verify 0 = 0;
-is($java,$dictLocation{"\$java"},"Ok for java infos");
-is($bwa,$dictLocation{"\$bwa"},"Ok for bwa infos");
+is($java,$dictLocation{"\$java"},"java infos");
+
+is($bwa,$dictLocation{"\$bwa"},"bwa infos");
 
 $dictLocation{"\$picard"}=~ s/\$java/$java/; #Need to de-interpret $java
-is($picard,$dictLocation{"\$picard"},"Ok for picard infos");
+is($picard,$dictLocation{"\$picard"},"picard infos");
 
-is($samtools,$dictLocation{"\$samtools"},"Ok for samtools infos");
+is($samtools,$dictLocation{"\$samtools"},"samtools infos");
 
 $dictLocation{"\$GATK"}=~ s/\$java/$java/;#Need to de-interpret $java
-is($GATK,$dictLocation{"\$GATK"},"Ok for GATK infos");
+is($GATK,$dictLocation{"\$GATK"},"GATK infos");
 
-is($fastqc,$dictLocation{"\$fastqc"},"Ok for fastqc infos");
-#is($cuffdir,$dictLocation{"\$cuffdir"},"Ok for cufflink directory location");
-is($cutadapt,$dictLocation{"\$cutadapt"},"Ok for cutadapt infos");
+is($fastqc,$dictLocation{"\$fastqc"},"fastqc infos");
 
+is($cutadapt,$dictLocation{"\$cutadapt"},"cutadapt infos");
 
-#To test: $cufflinks $pacBioToCA
+is($fastxTrimmer,$dictLocation{"\$fastxTrimmer"},"fastx-Trimmer infos");
+
+is($tophat2,$dictLocation{"\$tophat2"},"Tophat2 infos");
+
+is($bowtie2Build,$dictLocation{"\$bowtie2Build"},"bowtie2Build infos");
+
+is($bowtieBuild,$dictLocation{"\$bowtieBuild"},"bowtieBuild infos");
+
+is($htseqcount,$dictLocation{"\$htseqcount"},"HTseq-count infos");
+
+is($cufflinks,$dictLocation{"\$cufflinks"},"cufflinks infos");
+
+is($cuffdiff,$dictLocation{"\$cuffdiff"},"cuffdiff infos");
+
+is($cuffmerge,$dictLocation{"\$cuffmerge"},"cuffmerge infos");
+
 
 ######################################
 # Testing the correct location of bwa
