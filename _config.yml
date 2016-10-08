@@ -22,8 +22,8 @@ baseurl: "" # the subpath of your site, e.g. /blog
 github_username:  tranchant
 
 # Build settings
-sass:
-    sass_dir: _sass
-include: ['_pages']
-kramdown:
-    input: GFM
+#sass:
+#    sass_dir: _sass
+#include: ['_pages']
+#kramdown:
+#    input: GFM
