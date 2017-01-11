@@ -1,1 +1,0 @@
-fastqc *fastq

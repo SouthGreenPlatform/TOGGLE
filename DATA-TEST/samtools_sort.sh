@@ -1,1 +1,0 @@
-samtools sort RC1.SAMTOOLS_VIEW.bam RC1.SAMTOOLS_SORT
