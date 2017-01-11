@@ -1,0 +1,40 @@
+############################
+# Block for FASTQC
+############################
+
+#Correct variable populating
+foreach my $file (@{$fileList}) #Checking the type of files that must be FASTQ only
+{
+    if ($file =~ m/fastq$|fastq.gz$|fq$|fq.gz$/) 
+    {
+        if ($fastqForwardIn ne "NA") # $fastqForwardIn is already known
+        {
+            if ($fastqReverseIn ne "NA")
+            {
+                toolbox::exportLog("ERROR : $0 : there are more than two FASTQ files at $stepName step.\n",0);
+            }
+            else
+            {
+                $fastqReverseIn = $file;
+            }
+        }
+        else
+        {
+            $fastqForwardIn = $file;
+        }
+    }
+}
+
+
+##########################################
+# fastqc::execution
+##########################################
+
+$softParameters = toolbox::extractHashSoft($optionRef, $stepName);                         # recovery of specific parameters of FatsQC
+
+
+foreach my $file (@{$fileList})
+{
+    fastqc::execution($file,$newDir, $softParameters);                                                            # run fastQC program on current file
+}
+

@@ -1,0 +1,14 @@
+$order
+1=gatkSelectVariants
+
+$cleaner
+
+
+#PUT YOUR OWN SGE CONFIGURATION HERE
+#$sge
+#-q YOURQUEUE.q
+#-b Y
+
+$gatkSelectVariants
+-T=SelectVariants
+-selectType=SNP
