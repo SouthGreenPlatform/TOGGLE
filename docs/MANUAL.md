@@ -76,7 +76,7 @@ Any software configuration will start as follows:
 
 TOGGLE will generate an output folder containing different files and subfolders, as follows:
 
- ![TOGGLE Final Folder](toggleOutputFolder.png)
+ ![TOGGLE Final Folder](/images/toggleOutputFolder.png)
 
  The final results are contained in the **finalResults** folder.
  TOGGLE will also copy the *software config* file corresponding to the analysis, in order users can recover their options.
@@ -113,7 +113,7 @@ The **toggleGenerator.pl** script will use the configuration file informations (
 
 The order will be verified before creating the scripts, by checking if the output files from the step n-1 will be accepted as input for the step n.
 
-![TOGGLE pipeline](TogglePipeline.png)
+![TOGGLE pipeline](/images/TogglePipeline.png)
 
 ### <a name="order"></a>Providing an order
 The order of a specific pipeline is provided in the *software.config.txt* as the software *order*
