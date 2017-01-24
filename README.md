@@ -18,6 +18,9 @@ Users can also create their own pipeline through an easy and user-friendly appro
 
 The system is able to detect parallel/scheduling launching and to manage large amount of samples on large cluster machines.
 
+## Development version
+You are currently on the production version, *i.e.* the last stable one. A more advanced version, the dev version is available on the [TOGGLE-DEV gitHub](https://github.com/SouthGreenPlatform/TOGGLE-DEV)
+
 
 ##  Contributing
 
