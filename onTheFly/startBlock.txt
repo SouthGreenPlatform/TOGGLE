@@ -65,6 +65,8 @@ use radseq;
 ##########################################
 # recovery of parameters/arguments given when the program is executed
 ##########################################
+my $cmd_line=$0." @ARGV"; # for printing in log file
+
 
 my $parser = Getopt::ArgParse->new_parser(
         prog            => "\n\ntoggleGenerator.pl",
@@ -152,7 +154,6 @@ my $args = $parser->parse_args();
 #recovery supplementary arguments undefined by toggle
 my @argv= $parser->argv;
 
-my $cmd_line=$0." @ARGV"; # for printing in log file
 
 
 #Recovery obligatory arguments
