@@ -253,18 +253,18 @@ while (my $line = <$fhConfig2>)
         }
         elsif ($softwareType =~ m/toggle/i)
         {
-            $line = "our \$toggle = \"$INSTALLPATH\"\n";
+            $line = "our \$toggle = \"$INSTALLPATH\";\n";
         }
         elsif ($softwareType eq "java")
         {
-            $line = "our \$java = \"".$localPath." -Xmx12g -jar\"";
+            $line = "our \$java = \"".$localPath." -Xmx12g -jar\";";
         }
         else
         {
             my $newLine = "our \$".$softwareType." = \"";
             #if java requested
             $newLine.="\$java " if $line =~ /\.jar$/;
-            $newLine.=$localPath."\"";
+            $newLine.=$localPath."\";";
             $line = $newLine;
         }
         
