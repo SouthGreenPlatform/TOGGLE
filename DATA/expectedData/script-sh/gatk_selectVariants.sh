@@ -1,1 +1,0 @@
-/usr/java/jre1.7.0_51/bin/java -Xmx12g -jar /usr/local/GenomeAnalysisTK-3.3/GenomeAnalysisTK.jar -T SelectVariants -R ../Reference.fasta --variant ../GATKVARIANTFILTRATION.vcf -o ../GATKSELECTVARIANTS.vcf
