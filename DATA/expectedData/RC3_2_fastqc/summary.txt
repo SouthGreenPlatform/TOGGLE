@@ -1,0 +1,11 @@
+PASS	Basic Statistics	RC3_2.fastq
+PASS	Per base sequence quality	RC3_2.fastq
+PASS	Per sequence quality scores	RC3_2.fastq
+WARN	Per base sequence content	RC3_2.fastq
+WARN	Per base GC content	RC3_2.fastq
+WARN	Per sequence GC content	RC3_2.fastq
+PASS	Per base N content	RC3_2.fastq
+WARN	Sequence Length Distribution	RC3_2.fastq
+PASS	Sequence Duplication Levels	RC3_2.fastq
+PASS	Overrepresented sequences	RC3_2.fastq
+WARN	Kmer Content	RC3_2.fastq

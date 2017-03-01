@@ -1,0 +1,24 @@
+\BOOKMARK [0][-]{chapter.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.1.1}{To whom this manual is addressed}{chapter.1}% 2
+\BOOKMARK [1][-]{section.1.2}{General things about the TOGGLE github}{chapter.1}% 3
+\BOOKMARK [2][-]{subsection.1.2.1}{Preparing your working environment}{section.1.2}% 4
+\BOOKMARK [1][-]{section.1.3}{General things about the conventions and nomenclatures in TOGGLE}{chapter.1}% 5
+\BOOKMARK [0][-]{chapter.2}{Creating a new module}{}% 6
+\BOOKMARK [1][-]{section.2.1}{Names}{chapter.2}% 7
+\BOOKMARK [1][-]{section.2.2}{Requirements and Declaration}{chapter.2}% 8
+\BOOKMARK [0][-]{chapter.3}{Creating a new function}{}% 9
+\BOOKMARK [1][-]{section.3.1}{Nomenclature, Indentation and commentaries}{chapter.3}% 10
+\BOOKMARK [1][-]{section.3.2}{Basic structure of the function}{chapter.3}% 11
+\BOOKMARK [1][-]{section.3.3}{The toolbox::exportLog and toolbox::run functions}{chapter.3}% 12
+\BOOKMARK [2][-]{subsection.3.3.1}{toolbox::exportLog}{section.3.3}% 13
+\BOOKMARK [2][-]{subsection.3.3.2}{toolbox::run}{section.3.3}% 14
+\BOOKMARK [1][-]{section.3.4}{The code itself}{chapter.3}% 15
+\BOOKMARK [2][-]{subsection.3.4.1}{TIPS}{section.3.4}% 16
+\BOOKMARK [1][-]{section.3.5}{The test}{chapter.3}% 17
+\BOOKMARK [0][-]{chapter.4}{Creating a new block of code}{}% 18
+\BOOKMARK [1][-]{section.4.1}{Already declared variables and other standard stuff}{chapter.4}% 19
+\BOOKMARK [1][-]{section.4.2}{Text block}{chapter.4}% 20
+\BOOKMARK [1][-]{section.4.3}{Indicating the input and output}{chapter.4}% 21
+\BOOKMARK [1][-]{section.4.4}{Providing the correct nomenclature}{chapter.4}% 22
+\BOOKMARK [1][-]{section.4.5}{Last but not least}{chapter.4}% 23
+\BOOKMARK [0][-]{appendix.A}{Licence}{}% 24

@@ -1,0 +1,4 @@
+
+#Re-initializing all variables to avoid error propagation
+($fastqForwardIn, $fastqReverseIn, $samFileIn, $bamFileIn, $vcfFileIn)=("NA","NA","NA","NA","NA");
+$listOfBam=();

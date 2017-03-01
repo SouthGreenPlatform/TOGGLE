@@ -1,0 +1,7 @@
+
+$samToolsSort
+
+
+
+$order
+1=samToolsSort
