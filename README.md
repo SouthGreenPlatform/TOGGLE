@@ -14,11 +14,15 @@ and utilities to easily design pipelines able to handle hundreds of samples. Mor
 options of the different softwares through the pipelines in using a single basic configuration file, that can be changed for each assay without
 having to change the code itself.
 
-More information on our [website](http://toggle.southgreen.fr)
+[More information on our website](http://toggle.southgreen.fr)
+
+* [Follow the installation instructions](http://toggle.southgreen.fr/install/install/)
+* [You can find a detailed Manual here](http://toggle.southgreen.fr/manual/quickManual/)
+* [You can find detailed known issues](http://toggle.southgreen.fr/FAQ/knownIssues/)
+* [Current Release Notes](http://toggle.southgreen.fr/install/releaseNotes/)
 
 ## Development version
 You are currently on the production version, *i.e.* the last stable one. A more advanced version, the dev version is available on the [TOGGLE-DEV gitHub](https://github.com/SouthGreenPlatform/TOGGLE-DEV)
-
 
 ##  Contributing
 
@@ -38,19 +42,3 @@ For bug tracking purpose you can use the GitHub or questions about TOGGLE, you c
 Ortega-Abboud, Souhila Amanzougarene, Sébastien Ravel, Mawussé Agbessi, Julie Orjuela-Bouniol, Maryline Summo and François Sabot.
 
 [*BMC Bioinformatics* 2015, 16:374  doi:10.1186/s12859-015-0795-6](http://www.biomedcentral.com/1471-2105/16/374)
-
-##  Installation
-
-[Follow the installation instructions](http://toggle.southgreen.fr/install/install/)
-
-## Manual
-
-[You can find a detailed Manual here](http://toggle.southgreen.fr/manual/quickManual/)
-
-## Known Issues
-
-[You can find detailed known issues](http://toggle.southgreen.fr/FAQ/knownIssues/)
-
-## Release Notes
-
-[Current Release Notes](http://toggle.southgreen.fr/install/releaseNotes/)
