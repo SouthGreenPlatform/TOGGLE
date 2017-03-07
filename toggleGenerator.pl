@@ -51,7 +51,8 @@ use versionSofts;
 ##########################################
 # recovery of parameters/arguments given when the program is executed
 ##########################################
-my $version = `grep -m 1 "Release" $toggle/docs/ReleaseNotes.md | cut -d"#" -f3,3 | sed -e 's/ //'`;
+#my $version = `grep -m 1 "Release" $toggle/docs/ReleaseNotes.md | cut -d"#" -f3,3 | sed -e 's/ //'`;
+my $version = "0.3.2, 1st of March, 2017";
 my $cmd_line=$0." @ARGV"; # for printing in log file
 
 my $parser = Getopt::ArgParse->new_parser(
