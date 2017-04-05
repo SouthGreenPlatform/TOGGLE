@@ -1,0 +1,2 @@
+/usr/java/jre1.7.0_51/bin/java -Xmx12g -jar /usr/local/GenomeAnalysisTK-3.3/GenomeAnalysisTK.jar -T IndelRealigner -R ../Reference.fasta -I ../RC3.SAMTOOLSVIEW.bam -targetIntervals ../RC3.GATKREALIGNERTARGETCREATOR.intervals -o ../RC3.GATKINDELREALIGNER.bam
+/usr/java/jre1.7.0_51/bin/java -Xmx12g -jar /usr/local/GenomeAnalysisTK-3.3/GenomeAnalysisTK.jar -T IndelRealigner -R ../Reference.fasta -I ../RC3Single.SAMTOOLSVIEW.bam -targetIntervals ../RC3Single.GATKREALIGNERTARGETCREATOR.intervals -o ../RC3Single.GATKINDELREALIGNER.bam

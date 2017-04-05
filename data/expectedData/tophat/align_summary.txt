@@ -1,0 +1,14 @@
+Left reads:
+          Input     :      1000
+           Mapped   :       877 (87.7% of input)
+            of these:         8 ( 0.9%) have multiple alignments (0 have >10)
+Right reads:
+          Input     :      1000
+           Mapped   :       872 (87.2% of input)
+            of these:         8 ( 0.9%) have multiple alignments (0 have >10)
+87.5% overall read mapping rate.
+
+Aligned pairs:       834
+     of these:         8 ( 1.0%) have multiple alignments
+                      24 ( 2.9%) are discordant alignments
+81.0% concordant pair alignment rate.

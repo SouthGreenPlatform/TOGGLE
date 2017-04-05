@@ -1,0 +1,31 @@
+
+##########################################
+# picardToolsSamFormatConverter
+##########################################
+
+#Correct variable populating
+foreach my $file (@{$fileList})
+{
+    if ($file =~ m/bam$|sam$/) # the file type is normally bam or sam
+    {
+        if ( $samFileIn eq "NA" ) # first sam or bam found
+        {
+            $samFileIn = $file;
+        }
+        else
+        {
+            toolbox::exportLog("ERROR : $0 : there are more than two bam or sam files at $stepName step.\n",0);
+        }
+    }
+}
+
+if ($samFileIn eq "NA" )    # No sam or bam found
+{
+    toolbox::exportLog("ERROR : $0 : No SAM/BAM file provided at step $stepName\n",0) ;
+}
+else
+{
+    $samFileOut = $newDir."/"."$readGroup".".PICARDTOOLSSAMFORMATCONVERTER.bam";                              # name for the output file of picardtools SamFormatConverter
+    $softParameters = toolbox::extractHashSoft($optionRef,"picardToolsSamFormatConverter");                           # recovery of specific parameters of picard SamFormatConverter
+    picardTools::picardToolsSamFormatConverter($samFileIn,$samFileOut,$softParameters); 
+}

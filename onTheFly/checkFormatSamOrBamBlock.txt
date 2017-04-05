@@ -1,0 +1,35 @@
+############################
+# Block for checkFormatSamOrBam
+############################
+
+
+##########################################
+# checkFormat::checkFormatSamOrBam
+##########################################
+
+$softParameters = toolbox::extractHashSoft($optionRef, $stepName);                       
+
+
+my $checkValue;
+open (my $fhOut, ">", $newDir."/checkFormatSamOrBam.log") or toolbox::exportLog("ERROR: checkFormatSamOrBam step: Cannot create the log file",0);
+
+
+foreach my $file (@{$fileList})
+{
+    $checkValue = checkFormat::checkFormatSamOrBam($file);
+	my $outline;
+
+	if ($checkValue == 1 or $checkValue == 2)
+	{
+		#The format is Ok
+		$outline = "The file $file is a correct SAM/BAM file\n";
+	}
+	else
+	{
+		#The format is not Ok
+		$outline = "The file $file is misformatted. See the error log for more infos.\n";
+	}
+	print $fhOut $outline
+}
+
+close $fhOut;

@@ -1,0 +1,18 @@
+
+##########################################
+# Block for ending toggleAnalysis
+##########################################
+
+close F1;
+
+toolbox::exportLog("#########################################\nINFOS: Analysis correctly done. \n#########################################\n",1);
+toolbox::exportLog("\nThank you for using TOGGLE!
+###########################################################################################################################
+#\tCITATION:
+#\tTOGGLE: Toolbox for generic NGS analyses.
+#\tCécile Monat, Christine Tranchant-Dubreuil, Ayité Kougbeadjo, Cédric Farcy, Enrique Ortega-Abboud,
+#\tSouhila Amanzougarene,Sébastien Ravel, Mawussé Agbessi, Julie Orjuela-Bouniol, Maryline Summo and François Sabot.
+#\tBMC Bioinformatics 2015, 16:374
+###########################################################################################################################",1);  
+
+exit;

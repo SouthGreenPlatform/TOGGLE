@@ -1,0 +1,16 @@
+############################
+# Block for checkSamOrBamFormat
+############################
+
+
+##########################################
+# checkFormat::checkSamOrBamFormat
+##########################################
+
+$softParameters = toolbox::extractHashSoft($optionRef, $stepName);                       
+
+
+foreach my $file (@{$fileList})
+{
+    checkFormat::checkSamOrBamFormat($file);
+}
