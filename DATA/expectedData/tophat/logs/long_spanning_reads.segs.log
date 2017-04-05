@@ -1,9 +1,0 @@
-long_spanning_reads v2.0.14 (4318)
---------------------------------------------
-Opening /dev/null for reading
-[samopen] SAM header is present: 1 sequences.
-Loading reference sequences...
-        reference sequences loaded.
-Loading junctions...done
-Loading deletions...done
-Loading insertions...done
