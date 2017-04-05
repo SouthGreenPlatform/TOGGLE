@@ -29,7 +29,7 @@ You are currently on the production version, *i.e.* the last stable one. A more 
 * Licencied under CeCill-C (http://www.cecill.info/licences/Licence_CeCILL-C_V1-en.html) and GPLv3
 * Intellectual property belongs to IRD, CIRAD, ADNid and SouthGreen development platform
 * Written by Cecile Monat, Christine Tranchant, Ayite Kougbeadjo, Cedric Farcy, Mawusse Agbessi, Enrique Ortega-Abboud, Sébastien Ravel, Julie Orjuela-Bouniol, Souhila Amanzougarene, Gauthier Sarah, Marilyne Summo, and Francois Sabot
-* Copyright 2014-2016
+* Copyright 2014-2017
 
 ## Contact
 
