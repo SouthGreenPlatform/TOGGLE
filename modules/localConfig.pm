@@ -43,54 +43,53 @@ our @EXPORT=qw($bwa $picard $samtools $GATK $cutadapt $fastqc $java $toggle $fas
 
 
 #toggle path
-
-our $toggle=$ENV{"TOGGLE_PATH"};
+our $toggle="/path/to/toggleFolder";
 
 #PATH for Mapping on cluster
-our $java = $ENV{'JAVA_HOME'}."/bin/java -jar";
+our $java = "/path/to/java -Xmx12g -jar";
 
-our $bwa = "bwa";
-our $picard = "$java $ENV{'PICARD_PATH'}/picard.jar";
+our $bwa = "/path/to/bwa";
+our $picard = "$java /path/to/picard_tools/picard.jar";
 
-our $samtools = "samtools";
-our $GATK = "$java $ENV{'GATK_PATH'}/GenomeAnalysisTK.jar";
-our $fastqc = "fastqc";
+our $samtools = "/path/to/samtools";
+our $GATK = "$java -Xmx12g -jar /path/to/GenomeAnalysisTK.jar";
+our $fastqc = "/path/to/fastqc";
 
 #Path for CutAdapt
-our $cutadapt = "cutadapt";
+our $cutadapt = "/path/to/cutadapt";
 
 ##### FOR RNASEQ analysis
 #Path for fastq_trimmer
-our $fastxTrimmer="fastx_trimmer";
+our $fastxTrimmer="/path/to/fastx_trimmer";
 
 #Path for tophat2
-our $tophat2="tophat2";
+our $tophat2="/path/to/tophat2";
 
 #path for bowtie2-build
-our $bowtie2Build="bowtie2-build";
+our $bowtie2Build="/path/to/bowtie2-build";
 
 #path for bowtie-build
-our $bowtieBuild="bowtie-build";
+our $bowtieBuild="/path/to/bowtie-build";
 
 #path for htseqcount
-our $htseqcount = "htseq-count";
+our $htseqcount = "/path/to/htseq-count";
 
 #path for Cufflinks
-our $cufflinks = "cufflinks";
-our $cuffdiff = "cuffdiff";
-our $cuffmerge = "cuffmerge";
+our $cufflinks = "/path/to/cufflinks";
+our $cuffdiff = "/path/to/cuffdiff";
+our $cuffmerge = "/path/to/cuffmerge";
 
 #path for tgicl
-our $tgicl = "tgicl";
+our $tgicl = "/path/to/tgicl";
 
 #path for trinity
-our $trinity = "Trinity";
+our $trinity = "/path/to/trinity";
 
 #path for process_radtags
-our $stacks = "process_radtags";
+our $stacks = "/path/to/process_radtags";
 
 #path to snpEff
-our $snpEff = "$java -jar $ENV{'SNPEFF_PATH'}/snpEff.jar";
+our $snpEff = "/path/to/snpEff/snpEff.jar";
 
 
 1;
