@@ -660,7 +660,7 @@ sub run
     exportLog("INFOS: toolbox::run : $command\n",1) if (not defined $print);
 
     ##Execute the command
-    my ($result,$stderr)=capture {` $command `};
+    my ($result,$stderr)=capture {system( $command)};
 
     ##Log export according to the error
     if ($?==0)
@@ -671,7 +671,7 @@ sub run
     else
     {
 	##DEBUG
-	exportLog("ERROR: toolbox::run : ".$result."\n--".$stderr."\n",0);
+	exportLog("ERROR: toolbox::run : ".$command."\n--STDERR: ".$stderr."\n--STDOUT: ".$result."\n",0);
 	return 0;
     }
 
