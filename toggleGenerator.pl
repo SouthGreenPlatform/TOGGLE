@@ -60,8 +60,7 @@ my $newRelease="";
 if ($lastRealease ne $version)
 {
     $newRelease =  "
-** NOTE: Latest version of TOGGLE is $lastRealease.
-The current version is $version and can be obtained at:
+** NOTE: Latest version of TOGGLE is $lastRealease, and can be obtained at:
     http://toggle.southgreen.fr/\n\n"
     
 }
