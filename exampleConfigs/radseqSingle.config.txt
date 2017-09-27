@@ -1,0 +1,18 @@
+$order
+1=processRadtags
+2=fastqc
+
+$cleaner
+
+
+#PUT YOUR OWN SGE CONFIGURATION HERE
+#$sge
+#-q YOURQUEUE.q
+#-b Y
+
+
+
+$processRadtags
+-i fastq
+-e 'apeKI'
+--retain_header

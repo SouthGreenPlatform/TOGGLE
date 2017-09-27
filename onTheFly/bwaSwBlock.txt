@@ -1,0 +1,46 @@
+
+##########################################
+# Block for bwa::bwaSw
+##########################################
+
+#Correct variable populating
+foreach my $file (@{$fileList}) #Checking the type of files that must be FASTQ only
+{
+	if ($file =~ m/fastq$|fastq.gz$|fq$|fq.gz$|fa$|fasta$|fna$/)
+	{
+		if ($fastqForwardIn ne "NA") # $fastqForwardIn is already known
+		{
+			if ($fastqReverseIn ne "NA")
+			{
+				toolbox::exportLog("ERROR : $0 : there are more than two FASTQ files at $stepName step.\n",0);
+			}
+			else
+			{
+				$fastqReverseIn = $file;
+			}
+		}
+		else
+		{
+			$fastqForwardIn = $file;
+		}
+	}
+}
+
+if ( ($fastqForwardIn eq "NA") && ($fastqReverseIn eq "NA") )	# zero fastq find error for run bwaSw
+{
+	toolbox::exportLog("ERROR : $0 : BWA bwaSw requires one or two fastq files.\n",0);
+}
+elsif ( ($fastqForwardIn ne "NA") && ($fastqReverseIn eq "NA") )	# Single Mode
+{
+	$fastqReverseIn=undef;
+	$samFileOut=$newDir."/".$readGroup."BWASW.sam";
+	$softParameters = toolbox::extractHashSoft($optionRef,$stepName);		# recovery of specific parameters of bwa bwaSw
+	bwa::bwaSw($samFileOut,$refFastaFile,$fastqForwardIn,$fastqReverseIn,$softParameters);
+}
+elsif ( ($fastqForwardIn ne "NA") && ($fastqReverseIn ne "NA") )	# Paired Mode
+{
+
+	$samFileOut=$newDir."/".$readGroup."BWASW.sam";
+	$softParameters = toolbox::extractHashSoft($optionRef,$stepName);		# recovery of specific parameters of bwa bwaSw
+	bwa::bwaSw($samFileOut,$refFastaFile,$fastqForwardIn,$fastqReverseIn,$softParameters);
+}

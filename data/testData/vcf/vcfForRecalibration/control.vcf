@@ -1,0 +1,1387 @@
+##fileformat=VCFv4.1
+##FILTER=<ID=LowQual,Description="Low quality">
+##FORMAT=<ID=AD,Number=.,Type=Integer,Description="Allelic depths for the ref and alt alleles in the order listed">
+##FORMAT=<ID=DP,Number=1,Type=Integer,Description="Approximate read depth (reads with MQ=255 or with bad mates are filtered)">
+##FORMAT=<ID=GQ,Number=1,Type=Integer,Description="Genotype Quality">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=PL,Number=G,Type=Integer,Description="Normalized, Phred-scaled likelihoods for genotypes as defined in the VCF specification">
+##INFO=<ID=AC,Number=A,Type=Integer,Description="Allele count in genotypes, for each ALT allele, in the same order as listed">
+##INFO=<ID=AF,Number=A,Type=Float,Description="Allele Frequency, for each ALT allele, in the same order as listed">
+##INFO=<ID=AN,Number=1,Type=Integer,Description="Total number of alleles in called genotypes">
+##INFO=<ID=BaseQRankSum,Number=1,Type=Float,Description="Z-score from Wilcoxon rank sum test of Alt Vs. Ref base qualities">
+##INFO=<ID=DP,Number=1,Type=Integer,Description="Approximate read depth; some reads may have been filtered">
+##INFO=<ID=DS,Number=0,Type=Flag,Description="Were any of the samples downsampled?">
+##INFO=<ID=Dels,Number=1,Type=Float,Description="Fraction of Reads Containing Spanning Deletions">
+##INFO=<ID=FS,Number=1,Type=Float,Description="Phred-scaled p-value using Fisher's exact test to detect strand bias">
+##INFO=<ID=HaplotypeScore,Number=1,Type=Float,Description="Consistency of the site with at most two segregating haplotypes">
+##INFO=<ID=InbreedingCoeff,Number=1,Type=Float,Description="Inbreeding coefficient as estimated from the genotype likelihoods per-sample when compared against the Hardy-Weinberg expectation">
+##INFO=<ID=MLEAC,Number=A,Type=Integer,Description="Maximum likelihood expectation (MLE) for the allele counts (not necessarily the same as the AC), for each ALT allele, in the same order as listed">
+##INFO=<ID=MLEAF,Number=A,Type=Float,Description="Maximum likelihood expectation (MLE) for the allele frequency (not necessarily the same as the AF), for each ALT allele, in the same order as listed">
+##INFO=<ID=MQ,Number=1,Type=Float,Description="RMS Mapping Quality">
+##INFO=<ID=MQ0,Number=1,Type=Integer,Description="Total Mapping Quality Zero Reads">
+##INFO=<ID=MQRankSum,Number=1,Type=Float,Description="Z-score From Wilcoxon rank sum test of Alt vs. Ref read mapping qualities">
+##INFO=<ID=QD,Number=1,Type=Float,Description="Variant Confidence/Quality by Depth">
+##INFO=<ID=RPA,Number=.,Type=Integer,Description="Number of times tandem repeat unit is repeated, for each allele (including reference)">
+##INFO=<ID=RU,Number=1,Type=String,Description="Tandem repeat unit (bases)">
+##INFO=<ID=ReadPosRankSum,Number=1,Type=Float,Description="Z-score from Wilcoxon rank sum test of Alt vs. Ref read position bias">
+##INFO=<ID=STR,Number=0,Type=Flag,Description="Variant is a short tandem repeat">
+##UnifiedGenotyper="analysis_type=UnifiedGenotyper input_file=[/tmp/toggleOut/output/intermediateResults/0_initialFiles/irigin1.PICARDTOOLSSORT.bai.GATKINDELREALIGNER.bam, /tmp/toggleOut/output/intermediateResults/0_initialFiles/irigin3.PICARDTOOLSSORT.bai.GATKINDELREALIGNER.bam] read_buffer_size=null phone_home=STANDARD gatk_key=null tag=NA read_filter=[] intervals=null excludeIntervals=null interval_set_rule=UNION interval_merging=ALL interval_padding=0 reference_sequence=/tmp/toggleOut/referenceFiles/referenceIrigin.fasta nonDeterministicRandomSeed=false disableRandomization=false maxRuntime=-1 maxRuntimeUnits=MINUTES downsampling_type=BY_SAMPLE downsample_to_fraction=null downsample_to_coverage=200 use_legacy_downsampler=false baq=OFF baqGapOpenPenalty=40.0 fix_misencoded_quality_scores=false allow_potentially_misencoded_quality_scores=false performanceLog=null useOriginalQualities=false BQSR=null quantize_quals=0 disable_indel_quals=false emit_original_quals=false preserve_qscores_less_than=6 defaultBaseQualities=-1 validation_strictness=SILENT remove_program_records=false keep_program_records=false unsafe=null num_threads=1 num_cpu_threads_per_data_thread=1 num_io_threads=0 monitorThreadEfficiency=false num_bam_file_handles=null read_group_black_list=null pedigree=[] pedigreeString=[] pedigreeValidationType=STRICT allow_intervals_with_unindexed_bam=false generateShadowBCF=false logging_level=INFO log_to_file=null help=false genotype_likelihoods_model=BOTH pcr_error_rate=1.0E-4 computeSLOD=false annotateNDA=false pair_hmm_implementation=ORIGINAL min_base_quality_score=17 max_deletion_fraction=0.05 min_indel_count_for_genotyping=5 min_indel_fraction_per_sample=0.25 indel_heterozygosity=1.25E-4 indelGapContinuationPenalty=10 indelGapOpenPenalty=45 indelHaplotypeSize=80 indelDebug=false ignoreSNPAlleles=false allReadsSP=false ignoreLaneInfo=false reference_sample_calls=(RodBinding name= source=UNBOUND) reference_sample_name=null sample_ploidy=2 min_quality_score=1 max_quality_score=40 site_quality_prior=20 min_power_threshold_for_calling=0.95 min_reference_depth=100 exclude_filtered_reference_sites=false heterozygosity=0.001 genotyping_mode=DISCOVERY output_mode=EMIT_VARIANTS_ONLY standard_min_confidence_threshold_for_calling=50.0 standard_min_confidence_threshold_for_emitting=10.0 alleles=(RodBinding name= source=UNBOUND) max_alternate_alleles=6 p_nonref_model=EXACT_INDEPENDENT contamination_fraction_to_filter=0.05 logRemovedReadsFromContaminationFiltering=null exactcallslog=null dbsnp=(RodBinding name= source=UNBOUND) comp=[] out=org.broadinstitute.sting.gatk.io.stubs.VariantContextWriterStub no_cmdline_in_header=org.broadinstitute.sting.gatk.io.stubs.VariantContextWriterStub sites_only=org.broadinstitute.sting.gatk.io.stubs.VariantContextWriterStub bcf=org.broadinstitute.sting.gatk.io.stubs.VariantContextWriterStub debug_file=null metrics_file=null annotation=[] excludeAnnotation=[] filter_mismatching_base_and_quals=false"
+##contig=<ID=21054,length=3211>
+##contig=<ID=386864,length=7428>
+##contig=<ID=617486,length=1787>
+##contig=<ID=832402,length=1497>
+##contig=<ID=847494,length=7786>
+##contig=<ID=1018108,length=3820>
+##contig=<ID=1228419,length=4012>
+##contig=<ID=1439323,length=2862>
+##contig=<ID=1700416,length=1511>
+##contig=<ID=2101508,length=4586>
+##contig=<ID=2173604,length=2544>
+##contig=<ID=2173752,length=1688>
+##contig=<ID=2179526,length=613>
+##contig=<ID=2179606,length=10862>
+##contig=<ID=2179732,length=7183>
+##contig=<ID=2179876,length=1720>
+##contig=<ID=2180193,length=436>
+##contig=<ID=2180341,length=5067>
+##contig=<ID=2180449,length=848>
+##contig=<ID=2181141,length=445>
+##contig=<ID=2181318,length=470>
+##contig=<ID=2181433,length=2095>
+##contig=<ID=2181637,length=17076>
+##contig=<ID=2182149,length=9503>
+##contig=<ID=2182252,length=7703>
+##contig=<ID=2182749,length=13945>
+##contig=<ID=2182950,length=17279>
+##contig=<ID=2183333,length=4926>
+##contig=<ID=2183619,length=10145>
+##contig=<ID=2184186,length=7198>
+##contig=<ID=2184601,length=13585>
+##contig=<ID=2184642,length=51272>
+##contig=<ID=2185119,length=491>
+##contig=<ID=2185380,length=567>
+##contig=<ID=2185760,length=397>
+##contig=<ID=2186007,length=3825>
+##contig=<ID=2186083,length=3942>
+##contig=<ID=2186472,length=620>
+##contig=<ID=2186511,length=7216>
+##contig=<ID=2186573,length=11757>
+##contig=<ID=2187354,length=22429>
+##contig=<ID=2187612,length=5929>
+##contig=<ID=2187676,length=541>
+##contig=<ID=2187690,length=5474>
+##contig=<ID=2188036,length=13463>
+##contig=<ID=2188116,length=13856>
+##contig=<ID=2188553,length=2684>
+##contig=<ID=2188851,length=1138>
+##contig=<ID=2189792,length=21580>
+##contig=<ID=2189866,length=5066>
+##contig=<ID=2189963,length=13985>
+##contig=<ID=2190047,length=997>
+##contig=<ID=2190050,length=20839>
+##contig=<ID=2190397,length=2717>
+##contig=<ID=2190436,length=16711>
+##contig=<ID=2190838,length=573>
+##contig=<ID=2190861,length=13298>
+##contig=<ID=2191027,length=3778>
+##contig=<ID=2191074,length=2560>
+##contig=<ID=2191415,length=438>
+##contig=<ID=2191687,length=12722>
+##contig=<ID=2192716,length=4489>
+##contig=<ID=2193001,length=10137>
+##contig=<ID=2193269,length=807>
+##contig=<ID=2193346,length=5916>
+##contig=<ID=2193441,length=4361>
+##contig=<ID=2193474,length=433>
+##contig=<ID=2193710,length=10863>
+##contig=<ID=2193872,length=1946>
+##contig=<ID=2194099,length=2902>
+##contig=<ID=2195055,length=498>
+##contig=<ID=2195300,length=8130>
+##contig=<ID=2195421,length=6363>
+##contig=<ID=2195530,length=17519>
+##contig=<ID=2195607,length=598>
+##contig=<ID=2195844,length=3026>
+##contig=<ID=2196097,length=11212>
+##contig=<ID=2196356,length=6943>
+##contig=<ID=2196750,length=10640>
+##contig=<ID=2196962,length=8841>
+##contig=<ID=2196987,length=437>
+##contig=<ID=2197057,length=805>
+##contig=<ID=2197175,length=6310>
+##contig=<ID=2197675,length=562>
+##contig=<ID=2198069,length=18252>
+##contig=<ID=2198408,length=18877>
+##contig=<ID=2198574,length=3809>
+##contig=<ID=2199164,length=2204>
+##contig=<ID=2200004,length=6903>
+##contig=<ID=2200081,length=325>
+##contig=<ID=2200296,length=9755>
+##contig=<ID=2200299,length=502>
+##contig=<ID=2200415,length=3882>
+##contig=<ID=2200691,length=10016>
+##contig=<ID=2200710,length=4513>
+##contig=<ID=2201032,length=13652>
+##contig=<ID=2201083,length=511>
+##contig=<ID=2201313,length=13995>
+##contig=<ID=2201361,length=2215>
+##contig=<ID=2201461,length=2801>
+##contig=<ID=2201719,length=534>
+##contig=<ID=2201885,length=18877>
+##contig=<ID=2202360,length=10948>
+##contig=<ID=2202692,length=494>
+##contig=<ID=2202805,length=15073>
+##contig=<ID=2203203,length=26904>
+##contig=<ID=2203319,length=4874>
+##contig=<ID=2203555,length=6436>
+##contig=<ID=2204436,length=8367>
+##contig=<ID=2204479,length=547>
+##contig=<ID=2204527,length=13191>
+##contig=<ID=2204738,length=2652>
+##contig=<ID=2204798,length=7115>
+##contig=<ID=2205157,length=6884>
+##contig=<ID=2205444,length=14984>
+##contig=<ID=2205520,length=918>
+##contig=<ID=2206076,length=8436>
+##contig=<ID=2206392,length=437>
+##contig=<ID=2206578,length=483>
+##contig=<ID=2206829,length=1066>
+##contig=<ID=2207116,length=1060>
+##contig=<ID=2207483,length=542>
+##contig=<ID=2207659,length=3518>
+##contig=<ID=2207779,length=978>
+##contig=<ID=2207788,length=5567>
+##contig=<ID=2207932,length=21534>
+##contig=<ID=2208085,length=4956>
+##contig=<ID=2208273,length=28392>
+##contig=<ID=2208353,length=851>
+##contig=<ID=2208412,length=35046>
+##contig=<ID=2209204,length=25756>
+##contig=<ID=2209385,length=707>
+##contig=<ID=2210068,length=602>
+##contig=<ID=2210122,length=23619>
+##contig=<ID=2210146,length=5977>
+##contig=<ID=2210412,length=2073>
+##contig=<ID=2210542,length=3220>
+##contig=<ID=2210544,length=855>
+##contig=<ID=2210547,length=3974>
+##contig=<ID=2210549,length=2703>
+##contig=<ID=2210764,length=14687>
+##contig=<ID=2210852,length=4964>
+##contig=<ID=2211860,length=18833>
+##contig=<ID=2212298,length=2931>
+##contig=<ID=2212702,length=521>
+##contig=<ID=2212929,length=5014>
+##contig=<ID=2213189,length=1715>
+##contig=<ID=2213335,length=19861>
+##contig=<ID=2213597,length=10164>
+##contig=<ID=2213742,length=12200>
+##contig=<ID=2214178,length=5245>
+##contig=<ID=2214473,length=3716>
+##contig=<ID=2214667,length=12335>
+##contig=<ID=2214682,length=6078>
+##contig=<ID=2215069,length=12341>
+##contig=<ID=2215176,length=13227>
+##contig=<ID=2215324,length=4558>
+##contig=<ID=2215563,length=600>
+##contig=<ID=2215731,length=1234>
+##contig=<ID=2215783,length=660>
+##contig=<ID=2215837,length=1247>
+##contig=<ID=2216095,length=9923>
+##contig=<ID=2216100,length=971>
+##contig=<ID=2216184,length=1063>
+##contig=<ID=2216992,length=9551>
+##contig=<ID=2217347,length=27687>
+##contig=<ID=2217627,length=13483>
+##contig=<ID=2217673,length=11438>
+##contig=<ID=2217750,length=9924>
+##contig=<ID=2218017,length=11286>
+##contig=<ID=2218054,length=582>
+##contig=<ID=2218057,length=12007>
+##contig=<ID=2218213,length=3135>
+##contig=<ID=2218267,length=1648>
+##contig=<ID=2218292,length=5555>
+##contig=<ID=2218438,length=24396>
+##contig=<ID=2218599,length=1194>
+##contig=<ID=2218681,length=3865>
+##contig=<ID=2218796,length=3344>
+##contig=<ID=2219142,length=6596>
+##contig=<ID=2219217,length=14327>
+##contig=<ID=2219395,length=14021>
+##contig=<ID=2219531,length=4190>
+##contig=<ID=2219571,length=511>
+##contig=<ID=2219645,length=504>
+##contig=<ID=2219714,length=8004>
+##contig=<ID=2219763,length=4724>
+##contig=<ID=2219965,length=12927>
+##contig=<ID=2219989,length=5802>
+##contig=<ID=2220014,length=5075>
+##contig=<ID=2220040,length=4858>
+##contig=<ID=2220426,length=2513>
+##contig=<ID=2220488,length=8158>
+##contig=<ID=2220736,length=651>
+##contig=<ID=2221024,length=9057>
+##contig=<ID=2221046,length=12749>
+##contig=<ID=2221054,length=558>
+##contig=<ID=2221923,length=7577>
+##contig=<ID=2221957,length=18018>
+##contig=<ID=2222415,length=9237>
+##contig=<ID=2222511,length=8428>
+##contig=<ID=2222650,length=23057>
+##contig=<ID=2222873,length=906>
+##contig=<ID=2223343,length=4326>
+##contig=<ID=2223737,length=413>
+##contig=<ID=2224024,length=10000>
+##contig=<ID=2224282,length=12766>
+##contig=<ID=2224477,length=2794>
+##contig=<ID=2224565,length=588>
+##contig=<ID=2224580,length=6651>
+##contig=<ID=2225512,length=6691>
+##contig=<ID=2225589,length=591>
+##contig=<ID=2226889,length=18688>
+##contig=<ID=2226905,length=2521>
+##contig=<ID=2227425,length=812>
+##contig=<ID=2227632,length=495>
+##contig=<ID=2228033,length=21872>
+##contig=<ID=2228178,length=8632>
+##contig=<ID=2228587,length=756>
+##contig=<ID=2228801,length=6749>
+##contig=<ID=2228921,length=374>
+##contig=<ID=2228922,length=5529>
+##contig=<ID=2229303,length=7142>
+##contig=<ID=2229593,length=41468>
+##contig=<ID=2230254,length=9949>
+##contig=<ID=2230414,length=737>
+##contig=<ID=2230597,length=919>
+##contig=<ID=2230684,length=1079>
+##contig=<ID=2230753,length=596>
+##contig=<ID=2230795,length=3210>
+##contig=<ID=2231163,length=617>
+##contig=<ID=2231223,length=2154>
+##contig=<ID=2231364,length=9934>
+##contig=<ID=2231443,length=4607>
+##contig=<ID=2231544,length=4063>
+##contig=<ID=2231791,length=7318>
+##contig=<ID=2231937,length=614>
+##contig=<ID=2232141,length=614>
+##contig=<ID=2232489,length=19552>
+##contig=<ID=2232543,length=771>
+##contig=<ID=2232853,length=365>
+##contig=<ID=2233430,length=10404>
+##contig=<ID=2233487,length=13822>
+##contig=<ID=2233572,length=543>
+##contig=<ID=2233602,length=3050>
+##contig=<ID=2233674,length=16379>
+##contig=<ID=2233902,length=1235>
+##contig=<ID=2234495,length=20196>
+##contig=<ID=2234579,length=6275>
+##contig=<ID=2234761,length=524>
+##contig=<ID=2235009,length=18529>
+##contig=<ID=2235662,length=21110>
+##contig=<ID=2236075,length=7041>
+##contig=<ID=2236891,length=8586>
+##contig=<ID=2237661,length=2907>
+##contig=<ID=2237981,length=2011>
+##contig=<ID=2238273,length=4109>
+##contig=<ID=2238592,length=19854>
+##contig=<ID=2239143,length=2315>
+##contig=<ID=2239598,length=22462>
+##contig=<ID=2239678,length=3127>
+##contig=<ID=2239682,length=16197>
+##contig=<ID=2239739,length=8749>
+##contig=<ID=2240113,length=2664>
+##contig=<ID=2240430,length=1086>
+##contig=<ID=2240659,length=5413>
+##contig=<ID=2240723,length=3087>
+##contig=<ID=2241069,length=478>
+##contig=<ID=2241412,length=5522>
+##contig=<ID=2241432,length=21835>
+##contig=<ID=2241524,length=3856>
+##contig=<ID=2241540,length=16925>
+##contig=<ID=2241673,length=4115>
+##contig=<ID=2241851,length=3236>
+##contig=<ID=2242519,length=18670>
+##contig=<ID=2242815,length=9539>
+##contig=<ID=2243001,length=7195>
+##contig=<ID=2243156,length=418>
+##contig=<ID=2244129,length=3020>
+##contig=<ID=2244550,length=531>
+##contig=<ID=2244606,length=15248>
+##contig=<ID=2244757,length=926>
+##contig=<ID=2244897,length=13664>
+##contig=<ID=2245042,length=5682>
+##contig=<ID=2245196,length=4735>
+##contig=<ID=2245225,length=9723>
+##contig=<ID=2245634,length=12044>
+##contig=<ID=2245737,length=18229>
+##contig=<ID=2245743,length=4656>
+##contig=<ID=2245798,length=21474>
+##contig=<ID=2245888,length=38110>
+##contig=<ID=2245944,length=8869>
+##contig=<ID=2246116,length=3670>
+##contig=<ID=2246662,length=4545>
+##contig=<ID=2247393,length=7362>
+##contig=<ID=2247403,length=987>
+##contig=<ID=2247413,length=7835>
+##contig=<ID=2247628,length=6325>
+##contig=<ID=2247732,length=8549>
+##contig=<ID=2247789,length=518>
+##contig=<ID=2248162,length=7678>
+##contig=<ID=2248184,length=4577>
+##contig=<ID=2248214,length=4778>
+##contig=<ID=2248321,length=516>
+##contig=<ID=2248953,length=10189>
+##contig=<ID=2249255,length=710>
+##contig=<ID=2249455,length=513>
+##contig=<ID=2249795,length=423>
+##contig=<ID=2249800,length=14005>
+##contig=<ID=2249914,length=3577>
+##contig=<ID=2249972,length=3205>
+##contig=<ID=2249995,length=3076>
+##contig=<ID=2250170,length=18162>
+##contig=<ID=2250324,length=551>
+##contig=<ID=2251049,length=3616>
+##contig=<ID=2251147,length=622>
+##contig=<ID=2251538,length=586>
+##contig=<ID=2251805,length=3960>
+##contig=<ID=2252000,length=10523>
+##contig=<ID=2252372,length=485>
+##contig=<ID=2252613,length=6700>
+##contig=<ID=2252636,length=2773>
+##contig=<ID=2252776,length=12808>
+##contig=<ID=2252835,length=750>
+##contig=<ID=2253313,length=11253>
+##contig=<ID=2253429,length=5917>
+##contig=<ID=2253701,length=12867>
+##contig=<ID=2253932,length=924>
+##contig=<ID=2254014,length=535>
+##contig=<ID=2254061,length=10411>
+##contig=<ID=2254164,length=527>
+##contig=<ID=2254191,length=13689>
+##contig=<ID=2254662,length=3582>
+##contig=<ID=2254670,length=7894>
+##contig=<ID=2254979,length=5473>
+##contig=<ID=2255049,length=4889>
+##contig=<ID=2255306,length=10953>
+##contig=<ID=2255932,length=15037>
+##contig=<ID=2256127,length=6513>
+##contig=<ID=2256334,length=4212>
+##contig=<ID=2256341,length=15233>
+##contig=<ID=2256599,length=9868>
+##contig=<ID=2257003,length=543>
+##contig=<ID=2257422,length=13131>
+##contig=<ID=2258047,length=3604>
+##contig=<ID=2258682,length=2341>
+##contig=<ID=2258851,length=667>
+##contig=<ID=2259165,length=12128>
+##contig=<ID=2259398,length=8176>
+##contig=<ID=2259719,length=6519>
+##contig=<ID=2259934,length=12441>
+##contig=<ID=2259940,length=4359>
+##contig=<ID=2260001,length=499>
+##contig=<ID=2260025,length=5858>
+##contig=<ID=2260082,length=920>
+##contig=<ID=2260922,length=6363>
+##contig=<ID=2261324,length=3008>
+##contig=<ID=2261332,length=8196>
+##contig=<ID=2261486,length=6395>
+##contig=<ID=2262097,length=19383>
+##contig=<ID=2262471,length=5603>
+##contig=<ID=2262617,length=286>
+##contig=<ID=2263534,length=9340>
+##contig=<ID=2263688,length=1284>
+##contig=<ID=2263833,length=11642>
+##contig=<ID=2264263,length=538>
+##contig=<ID=2264305,length=5002>
+##contig=<ID=2264353,length=3176>
+##contig=<ID=2264725,length=1521>
+##contig=<ID=2265264,length=45608>
+##contig=<ID=2265361,length=8268>
+##contig=<ID=2265412,length=14767>
+##contig=<ID=2265473,length=2960>
+##contig=<ID=2265935,length=15338>
+##contig=<ID=2265988,length=849>
+##contig=<ID=2266039,length=5839>
+##contig=<ID=2266040,length=6884>
+##contig=<ID=2266229,length=6234>
+##contig=<ID=2266497,length=2552>
+##contig=<ID=2266530,length=14494>
+##contig=<ID=2266548,length=6991>
+##contig=<ID=2267042,length=893>
+##contig=<ID=2267100,length=12312>
+##contig=<ID=2267472,length=3729>
+##contig=<ID=2267888,length=13436>
+##contig=<ID=2268248,length=6267>
+##contig=<ID=2268317,length=13622>
+##contig=<ID=2268372,length=2337>
+##contig=<ID=2268472,length=5494>
+##contig=<ID=2268532,length=2866>
+##contig=<ID=2268565,length=8225>
+##contig=<ID=2268645,length=2096>
+##contig=<ID=2269039,length=18137>
+##contig=<ID=2269884,length=4166>
+##contig=<ID=2270165,length=14028>
+##contig=<ID=2270351,length=11107>
+##contig=<ID=2270392,length=1959>
+##contig=<ID=2270411,length=8074>
+##contig=<ID=2270540,length=8576>
+##contig=<ID=2270545,length=11977>
+##contig=<ID=2270764,length=825>
+##contig=<ID=2271014,length=4485>
+##contig=<ID=2271080,length=3901>
+##contig=<ID=2271884,length=2454>
+##contig=<ID=2271937,length=5830>
+##contig=<ID=2272260,length=10043>
+##contig=<ID=2272393,length=2340>
+##contig=<ID=2272400,length=1303>
+##contig=<ID=2272657,length=9431>
+##contig=<ID=2272967,length=18362>
+##contig=<ID=2272973,length=14458>
+##contig=<ID=2273117,length=1503>
+##contig=<ID=2273216,length=11926>
+##contig=<ID=2273477,length=7702>
+##contig=<ID=2273616,length=1167>
+##contig=<ID=2273685,length=4950>
+##contig=<ID=2273757,length=33373>
+##contig=<ID=2273803,length=3764>
+##contig=<ID=2273879,length=10131>
+##contig=<ID=2274057,length=1569>
+##contig=<ID=2274309,length=8448>
+##contig=<ID=2274344,length=760>
+##contig=<ID=2274568,length=9687>
+##contig=<ID=2274584,length=11696>
+##contig=<ID=2274807,length=2320>
+##contig=<ID=2275006,length=13664>
+##contig=<ID=2275147,length=19638>
+##contig=<ID=2275156,length=21603>
+##contig=<ID=2275291,length=10439>
+##contig=<ID=2275348,length=17985>
+##contig=<ID=2275468,length=22761>
+##contig=<ID=2275499,length=13776>
+##contig=<ID=2275700,length=15684>
+##contig=<ID=2275701,length=7673>
+##contig=<ID=2275727,length=13927>
+##contig=<ID=2275739,length=19245>
+##contig=<ID=2275827,length=13537>
+##contig=<ID=2275852,length=1669>
+##contig=<ID=2275896,length=16575>
+##contig=<ID=2275937,length=20940>
+##contig=<ID=2276003,length=22497>
+##contig=<ID=2276120,length=12710>
+##contig=<ID=2276307,length=15253>
+##contig=<ID=2276328,length=16798>
+##contig=<ID=2276357,length=12562>
+##contig=<ID=2276457,length=11730>
+##contig=<ID=2276526,length=5865>
+##contig=<ID=2276558,length=11652>
+##contig=<ID=2276646,length=35193>
+##contig=<ID=2276668,length=7853>
+##contig=<ID=2276887,length=2396>
+##contig=<ID=2277085,length=11846>
+##contig=<ID=2277086,length=33990>
+##contig=<ID=2277087,length=18516>
+##contig=<ID=2277260,length=3909>
+##contig=<ID=2277366,length=4266>
+##contig=<ID=2277634,length=7672>
+##contig=<ID=2277709,length=32612>
+##contig=<ID=2277718,length=25389>
+##contig=<ID=2277727,length=14914>
+##contig=<ID=2277728,length=11048>
+##contig=<ID=2277793,length=12543>
+##contig=<ID=2277876,length=65126>
+##contig=<ID=2277882,length=6932>
+##contig=<ID=2277883,length=14959>
+##contig=<ID=2277889,length=11767>
+##contig=<ID=2278057,length=10042>
+##contig=<ID=2278118,length=14660>
+##contig=<ID=2278146,length=4857>
+##contig=<ID=2278262,length=12717>
+##contig=<ID=2278336,length=10346>
+##contig=<ID=2278413,length=4062>
+##contig=<ID=2278447,length=4102>
+##contig=<ID=2278515,length=5948>
+##contig=<ID=2278660,length=28696>
+##contig=<ID=2278666,length=22403>
+##contig=<ID=2278696,length=10921>
+##contig=<ID=2278742,length=2655>
+##contig=<ID=2278837,length=10483>
+##contig=<ID=2279085,length=17390>
+##contig=<ID=2279187,length=13031>
+##contig=<ID=2279491,length=17017>
+##contig=<ID=2279518,length=25048>
+##contig=<ID=2279624,length=18446>
+##contig=<ID=2279861,length=3121>
+##contig=<ID=2279868,length=22064>
+##contig=<ID=2280076,length=8036>
+##contig=<ID=2280085,length=10933>
+##contig=<ID=2280309,length=12386>
+##contig=<ID=2280401,length=10994>
+##contig=<ID=2280502,length=12804>
+##contig=<ID=2280736,length=4942>
+##contig=<ID=2280759,length=37755>
+##contig=<ID=2280784,length=20060>
+##contig=<ID=2280814,length=20458>
+##contig=<ID=2280919,length=29253>
+##contig=<ID=2280947,length=14514>
+##contig=<ID=2280964,length=10078>
+##contig=<ID=2281120,length=8014>
+##contig=<ID=2281178,length=7932>
+##contig=<ID=2281410,length=16846>
+##contig=<ID=2281600,length=13740>
+##contig=<ID=2281685,length=14313>
+##contig=<ID=2281725,length=11501>
+##contig=<ID=2281728,length=14659>
+##contig=<ID=2281802,length=13975>
+##contig=<ID=2281839,length=35091>
+##contig=<ID=2281964,length=12312>
+##contig=<ID=2281965,length=20394>
+##contig=<ID=2282044,length=16610>
+##contig=<ID=2282057,length=5048>
+##contig=<ID=2282089,length=10772>
+##contig=<ID=2282157,length=5657>
+##contig=<ID=2282347,length=17629>
+##contig=<ID=2282352,length=17207>
+##contig=<ID=2282507,length=4968>
+##contig=<ID=2282541,length=15724>
+##contig=<ID=2282640,length=25662>
+##contig=<ID=2282731,length=4334>
+##contig=<ID=2282794,length=8483>
+##contig=<ID=2282808,length=6499>
+##contig=<ID=2282955,length=9150>
+##contig=<ID=2283193,length=9440>
+##contig=<ID=2283195,length=5013>
+##contig=<ID=2283266,length=8610>
+##contig=<ID=2283405,length=3633>
+##contig=<ID=2283525,length=12644>
+##contig=<ID=2283552,length=10340>
+##contig=<ID=2283570,length=31887>
+##contig=<ID=2283615,length=12553>
+##contig=<ID=2283670,length=4959>
+##contig=<ID=2283678,length=12891>
+##contig=<ID=2283807,length=22206>
+##contig=<ID=2283839,length=8492>
+##contig=<ID=2283880,length=13112>
+##contig=<ID=2283954,length=7440>
+##contig=<ID=2284056,length=8720>
+##contig=<ID=2284074,length=1057>
+##contig=<ID=2284197,length=40611>
+##contig=<ID=2284230,length=15360>
+##contig=<ID=2284346,length=30623>
+##contig=<ID=2284433,length=1217>
+##contig=<ID=2284499,length=7048>
+##contig=<ID=2284520,length=2537>
+##contig=<ID=2284537,length=3829>
+##contig=<ID=2284558,length=14343>
+##contig=<ID=2284584,length=817>
+##contig=<ID=2284594,length=18002>
+##contig=<ID=2284722,length=6832>
+##contig=<ID=2284726,length=27776>
+##contig=<ID=2284738,length=3118>
+##contig=<ID=2284744,length=10365>
+##contig=<ID=2284746,length=2085>
+##contig=<ID=2284780,length=5880>
+##contig=<ID=2284844,length=28947>
+##contig=<ID=2284888,length=3602>
+##contig=<ID=2284994,length=9998>
+##contig=<ID=2285003,length=12649>
+##contig=<ID=2285089,length=1776>
+##contig=<ID=2285092,length=4970>
+##contig=<ID=2285121,length=2955>
+##contig=<ID=2285176,length=1657>
+##contig=<ID=2285200,length=17158>
+##contig=<ID=2285201,length=5743>
+##contig=<ID=2285268,length=17868>
+##contig=<ID=2285290,length=14290>
+##contig=<ID=2285430,length=3128>
+##contig=<ID=2285480,length=5845>
+##contig=<ID=2285520,length=1952>
+##contig=<ID=2285534,length=4373>
+##contig=<ID=2285537,length=941>
+##contig=<ID=2285575,length=4217>
+##contig=<ID=2285598,length=6521>
+##contig=<ID=2285684,length=4837>
+##contig=<ID=2285765,length=3773>
+##contig=<ID=2285821,length=12101>
+##contig=<ID=2285918,length=1043>
+##contig=<ID=2285922,length=10619>
+##contig=<ID=2285939,length=18045>
+##contig=<ID=2285941,length=11175>
+##contig=<ID=2285953,length=24021>
+##contig=<ID=2286025,length=5653>
+##contig=<ID=2286051,length=6310>
+##contig=<ID=2286087,length=1830>
+##contig=<ID=2286088,length=19050>
+##contig=<ID=2286137,length=20325>
+##contig=<ID=2286241,length=947>
+##contig=<ID=2286271,length=1578>
+##contig=<ID=2286292,length=5364>
+##contig=<ID=2286332,length=5920>
+##contig=<ID=2286334,length=30668>
+##contig=<ID=2286383,length=3611>
+##contig=<ID=2286395,length=12609>
+##contig=<ID=2286437,length=1680>
+##contig=<ID=2286448,length=6925>
+##contig=<ID=2286459,length=17392>
+##contig=<ID=2286469,length=30299>
+##contig=<ID=2286494,length=23427>
+##contig=<ID=2286575,length=60339>
+##contig=<ID=2286707,length=20523>
+##contig=<ID=2286805,length=22417>
+##contig=<ID=2286838,length=18656>
+##contig=<ID=2286862,length=2512>
+##contig=<ID=2286884,length=89835>
+##contig=<ID=2286891,length=1475>
+##contig=<ID=2286963,length=25900>
+##contig=<ID=2287001,length=2977>
+##contig=<ID=2287002,length=1203>
+##contig=<ID=2287020,length=7208>
+##contig=<ID=2287051,length=14414>
+##contig=<ID=2287068,length=11422>
+##contig=<ID=2287087,length=15836>
+##contig=<ID=2287124,length=22357>
+##contig=<ID=2287139,length=10571>
+##contig=<ID=2287141,length=10563>
+##contig=<ID=2287152,length=27382>
+##contig=<ID=2287286,length=23387>
+##contig=<ID=2287324,length=6215>
+##contig=<ID=2287392,length=12259>
+##contig=<ID=2287396,length=11135>
+##contig=<ID=2287417,length=3989>
+##contig=<ID=2287456,length=13870>
+##contig=<ID=2287484,length=13333>
+##contig=<ID=2287514,length=21191>
+##contig=<ID=2287531,length=20163>
+##contig=<ID=2287585,length=4271>
+##contig=<ID=2287664,length=2884>
+##contig=<ID=2287720,length=4484>
+##contig=<ID=2287756,length=6522>
+##contig=<ID=2287759,length=14101>
+##contig=<ID=2287770,length=15448>
+##contig=<ID=2287794,length=23454>
+##contig=<ID=2287806,length=22460>
+##contig=<ID=2287822,length=9797>
+##contig=<ID=2287933,length=11346>
+##contig=<ID=2287951,length=2918>
+##contig=<ID=2287978,length=17518>
+##contig=<ID=2288062,length=15833>
+##contig=<ID=2288072,length=9701>
+##contig=<ID=2288085,length=7629>
+##contig=<ID=2288093,length=1729>
+##contig=<ID=2288137,length=37223>
+##contig=<ID=2288139,length=11867>
+##contig=<ID=2288146,length=1471>
+##contig=<ID=2288178,length=7849>
+##contig=<ID=2288208,length=7961>
+##contig=<ID=2288232,length=12327>
+##contig=<ID=2288250,length=21225>
+##contig=<ID=2288326,length=10234>
+##contig=<ID=2288337,length=17964>
+##contig=<ID=2288395,length=992>
+##contig=<ID=2288396,length=7094>
+##contig=<ID=2288450,length=6009>
+##contig=<ID=2288457,length=17997>
+##contig=<ID=2288460,length=2697>
+##contig=<ID=2288470,length=17419>
+##contig=<ID=2288528,length=1666>
+##contig=<ID=2288535,length=26959>
+##contig=<ID=2288561,length=2539>
+##contig=<ID=2288574,length=1215>
+##contig=<ID=2288593,length=24313>
+##contig=<ID=2288607,length=4117>
+##contig=<ID=2288662,length=5542>
+##contig=<ID=2288675,length=1265>
+##contig=<ID=2288823,length=13612>
+##contig=<ID=2288904,length=1899>
+##contig=<ID=2288950,length=1398>
+##contig=<ID=2289217,length=7319>
+##contig=<ID=2289261,length=22605>
+##contig=<ID=2289273,length=20261>
+##contig=<ID=2289414,length=23488>
+##contig=<ID=2289428,length=30829>
+##contig=<ID=2289466,length=24652>
+##contig=<ID=2289485,length=3436>
+##contig=<ID=2289521,length=1487>
+##contig=<ID=2289536,length=1125>
+##contig=<ID=2289567,length=1881>
+##contig=<ID=2289624,length=24231>
+##contig=<ID=2289679,length=19597>
+##contig=<ID=2289693,length=18913>
+##contig=<ID=2289706,length=41610>
+##contig=<ID=2289735,length=14321>
+##contig=<ID=2289745,length=16653>
+##contig=<ID=2289752,length=14324>
+##contig=<ID=2289779,length=15361>
+##contig=<ID=2289813,length=13634>
+##contig=<ID=2289932,length=24619>
+##contig=<ID=2289972,length=20582>
+##contig=<ID=2289980,length=12118>
+##contig=<ID=2290008,length=6915>
+##contig=<ID=2290023,length=1339>
+##contig=<ID=2290068,length=1787>
+##contig=<ID=2290099,length=19856>
+##contig=<ID=2290102,length=11903>
+##contig=<ID=2290123,length=1639>
+##contig=<ID=2290138,length=49922>
+##contig=<ID=2290182,length=1190>
+##contig=<ID=2290191,length=22075>
+##contig=<ID=2290207,length=15803>
+##contig=<ID=2290217,length=27154>
+##contig=<ID=2290223,length=1465>
+##contig=<ID=2290230,length=26808>
+##contig=<ID=2290291,length=15288>
+##contig=<ID=2290322,length=6523>
+##contig=<ID=2290330,length=10562>
+##contig=<ID=2290352,length=22447>
+##contig=<ID=2290396,length=8114>
+##contig=<ID=2290451,length=5439>
+##contig=<ID=2290456,length=11203>
+##contig=<ID=2290521,length=7464>
+##contig=<ID=2290664,length=10711>
+##contig=<ID=2290685,length=10119>
+##contig=<ID=2290699,length=23237>
+##contig=<ID=2290751,length=20405>
+##contig=<ID=2290765,length=65539>
+##contig=<ID=2290811,length=17308>
+##contig=<ID=2290962,length=8773>
+##contig=<ID=2291019,length=7167>
+##contig=<ID=2291025,length=5307>
+##contig=<ID=2291081,length=16434>
+##contig=<ID=2291096,length=976>
+##contig=<ID=2291112,length=13752>
+##contig=<ID=2291114,length=39026>
+##contig=<ID=2291153,length=22152>
+##contig=<ID=2291238,length=21213>
+##contig=<ID=2291360,length=5219>
+##contig=<ID=2291366,length=13927>
+##contig=<ID=2291387,length=41624>
+##contig=<ID=2291442,length=23244>
+##contig=<ID=2291467,length=9609>
+##contig=<ID=2291492,length=1162>
+##contig=<ID=2291598,length=6954>
+##contig=<ID=2291629,length=47642>
+##contig=<ID=2291645,length=1515>
+##contig=<ID=2291715,length=7474>
+##contig=<ID=2291784,length=16992>
+##contig=<ID=2291797,length=20498>
+##contig=<ID=2291920,length=33173>
+##contig=<ID=2291949,length=27205>
+##contig=<ID=2291955,length=15546>
+##contig=<ID=2291957,length=23703>
+##contig=<ID=2291971,length=28212>
+##contig=<ID=2292066,length=985>
+##contig=<ID=2292067,length=15517>
+##contig=<ID=2292111,length=23918>
+##contig=<ID=2292115,length=1274>
+##contig=<ID=2292151,length=48029>
+##contig=<ID=2292188,length=2066>
+##contig=<ID=2292292,length=4009>
+##contig=<ID=2292370,length=14670>
+##contig=<ID=2292396,length=13896>
+##contig=<ID=2292399,length=34112>
+##contig=<ID=2292433,length=1379>
+##contig=<ID=2292446,length=16750>
+##contig=<ID=2292510,length=3087>
+##contig=<ID=2292554,length=36130>
+##contig=<ID=2292571,length=29052>
+##contig=<ID=2292600,length=2170>
+##contig=<ID=2292718,length=5339>
+##contig=<ID=2292741,length=12997>
+##contig=<ID=2292789,length=2037>
+##contig=<ID=2292813,length=26791>
+##contig=<ID=2292815,length=12976>
+##contig=<ID=2292823,length=9231>
+##contig=<ID=2292834,length=2778>
+##contig=<ID=2292964,length=12914>
+##contig=<ID=2293000,length=2683>
+##contig=<ID=2293066,length=2104>
+##contig=<ID=2293072,length=30929>
+##contig=<ID=2293143,length=18503>
+##contig=<ID=2293147,length=8580>
+##contig=<ID=2293196,length=42757>
+##contig=<ID=2293244,length=36639>
+##contig=<ID=2293292,length=11615>
+##contig=<ID=2293303,length=16634>
+##contig=<ID=2293304,length=29829>
+##contig=<ID=2293338,length=986>
+##contig=<ID=2293401,length=2030>
+##contig=<ID=2293425,length=29242>
+##contig=<ID=2293441,length=19752>
+##contig=<ID=2293476,length=61542>
+##contig=<ID=2293542,length=1118>
+##contig=<ID=2293583,length=4097>
+##contig=<ID=2293595,length=26240>
+##contig=<ID=2293608,length=10013>
+##contig=<ID=2293619,length=13677>
+##contig=<ID=2293651,length=1318>
+##contig=<ID=2293658,length=3505>
+##contig=<ID=2293717,length=1344>
+##contig=<ID=2293738,length=7517>
+##contig=<ID=2293790,length=17235>
+##contig=<ID=2293874,length=7184>
+##contig=<ID=2293880,length=3804>
+##contig=<ID=2293904,length=13451>
+##contig=<ID=2293937,length=38935>
+##contig=<ID=2293941,length=1140>
+##contig=<ID=2293942,length=18274>
+##contig=<ID=2293982,length=22794>
+##contig=<ID=2293988,length=19108>
+##contig=<ID=2294014,length=3549>
+##contig=<ID=2294072,length=14791>
+##contig=<ID=2294079,length=14964>
+##contig=<ID=2294120,length=18969>
+##contig=<ID=2294137,length=23489>
+##contig=<ID=2294157,length=14817>
+##contig=<ID=2294190,length=7799>
+##contig=<ID=2294191,length=22057>
+##contig=<ID=2294221,length=20408>
+##contig=<ID=2294226,length=8303>
+##contig=<ID=2294241,length=18746>
+##contig=<ID=2294271,length=10606>
+##contig=<ID=2294314,length=29460>
+##contig=<ID=2294418,length=12861>
+##contig=<ID=2294446,length=27974>
+##contig=<ID=2294539,length=30304>
+##contig=<ID=2294582,length=6714>
+##contig=<ID=2294684,length=32671>
+##contig=<ID=2294734,length=2565>
+##contig=<ID=2294750,length=18094>
+##contig=<ID=2294765,length=26185>
+##contig=<ID=2294786,length=10461>
+##contig=<ID=2294968,length=23143>
+##contig=<ID=2294998,length=22870>
+##contig=<ID=2295030,length=9348>
+##contig=<ID=2295059,length=24278>
+##contig=<ID=2295185,length=37201>
+##contig=<ID=2295254,length=6775>
+##contig=<ID=2295262,length=13971>
+##contig=<ID=2295363,length=2331>
+##contig=<ID=2295397,length=55869>
+##contig=<ID=2295462,length=27583>
+##contig=<ID=2295483,length=19201>
+##contig=<ID=2295503,length=29547>
+##contig=<ID=2295546,length=8379>
+##contig=<ID=2295566,length=7025>
+##contig=<ID=2295574,length=3015>
+##contig=<ID=2295622,length=2070>
+##contig=<ID=2295685,length=5242>
+##contig=<ID=2295724,length=3401>
+##contig=<ID=2295737,length=9971>
+##contig=<ID=2295788,length=18100>
+##contig=<ID=2295857,length=25028>
+##contig=<ID=2295898,length=59467>
+##contig=<ID=2295905,length=2181>
+##contig=<ID=2295909,length=12833>
+##contig=<ID=2295957,length=1784>
+##contig=<ID=2296072,length=8957>
+##contig=<ID=2296112,length=23081>
+##contig=<ID=2296139,length=37853>
+##contig=<ID=2296177,length=20580>
+##contig=<ID=2296217,length=20353>
+##contig=<ID=2296233,length=971>
+##contig=<ID=2296245,length=32694>
+##contig=<ID=2296267,length=4266>
+##contig=<ID=2296378,length=7465>
+##contig=<ID=2296384,length=1128>
+##contig=<ID=2296424,length=17552>
+##contig=<ID=2296435,length=10069>
+##contig=<ID=2296451,length=12655>
+##contig=<ID=2296455,length=5653>
+##contig=<ID=2296480,length=31183>
+##contig=<ID=2296482,length=28207>
+##contig=<ID=2296533,length=4312>
+##contig=<ID=2296538,length=3515>
+##contig=<ID=2296548,length=1974>
+##contig=<ID=2296560,length=15180>
+##contig=<ID=2296609,length=2602>
+##contig=<ID=2296613,length=19810>
+##contig=<ID=2296617,length=24539>
+##contig=<ID=2296695,length=28132>
+##contig=<ID=2296710,length=17660>
+##contig=<ID=2296739,length=8910>
+##contig=<ID=2296785,length=8441>
+##contig=<ID=2296871,length=15584>
+##contig=<ID=2296881,length=43394>
+##contig=<ID=2296926,length=14853>
+##contig=<ID=2296934,length=12692>
+##contig=<ID=2296946,length=19743>
+##contig=<ID=2296978,length=24073>
+##contig=<ID=2297145,length=2662>
+##contig=<ID=2297205,length=4787>
+##contig=<ID=2297333,length=21460>
+##contig=<ID=2297339,length=23194>
+##contig=<ID=2297371,length=6455>
+##contig=<ID=2297380,length=26971>
+##contig=<ID=2297429,length=6639>
+##contig=<ID=2297448,length=15049>
+##contig=<ID=2297503,length=13418>
+##contig=<ID=2297517,length=5412>
+##contig=<ID=2297568,length=10712>
+##contig=<ID=2297573,length=17321>
+##contig=<ID=2297617,length=65470>
+##contig=<ID=2297678,length=4160>
+##contig=<ID=2297720,length=14908>
+##contig=<ID=2297733,length=22426>
+##contig=<ID=2297793,length=3241>
+##contig=<ID=2297983,length=14800>
+##contig=<ID=2297999,length=20173>
+##contig=<ID=2298020,length=2002>
+##contig=<ID=2298023,length=9063>
+##contig=<ID=2298051,length=24952>
+##contig=<ID=2298064,length=41212>
+##contig=<ID=2298071,length=22260>
+##contig=<ID=2298158,length=1411>
+##contig=<ID=2298163,length=11625>
+##contig=<ID=2298191,length=33764>
+##contig=<ID=2298200,length=1111>
+##contig=<ID=2298227,length=13869>
+##contig=<ID=2298239,length=5861>
+##contig=<ID=2298253,length=23900>
+##contig=<ID=2298265,length=21713>
+##contig=<ID=2298350,length=11896>
+##contig=<ID=2298405,length=15484>
+##contig=<ID=2298470,length=11956>
+##contig=<ID=2298511,length=7871>
+##contig=<ID=2298514,length=6379>
+##contig=<ID=2298532,length=21268>
+##contig=<ID=2298567,length=27081>
+##contig=<ID=2298585,length=3263>
+##contig=<ID=2298621,length=5493>
+##contig=<ID=2298625,length=7717>
+##contig=<ID=2298637,length=16038>
+##contig=<ID=2298715,length=37224>
+##contig=<ID=2298853,length=45493>
+##contig=<ID=2298859,length=14957>
+##contig=<ID=2298903,length=55248>
+##contig=<ID=2299047,length=6488>
+##contig=<ID=2299086,length=10878>
+##contig=<ID=2299224,length=5653>
+##contig=<ID=2299262,length=8290>
+##contig=<ID=2299349,length=32167>
+##contig=<ID=2299395,length=90835>
+##contig=<ID=2299402,length=48176>
+##contig=<ID=2299465,length=8504>
+##contig=<ID=2299515,length=10158>
+##contig=<ID=2299545,length=24612>
+##contig=<ID=2299572,length=14046>
+##contig=<ID=2299574,length=26679>
+##contig=<ID=2299587,length=16896>
+##contig=<ID=2299619,length=34707>
+##contig=<ID=2299639,length=2843>
+##contig=<ID=2299705,length=1896>
+##contig=<ID=2299740,length=22190>
+##contig=<ID=2299785,length=14664>
+##contig=<ID=2299806,length=34664>
+##contig=<ID=2299819,length=42441>
+##contig=<ID=2299837,length=6085>
+##contig=<ID=2299838,length=86103>
+##contig=<ID=2299882,length=25260>
+##contig=<ID=2299889,length=39753>
+##contig=<ID=2299897,length=19555>
+##reference=file:///tmp/toggleOut/referenceFiles/referenceIrigin.fasta
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	sample1	sample2
+386864	2806	.	A	G	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+386864	2868	.	C	T	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2179526	410	.	A	G	10.38	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=10.38	GT:AD:DP:GQ:PL	1/1:0,1:1:3:35,3,0	./.
+2179526	458	.	A	G	53.17	.	AC=2;AF=1.00;AN=2;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=26.58	GT:AD:DP:GQ:PL	1/1:0,2:2:6:79,6,0	./.
+2179526	467	.	T	C	54.17	.	AC=2;AF=1.00;AN=2;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=27.08	GT:AD:DP:GQ:PL	1/1:0,2:2:6:80,6,0	./.
+2180193	298	.	T	A	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2180193	368	.	G	A	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2180193	370	.	T	C	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2181141	93	.	C	G	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2181141	339	.	G	A	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2181141	359	.	T	C	16.07	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=16.07	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:41,3,0
+2181141	378	.	C	A	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2182149	2212	.	A	G	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2183619	2367	.	A	G	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2186511	7122	.	G	A	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2186511	7150	.	C	T	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2186511	7160	.	C	T	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2186511	7169	.	C	T	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2188036	265	.	C	T	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2188036	337	.	C	T	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2188036	430	.	C	T	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2188036	440	.	C	T	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2188036	443	.	A	T	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2189792	5310	.	G	T	16.07	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=16.07	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:41,3,0
+2189866	4884	.	C	T	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2189866	4893	.	A	G	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2189866	4894	.	T	C	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2189963	5204	.	T	C	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2189963	5205	.	G	A	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2191074	617	.	G	A	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2191074	878	.	G	C	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2192716	4167	.	C	T	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2193269	515	.	A	G	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2193269	660	.	G	A	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2193474	337	.	G	A	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2193474	349	.	T	C	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2193474	385	.	C	A	12.23	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=12.23	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:37,3,0
+2195055	110	.	A	G	10.38	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=10.38	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:35,3,0
+2201032	4887	.	A	C	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2201032	4906	.	A	C	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2206392	22	.	G	C	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2206392	65	.	C	T	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2209385	587	.	C	G	38.42	LowQual	AC=4;AF=1.00;AN=4;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=4;MLEAF=1.00;MQ=27.07;MQ0=0;QD=19.21	GT:AD:DP:GQ:PL	1/1:0,1:1:3:30,3,0	1/1:0,1:1:3:33,3,0
+2213742	9062	.	C	A	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2213742	9228	.	G	A	11.30	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=11.30	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:36,3,0
+2216184	246	.	G	A	13.18	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=13.18	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:38,3,0
+2217673	1722	.	C	T	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2217673	1745	.	T	C	10.38	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=10.38	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:35,3,0
+2217673	1762	.	G	A	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2219217	14140	.	G	A	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	1/1:0,1:1:3:40,3,0	./.
+2219217	14168	.	T	C	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	1/1:0,1:1:3:40,3,0	./.
+2219217	14187	.	G	A	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	1/1:0,1:1:3:40,3,0	./.
+2219217	14220	.	A	G	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	1/1:0,1:1:3:39,3,0	./.
+2219763	1524	.	C	T	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2219763	1539	.	C	T	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2219763	1557	.	T	G	10.38	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=10.38	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:35,3,0
+2219763	1741	.	T	C	10.38	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=10.38	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:35,3,0
+2230597	74	.	A	G	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2230597	99	.	A	G	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2230597	162	.	T	C	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2230597	205	.	C	T	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2230597	206	.	A	G	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2230597	227	.	C	G	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2230684	923	.	T	A	16.07	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=16.07	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:41,3,0
+2231791	23	.	T	A	13.18	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=13.18	GT:AD:DP:GQ:PL	1/1:0,1:1:3:38,3,0	./.
+2233572	43	.	T	C	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2233572	48	.	G	A	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2233572	57	.	A	T	16.07	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=16.07	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:41,3,0
+2233572	145	.	A	G	56.17	.	AC=2;AF=1.00;AN=2;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=49.84;MQ0=0;QD=28.08	GT:AD:DP:GQ:PL	./.	1/1:0,2:2:6:82,6,0
+2233572	196	.	C	G	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2233572	227	.	C	A	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	1/1:0,1:1:3:40,3,0	./.
+2233572	251	.	T	G	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	1/1:0,1:1:3:40,3,0	./.
+2233572	264	.	A	G	45.42	LowQual	AC=4;AF=1.00;AN=4;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=4;MLEAF=1.00;MQ=31.58;MQ0=0;QD=22.71	GT:AD:DP:GQ:PL	1/1:0,1:1:3:40,3,0	1/1:0,1:1:3:30,3,0
+2233572	309	.	A	T	80.84	.	AC=4;AF=1.00;AN=4;DP=4;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=4;MLEAF=1.00;MQ=31.58;MQ0=0;QD=20.21	GT:AD:DP:GQ:PL	1/1:0,3:3:6:76,6,0	1/1:0,1:1:3:30,3,0
+2235009	3493	.	G	A	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2235662	13272	.	C	T	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2240113	1581	.	T	G	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2240113	1696	.	C	T	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2241432	12774	.	C	T	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2241851	2732	.	G	C	13.18	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=13.18	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:38,3,0
+2243156	235	.	T	G	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2243156	294	.	G	A	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2243156	320	.	T	C	13.18	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=13.18	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:38,3,0
+2244757	615	.	G	A	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2244757	625	.	G	C	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2244757	706	.	T	G	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2245634	5004	.	A	T	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2252000	8107	.	A	C	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2253932	420	.	T	C	37.43	LowQual	AC=4;AF=1.00;AN=4;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=4;MLEAF=1.00;MQ=37.34;MQ0=0;QD=18.71	GT:AD:DP:GQ:PL	1/1:0,1:1:3:40,3,0	1/1:0,1:1:3:22,3,0
+2253932	435	.	T	C	10.76	LowQual	AC=2;AF=1.00;AN=2;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=0.500;MQ=37.34;MQ0=0;QD=10.76	GT:AD:DP:GQ:PL	1/1:0,1:1:3:42,3,0	./.
+2253932	450	.	G	A	14.61	LowQual	AC=2;AF=0.500;AN=4;BaseQRankSum=0.804;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=0.500;MQ=37.34;MQ0=0;MQRankSum=0.804;QD=14.61;ReadPosRankSum=0.804	GT:AD:DP:GQ:PL	1/1:0,1:1:3:42,3,0	0/0:1,0:1:3:0,3,22
+2253932	453	.	G	A	39.43	LowQual	AC=4;AF=1.00;AN=4;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=4;MLEAF=1.00;MQ=37.34;MQ0=0;QD=19.71	GT:AD:DP:GQ:PL	1/1:0,1:1:3:42,3,0	1/1:0,1:1:3:22,3,0
+2253932	491	.	C	A	49.42	LowQual	AC=4;AF=1.00;AN=4;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=4;MLEAF=1.00;MQ=40.87;MQ0=0;QD=24.71	GT:AD:DP:GQ:PL	1/1:0,1:1:3:41,3,0	1/1:0,1:1:3:33,3,0
+2253932	543	.	T	C	29.18	LowQual	AC=2;AF=1.00;AN=2;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=23.77;MQ0=0;QD=14.59	GT:AD:DP:GQ:PL	./.	1/1:0,2:2:6:55,6,0
+2253932	555	.	G	A	29.18	LowQual	AC=2;AF=1.00;AN=2;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=23.77;MQ0=0;QD=14.59	GT:AD:DP:GQ:PL	./.	1/1:0,2:2:6:55,6,0
+2253932	562	.	T	C	68.84	.	AC=4;AF=1.00;AN=4;DP=3;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=4;MLEAF=1.00;MQ=34.79;MQ0=0;QD=22.95	GT:AD:DP:GQ:PL	1/1:0,1:1:3:39,3,0	1/1:0,2:2:6:55,6,0
+2253932	564	.	C	T	69.84	.	AC=4;AF=1.00;AN=4;DP=3;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=4;MLEAF=1.00;MQ=34.79;MQ0=0;QD=23.28	GT:AD:DP:GQ:PL	1/1:0,1:1:3:40,3,0	1/1:0,2:2:6:55,6,0
+2253932	573	.	C	A	38.43	LowQual	AC=4;AF=1.00;AN=4;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=4;MLEAF=1.00;MQ=37.34;MQ0=0;QD=19.21	GT:AD:DP:GQ:PL	1/1:0,1:1:3:41,3,0	1/1:0,1:1:3:22,3,0
+2253932	610	.	G	A	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=50.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	1/1:0,1:1:3:42,3,0	./.
+2253932	650	.	G	A	16.07	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=50.00;MQ0=0;QD=16.07	GT:AD:DP:GQ:PL	1/1:0,1:1:3:41,3,0	./.
+2254014	149	.	T	A	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2254014	328	.	A	G	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2254014	352	.	T	C	16.07	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=16.07	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:41,3,0
+2254662	2778	.	G	A	13.18	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=13.18	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:38,3,0
+2254662	2867	.	A	G	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2254979	1022	.	T	C	16.07	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=16.07	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:41,3,0
+2257003	222	.	A	G	29.18	LowQual	AC=2;AF=1.00;AN=2;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=23.77;MQ0=0;QD=14.59	GT:AD:DP:GQ:PL	./.	1/1:0,2:2:6:55,6,0
+2257003	249	.	A	G	29.18	LowQual	AC=2;AF=1.00;AN=2;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=23.77;MQ0=0;QD=14.59	GT:AD:DP:GQ:PL	./.	1/1:0,2:2:6:55,6,0
+2259719	5560	.	G	A	13.18	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=13.18	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:38,3,0
+2259940	2580	.	T	C	16.07	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=16.07	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:41,3,0
+2266530	309	.	A	C	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2266530	339	.	G	T	16.07	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=16.07	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:41,3,0
+2267100	10580	.	A	G	16.07	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=16.07	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:41,3,0
+2267472	1512	.	C	G	13.18	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=13.18	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:38,3,0
+2268248	4423	.	G	T	16.07	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=16.07	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:41,3,0
+2270411	409	.	G	A	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2270411	570	.	C	T	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2270545	4854	.	C	T	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2270545	4891	.	C	T	12.23	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=12.23	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:37,3,0
+2270545	5038	.	G	A	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2270545	5053	.	A	G	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2270545	5087	.	T	A	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2272400	388	.	A	G	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2272400	389	.	G	A	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2272400	835	.	T	C	11.30	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=11.30	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:36,3,0
+2272657	7859	.	C	T	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2272657	7862	.	C	T	13.18	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=13.18	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:38,3,0
+2273117	438	.	T	C	13.18	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=13.18	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:38,3,0
+2274344	271	.	C	T	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2275006	1005	.	T	G	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2275006	1006	.	C	T	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2275468	17286	.	C	T	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2275727	11584	.	G	A	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2275827	1378	.	C	G	16.07	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=16.07	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:41,3,0
+2275937	15369	.	C	T	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2276526	537	.	C	G	13.18	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=13.18	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:38,3,0
+2276646	33468	.	T	A	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2277086	13670	.	T	C	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2277087	6109	.	T	C	16.07	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=16.07	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:41,3,0
+2277366	3549	.	G	C	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2277718	24822	.	G	A	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2277718	25113	.	T	C	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2277718	25141	.	T	A	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2277728	7642	.	G	A	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2277728	7706	.	T	C	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2278057	964	.	G	A	10.38	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=10.38	GT:AD:DP:GQ:PL	1/1:0,1:1:3:35,3,0	./.
+2278057	1003	.	C	T	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	1/1:0,1:1:3:40,3,0	./.
+2278118	1602	.	C	T	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2278118	1617	.	A	G	13.18	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=13.18	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:38,3,0
+2278146	2250	.	T	C	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2278146	2310	.	A	G	16.07	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=16.07	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:41,3,0
+2280085	217	.	T	A	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	1/1:0,1:1:3:40,3,0	./.
+2280085	238	.	T	A	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	1/1:0,1:1:3:40,3,0	./.
+2280401	10896	.	A	G	20	LowQual	AC=2;AF=1.00;AN=2;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=10.00	GT:AD:DP:GQ:PL	./.	1/1:0,2:2:3:45,3,0
+2280964	49	.	A	G	10.38	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=10.38	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:35,3,0
+2281178	4213	.	G	A	20	LowQual	AC=2;AF=1.00;AN=2;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=10.00	GT:AD:DP:GQ:PL	./.	1/1:0,2:2:3:45,3,0
+2281178	4214	.	A	G	20	LowQual	AC=2;AF=1.00;AN=2;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=10.00	GT:AD:DP:GQ:PL	./.	1/1:0,2:2:3:45,3,0
+2281178	4257	.	T	C	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2281178	4261	.	T	C	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2281178	4279	.	G	A	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2283266	4487	.	C	T	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2283405	2633	.	G	A	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2283405	2791	.	T	C	11.30	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=11.30	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:36,3,0
+2283405	2794	.	T	A	13.18	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=13.18	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:38,3,0
+2283405	2813	.	T	G	13.18	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=13.18	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:38,3,0
+2283405	2825	.	T	C	10.38	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=10.38	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:35,3,0
+2283405	2842	.	A	G	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2283570	4644	.	T	A	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2283570	4661	.	G	A	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2283570	4662	.	G	A	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2283570	4663	.	T	C	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2283570	4674	.	G	A	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2283570	4837	.	A	G	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2283570	4845	.	C	T	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2283615	9023	.	G	A	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2283954	2204	.	C	T	16.07	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=16.07	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:41,3,0
+2284056	7686	.	G	A	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2284433	663	.	G	A	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2284537	3115	.	A	G	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2284537	3120	.	T	C	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2284537	3175	.	T	C	13.18	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=13.18	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:38,3,0
+2284537	3524	.	A	C	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2284537	3544	.	A	C	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2284537	3554	.	T	C	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2284584	666	.	G	A	13.18	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=13.18	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:38,3,0
+2284584	702	.	C	G	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2284584	711	.	G	A	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2284584	729	.	T	C	13.18	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=13.18	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:38,3,0
+2284744	266	.	C	G	16.07	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=16.07	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:41,3,0
+2284744	620	.	A	G	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2284744	631	.	A	G	16.07	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=16.07	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:41,3,0
+2284780	678	.	A	T	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2284888	2910	.	C	G	16.07	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=16.07	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:41,3,0
+2284888	2923	.	T	G	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2284888	2953	.	C	G	16.07	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=16.07	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:41,3,0
+2284888	2962	.	G	A	16.07	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=16.07	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:41,3,0
+2284888	3069	.	G	C	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2284888	3071	.	C	T	13.18	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=13.18	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:38,3,0
+2284888	3072	.	T	C	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2284888	3084	.	G	C	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2284888	3149	.	A	G	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2285003	5938	.	A	G	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	1/1:0,1:1:3:40,3,0	./.
+2285003	5955	.	T	A	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	1/1:0,1:1:3:40,3,0	./.
+2285003	5967	.	G	A	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	1/1:0,1:1:3:40,3,0	./.
+2285003	5968	.	C	T	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	1/1:0,1:1:3:40,3,0	./.
+2285121	46	.	G	A	44.42	LowQual	AC=4;AF=1.00;AN=4;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=4;MLEAF=1.00;MQ=31.58;MQ0=0;QD=22.21	GT:AD:DP:GQ:PL	1/1:0,1:1:3:30,3,0	1/1:0,1:1:3:39,3,0
+2285537	375	.	C	T	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2285537	397	.	G	A	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2285575	220	.	T	C	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2285575	242	.	T	C	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2285575	264	.	A	G	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2285575	275	.	T	C	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2285575	361	.	T	C	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2285575	387	.	T	C	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2285575	415	.	T	C	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2285821	2971	.	G	C	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2285918	594	.	A	G	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2285918	627	.	A	G	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2285918	645	.	G	A	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2285918	654	.	G	A	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2286087	750	.	A	C	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2286087	770	.	A	G	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2286087	774	.	C	T	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2286087	943	.	T	A	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2286087	973	.	A	G	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2286087	977	.	T	C	13.18	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=13.18	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:38,3,0
+2286087	982	.	A	G	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2286087	988	.	T	C	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2286087	1329	.	T	C	13.18	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=13.18	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:38,3,0
+2286087	1367	.	T	G	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2286087	1394	.	T	C	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2286292	5133	.	G	T	16.07	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=16.07	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:41,3,0
+2286292	5141	.	T	G	11.30	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=11.30	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:36,3,0
+2286292	5154	.	A	C	11.30	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=11.30	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:36,3,0
+2286292	5166	.	T	C	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2286292	5284	.	T	G	11.30	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=11.30	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:36,3,0
+2286292	5285	.	C	G	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2286292	5293	.	G	A	10.38	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=10.38	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:35,3,0
+2286469	19499	.	C	T	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2286838	15312	.	C	T	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2286838	15318	.	C	T	12.23	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=12.23	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:37,3,0
+2286838	15648	.	T	A	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2286838	15654	.	A	G	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2286838	15663	.	A	G	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2286862	340	.	A	G	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2287002	767	.	C	T	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2287002	787	.	T	C	12.23	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=12.23	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:37,3,0
+2287002	853	.	A	G	13.18	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=13.18	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:38,3,0
+2287002	862	.	G	A	11.30	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=11.30	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:36,3,0
+2287002	1114	.	G	A	16.07	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=16.07	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:41,3,0
+2287456	13419	.	A	G	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2287484	6244	.	A	G	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2287484	6304	.	T	C	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2287484	6308	.	T	C	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2287531	17089	.	G	C	10.38	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=10.38	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:35,3,0
+2287806	10448	.	C	T	13.18	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=13.18	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:38,3,0
+2287978	4383	.	G	T	11.30	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=11.30	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:36,3,0
+2288072	5454	.	C	T	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2288072	5473	.	T	C	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2288072	5474	.	T	A	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2288178	4571	.	A	T	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2288561	118	.	G	A	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=50.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	1/1:0,1:1:3:40,3,0	./.
+2288561	138	.	T	C	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=50.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	1/1:0,1:1:3:42,3,0	./.
+2288561	154	.	C	T	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=50.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	1/1:0,1:1:3:42,3,0	./.
+2288561	155	.	T	C	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=50.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	1/1:0,1:1:3:42,3,0	./.
+2288561	166	.	A	G	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=50.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	1/1:0,1:1:3:40,3,0	./.
+2288561	430	.	T	G	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=50.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	1/1:0,1:1:3:39,3,0	./.
+2288561	431	.	T	C	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=50.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	1/1:0,1:1:3:39,3,0	./.
+2288561	451	.	C	T	16.07	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=50.00;MQ0=0;QD=16.07	GT:AD:DP:GQ:PL	1/1:0,1:1:3:41,3,0	./.
+2288561	454	.	T	A	16.07	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=50.00;MQ0=0;QD=16.07	GT:AD:DP:GQ:PL	1/1:0,1:1:3:41,3,0	./.
+2288561	1043	.	T	A	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	1/1:0,1:1:3:39,3,0	./.
+2288561	1064	.	G	A	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	1/1:0,1:1:3:40,3,0	./.
+2288561	1067	.	T	C	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	1/1:0,1:1:3:40,3,0	./.
+2288561	1082	.	C	T	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	1/1:0,1:1:3:40,3,0	./.
+2288561	1322	.	T	C	13.18	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=13.18	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:38,3,0
+2288561	1323	.	A	G	13.18	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=13.18	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:38,3,0
+2288561	1388	.	G	A	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2288561	1403	.	T	C	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2288574	798	.	A	G	12.23	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=50.00;MQ0=0;QD=12.23	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:37,3,0
+2288574	836	.	T	C	12.23	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=50.00;MQ0=0;QD=12.23	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:37,3,0
+2288574	837	.	G	A	12.23	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=50.00;MQ0=0;QD=12.23	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:37,3,0
+2288574	865	.	T	C	13.18	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=50.00;MQ0=0;QD=13.18	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:38,3,0
+2288574	1104	.	T	C	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=50.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2288574	1131	.	A	G	12.23	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=50.00;MQ0=0;QD=12.23	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:37,3,0
+2288574	1136	.	T	C	12.23	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=50.00;MQ0=0;QD=12.23	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:37,3,0
+2288574	1163	.	G	C	12.23	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=50.00;MQ0=0;QD=12.23	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:37,3,0
+2288675	876	.	C	G	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=50.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2288675	885	.	A	G	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=50.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2288675	925	.	A	C	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=50.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2288675	942	.	A	G	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=50.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2288675	954	.	C	T	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=50.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2288675	1092	.	C	G	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=50.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2288675	1120	.	A	G	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=50.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2288675	1142	.	T	C	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=50.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2288675	1168	.	T	A	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=50.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2288675	1171	.	C	T	16.07	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=50.00;MQ0=0;QD=16.07	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:41,3,0
+2288950	668	.	T	C	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2288950	669	.	G	A	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2288950	698	.	T	C	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2288950	737	.	C	T	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2289217	111	.	T	A	13.18	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=13.18	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:38,3,0
+2289217	131	.	C	T	20	LowQual	AC=2;AF=1.00;AN=2;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=10.00	GT:AD:DP:GQ:PL	./.	1/1:0,2:2:3:45,3,0
+2289536	781	.	A	G	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2289536	917	.	A	G	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2289536	928	.	G	A	13.18	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=13.18	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:38,3,0
+2289536	971	.	A	G	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2289536	978	.	G	A	12.23	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=12.23	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:37,3,0
+2289536	988	.	A	G	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2289567	1265	.	A	G	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2289567	1304	.	T	C	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2289567	1327	.	C	T	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2289567	1383	.	A	G	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2289679	15738	.	G	A	16.07	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=16.07	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:41,3,0
+2289752	12476	.	T	C	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2289752	12490	.	C	T	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2289813	13433	.	A	G	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=7.07	GT:AD:DP:GQ:PL	./.	1/1:0,2:2:3:39,3,0
+2289813	13475	.	A	G	16.07	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=16.07	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:41,3,0
+2289813	13495	.	G	A	10.38	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=10.38	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:35,3,0
+2290217	6980	.	G	A	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2290330	10318	.	C	T	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	1/1:0,1:1:3:40,3,0	./.
+2290330	10320	.	T	A	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	1/1:0,1:1:3:40,3,0	./.
+2290699	14160	.	G	A	13.18	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=13.18	GT:AD:DP:GQ:PL	1/1:0,1:1:3:38,3,0	./.
+2291467	9497	.	A	G	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2291467	9544	.	A	G	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2291467	9563	.	A	G	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2291467	9570	.	G	C	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2291598	4526	.	T	C	13.18	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=13.18	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:38,3,0
+2291715	1112	.	T	C	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2291715	2250	.	A	C	16.07	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=16.07	GT:AD:DP:GQ:PL	1/1:0,1:1:3:41,3,0	./.
+2292370	11112	.	A	G	10.38	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=10.38	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:35,3,0
+2292370	11113	.	G	C	10.38	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=10.38	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:35,3,0
+2292433	710	.	T	G	16.07	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=16.07	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:41,3,0
+2292433	713	.	T	A	16.07	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=16.07	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:41,3,0
+2292433	739	.	T	G	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2292433	781	.	T	G	13.18	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=13.18	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:38,3,0
+2292433	1068	.	C	G	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2292433	1094	.	T	C	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2292433	1131	.	G	A	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2292741	12265	.	G	A	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2292741	12591	.	C	T	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2292741	12603	.	C	T	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2293196	29154	.	G	T	12.23	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=12.23	GT:AD:DP:GQ:PL	1/1:0,1:1:3:37,3,0	./.
+2293196	29357	.	G	T	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	1/1:0,1:1:3:42,3,0	./.
+2293196	29365	.	G	A	16.07	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=16.07	GT:AD:DP:GQ:PL	1/1:0,1:1:3:41,3,0	./.
+2293790	12359	.	T	A	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2293988	15413	.	A	C	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2294079	10220	.	G	C	16.07	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=16.07	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:41,3,0
+2294582	5150	.	G	T	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2294582	5217	.	T	C	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2295185	15479	.	A	T	11.30	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=11.30	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:36,3,0
+2295622	725	.	C	T	20	LowQual	AC=2;AF=1.00;AN=2;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=10.00	GT:AD:DP:GQ:PL	./.	1/1:0,2:2:3:45,3,0
+2295622	730	.	T	A	13.18	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=13.18	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:38,3,0
+2295857	19580	.	G	A	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2295957	126	.	A	T	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2295957	169	.	G	A	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2295957	184	.	T	C	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2295957	192	.	C	T	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2296072	290	.	T	C	12.23	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=12.23	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:37,3,0
+2296177	17838	.	T	A	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2296482	23728	.	T	C	10.38	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=10.38	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:35,3,0
+2296533	1938	.	G	C	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2296538	1836	.	G	T	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2296538	1837	.	T	C	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2296538	1839	.	T	A	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2296710	8156	.	G	C	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2296710	8164	.	A	T	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2296710	8187	.	C	A	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2296710	8230	.	T	C	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2296710	8352	.	A	G	16.07	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=16.07	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:41,3,0
+2296710	8362	.	T	A	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2296785	4637	.	T	G	13.18	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=13.18	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:38,3,0
+2296785	4721	.	T	C	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2296785	4725	.	T	A	16.07	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=16.07	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:41,3,0
+2296785	4727	.	T	A	16.07	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=16.07	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:41,3,0
+2296785	4803	.	C	G	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2296785	4829	.	T	G	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2296785	4847	.	A	G	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2296785	4870	.	C	A	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2296881	2910	.	T	A	12.23	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=12.23	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:37,3,0
+2296946	17427	.	G	T	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	1/1:0,1:1:3:42,3,0	./.
+2296946	17451	.	G	A	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	1/1:0,1:1:3:42,3,0	./.
+2296946	17453	.	T	C	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	1/1:0,1:1:3:39,3,0	./.
+2296978	7706	.	C	T	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2296978	7729	.	G	A	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2296978	7733	.	G	A	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2297429	1311	.	C	A	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2297720	8890	.	G	A	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2297793	2310	.	A	G	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2298020	1896	.	A	G	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	1/1:0,1:1:3:40,3,0	./.
+2298020	1937	.	A	T	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	1/1:0,1:1:3:39,3,0	./.
+2298020	1938	.	T	C	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	1/1:0,1:1:3:39,3,0	./.
+2298200	659	.	T	C	12.23	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=12.23	GT:AD:DP:GQ:PL	1/1:0,1:1:3:37,3,0	./.
+2298200	715	.	A	T	28.43	LowQual	AC=4;AF=1.00;AN=4;DP=3;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=4;MLEAF=1.00;MQ=23.51;MQ0=1;QD=9.48	GT:AD:DP:GQ:PL	1/1:1,1:2:3:31,3,0	1/1:0,1:1:3:22,3,0
+2298200	738	.	G	A	22.46	LowQual	AC=4;AF=1.00;AN=4;DP=3;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=4;MLEAF=1.00;MQ=23.51;MQ0=1;QD=7.49	GT:AD:DP:GQ:PL	1/1:0,2:2:3:25,3,0	1/1:0,1:1:3:22,3,0
+2298350	48	.	T	C	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:39,3,0
+2298350	70	.	T	C	13.18	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=13.18	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:38,3,0
+2298621	3944	.	C	T	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
+2298621	3978	.	C	T	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2298637	15949	.	G	A	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2298637	15960	.	A	C	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2298637	15990	.	A	C	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:40,3,0
+2298859	4467	.	T	G	15.10	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=15.10	GT:AD:DP:GQ:PL	1/1:0,1:1:3:40,3,0	./.
+2298859	4508	.	G	A	13.18	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=13.18	GT:AD:DP:GQ:PL	1/1:0,1:1:3:38,3,0	./.
+2298859	4510	.	A	T	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	1/1:0,1:1:3:39,3,0	./.
+2298859	4514	.	G	T	14.13	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=37.00;MQ0=0;QD=14.13	GT:AD:DP:GQ:PL	1/1:0,1:1:3:39,3,0	./.
+2299572	2417	.	C	T	17.05	LowQual	AC=2;AF=1.00;AN=2;DP=1;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=2;MLEAF=1.00;MQ=60.00;MQ0=0;QD=17.05	GT:AD:DP:GQ:PL	./.	1/1:0,1:1:3:42,3,0
