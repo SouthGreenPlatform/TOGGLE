@@ -90,7 +90,7 @@ my $parser = Getopt::ArgParse->new_parser(
  $newRelease
 ##########################################################################
 # More information:
-#\thttps://github.com/SouthGreenPlatform/TOGGLE/blob/master/README.md
+#\thttp://toggle.southgreen.fr/
 #
 # Citation:
 #\tTOGGLE: Toolbox for generic NGS analyses. Cécile Monat & al..
