@@ -1,0 +1,52 @@
+$order
+1=samtoolsView
+2=samToolsIndex
+3=picardToolsSortSam
+4=gatkRealignerTargetCreator
+5=gatkIndelRealigner
+6=picardToolsMarkDuplicates
+1000=gatkHaplotypeCaller
+1001=gatkVariantFiltration
+1002=gatkSelectVariants
+
+$cleaner
+
+
+#PUT YOUR OWN SGE CONFIGURATION HERE
+#$sge
+#-q YOURQUEUE.q
+#-b Y
+
+$samToolsView
+-h
+-b
+-S
+-f=0x02
+
+$picardToolsSortSam
+SORT_ORDER=coordinate
+VALIDATION_STRINGENCY=SILENT
+CREATE_INDEX=TRUE
+
+$gatkRealignerTargetCreator
+-T=RealignerTargetCreator
+
+$gatkIndelRealigner
+-T=IndelRealigner
+
+$picardToolsMarkDuplicates
+VALIDATION_STRINGENCY=SILENT
+CREATE_INDEX=TRUE
+REMOVE_DUPLICATES=TRUE
+
+$gatkHaplotypeCaller
+-T=HaplotypeCaller
+-rf BadCigar
+
+$gatkVariantFiltration
+-T=VariantFiltration
+--filterName 'FILTER-DP' --filterExpression 'DP<10 || DP>600' --filterName 'LowQual' --filterExpression 'QUAL<30'
+
+$gatkSelectVariants
+-T=SelectVariants
+-selectType=SNP

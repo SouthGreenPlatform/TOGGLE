@@ -1,0 +1,32 @@
+
+############################
+# Block for duplicationDetector
+############################
+
+
+##########################################
+# duplicationDetector::execution
+##########################################
+
+
+#Correct variable populating
+
+foreach my $file (@{$fileList}) #Checking the type of files that must be VCF
+{
+    if ($file =~ m/vcf$|vcf\.gz$/) # the file type is normally vcf
+    {
+        if ($vcfFileIn ne "NA") # Already a vcf recognized, but more than one in the previous folder
+        {
+            toolbox::exportLog("ERROR : $0 : there are more than one single VCF file at $stepName step.\n",0);
+        }
+        else
+        {
+            $vcfFileIn = $file;
+        }
+    }
+}
+
+
+$bedFileOut=$newDir."/".$readGroup.".DUPLICATIONDETECTOR.bed";
+$softParameters = toolbox::extractHashSoft($optionRef,$stepName);		# recovery of specific parameters of duplicationDetector
+duplicationDetector::execution($vcfFileIn,$bedFileOut,$softParameters);

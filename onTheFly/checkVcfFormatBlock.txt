@@ -1,0 +1,16 @@
+############################
+# Block for checkVcfFormat
+############################
+
+
+##########################################
+# checkFormat::checkVcfFormat
+##########################################
+
+$softParameters = toolbox::extractHashSoft($optionRef, $stepName);                       
+
+
+foreach my $file (@{$fileList})
+{
+    checkFormat::checkVcfFormat($file);
+}

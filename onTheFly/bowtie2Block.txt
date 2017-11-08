@@ -1,0 +1,40 @@
+##############################################
+# Block for bowtie::bowtie2
+##############################################
+
+#Correct variable populating
+foreach my $file (@{$fileList}) #Checking the type of files that must be FASTQ only
+{
+	if ($file =~ m/fastq$|fastq.gz$|fq$|fq.gz$/)
+	{
+		if ($fastqForwardIn ne "NA") # $fastqForwardIn is already known
+		{
+			if ($fastqReverseIn ne "NA")
+			{
+				toolbox::exportLog("ERROR : $0 : there are more than two FASTQ files at $stepName step.\n",0);
+			}
+			else
+			{
+				$fastqReverseIn = $file;
+			}
+		}
+		else
+		{
+			$fastqForwardIn = $file;
+		}
+	}
+}
+
+
+($fileWithoutExtension,$readGroup) = pairing::extractName($fastqForwardIn);		# extract name of file without the extension
+
+$samFileOut = "$newDir"."/"."$readGroup".".BOWTIE2.sam";					# name for the output file of bowtie2
+$softParameters = toolbox::extractHashSoft($optionRef,$stepName);			# recovery of specific parameters of bowtie2
+if ($fastqReverseIn ne "NA")
+{
+	bowtie::bowtie2($samFileOut,$readGroup,$refFastaFile,$fastqForwardIn,$fastqReverseIn,$softParameters); # generate alignement in SAM format for PE data
+}
+else
+{
+	bowtie::bowtie2($samFileOut,$readGroup,$refFastaFile,$fastqForwardIn,$softParameters); # generate alignement in SAM format for SE data
+}
