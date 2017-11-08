@@ -52,8 +52,8 @@ use checkFormat;
 ##########################################
 # recovery of parameters/arguments given when the program is executed
 ##########################################
-my $version = "Release 0.3.4, 27th of September, 2017";
-my @shortVersion = (3,4);
+my $version = "Release 0.3.5, 8th of November, 2017";
+my @shortVersion = (3,5);
 
 my $url = "toggle.southgreen.fr/install/releaseNotes/index.html";
 my $lastRealease = `curl -m 5 --connect-timeout 5 --max-time 5 -s "$url" 2>&1 | grep -m 1 '<li><a href="\#0' | cut -f3 -d'>' | cut -f1 -d'<'`;
