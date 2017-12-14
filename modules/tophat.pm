@@ -131,7 +131,7 @@ sub tophat2
 	my $command = "";
 	if ((toolbox::sizeFile($forwardFastqFileIn)==1) and not (defined $reverseFastqFileIn))		##Check if entry files exist and are not empty / single mode
 	{
-		if (toolbox::sizeFile($gffFile)==1)
+		if ($gffFile ne "None" and toolbox::sizeFile($gffFile)==1)
 		{
 			$command=$tophat2.$options." -p 8 -G ".$gffFile." -o ".$tophatDirOut." ".$prefixRef." ".$forwardFastqFileIn;		# command line
 			toolbox::exportLog("INFOS: tophat::topHat2 : $command\n",1);
@@ -174,7 +174,7 @@ sub tophat2
 	}
 	elsif ((toolbox::sizeFile($forwardFastqFileIn)==1) and (toolbox::sizeFile($reverseFastqFileIn)==1) )		##Check if entry files exist and are not empty / paired mode
 	{
-		if (toolbox::sizeFile($gffFile)==1)
+		if ($gffFile ne "None" and toolbox::sizeFile($gffFile)==1)
 		{
 			$command=$tophat2.$options." -G ".$gffFile." -o ".$tophatDirOut." ".$prefixRef." ".$forwardFastqFileIn." ".$reverseFastqFileIn;		# command line
 			toolbox::exportLog("INFOS: tophat::topHat2 : $command\n",1);
