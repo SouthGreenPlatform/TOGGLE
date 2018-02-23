@@ -1,0 +1,15 @@
+#This config will demultiplex single end reads based on a radseq file, using ApeKI enzyme, then launch a QC
+$order
+1=processRadtags
+2=fastqc
+
+$processRadtags
+-i fastq
+-e 'apeKI'
+--retain_header
+
+#PUT YOUR OWN SCHEDULER CONFIGURATION HERE
+#Example for SGE
+#$sge
+#-q YOURQUEUE.q
+#-b Y

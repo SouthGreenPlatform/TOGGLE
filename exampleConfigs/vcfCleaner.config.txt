@@ -1,0 +1,15 @@
+#This is a toy example for cleaning vcf
+
+$order
+1=gatkSelectVariants
+
+#PUT YOUR OWN SCHEDULER CONFIGURATION HERE
+#Example for SGE
+#$sge
+#-q YOURQUEUE.q
+#-b Y
+
+
+$gatkSelectVariants
+-T=SelectVariants
+-selectType=SNP

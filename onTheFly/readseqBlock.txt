@@ -1,0 +1,38 @@
+
+
+##########################################
+# readseq block
+##########################################
+
+#Correct variable populating
+
+foreach my $file (@{$fileList}) #Checking the number of files
+{
+	#Not considering the different index files
+	next if $file =~ m/idx$/;
+	next if $file =~ m/bai$/;
+	next if $file =~ m/bam$/;
+	next if $file =~ m/vcf$/;
+	next if $file =~ m/fastq$/;
+	
+	if ($readseqFileIn ne "NA") # Already a file recognized, but more than one in the previous folder
+	{
+		toolbox::exportLog("ERROR : $0 : there are more than one single file at $stepName step.\n",0);
+    }
+    else
+    {
+        $readseqFileIn = $file;
+    }
+}
+
+if ($readseqFileIn eq "NA") #No file found in the previous folder
+{
+    toolbox::exportLog("ERROR : $0 : No file found in $previousDir at step $stepName.\n",0);
+}
+
+$softParameters = toolbox::extractHashSoft($optionRef,$stepName); # recovery of specific parameters
+
+my $fileOut = "$newDir"."/"."$readGroup".".READSEQ";
+
+readseq::readseq($readseqFileIn, $fileOut,$softParameters);
+

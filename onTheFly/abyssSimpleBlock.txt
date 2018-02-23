@@ -1,0 +1,35 @@
+##########################################
+# Block for abyss::abyssSimple
+##########################################
+
+#Correct variable populating
+foreach my $file (@{$fileList}) #Checking the type of files that must be FASTA/FASTQ/SAM/BAM, generally fastq, explaining the variable name
+{
+	if ($file =~ m/fastq$|fastq.gz$|fasta$|fq$|fq.gz$|fa$|sam$|bam$/)
+	{
+		if ($fastqForwardIn ne "NA") # $forwardIn is already known
+		{
+			if ($fastqReverseIn ne "NA")
+			{
+				toolbox::exportLog("ERROR : $0 : there are more than two input files at $stepName step.\n",0);
+			}
+			else
+			{
+				$fastqReverseIn = $file;
+			}
+		}
+		else
+		{
+			$fastqForwardIn = $file;
+		}
+	}
+}
+
+if ($fastqForwardIn eq "NA")	
+{
+	toolbox::exportLog("ERROR : $0 : Abyss-pe (abyss::abyssSimple) requires at least one input file.\n",0);
+}
+
+$softParameters = toolbox::extractHashSoft($optionRef,$stepName);		# recovery of specific parameters of abyss-pe
+abyss::abyssSimple($newDir,$readGroup,$fastqForwardIn,$fastqReverseIn,$softParameters);
+

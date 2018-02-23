@@ -1,0 +1,35 @@
+##########################################
+# Block for samtools depth
+##########################################
+
+#Correct variable populating
+
+foreach my $file (@{$fileList}) #Checking the type of files that must be BAM
+{
+    if ($file =~ m/bam$/) # the file type is normally bam
+    {
+        if ($bamFileIn ne "NA") # Already a bam recognized, but more than one in the previous folder
+        {
+            toolbox::exportLog("INFOS : $0 : there are more than one single BAM file at $stepName step.\n",1);
+        }
+        else
+        {
+            $bamFileIn = $file;
+        }
+    }
+}
+
+if ($bamFileIn eq "NA") #No BAM file found in the previous folder
+{
+    toolbox::exportLog("ERROR : $0 : No BAM file found in $previousDir at step $stepName.\n",0);
+}
+
+$softParameters = toolbox::extractHashSoft($optionRef,$stepName);                                # recovery of specific parameters of samtools sort
+
+$depthFileOut = "$newDir"."/"."$readGroup".".SAMTOOLSDEPTH.depth";
+samTools::samToolsDepth($fileList,$depthFileOut,$softParameters);   # Sending to samtools sort function
+
+
+
+
+

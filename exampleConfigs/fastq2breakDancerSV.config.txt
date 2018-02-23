@@ -1,0 +1,18 @@
+#This config file will allow users to identify structural variants from a set of fastq files using breakdancer and bwa mem
+
+$order
+1=fastqc
+2=bwa mem
+3=picardtoolssortsam
+1000=breakdancer
+
+$picardToolsSortSam
+SORT_ORDER=coordinate
+VALIDATION_STRINGENCY=SILENT
+CREATE_INDEX=TRUE
+
+#PUT YOUR OWN SCHEDULER CONFIGURATION HERE
+#Example for SGE
+#$sge
+#-q YOURQUEUE.q
+#-b Y

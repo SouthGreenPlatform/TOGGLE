@@ -1,0 +1,47 @@
+############################
+# Block for FASTXTRIMMER
+############################
+
+#Correct variable populating
+foreach my $file (@{$fileList}) #Checking the type of files that must be FASTQ only
+{
+    if ($file =~ m/fastq$|fastq.gz$|fq$|fq.gz$/) 
+    {
+        if ($fastqForwardIn ne "NA") # $fastqForwardIn is already known
+        {
+            if ($fastqReverseIn ne "NA")
+            {
+                toolbox::exportLog("ERROR : $0 : there are more than two FASTQ files at $stepName step.\n",0);
+            }
+            else
+            {
+                $fastqReverseIn = $file;
+            }
+        }
+        else
+        {
+            $fastqForwardIn = $file;
+        }
+    }
+}
+
+
+##########################################
+# fastxTrimmer::execution
+##########################################
+
+$softParameters = toolbox::extractHashSoft($optionRef, $stepName);                         # recovery of specific parameters
+
+
+foreach my $file (@{$fileList})
+{
+    ($fileWithoutExtension) = pairing::extractName($file);                           # extract name of file without the extension
+    my $fastqFileOut = "$newDir"."/"."$fileWithoutExtension".".FASTXTRIMMER.fastq";
+    
+    if ($file=~m/.gz$/)                                          
+    {
+        $fastqFileOut.=".gz";
+    }
+    fastxToolkit::fastxTrimmer($file,$fastqFileOut,$softParameters);
+}
+

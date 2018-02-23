@@ -1,0 +1,31 @@
+\BOOKMARK [0][-]{chapter.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.1.1}{To whom this manual is addressed}{chapter.1}% 2
+\BOOKMARK [1][-]{section.1.2}{General things about the TOGGLE github}{chapter.1}% 3
+\BOOKMARK [2][-]{subsection.1.2.1}{Preparing your working environment - Users registred on the TOGGLE-DEV github}{section.1.2}% 4
+\BOOKMARK [2][-]{subsection.1.2.2}{Preparing your working environment - Users NOT registred on the TOGGLE-DEV github}{section.1.2}% 5
+\BOOKMARK [1][-]{section.1.3}{General things about the conventions and nomenclatures in TOGGLE}{chapter.1}% 6
+\BOOKMARK [0][-]{chapter.2}{Creating a new module}{}% 7
+\BOOKMARK [1][-]{section.2.1}{Names}{chapter.2}% 8
+\BOOKMARK [1][-]{section.2.2}{Requirements and Declaration}{chapter.2}% 9
+\BOOKMARK [0][-]{chapter.3}{Creating a new function}{}% 10
+\BOOKMARK [1][-]{section.3.1}{Nomenclature, Indentation and commentaries}{chapter.3}% 11
+\BOOKMARK [1][-]{section.3.2}{Basic structure of the function}{chapter.3}% 12
+\BOOKMARK [1][-]{section.3.3}{The toolbox::exportLog and toolbox::run functions}{chapter.3}% 13
+\BOOKMARK [2][-]{subsection.3.3.1}{toolbox::exportLog}{section.3.3}% 14
+\BOOKMARK [2][-]{subsection.3.3.2}{toolbox::run}{section.3.3}% 15
+\BOOKMARK [1][-]{section.3.4}{The code itself}{chapter.3}% 16
+\BOOKMARK [2][-]{subsection.3.4.1}{Adding a perlDoc}{section.3.4}% 17
+\BOOKMARK [2][-]{subsection.3.4.2}{TIPS}{section.3.4}% 18
+\BOOKMARK [0][-]{chapter.4}{The tests}{}% 19
+\BOOKMARK [1][-]{section.4.1}{Basic structure of the test file}{chapter.4}% 20
+\BOOKMARK [1][-]{section.4.2}{Precise description of test behavior in TOGGLE}{chapter.4}% 21
+\BOOKMARK [1][-]{section.4.3}{Launching the test individually and add it to allTestModules.sh}{chapter.4}% 22
+\BOOKMARK [0][-]{chapter.5}{Creating a new block of code}{}% 23
+\BOOKMARK [1][-]{section.5.1}{Already declared variables and other standard stuff}{chapter.5}% 24
+\BOOKMARK [1][-]{section.5.2}{Create a block}{chapter.5}% 25
+\BOOKMARK [1][-]{section.5.3}{Testing a block}{chapter.5}% 26
+\BOOKMARK [1][-]{section.5.4}{Launching the test of block individually and add it to allTestBlock.pl}{chapter.5}% 27
+\BOOKMARK [1][-]{section.5.5}{Indicating the input and output}{chapter.5}% 28
+\BOOKMARK [1][-]{section.5.6}{Providing the correct nomenclature}{chapter.5}% 29
+\BOOKMARK [1][-]{section.5.7}{Last but not least}{chapter.5}% 30
+\BOOKMARK [0][-]{appendix.A}{Licence}{}% 31

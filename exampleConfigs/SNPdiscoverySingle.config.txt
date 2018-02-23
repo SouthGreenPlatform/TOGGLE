@@ -1,0 +1,76 @@
+#This very complete configuration will start from a set of single end FASTQ files and generates a cleaned VCF while removing intermediate data
+
+$order
+1=fastqc
+2=cutadapt
+3=bwaAln
+4=bwaSamse
+5=picardToolsSortSam
+6=samtoolsflagstat
+7=samtoolsview
+8=samToolsIndex
+9=gatkRealignerTargetCreator
+10=gatkIndelRealigner
+11=picardToolsMarkDuplicates
+1000=gatkHaplotypeCaller
+1001=gatkVariantFiltration
+1002=gatkSelectVariants
+
+$cleaner
+3
+4
+9
+
+#PUT YOUR OWN SCHEDULER CONFIGURATION HERE
+#Example for SGE
+#$sge
+#-q YOURQUEUE.q
+#-b Y
+
+$cutadapt
+-O=10
+-m=35
+-q=20
+--overlap=7
+# Adaptator1 is removed in the forward (-b) read (5' and 3' position)
+-b ADAPTATOR1REVERSE
+# Same traitement is done for the forward adaptator sequence
+-b ADAPTATOR1FORWARD
+
+$bwa aln
+-n=5
+
+$bwa samse
+
+$picardToolsSortSam
+SORT_ORDER=coordinate
+VALIDATION_STRINGENCY=SILENT
+CREATE_INDEX=TRUE
+
+$samToolsView
+-h
+-b
+-F=4
+
+$gatkRealignerTargetCreator
+-T=RealignerTargetCreator
+
+$gatkIndelRealigner
+-T=IndelRealigner
+
+$picardToolsMarkDuplicates
+VALIDATION_STRINGENCY=SILENT
+CREATE_INDEX=TRUE
+REMOVE_DUPLICATES=TRUE
+
+$gatkHaplotypeCaller
+-T=HaplotypeCaller
+-rf BadCigar
+
+$gatkVariantFiltration
+-T=VariantFiltration
+--filterName 'FILTER-DP' --filterExpression 'DP<10 || DP>600' --filterName 'LowQual' --filterExpression 'QUAL<30'
+
+$gatkSelectVariants
+-T=SelectVariants
+-selectType=SNP
