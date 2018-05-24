@@ -18,4 +18,4 @@ pindel::pindelConfig($listOfBam, $cfgFile);
 #run
 $pindelOut = $newDir."/".$readGroup.".PINDEL";
 $softParameters = toolbox::extractHashSoft($optionRef, "pindel");
-pindel::pindelRun($cfgFile,$pindelOut,$reference,$softParameters);
+pindel::pindelRun($cfgFile,$pindelOut,$refFastaFile,$softParameters);
