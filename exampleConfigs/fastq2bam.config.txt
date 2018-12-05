@@ -26,9 +26,12 @@
 $order
 1=fastqc
 2=bwa mem
-3=picardtoolssortsam # sort sam
-4=samtoolsflagstat   # get some mapping statistics
-5=samtoolsview       # extracting correctly mapped read
+# sort sam
+3=picardtoolssortsam 
+# get some mapping statistics
+4=samtoolsflagstat   
+# extracting correctly mapped read
+5=samtoolsview      
 6=samToolsIndex
 
 
