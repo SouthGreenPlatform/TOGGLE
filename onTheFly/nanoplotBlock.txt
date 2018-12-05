@@ -1,0 +1,36 @@
+
+###########################################
+## Block for nanoplot
+###########################################
+
+#Correct variable populating
+
+my $forwardIn = "NA";
+
+foreach my $file (@{$fileList}) #Checking the type of files that must be fastq  fastq.gz  fq  fq.gz
+{
+    if ($file =~ m/fastq$|fastq.gz$|fq$|fq.gz$|summary$/i) # the file type is normally fastq  fastq.gz  fq  fq.gz
+    {
+        if ($forwardIn ne "NA") # Already an input file
+        {
+            toolbox::exportLog("ERROR : $0 : there are more than one single fastq  fastq.gz  fq  fq.gz summary  file at $stepName step.\n",0);
+        }
+        else
+        {
+            $forwardIn = $file;
+        }
+    }
+}
+
+if ($forwardIn eq "NA") #No fastq$|fastq.gz$|fq$|fq.gz$ file found in the previous folder
+{
+    toolbox::exportLog("ERROR : $0 : No fastq  fastq.gz  fq  fq.gz summary  file found in $previousDir at step $stepName.\n",0);
+}
+
+$softParameters = toolbox::extractHashSoft($optionRef,$stepName);                                # recovery of specific parameters of nanoplot
+
+my $dirOut = "$newDir"."/"."$readGroup".".NANOPLOT";
+nanoplot::nanoplot($forwardIn,$dirOut,$softParameters);   # Sending to nanoplot
+
+my $forwardIn = "NA";
+

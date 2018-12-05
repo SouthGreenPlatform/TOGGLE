@@ -1,0 +1,44 @@
+##############################################
+# Block for stringtie::stringtie
+############################################## 
+
+# Correct variable populating
+foreach my $file (@{$fileList}) #Checking the type of files that must be GTF or BAM
+{
+    if ($file =~ m/gtf$/) # the file type is normally gtf
+    {    
+        if ($file =~ m/gtf$/)
+        {
+        	push (@{$listOfGTF},$file); # Picking up the gtf files only
+        }   
+    }
+    elsif ($file =~ m/bam$/)
+	{
+		$bamFileIn = $file;
+    }
+    else
+	{
+		next;
+	}  
+}
+
+# check populating
+if ( ($bamFileIn ne "NA") and ($gtfFileIn eq "NA") ) #BAM file found in the previous folder
+{
+    $gtfFileOut = $newDir."/".$readGroup.".STRINGTIE.gtf";  # name of the GTF file obtained (if not --merge option was done) 
+}
+
+elsif (($bamFileIn eq "NA") and scalar(@{$fileList})>0 ) # GTF file found in the previous folder >1000 
+{
+    $gtfFileOut = $newDir."/".$readGroup.".STRINGTIEMERGE.gtf";  # name of the GTF file obtained after --merge option    
+}
+
+else {
+    toolbox::exportLog("ERROR : $0 : Any BAM or GTF file(s) were found in $previousDir at step $stepName.\n",0);
+}
+
+# filling input variables to sub
+$softParameters = toolbox::extractHashSoft($optionRef, $stepName);      # recovery of specific parameters of stringties step
+
+#run sub stringtie
+stringtie::stringtie ($bamFileIn,$gtfFileOut,$gffFile,$listOfGTF,$softParameters); # run stringtie module in block

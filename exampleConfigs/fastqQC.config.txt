@@ -1,0 +1,11 @@
+#this configuration will perform a Fastq QC 
+
+$order
+1=checkFormatFastq
+2=Fastqc
+
+#PUT YOUR OWN SCHEDULER CONFIGURATION HERE
+#Example for SGE
+#$sge
+#-q YOURQUEUE.q
+#-b Y

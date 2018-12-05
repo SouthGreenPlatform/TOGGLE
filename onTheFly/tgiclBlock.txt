@@ -1,0 +1,31 @@
+##########################################
+# Block for TGICL
+##########################################
+
+## TODO:: Verifying if threre is only one fasta file. Not Working. step 1000 pershap ??? 
+if (scalar (@{$fileList}) > 1)  # if more than 1 file in.
+{
+   toolbox::exportLog("ERROR : $0 : There are more than 1 input file.\n",0)
+}
+#Correct variable populating
+foreach my $file (@{$fileList}) #Checking the type of files that must be FASTA only
+{
+    if ($file =~ m/fasta$|fasta.gz$|fa$|fa.gz$/) 
+    {
+        if ($fastaFileIn ne "NA") 
+        {
+            toolbox::exportLog("ERROR : $0 : there are more than two FASTA files at $stepName step.\n",0);
+        }
+        else
+        {
+            $fastaFileIn = $file;
+        }
+    }
+}
+
+$softParameters = toolbox::extractHashSoft($optionRef,$stepName);     # recovery of specific parameters of samtools view pair
+
+tgicl::tgiclRun($newDir,$fastaFileIn,$softParameters);
+
+
+

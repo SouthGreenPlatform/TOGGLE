@@ -1,0 +1,30 @@
+$order
+1=hisat2
+2=samtoolsView
+3=samtoolsSort
+4=stringtie 1
+1000=stringtie 2
+
+$samtoolsview
+-b
+-h
+
+$samtoolssort
+
+
+$cleaner
+3
+
+#PUT YOUR OWN SGE CONFIGURATION HERE
+#$sge
+#-q YOURQUEUE.q
+#-b Y
+#-V
+
+$stringtie 1
+
+$Stringtie 2
+--merge
+
+$hisat2
+

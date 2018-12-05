@@ -1,0 +1,32 @@
+
+
+##########################################
+# fastme block
+##########################################
+
+#Correct variable populating
+
+foreach my $file (@{$fileList}) #Checking the type of files that must be phylip
+{
+    if ($file =~ m/phy$|phylip$/) # the file type is normally phylip
+    {
+        if ($phylipFileIn ne "NA")
+        {
+            toolbox::exportLog("ERROR : $0 : there are more than one single VCF file at $stepName step.\n",0);
+        }
+        else
+        {
+            $phylipFileIn = $file;
+        }
+    }
+}
+
+if ($phylipFileIn eq "NA")
+{
+    toolbox::exportLog("ERROR : $0 : No phylip file found in $previousDir at step $stepName.\n",0);
+}
+$softParameters = toolbox::extractHashSoft($optionRef,$stepName);                  
+
+$fileOut = $newDir."/".$readGroup;                                  
+
+fastme::fastme($phylipFileIn, $fileOut, $softParameters);

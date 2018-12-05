@@ -1,0 +1,34 @@
+
+
+##########################################
+# gatk variant filtration block
+##########################################
+
+#Correct variable populating
+
+foreach my $file (@{$fileList}) #Checking the type of files that must be VCF
+{
+    if ($file =~ m/vcf$|vcf\.gz$/) # the file type is normally VCF
+    {
+        if ($vcfFileIn ne "NA") # Already a VCF recognized, but more than one in the previous folder
+        {
+            toolbox::exportLog("ERROR : $0 : there are more than one single VCF file at $stepName step.\n",0);
+        }
+        else
+        {
+            $vcfFileIn = $file;
+        }
+    }
+}
+
+if ($vcfFileIn eq "NA") #No VCF file found in the previous folder
+{
+    toolbox::exportLog("ERROR : $0 : No VCF file found in $previousDir at step $stepName.\n",0);
+}
+
+$vcfFileOut = $newDir."/".$readGroup.".GATKVARIANTFILTRATION.vcf";                                      # name of the first VCF file
+$softParameters = toolbox::extractHashSoft($optionRef, "gatkVariantFiltration");                       # recovery of specific parameters of gatk haplotype caller
+##DEBUG print "###DEBUG : $softParameters";
+
+gatk::gatkVariantFiltration($refFastaFile, $vcfFileOut, $vcfFileIn, $softParameters);
+

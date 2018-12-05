@@ -1,0 +1,16 @@
+#This configuration file will perform an intersectBed between a given external file and every bam in the folder
+
+$order
+1=bedtoolsIntersectBed
+
+
+$bedtoolsintersectbed
+-a myOutsideFile
+
+
+
+#PUT YOUR OWN SCHEDULER CONFIGURATION HERE
+#Example for SGE
+#$sge
+#-q YOURQUEUE.q
+#-b Y
