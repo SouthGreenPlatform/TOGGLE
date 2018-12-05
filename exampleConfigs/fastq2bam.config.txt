@@ -31,8 +31,8 @@ $order
 # get some mapping statistics
 4=samtoolsflagstat   
 # extracting correctly mapped read
-5=samtoolsview      
-6=samToolsIndex
+#5=samtoolsview      
+#6=samToolsIndex
 
 
 
