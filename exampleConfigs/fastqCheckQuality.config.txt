@@ -24,7 +24,8 @@
 #------------------------------
 
 $order
-1=checkFormatFastq # internal TOGGLE module
+# internal TOGGLE module
+1=checkFormatFastq 
 2=Fastqc
 
 
