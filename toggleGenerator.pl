@@ -52,10 +52,10 @@ use softwareManagement;
 ##########################################
 # recovery of parameters/arguments given when the program is executed
 ##########################################
-my $TOGGLeVersion = "Release 0.3.7, xxth of December, 2018";
+my $TOGGLeVersion = "Release 0.3.7, 5th of December, 2018";
 my @shortVersion = (3,7);
 
-my $url = "TOGGLe.southgreen.fr/install/releaseNotes/index.html";
+my $url = "toggle.southgreen.fr/install/releaseNotes/index.html";
 my $lastRealease = `curl -m 5 --connect-timeout 5 --max-time 5 -s "$url" 2>&1 | grep -m 1 '<li><a href="\#0' | cut -f3 -d'>' | cut -f1 -d'<'`;
 chomp($lastRealease);
 my $newRelease="";
@@ -74,7 +74,7 @@ if ($lastRealease ne $TOGGLeVersion)
 	}
 	else
 	{
-		$newRelease =  "\nNOTE: The Latest version of TOGGLe ($lastRealease) is available at http://TOGGLe.southgreen.fr/\n\n"
+		$newRelease =  "\nNOTE: The Latest version of TOGGLe ($lastRealease) is available at http://toggle.southgreen.fr/\n\n"
 	}
 
 }
@@ -88,13 +88,13 @@ my $parser = Getopt::ArgParse->new_parser(
  $newRelease
 ##########################################################################
 # More information:
-#\thttp://TOGGLe.southgreen.fr/
+#\thttp://toggle.southgreen.fr/
 #\tCITATION:
 #\tTOGGLe, a flexible framework for easily building complex workflows and performing robust large-scale NGS analyses.
 #\tChristine Tranchant-Dubreuil, Sebastien Ravel, Cecile Monat, Gautier Sarah, Abdoulaye Diallo, Laura Helou, Alexis Dereeper,
 #\tNdomassi Tando, Julie Orjuela-Bouniol, Francois Sabot.
 #\tbioRxiv, doi: https://doi.org/10.1101/245480
-#\thttps://TOGGLe.southgreen.fr/
+#\thttp://toggle.southgreen.fr/
 ###########################################################################\n",
 		help            => 'a framework to build quickly NGS pipelines'."\n\n".$TOGGLeVersion,
 		error_prefix    => "\n\tERROR MSG: "
