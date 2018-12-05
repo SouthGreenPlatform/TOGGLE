@@ -1,9 +1,0 @@
-#This configuration will allow to map fastq data from RNA seq on a reference using CRAC
-
-$order
-1=fastqc
-2=crac
-
-
-$crac
--k=22
