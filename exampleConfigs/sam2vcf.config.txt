@@ -1,4 +1,4 @@
-## Configuration file : to detect SNP from BAM files with GATK haplotype Caller
+## Configuration file : to detect SNP from SAM files with GATK haplotype Caller
 ## http://toggle.southgreen.fr
 
 
