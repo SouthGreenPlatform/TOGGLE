@@ -28,8 +28,8 @@ $stringtie 2
 $hisat2
 --dta
 
-$scp
-/scratch/
+#$scp
+#/scratch/
 
 #$env
 #module load bioinfo/TOGGLE-dev/0.3.7
