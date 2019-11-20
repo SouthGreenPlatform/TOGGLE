@@ -36,7 +36,7 @@ echo """
 ###########     Download test datas     #################
 #########################################################""";
 
-wget http://toggle.ird.fr/DATAS/data.zip && unzip data.zip && rm -Rf data.zip
+wget http://toggle.ird.fr/files/data.zip && unzip data.zip && rm -Rf data.zip
 
 if [ -d ../dataTest ]; then
 	rm -r ../dataTest
