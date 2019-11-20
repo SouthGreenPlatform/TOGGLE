@@ -1,0 +1,40 @@
+##############################################
+# Block for hisat2::hisat2
+##############################################
+
+#Correct variable populating
+foreach my $file (@{$fileList}) #Checking the type of files that must be FASTQ only
+{
+	if ($file =~ m/fastq$|fastq.gz$|fq$|fq.gz$/)
+	{
+		if ($fastqForwardIn ne "NA") # $fastqForwardIn is already known
+		{
+			if ($fastqReverseIn ne "NA")
+			{
+				toolbox::exportLog("ERROR : $0 : there are more than two FASTQ files at $stepName step.\n",0);
+			}
+			else
+			{
+				$fastqReverseIn = $file;
+			}
+		}
+		else
+		{
+			$fastqForwardIn = $file;
+		}
+	}
+}
+
+
+($fileWithoutExtension,$readGroup) = pairing::extractName($fastqForwardIn);		# extract name of file without the extension
+
+$samFileOut = "$newDir"."/"."$readGroup".".HISAT2.sam";					# name for the output file of hisat2
+$softParameters = toolbox::extractHashSoft($optionRef,$stepName);			# recovery of specific parameters of hisat2
+if ($fastqReverseIn ne "NA")
+{
+	hisat2::hisat2($samFileOut,$readGroup,$refFastaFile,$fastqForwardIn,$fastqReverseIn,$softParameters); # generate alignement in SAM format for PE data
+}
+else
+{
+	hisat2::hisat2($samFileOut,$readGroup,$refFastaFile,$fastqForwardIn,$softParameters); # generate alignement in SAM format for SE data
+}

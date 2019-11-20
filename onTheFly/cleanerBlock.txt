@@ -1,0 +1,14 @@
+
+############################
+#
+# Block for cleaning the previous step
+#
+############################
+
+$cleanerCommand = "rm -f $previousDir/*";
+
+if (toolbox::run($cleanerCommand,"noprint") == 1)
+{
+    toolbox::exportLog("INFOS : CLEANER STEP : Removing $previousDir\n",1);
+}
+

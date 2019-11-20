@@ -1,0 +1,21 @@
+##########################################
+# breakDancer::breakDancer block
+##########################################
+
+#Correct variable populating
+
+foreach my $file (@{$fileList})
+{
+    next if ($file =~ m/bai$/);# The index file
+    push (@{$listOfBam},$file); # Picking up the bam files only
+}
+
+#Configuration
+$cfgFile = $newDir."/".$readGroup.".BREAKDANCER.cfg";
+$softParameters = toolbox::extractHashSoft($optionRef, "bam2cfg");
+breakDancer::bam2cfg($listOfBam, $cfgFile, $softParameters);
+
+#run
+$breakDancerOut = $newDir."/".$readGroup.".BREAKDANCER.ctx";
+$softParameters = toolbox::extractHashSoft($optionRef, "breakDancer");
+breakDancer::breakDancer($cfgFile,$breakDancerOut,$softParameters);

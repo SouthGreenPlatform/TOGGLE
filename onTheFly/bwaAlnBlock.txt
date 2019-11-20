@@ -1,0 +1,68 @@
+##############################################
+# Block for bwa::bwaAln
+##############################################
+
+#Correct variable populating
+foreach my $file (@{$fileList}) #Checking the type of files that must be FASTQ only
+{
+	if ($file =~ m/fastq$|fastq.gz$|fq$|fq.gz$/)
+	{
+		if ($fastqForwardIn ne "NA") # $fastqForwardIn is already known
+		{
+			if ($fastqReverseIn ne "NA")
+			{
+				toolbox::exportLog("ERROR : $0 : there are more than two FASTQ files at $stepName step.\n",0);
+			}
+			else
+			{
+				$fastqReverseIn = $file;
+			}
+		}
+		else
+		{
+			$fastqForwardIn = $file;
+		}
+	}
+}
+
+if ( ($fastqForwardIn ne "NA") && ($fastqReverseIn eq "NA") )	# Single data
+{
+	##########################################
+	# bwa::bwaAln for fastqForwardIn
+	##########################################
+	$softParameters = toolbox::extractHashSoft($optionRef,$stepName);									# recovery of specific parameters of bwa aln
+	($fileWithoutExtension,$readGroup) = pairing::extractName($fastqForwardIn);						  # extract name of file without the extention
+	$saiForwardOut = "$newDir"."/"."$fileWithoutExtension".".BWAALN.sai";								# name for the output file of bwa aln
+	bwa::bwaAln($refFastaFile,$fastqForwardIn,$saiForwardOut,$softParameters);						   # find the SA coordinates of the current file
+	#########################################
+	# Add a link to fastqFiles, to avoid empty fastq files for bwaSampe and Samse.
+	#########################################
+	my $linkForwardCommand = "ln -s $fastqForwardIn $newDir/";
+	toolbox::run($linkForwardCommand,"noprint");
+}
+elsif ( ($fastqForwardIn ne "NA") && ($fastqReverseIn ne "NA") )	# Paired data
+{
+	##########################################
+	# bwa::bwaAln for fastqForwardIn
+	##########################################
+	$softParameters = toolbox::extractHashSoft($optionRef,$stepName);									# recovery of specific parameters of bwa aln
+	($fileWithoutExtension,$readGroup) = pairing::extractName($fastqForwardIn);						  # extract name of file without the extention
+	$saiForwardOut = "$newDir"."/"."$fileWithoutExtension".".BWAALN.sai";								# name for the output file of bwa aln
+	bwa::bwaAln($refFastaFile,$fastqForwardIn,$saiForwardOut,$softParameters);						   # find the SA coordinates of the current file
+
+	##########################################
+	# bwa::bwaAln for fastqReverseIn
+	##########################################
+	($fileWithoutExtension,$readGroup) = pairing::extractName($fastqReverseIn);						  # extract name of file without the extention
+	$saiReverseOut = "$newDir"."/"."$fileWithoutExtension".".BWAALN.sai";								# name for the output file of bwa aln
+	bwa::bwaAln($refFastaFile,$fastqReverseIn,$saiReverseOut,$softParameters);						   # find the SA coordinates of the current file
+
+	#########################################
+	# Add a link to fastqFiles, to avoid empty fastq files for bwaSampe and Samse.
+	#########################################
+	my $linkForwardCommand = "ln -s $fastqForwardIn $newDir/";
+	toolbox::run($linkForwardCommand,"noprint");
+	my $linkReverseCommand = "ln -s $fastqReverseIn $newDir/";
+	toolbox::run($linkReverseCommand,"noprint");
+
+}

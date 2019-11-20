@@ -1,0 +1,11 @@
+#This config file will allow users to identify structural variants from a set of BAM files using pindel
+
+$order
+1000=pindel
+
+
+#PUT YOUR OWN SCHEDULER CONFIGURATION HERE
+#Example for SGE
+#$sge
+#-q YOURQUEUE.q
+#-b Y

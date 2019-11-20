@@ -1,0 +1,31 @@
+##########################################
+# Block for samtools merge
+##########################################
+
+#Correct variable populating
+
+my $headerBamFile;
+
+foreach my $file (@{$fileList}) #Checking the type of files that must be BAM
+{
+    if ($file =~ m/bam$/) # the file type is normally bam
+    {
+        push @$listOfBam, $file;
+        
+        if ($headerBamFile eq "NA") # 
+        {
+            $headerBamFile = $file;
+        }
+    }
+}
+
+if (scalar @$listOfBam == 0) #No BAM file found in the previous folder
+{
+    toolbox::exportLog("ERROR : $0 : No BAM file found in $previousDir at step $stepName.\n",0);
+}
+
+
+$softParameters = toolbox::extractHashSoft($optionRef,$stepName);
+
+$bamFileOut = "$newDir"."/"."$readGroup".".SAMTOOLSMERGE.bam";
+samTools::samToolsMerge(@$listOfBam,$bamFileOut,$headerBamFile,$softParameters);

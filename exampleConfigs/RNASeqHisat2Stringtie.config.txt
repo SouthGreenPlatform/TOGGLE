@@ -1,0 +1,35 @@
+$order
+#1=fastqc
+2=hisat2
+3=samtoolsView
+4=samtoolsSort
+5=stringtie 1
+1000=stringtie 2
+
+$samtoolsview
+-b
+-h
+
+$samtoolssort
+
+$cleaner
+3
+
+#PUT YOUR OWN SGE CONFIGURATION HERE
+#$sge
+#-q bioinfo.q
+#-b Y
+
+$stringtie 1
+
+$stringtie 2
+--merge
+
+$hisat2
+--dta
+
+#$scp
+#/scratch/
+
+#$env
+#module load bioinfo/TOGGLE-dev/0.3.7

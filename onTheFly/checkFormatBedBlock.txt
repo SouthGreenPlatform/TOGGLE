@@ -1,0 +1,35 @@
+############################
+# Block for checkFormatBed
+############################
+
+
+##########################################
+# checkFormat::checkFormatBed
+##########################################
+
+$softParameters = toolbox::extractHashSoft($optionRef, $stepName);                       
+
+
+my $checkValue;
+open (my $fhOut, ">", $newDir."/checkFormatBed.log") or toolbox::exportLog("ERROR: checkFormatBed step: Cannot create the log file",0);
+
+
+foreach my $file (@{$fileList})
+{
+    $checkValue = checkFormat::checkFormatBed($file);
+	my $outline;
+
+	if ($checkValue == 1)
+	{
+		#The format is Ok
+		$outline = "The file $file is a correct BED file\n";
+	}
+	else
+	{
+		#The format is not Ok
+		$outline = "The file $file is misformatted. See the error log for more infos.\n";
+	}
+	print $fhOut $outline
+}
+
+close $fhOut;
