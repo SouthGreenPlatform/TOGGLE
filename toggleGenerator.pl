@@ -2,7 +2,7 @@
 
 ###################################################################################################################################
 #
-# Copyright 2014-2018 IRD-CIRAD-INRA-ADNid
+# Copyright 2014-2019 IRD-CIRAD-INRA-ADNid
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -52,8 +52,8 @@ use softwareManagement;
 ##########################################
 # recovery of parameters/arguments given when the program is executed
 ##########################################
-my $TOGGLeVersion = "Release 0.3.7, xxth of December, 2018";
-my @shortVersion = (3,7);
+my $TOGGLeVersion = "Release 0.3.8, 27th of November, 2019";
+my @shortVersion = (3,8);
 
 my $url = "TOGGLe.southgreen.fr/install/releaseNotes/index.html";
 my $lastRealease = `curl -m 5 --connect-timeout 5 --max-time 5 -s "$url" 2>&1 | grep -m 1 '<li><a href="\#0' | cut -f3 -d'>' | cut -f1 -d'<'`;
