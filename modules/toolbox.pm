@@ -972,7 +972,7 @@ sub controlReadGroup
         my $shortSample = `basename $sample`;
         chomp $shortSample;
         my ($shortName,$readgroup) = pairing::extractName($sample);
-        if (($sample =~ m/fastq$/ or $sample =~ m/fq$/ or $sample =~ m/fastq\.gz$/ or $sample =~ m/fq\.gz$/)) #if (defined $hashName{$readgroup})
+        if ($sample =~ m/fastq$/ or $sample =~ m/fq$/ or $sample =~ m/fastq\.gz$/ or $sample =~ m/fq\.gz$/) #if (defined $hashName{$readgroup})
         {
             if (defined $hashName{$readgroup}{"paired"} and $hashName{$readgroup}{"paired"} >=2)
             {
