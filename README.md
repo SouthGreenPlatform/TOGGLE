@@ -3,6 +3,7 @@ TOGGLE : Toolbox for generic NGS analyses
 
 ![TOGGLE Logo](/images/toggleLogo.png)
 
+
 Dear Biologist, have you ever dreamed of using the whole power of those numerous NGS tools that your bioinformatician colleagues use through this awful list of command line ?
 
 Dear Bioinformatician, have you ever guess how to design really fastly a new NGS pipeline without having to retype again dozens of code lines to readapt your scripts or starting from scratch ?
@@ -20,6 +21,10 @@ having to change the code itself.
 * [You can find a detailed Manual here](http://toggle.southgreen.fr/manual/quickManual/)
 * [You can find detailed known issues](http://toggle.southgreen.fr/FAQ/knownIssues/)
 * [Current Release Notes](http://toggle.southgreen.fr/install/releaseNotes/)
+  * [Development version](#development-version)
+  * [Contributing](#contributing)
+  * [Contact](#contact)
+  * [Citation](#citation)
 
 ## Development version
 You are currently on the production version, *i.e.* the last stable one. A more advanced version, the dev version is available on the [TOGGLE-DEV gitHub](https://github.com/SouthGreenPlatform/TOGGLE-DEV)
